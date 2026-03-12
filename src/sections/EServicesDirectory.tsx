@@ -43,7 +43,7 @@ export default function EServicesDirectory() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                    {allModules[activeTab].items.map((mod: any, idx: number) => (
+                    {allModules[activeTab].items.filter((mod: any) => mod.enTitle !== 'Smart Award Search').map((mod: any, idx: number) => (
                         <div key={idx} className={`p-4 sm:p-5 rounded-2xl flex items-center gap-4 transition-all duration-300 group ${isHighContrast ? 'bg-black border border-white hover:bg-zinc-900' : 'bg-white border border-zinc-200 hover:border-blue-300 hover:shadow-md cursor-pointer'}`}>
                             <div className={`w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center transition-transform group-hover:scale-105 ${isHighContrast ? 'border border-white text-white' : 'bg-blue-50 text-blue-600'}`}>
                                 <mod.icon className="w-6 h-6" />

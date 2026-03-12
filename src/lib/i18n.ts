@@ -19,7 +19,7 @@ export const t: Translations = {
         heroSub: 'Your unified gateway for case management, e-filing, and virtual court proceedings.',
         searchPlace: 'Search by case number, award, or keywords...',
         searchBtn: 'Search Portal',
-        hearingsTitle: "Hearings & Judgments",
+        hearingsTitle: "Hearings & Judgements",
         hearingsSub: 'Real-time daily proceeding schedules from the court registry.',
         viewAll: 'Full Schedule',
         noticesTitle: 'Court Notices',
