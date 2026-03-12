@@ -30,7 +30,7 @@ export const t: Translations = {
         quickLinksTitle: 'Quick Actions',
         resourcesTitle: 'Resources & Agencies',
         rights: 'All Rights Reserved. Industrial Court of Malaysia.',
-        tabs: ["Public Access", "Secured e-Services", "Internal Operations"],
+        tabs: ["Public Access"],
         quickLinks: [
             { title: 'File a\nDocument' },
             { title: 'Join Virtual\nCourt' },
@@ -93,7 +93,7 @@ export const t: Translations = {
         quickLinksTitle: 'Tindakan Pantas',
         resourcesTitle: 'Sumber & Agensi',
         rights: 'Hak Cipta Terpelihara. Mahkamah Perusahaan Malaysia.',
-        tabs: ["Akses Awam", "e-Perkhidmatan Selamat", "Operasi Dalaman"],
+        tabs: ["Akses Awam"],
         quickLinks: [
             { title: 'Failkan\nDokumen' },
             { title: 'Sertai Mahkamah\nMaya' },

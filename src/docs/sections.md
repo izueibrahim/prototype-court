@@ -12,7 +12,7 @@ The `src/sections/` directory encapsulates high-level functional blocks (or sect
 
 ## 3. `EServicesDirectory.tsx`
 - **Purpose**: Explores the comprehensive suite of online judicial services.
-- **Features**: Implements a categorized tab system (Public Access, Secured e-Services, Internal Operations). Changes the active tab via local state `useState(0)` to dynamically render a grid of mapped services imported from `lib/data.ts`.
+- **Features**: Implements a categorized tab system (Public Access). Changes the active tab via local state `useState(0)` to dynamically render a horizontal carousel of mapped services imported from `lib/data.ts`.
 
 ## 4. `HearingsSchedule.tsx`
 - **Purpose**: Displays the daily proceeding schedules and latest court notices.
