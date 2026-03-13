@@ -24,7 +24,7 @@ export default function Footer() {
                                 <h3 className={`text-lg sm:text-xl font-extrabold leading-tight ${isHighContrast ? 'text-white' : 'text-white'}`}>
                                     {currentLang.portal}
                                 </h3>
-                                <p className="text-[10px] sm:text-xs tracking-widest text-blue-500 font-bold uppercase mt-1">eMP v2.0</p>
+                                {/* <p className="text-[10px] sm:text-xs tracking-widest text-blue-500 font-bold uppercase mt-1">eMP v2.0</p> */}
                             </div>
                         </div>
                         <p className={`text-sm sm:text-base leading-relaxed mb-8 ${isHighContrast ? 'text-white' : 'text-zinc-400'}`}>

@@ -39,9 +39,9 @@ export default function Navbar() {
                                 <span className={`font-extrabold text-lg sm:text-xl tracking-tight leading-none mb-1 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                                     {currentLang.portal}
                                 </span>
-                                <span className={`text-[10px] sm:text-xs font-bold tracking-widest uppercase ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>
+                                {/* <span className={`text-[10px] sm:text-xs font-bold tracking-widest uppercase ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>
                                     eMP v2.0
-                                </span>
+                                </span> */}
                             </div>
                         </div>
 
