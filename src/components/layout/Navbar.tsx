@@ -31,7 +31,10 @@ export default function Navbar() {
             <nav className={`relative z-40 transition-colors ${isHighContrast ? 'bg-black border-b border-white' : 'bg-white/80 backdrop-blur-xl border-b border-zinc-200/50 shadow-sm'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-20 sm:h-24">
-                        <div className="flex items-center gap-3 sm:gap-4">
+                        <button 
+                            onClick={() => setCurrentView('portal')}
+                            className="flex items-center gap-3 sm:gap-4 text-left outline-none"
+                        >
                             <img
                                 src="/jata-negara.png"
                                 alt="Jata Negara"
@@ -46,7 +49,7 @@ export default function Navbar() {
                                     Industrial Court of Malaysia
                                 </span>
                             </div>
-                        </div>
+                        </button>
 
                         <div className="hidden lg:flex items-center space-x-8">
                             {['home', 'about', 'modules', 'schedule', 'contact'].map((item) => (

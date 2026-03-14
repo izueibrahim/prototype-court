@@ -14,17 +14,19 @@ type WcagStates = {
 };
 
 interface AppState {
-    currentView: 'portal' | 'login' | 'schedule';
+    currentView: 'portal' | 'login' | 'schedule' | 'search';
     loginRole: 'officer' | 'efiling' | 'guest' | null;
     searchQuery: string;
+    scheduleSearchQuery: string;
     lang: 'en' | 'ms';
     isWcagOpen: boolean;
     textSize: number;
     wcagStates: WcagStates;
 
-    setCurrentView: (view: 'portal' | 'login' | 'schedule') => void;
+    setCurrentView: (view: 'portal' | 'login' | 'schedule' | 'search') => void;
     setLoginRole: (role: 'officer' | 'efiling' | 'guest' | null) => void;
     setSearchQuery: (query: string) => void;
+    setScheduleSearchQuery: (query: string) => void;
     setLang: (lang: 'en' | 'ms') => void;
     setIsWcagOpen: (isOpen: boolean) => void;
     setTextSize: (size: number | ((prev: number) => number)) => void;
@@ -37,6 +39,7 @@ export const useAppStore = create<AppState>((set) => ({
     currentView: 'portal',
     loginRole: null,
     searchQuery: '',
+    scheduleSearchQuery: '',
     lang: 'en',
     isWcagOpen: false,
     textSize: 100,
@@ -55,6 +58,7 @@ export const useAppStore = create<AppState>((set) => ({
     setCurrentView: (view) => set({ currentView: view }),
     setLoginRole: (role) => set({ loginRole: role }),
     setSearchQuery: (query) => set({ searchQuery: query }),
+    setScheduleSearchQuery: (query) => set({ scheduleSearchQuery: query }),
     setLang: (lang) => set({ lang }),
     setIsWcagOpen: (isOpen) => set({ isWcagOpen: isOpen }),
     setTextSize: (size) => set((state) => ({

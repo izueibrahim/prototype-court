@@ -24,12 +24,12 @@ export default function QuickLinksSection() {
     return (
         <div className={`border-b py-6 sm:py-10 [overflow-x:clip] ${isHighContrast ? 'bg-black border-white' : 'bg-[#f8fafc] border-zinc-200 shadow-inner relative z-10'}`}>
             <div className="relative">
-                <div className="flex overflow-x-auto hide-scrollbar gap-4 sm:gap-6 pb-4 snap-x items-center justify-start px-4 sm:px-8 lg:px-12">
+                <div className="flex overflow-x-auto hide-scrollbar gap-4 sm:gap-6 pb-4 snap-x items-center justify-center px-4 sm:px-8 lg:px-12">
                     {currentLang.quickLinks.map((link: any, idx: number) => {
                         const Icon = iconColors[idx % iconColors.length];
                         return (
-                            <button 
-                                key={idx} 
+                            <button
+                                key={idx}
                                 onClick={() => handleQuickLinkClick(idx)}
                                 className={`group flex items-center p-2 pr-8 sm:pr-10 gap-4 rounded-[28px] border transition-all duration-300 snap-center text-left flex-shrink-0 outline-none ${isHighContrast ? 'bg-black border-zinc-700 hover:border-white text-white' : 'bg-white border-blue-300/80 hover:border-blue-500 hover:shadow-lg hover:-translate-y-1 text-zinc-900 shadow-[0_8px_24px_-8px_rgba(59,130,246,0.15)]'}`}
                             >

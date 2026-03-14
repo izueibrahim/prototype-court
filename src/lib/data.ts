@@ -93,6 +93,63 @@ export const latestJudgments = [
   }
 ];
 
+export const mockSearchResults = [
+  {
+    type: 'Award',
+    id: 'Award 412/2026',
+    court: 'Mahkamah 2',
+    date: '12 March 2026',
+    title: 'Thangaraj a/l Narayanan v DHL Express (M) Sdn Bhd',
+    summary: 'The court found the dismissal to be unfair due to procedural flaws, but reinstatement was deemed inappropriate. Compensation in lieu of reinstatement was awarded...',
+    keywords: ['Unfair Dismissal', 'Reinstatement Denied', 'Compensation']
+  },
+  {
+    type: 'Case',
+    id: '1/1-1522/25',
+    court: 'Mahkamah 1',
+    date: '09 March 2026',
+    title: 'Tay Hwee Lan v Healthy Vision',
+    summary: 'The claimant alleges constructive dismissal due to a significant, unilateral reduction in responsibilities and non-payment of contractual allowances...',
+    keywords: ['Constructive Dismissal', 'Unpaid Wages']
+  },
+  {
+    type: 'Practice Note',
+    id: 'PN No. 1/2026',
+    court: 'Registry',
+    date: '01 March 2026',
+    title: 'Guidelines on Handling Constructive Dismissal Cases',
+    summary: 'This practice note outlines the procedural requirements and evidential burdens placed upon claimants claiming constructive dismissal under Section 20 of the IRA 1967...',
+    keywords: ['Constructive Dismissal', 'Procedure', 'Evidence']
+  },
+  {
+    type: 'Award',
+    id: 'Award 409/2026',
+    court: 'Mahkamah 5',
+    date: '10 March 2026',
+    title: 'On Siang Aik v Million Effective Sdn. Bhd.',
+    summary: 'The claimant failed to prove that the transfer order was a fundamental breach of contract. The claim for constructive dismissal is dismissed.',
+    keywords: ['Constructive Dismissal', 'Claim Dismissed']
+  },
+  {
+    type: 'Award',
+    id: 'Award 301/2025',
+    court: 'Mahkamah 4',
+    date: '15 December 2025',
+    title: 'Johan Bin Aris v Mega Builders Sdn Bhd',
+    summary: 'Dismissal was ruled justified. The claimant failed to establish constructive dismissal as the transfer order was deemed a lawful management prerogative...',
+    keywords: ['Constructive Dismissal', 'Transfer', 'Claim Dismissed']
+  },
+  {
+    type: 'Case',
+    id: '2/2-3041/25',
+    court: 'Mahkamah 2',
+    date: '08 March 2026',
+    title: 'Kesatuan Sekerja Pembuatan v Kilang Automotif Jaya',
+    summary: 'Complaint of non-compliance with Article 14 of the Collective Agreement regarding annual bonus payouts.',
+    keywords: ['Trade Union', 'Collective Agreement', 'Non-Compliance']
+  }
+];
+
 export const courtLocations = [
   { region: "Kuala Lumpur", courts: ["Mahkamah 1", "Mahkamah 2", "Mahkamah 3", "Mahkamah 4", "Mahkamah 5", "Mahkamah 6", "Mahkamah 7", "Mahkamah 11", "Mahkamah 12", "Mahkamah 13", "Mahkamah 14", "Mahkamah 15", "Mahkamah 19", "Mahkamah 20", "Mahkamah 21", "Mahkamah 22"] },
   { region: "Johor", courts: ["Mahkamah 16"] },

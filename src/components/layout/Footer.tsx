@@ -6,7 +6,7 @@ import { t } from '@/lib/i18n';
 import { MapPin, Phone, Mail, ChevronRight, Shield, ShieldAlert, FileWarning } from 'lucide-react';
 
 export default function Footer() {
-    const { lang, wcagStates } = useAppStore();
+    const { lang, wcagStates, setCurrentView } = useAppStore();
     const currentLang = t[lang];
     const isHighContrast = wcagStates.highContrast;
 
@@ -16,7 +16,10 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
 
                     <div className="lg:col-span-5 pr-0 lg:pr-8">
-                        <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+                        <button 
+                            onClick={() => setCurrentView('portal')}
+                            className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8 text-left outline-none"
+                        >
                             <img
                                 src="/jata-negara.png"
                                 alt="Jata Negara"
@@ -30,9 +33,8 @@ export default function Footer() {
                                 <p className={`text-xs sm:text-sm font-semibold tracking-wide ${isHighContrast ? 'text-zinc-300' : 'text-zinc-400'}`}>
                                     Industrial Court of Malaysia
                                 </p>
-                                {/* <p className="text-[10px] sm:text-xs tracking-widest text-blue-500 font-bold uppercase mt-1">eMP v2.0</p> */}
                             </div>
-                        </div>
+                        </button>
                         <p className={`text-sm sm:text-base leading-relaxed mb-8 ${isHighContrast ? 'text-white' : 'text-zinc-400'}`}>
                             {currentLang.footerDesc}
                         </p>

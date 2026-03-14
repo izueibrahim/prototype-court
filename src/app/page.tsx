@@ -11,6 +11,7 @@ import EServicesDirectory from '@/sections/EServicesDirectory';
 import HearingsSchedule from '@/sections/HearingsSchedule';
 import LoginSection from '@/sections/LoginSection';
 import FullSchedule from '@/sections/FullSchedule';
+import SearchPage from '@/sections/SearchPage';
 
 export default function Home() {
   const { currentView, textSize, wcagStates, isWcagOpen } = useAppStore();
@@ -53,6 +54,12 @@ export default function Home() {
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <FullSchedule />
+          <Footer />
+        </div>
+      ) : currentView === 'search' ? (
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <SearchPage />
           <Footer />
         </div>
       ) : (

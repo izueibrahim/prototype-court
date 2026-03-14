@@ -7,7 +7,7 @@ import { upcomingHearings, courtLocations } from '@/lib/data';
 import { MapPin, Building2, ChevronDown, Download, Clock, Calendar, Search, ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 export default function FullSchedule() {
-    const { lang, wcagStates, setCurrentView, searchQuery, setSearchQuery } = useAppStore();
+    const { lang, wcagStates, setCurrentView, scheduleSearchQuery, setScheduleSearchQuery } = useAppStore();
     
     // UI states
     const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -59,7 +59,7 @@ export default function FullSchedule() {
                     <button 
                         className="flex items-center text-sm font-semibold text-blue-400 mb-4 hover:text-blue-300 transition-colors" 
                         onClick={() => {
-                            setSearchQuery(""); // Clear search when returning
+                            setScheduleSearchQuery(""); // Clear schedule search specifically
                             setCurrentView('portal');
                         }}
                     >
@@ -226,14 +226,14 @@ export default function FullSchedule() {
                                         </div>
                                         <input 
                                             type="text" 
-                                            value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            value={scheduleSearchQuery}
+                                            onChange={(e) => setScheduleSearchQuery(e.target.value)}
                                             className={`w-full sm:w-64 pl-9 pr-8 py-2.5 rounded-xl border text-sm font-medium transition-all ${isHighContrast ? 'bg-black border-white text-white placeholder-zinc-500' : 'bg-white border-zinc-200 text-zinc-900 placeholder-zinc-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-sm'}`}
                                             placeholder={currentLang.filterSearch}
                                         />
-                                        {searchQuery && (
+                                        {scheduleSearchQuery && (
                                             <button 
-                                                onClick={() => setSearchQuery('')}
+                                                onClick={() => setScheduleSearchQuery('')}
                                                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-400 hover:text-zinc-600 transition-colors"
                                             >
                                                 <X className="h-4 w-4" />
@@ -248,11 +248,11 @@ export default function FullSchedule() {
                                 {(() => {
                                     // 1. Determine the filtered list of hearings
                                     let displayedHearings = [];
-                                    const isSearching = searchQuery.trim().length > 0;
+                                    const isSearching = scheduleSearchQuery.trim().length > 0;
                                     
                                     if (isSearching) {
                                         // SEMANTIC SEARCH: Search across ALL mock data regardless of date
-                                        const query = searchQuery.toLowerCase();
+                                        const query = scheduleSearchQuery.toLowerCase();
                                         displayedHearings = upcomingHearings.filter(h => 
                                             h.claimant.toLowerCase().includes(query) ||
                                             h.respondent.toLowerCase().includes(query) ||
@@ -345,7 +345,7 @@ export default function FullSchedule() {
                                                 <>
                                                     <Search className={`w-12 h-12 mb-4 ${isHighContrast ? 'text-zinc-600' : 'text-zinc-300'}`} />
                                                     <h4 className={`text-lg font-bold mb-2 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>No Results Found</h4>
-                                                    <p className={`text-sm ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>We couldn't find any cases matching "{searchQuery}". Try different keywords.</p>
+                                                    <p className={`text-sm ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>We couldn't find any cases matching "{scheduleSearchQuery}". Try different keywords.</p>
                                                 </>
                                             ) : (
                                                 <>

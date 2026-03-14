@@ -19,8 +19,8 @@ export const t: Translations = {
         heroSub: 'Your unified gateway for case management, e-filing, and virtual court proceedings.',
         searchPlace: 'Search by case number, award, or keywords...',
         searchBtn: 'Search Portal',
-        hearingsTitle: "Today's Hearings & Judgments",
-        hearingsSub: 'Real-time daily proceeding schedules and latest published awards.',
+        homeHearingsTitle: 'Hearings & Judgments',
+        homeHearingsSub: 'Real-time daily proceeding schedules and latest published awards.',
         homeHearingsTab: 'Upcoming Hearings',
         homeJudgmentsTab: 'Latest Judgments',
         fullScheduleTitle: 'Full Court Schedule',
@@ -44,8 +44,7 @@ export const t: Translations = {
         rights: 'All Rights Reserved. Industrial Court of Malaysia.',
         tabs: ["Public Access"],
         quickLinks: [
-            { title: 'File a Document' }, { title: 'Join Virtual Court' }, { title: 'Check Schedule' },
-            { title: 'Search Awards' }, { title: 'Practice Notes' }, { title: 'Selected Awards' }
+            { title: 'File a Document' }, { title: 'Join Virtual Court' }, { title: 'Practice Notes' }, { title: 'Selected Awards' }
         ],
         mockHearings: [
             { parties: 'Tay Hwee Lan v Healthy Vision', type: 'Trial (B)' },
@@ -74,7 +73,17 @@ export const t: Translations = {
         caseRef: 'Case Reference Number',
         accessCode: 'Temporary Access Code',
         joinHearing: 'Join Virtual Hearing',
-        help: 'Need Help?'
+        help: 'Need Help?',
+        viewDocument: 'View Document',
+        searchResTitle: 'Search Results',
+        searchResShowing: 'Showing results for',
+        searchFilterCategory: 'Category',
+        searchFilterYear: 'Year',
+        searchFilterCourt: 'Court',
+        searchApplyFilters: 'Apply Filters',
+        searchClearFilters: 'Clear All',
+        searchNoResults: 'No results found',
+        searchNoResultsSub: 'Try adjusting your keywords.',
     },
     ms: {
         govPortal: 'Portal Rasmi Kementerian Sumber Manusia',
@@ -90,8 +99,8 @@ export const t: Translations = {
         heroSub: 'Gerbang berpusat anda untuk pengurusan kes, e-pemfailan, dan prosiding mahkamah maya.',
         searchPlace: 'Cari nombor kes, award, atau kata kunci...',
         searchBtn: 'Cari Portal',
-        hearingsTitle: 'Perbicaraan & Penghakiman',
-        hearingsSub: 'Jadual prosiding harian masa nyata dan award terkini yang diterbitkan.',
+        homeHearingsTitle: 'Perbicaraan & Penghakiman',
+        homeHearingsSub: 'Jadual prosiding harian masa nyata dan award terkini yang diterbitkan.',
         homeHearingsTab: 'Perbicaraan Terkini',
         homeJudgmentsTab: 'Penghakiman Baru',
         fullScheduleTitle: 'Jadual Penuh Mahkamah',
@@ -145,6 +154,16 @@ export const t: Translations = {
         caseRef: 'Nombor Rujukan Kes',
         accessCode: 'Kod Akses Sementara',
         joinHearing: 'Sertai Perbicaraan Maya',
-        help: 'Perlukan Bantuan?'
+        help: 'Perlukan Bantuan?',
+        viewDocument: 'Lihat Dokumen',
+        searchResTitle: 'Keputusan Carian',
+        searchResShowing: 'Menunjukkan keputusan untuk',
+        searchFilterCategory: 'Kategori',
+        searchFilterYear: 'Tahun',
+        searchFilterCourt: 'Mahkamah',
+        searchApplyFilters: 'Gunakan Penapis',
+        searchClearFilters: 'Kosongkan Semua',
+        searchNoResults: 'Tiada keputusan ditemui',
+        searchNoResultsSub: 'Cuba laraskan kata kunci anda.',
     }
 };

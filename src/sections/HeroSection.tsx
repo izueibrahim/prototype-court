@@ -6,7 +6,7 @@ import { t } from '@/lib/i18n';
 import { Search } from 'lucide-react';
 
 export default function HeroSection() {
-    const { lang, wcagStates, setSearchQuery, setCurrentView } = useAppStore();
+    const { lang, wcagStates, searchQuery, setSearchQuery, setCurrentView } = useAppStore();
     const [localSearch, setLocalSearch] = useState('');
     const currentLang = t[lang];
     const isHighContrast = wcagStates.highContrast;
@@ -14,10 +14,10 @@ export default function HeroSection() {
     const handleSearch = () => {
         if (localSearch.trim()) {
             setSearchQuery(localSearch);
-        } else {
-            setSearchQuery('');
+            setCurrentView('search');
+        } else if (searchQuery.trim()) {
+            setCurrentView('search');
         }
-        setCurrentView('schedule');
     };
 
     return (
