@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
-import { Globe, Scale, LogIn, Menu, X } from 'lucide-react';
+import { Globe, LogIn, Menu, X } from 'lucide-react';
 
 export default function Navbar() {
     const { lang, setLang, wcagStates, setCurrentView } = useAppStore();
@@ -32,22 +32,37 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-20 sm:h-24">
                         <div className="flex items-center gap-3 sm:gap-4">
-                            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center ${isHighContrast ? 'border-2 border-white text-white' : 'bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-lg shadow-blue-900/20'}`}>
-                                <Scale className="w-6 h-6 sm:w-7 sm:h-7" />
-                            </div>
+                            <img
+                                src="/jata-negara.png"
+                                alt="Jata Negara"
+                                className="h-12 sm:h-14 w-auto object-contain"
+                            />
                             <div className="flex flex-col justify-center">
-                                <span className={`font-extrabold text-lg sm:text-xl tracking-tight leading-none mb-1 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
-                                    {currentLang.portal}
+                                <span className={`font-extrabold text-base sm:text-lg tracking-tight leading-snug ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                    Mahkamah Perusahaan Malaysia
                                 </span>
-                                {/* <span className={`text-[10px] sm:text-xs font-bold tracking-widest uppercase ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>
-                                    eMP v2.0
-                                </span> */}
+                                <div className={`my-0.5 h-px w-full ${isHighContrast ? 'bg-white/40' : 'bg-zinc-300'}`} />
+                                <span className={`font-semibold text-xs sm:text-sm tracking-wide leading-snug ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                                    Industrial Court of Malaysia
+                                </span>
                             </div>
                         </div>
 
                         <div className="hidden lg:flex items-center space-x-8">
                             {['home', 'about', 'modules', 'schedule', 'contact'].map((item) => (
-                                <a key={item} href={`#${item}`} className={`text-sm font-semibold transition-colors ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-500 hover:text-zinc-900'}`}>
+                                <a 
+                                    key={item} 
+                                    href={item === 'schedule' ? undefined : `#${item}`}
+                                    onClick={(e) => {
+                                        if (item === 'schedule') {
+                                            e.preventDefault();
+                                            setCurrentView('schedule');
+                                        } else {
+                                            setCurrentView('portal');
+                                        }
+                                    }}
+                                    className={`text-sm font-semibold transition-colors cursor-pointer ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-500 hover:text-zinc-900'}`}
+                                >
                                     {currentLang[item]}
                                 </a>
                             ))}
@@ -75,7 +90,20 @@ export default function Navbar() {
                     <div className={`lg:hidden absolute top-full left-0 w-full z-50 border-t ${isHighContrast ? 'bg-black border-white' : 'bg-white border-zinc-100 shadow-2xl'}`}>
                         <div className="px-4 py-6 space-y-4 flex flex-col">
                             {['home', 'about', 'modules', 'schedule', 'contact'].map((item) => (
-                                <a key={item} href={`#${item}`} onClick={() => setMobileMenuOpen(false)} className={`text-base font-semibold px-4 py-2 rounded-lg ${isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-600 hover:bg-zinc-50 hover:text-blue-600'}`}>
+                                <a 
+                                    key={item} 
+                                    href={item === 'schedule' ? undefined : `#${item}`}
+                                    onClick={(e) => {
+                                        setMobileMenuOpen(false);
+                                        if (item === 'schedule') {
+                                            e.preventDefault();
+                                            setCurrentView('schedule');
+                                        } else {
+                                            setCurrentView('portal');
+                                        }
+                                    }}
+                                    className={`text-base font-semibold px-4 py-2 rounded-lg cursor-pointer ${isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-600 hover:bg-zinc-50 hover:text-blue-600'}`}
+                                >
                                     {currentLang[item]}
                                 </a>
                             ))}

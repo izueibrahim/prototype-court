@@ -6,30 +6,100 @@ import {
 import React from 'react';
 
 export const upcomingHearings = [
-  {
-    id: '1/1-1522/25',
-    court: 'Mahkamah 1',
-    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim',
+  { 
+    id: '1/1-1522/25', 
+    court: 'Mahkamah 1', 
+    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim', 
     time: '09:00 AM',
+    claimant: 'Tay Hwee Lan',
+    respondent: 'Healthy Vision',
     keywords: ['Constructive Dismissal', 'Unpaid Wages', 'Breach of Contract'],
     summary: 'The claimant alleges constructive dismissal due to a significant, unilateral reduction in responsibilities and non-payment of contractual allowances over a period of 3 months.'
   },
-  {
-    id: '1/1-1079/25',
-    court: 'Mahkamah 1',
-    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim',
+  { 
+    id: '1/1-1079/25', 
+    court: 'Mahkamah 1', 
+    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim', 
     time: '11:00 AM',
+    claimant: 'Azman Bin Isa',
+    respondent: 'Technip Energies (M)',
     keywords: ['Retrenchment', 'Redundancy', 'LIFO Principle'],
     summary: 'A dispute regarding the company\'s retrenchment exercise. The union claims the company failed to follow the Last-In-First-Out (LIFO) principle and did not consult prior to the termination.'
   },
-  {
-    id: '4/4-2024/25',
-    court: 'Mahkamah 4',
-    judge: 'Y.A. Tuan Amrik Singh',
+  { 
+    id: '4/4-2024/25', 
+    court: 'Mahkamah 4', 
+    judge: 'Y.A. Tuan Amrik Singh', 
     time: '02:30 PM',
+    claimant: 'Siti Nurhaliza',
+    respondent: 'Syarikat ABC Sdn Bhd',
     keywords: ['Domestic Inquiry', 'Misconduct', 'Absenteeism'],
     summary: 'Mention for case management. The respondent asserts the dismissal was lawful following a properly conducted Domestic Inquiry regarding severe absenteeism.'
   },
+  { 
+    id: '2/2-3041/25', 
+    court: 'Mahkamah 2', 
+    judge: 'Y.A. Puan Rusita Binti Md Lazim', 
+    time: '09:30 AM',
+    claimant: 'Kesatuan Sekerja Pembuatan',
+    respondent: 'Kilang Automotif Jaya',
+    keywords: ['Trade Union', 'Collective Agreement', 'Non-Compliance'],
+    summary: 'Complaint of non-compliance with Article 14 of the Collective Agreement regarding annual bonus payouts.'
+  },
+  { 
+    id: '5/5-1120/25', 
+    court: 'Mahkamah 5', 
+    judge: 'Y.A. Tuan Zulhelmy Bin Hasan', 
+    time: '10:00 AM',
+    claimant: 'Ahmad Faiz',
+    respondent: 'Global Tech Solutions',
+    keywords: ['Sexual Harassment', 'Unfair Dismissal'],
+    summary: 'Claimant disputes termination which was allegedly based on unproven sexual harassment allegations without a proper domestic inquiry.'
+  },
+  { 
+    id: '3/3-0899/25', 
+    court: 'Mahkamah 3', 
+    judge: 'Y.A. Dato\' Syed Noh Bin Said', 
+    time: '03:00 PM',
+    claimant: 'Sarah Lee',
+    respondent: 'Bintang Retail Group',
+    keywords: ['Fixed Term Contract', 'Legitimate Expectation'],
+    summary: 'Dispute over the non-renewal of a 5th consecutive fixed-term contract. Claimant argues there was a legitimate expectation of permanent employment.'
+  }
+];
+
+export const latestJudgments = [
+  { 
+    id: '2/2-3041/25', 
+    awardNo: 'Award 412/2026',
+    court: 'Mahkamah 2', 
+    judge: 'Y.A. Puan Rusita Binti Md Lazim', 
+    date: '12 March 2026',
+    claimant: 'Thangaraj a/l Narayanan',
+    respondent: 'DHL Express (M) Sdn Bhd',
+    keywords: ['Unfair Dismissal', 'Reinstatement Denied', 'Compensation'],
+    summary: 'The court found the dismissal to be unfair due to procedural flaws, but reinstatement was deemed inappropriate. Compensation in lieu of reinstatement was awarded.'
+  },
+  { 
+    id: '5/5-1120/25', 
+    awardNo: 'Award 409/2026',
+    court: 'Mahkamah 5', 
+    judge: 'Y.A. Tuan Zulhelmy Bin Hasan', 
+    date: '10 March 2026',
+    claimant: 'On Siang Aik',
+    respondent: 'Million Effective Sdn. Bhd.',
+    keywords: ['Constructive Dismissal', 'Claim Dismissed'],
+    summary: 'The claimant failed to prove that the transfer order was a fundamental breach of contract. The claim for constructive dismissal is dismissed.'
+  }
+];
+
+export const courtLocations = [
+  { region: "Kuala Lumpur", courts: ["Mahkamah 1", "Mahkamah 2", "Mahkamah 3", "Mahkamah 4", "Mahkamah 5", "Mahkamah 6", "Mahkamah 7", "Mahkamah 11", "Mahkamah 12", "Mahkamah 13", "Mahkamah 14", "Mahkamah 15", "Mahkamah 19", "Mahkamah 20", "Mahkamah 21", "Mahkamah 22"] },
+  { region: "Johor", courts: ["Mahkamah 16"] },
+  { region: "Pulau Pinang", courts: ["Mahkamah 9", "Mahkamah 18"] },
+  { region: "Perak", courts: ["Mahkamah 10"] },
+  { region: "Sabah", courts: ["Mahkamah 17"] },
+  { region: "Sarawak", courts: ["Mahkamah 8"] }
 ];
 
 export const iconColors = [UploadCloud, MessageSquare, Calendar, Search, FileText, BookOpen];

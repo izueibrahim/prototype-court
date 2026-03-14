@@ -1,14 +1,24 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
 import { Search } from 'lucide-react';
 
 export default function HeroSection() {
-    const { lang, wcagStates } = useAppStore();
+    const { lang, wcagStates, setSearchQuery, setCurrentView } = useAppStore();
+    const [localSearch, setLocalSearch] = useState('');
     const currentLang = t[lang];
     const isHighContrast = wcagStates.highContrast;
+
+    const handleSearch = () => {
+        if (localSearch.trim()) {
+            setSearchQuery(localSearch);
+        } else {
+            setSearchQuery('');
+        }
+        setCurrentView('schedule');
+    };
 
     return (
         <div className={`relative ${isHighContrast ? 'bg-black border-b border-white' : 'bg-zinc-950 overflow-hidden'}`}>
@@ -42,10 +52,15 @@ export default function HeroSection() {
                     </div>
                     <input
                         type="text"
+                        value={localSearch}
+                        onChange={(e) => setLocalSearch(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                         placeholder={currentLang.searchPlace}
                         className="w-full px-4 py-3 sm:py-4 text-white placeholder:text-zinc-400 bg-transparent border-none focus:ring-0 text-base sm:text-lg outline-none font-medium text-center sm:text-left"
                     />
-                    <button className={`w-full sm:w-auto px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-transform hover:scale-[1.02] active:scale-95 whitespace-nowrap mt-2 sm:mt-0 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-blue-600 text-white shadow-lg shadow-blue-900/50'}`}>
+                    <button 
+                        onClick={handleSearch}
+                        className={`w-full sm:w-auto px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-transform hover:scale-[1.02] active:scale-95 whitespace-nowrap mt-2 sm:mt-0 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-blue-600 text-white shadow-lg shadow-blue-900/50'}`}>
                         {currentLang.searchBtn}
                     </button>
                 </div>

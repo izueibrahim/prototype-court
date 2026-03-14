@@ -10,6 +10,7 @@ import QuickLinksSection from '@/sections/QuickLinksSection';
 import EServicesDirectory from '@/sections/EServicesDirectory';
 import HearingsSchedule from '@/sections/HearingsSchedule';
 import LoginSection from '@/sections/LoginSection';
+import FullSchedule from '@/sections/FullSchedule';
 
 export default function Home() {
   const { currentView, textSize, wcagStates, isWcagOpen } = useAppStore();
@@ -48,6 +49,12 @@ export default function Home() {
 
       {currentView === 'login' ? (
         <LoginSection />
+      ) : currentView === 'schedule' ? (
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <FullSchedule />
+          <Footer />
+        </div>
       ) : (
         <>
           <Navbar />

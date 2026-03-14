@@ -3,7 +3,7 @@
 import React from 'react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
-import { Scale, MapPin, Phone, Mail, ChevronRight, Shield, ShieldAlert, FileWarning } from 'lucide-react';
+import { MapPin, Phone, Mail, ChevronRight, Shield, ShieldAlert, FileWarning } from 'lucide-react';
 
 export default function Footer() {
     const { lang, wcagStates } = useAppStore();
@@ -17,13 +17,19 @@ export default function Footer() {
 
                     <div className="lg:col-span-5 pr-0 lg:pr-8">
                         <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-                            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center ${isHighContrast ? 'border-2 border-white text-white' : 'bg-blue-600 text-white shadow-lg'}`}>
-                                <Scale className="w-5 h-5 sm:w-6 sm:h-6" />
-                            </div>
+                            <img
+                                src="/jata-negara.png"
+                                alt="Jata Negara"
+                                className="h-14 sm:h-16 w-auto object-contain brightness-0 invert"
+                            />
                             <div>
-                                <h3 className={`text-lg sm:text-xl font-extrabold leading-tight ${isHighContrast ? 'text-white' : 'text-white'}`}>
-                                    {currentLang.portal}
+                                <h3 className={`text-base sm:text-lg font-extrabold leading-snug ${isHighContrast ? 'text-white' : 'text-white'}`}>
+                                    Mahkamah Perusahaan Malaysia
                                 </h3>
+                                <div className={`my-0.5 h-px w-full ${isHighContrast ? 'bg-white/30' : 'bg-zinc-600'}`} />
+                                <p className={`text-xs sm:text-sm font-semibold tracking-wide ${isHighContrast ? 'text-zinc-300' : 'text-zinc-400'}`}>
+                                    Industrial Court of Malaysia
+                                </p>
                                 {/* <p className="text-[10px] sm:text-xs tracking-widest text-blue-500 font-bold uppercase mt-1">eMP v2.0</p> */}
                             </div>
                         </div>

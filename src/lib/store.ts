@@ -14,15 +14,17 @@ type WcagStates = {
 };
 
 interface AppState {
-    currentView: 'portal' | 'login';
+    currentView: 'portal' | 'login' | 'schedule';
     loginRole: 'officer' | 'efiling' | 'guest' | null;
+    searchQuery: string;
     lang: 'en' | 'ms';
     isWcagOpen: boolean;
     textSize: number;
     wcagStates: WcagStates;
 
-    setCurrentView: (view: 'portal' | 'login') => void;
+    setCurrentView: (view: 'portal' | 'login' | 'schedule') => void;
     setLoginRole: (role: 'officer' | 'efiling' | 'guest' | null) => void;
+    setSearchQuery: (query: string) => void;
     setLang: (lang: 'en' | 'ms') => void;
     setIsWcagOpen: (isOpen: boolean) => void;
     setTextSize: (size: number | ((prev: number) => number)) => void;
@@ -34,6 +36,7 @@ interface AppState {
 export const useAppStore = create<AppState>((set) => ({
     currentView: 'portal',
     loginRole: null,
+    searchQuery: '',
     lang: 'en',
     isWcagOpen: false,
     textSize: 100,
@@ -51,6 +54,7 @@ export const useAppStore = create<AppState>((set) => ({
 
     setCurrentView: (view) => set({ currentView: view }),
     setLoginRole: (role) => set({ loginRole: role }),
+    setSearchQuery: (query) => set({ searchQuery: query }),
     setLang: (lang) => set({ lang }),
     setIsWcagOpen: (isOpen) => set({ isWcagOpen: isOpen }),
     setTextSize: (size) => set((state) => ({
