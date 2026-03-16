@@ -14,18 +14,7 @@ export default function Navbar() {
 
     return (
         <>
-            {/* Top Gov Bar */}
-            <div className={`text-xs py-2 px-4 md:px-8 flex flex-col sm:flex-row justify-between items-center gap-2 transition-colors ${isHighContrast ? 'bg-black border-b border-white text-white' : 'bg-zinc-950 text-zinc-400'}`}>
-                <div className="font-medium tracking-wide uppercase text-[10px] sm:text-xs text-center sm:text-left">
-                    {currentLang.govPortal}
-                </div>
-                <div className="flex items-center space-x-6">
-                    <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className="flex items-center hover:text-white transition-colors font-semibold">
-                        <Globe className="w-3.5 h-3.5 mr-1.5" />
-                        {lang === 'en' ? 'Bahasa Melayu' : 'English'}
-                    </button>
-                </div>
-            </div>
+
 
             {/* Main Navigation */}
             <nav className={`relative z-40 transition-colors ${isHighContrast ? 'bg-black border-b border-white' : 'bg-white/80 backdrop-blur-xl border-b border-zinc-200/50 shadow-sm'}`}>
@@ -69,6 +58,12 @@ export default function Navbar() {
                                     {currentLang[item]}
                                 </a>
                             ))}
+                            <div className="flex items-center gap-6 mr-6">
+                                <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className={`flex items-center text-sm font-bold transition-colors ${isHighContrast ? 'text-white' : 'text-zinc-600 hover:text-blue-600'}`}>
+                                    <Globe className="w-4 h-4 mr-2" />
+                                    {lang === 'en' ? 'BM' : 'EN'}
+                                </button>
+                            </div>
                             <div className={`pl-6 border-l h-8 flex items-center ${isHighContrast ? 'border-white' : 'border-zinc-200'}`}>
                                 <button
                                     onClick={() => setCurrentView('login')}

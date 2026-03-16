@@ -153,7 +153,7 @@ export default function SearchPage() {
                   <div className={`p-12 text-center rounded-3xl border-2 border-dashed flex flex-col items-center justify-center ${isHighContrast ? 'border-zinc-800 bg-black' : 'border-zinc-200 bg-white'}`}>
                     <FileSearch className={`w-16 h-16 mb-4 ${isHighContrast ? 'text-zinc-600' : 'text-zinc-300'}`} />
                     <h3 className={`text-xl font-bold mb-2 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.searchNoResults}</h3>
-                    <p className={`text-sm ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>{currentLang.searchNoResultsSub} "{searchQuery}"</p>
+                    <p className={`text-sm ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>{currentLang.searchNoResultsSub} &quot;{searchQuery}&quot;</p>
                   </div>
                 ) : (
                   filteredSearchResults.map((res, idx) => {

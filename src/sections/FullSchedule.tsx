@@ -345,7 +345,7 @@ export default function FullSchedule() {
                                                 <>
                                                     <Search className={`w-12 h-12 mb-4 ${isHighContrast ? 'text-zinc-600' : 'text-zinc-300'}`} />
                                                     <h4 className={`text-lg font-bold mb-2 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>No Results Found</h4>
-                                                    <p className={`text-sm ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>We couldn't find any cases matching "{scheduleSearchQuery}". Try different keywords.</p>
+                                                    <p className={`text-sm ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>We couldn&apos;t find any cases matching &quot;{scheduleSearchQuery}&quot;. Try different keywords.</p>
                                                 </>
                                             ) : (
                                                 <>

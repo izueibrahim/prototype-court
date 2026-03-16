@@ -8,7 +8,10 @@ import {
     Video, ChevronRight, Mail, Lock, Briefcase, Key, ArrowUpRight, HelpCircle, Fingerprint
 } from 'lucide-react';
 
+import { useRouter } from 'next/navigation';
+
 export default function LoginSection() {
+    const router = useRouter();
     const { lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView } = useAppStore();
 
     const currentLang = t[lang];
@@ -19,19 +22,25 @@ export default function LoginSection() {
 
             {/* Minimal Login Header */}
             <header className={`h-20 sm:h-24 px-4 sm:px-8 flex justify-between items-center border-b ${isHighContrast ? 'border-white' : 'border-zinc-800'}`}>
-                <div className="flex items-center gap-3 sm:gap-4">
-                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center ${isHighContrast ? 'border-2 border-white text-white' : 'bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-lg'}`}>
-                        <Scale className="w-6 h-6 sm:w-7 sm:h-7" />
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="font-extrabold text-lg sm:text-xl tracking-tight leading-none mb-1 text-white">
-                            {currentLang.portal}
+                <button 
+                    onClick={() => setCurrentView('portal')}
+                    className="flex items-center gap-3 sm:gap-4 text-left outline-none"
+                >
+                    <img
+                        src="/jata-negara.png"
+                        alt="Jata Negara"
+                        className="h-12 sm:h-14 w-auto object-contain brightness-0 invert"
+                    />
+                    <div className="flex flex-col justify-center">
+                        <span className="font-extrabold text-base sm:text-lg tracking-tight leading-snug text-white">
+                            Mahkamah Perusahaan Malaysia
                         </span>
-                        <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-blue-500">
-                            {currentLang.loginGateway}
+                        <div className={`my-0.5 h-px w-full ${isHighContrast ? 'bg-white/40' : 'bg-zinc-700'}`} />
+                        <span className={`font-semibold text-xs sm:text-sm tracking-wide leading-snug ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                            Industrial Court of Malaysia
                         </span>
                     </div>
-                </div>
+                </button>
                 <div className="flex items-center gap-4">
                     <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className="hidden sm:flex items-center text-zinc-400 hover:text-white transition-colors text-sm font-semibold">
                         <Globe className="w-4 h-4 mr-1.5" />
@@ -209,7 +218,13 @@ export default function LoginSection() {
 
                                 {/* Action Buttons */}
                                 <div className="pt-4">
-                                    <button className={`w-full flex justify-center items-center py-4 rounded-xl font-bold text-base transition-all ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/50'}`}>
+                                    <button 
+                                        onClick={() => {
+                                            if (loginRole === 'officer') router.push('/dashboard/internal');
+                                            else if (loginRole === 'efiling') router.push('/dashboard/efiling');
+                                            else if (loginRole === 'guest') router.push('/dashboard/guest');
+                                        }}
+                                        className={`w-full flex justify-center items-center py-4 rounded-xl font-bold text-base transition-all ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/50'}`}>
                                         {loginRole === 'guest' ? currentLang.joinHearing : currentLang.signIn}
                                         <ArrowUpRight className="w-5 h-5 ml-2" />
                                     </button>
@@ -227,7 +242,9 @@ export default function LoginSection() {
                                             <span className="absolute bg-zinc-900 px-4 text-xs font-bold uppercase tracking-widest text-zinc-500">OR</span>
                                             <div className="w-full border-t border-zinc-800"></div>
                                         </div>
-                                        <button className={`w-full mt-2 flex justify-center items-center py-3.5 rounded-xl font-bold text-sm transition-all border ${isHighContrast ? 'border-white text-white hover:bg-zinc-900' : 'border-zinc-700 text-white hover:bg-zinc-800'}`}>
+                                        <button 
+                                            onClick={() => router.push('/dashboard/efiling')}
+                                            className={`w-full mt-2 flex justify-center items-center py-3.5 rounded-xl font-bold text-sm transition-all border ${isHighContrast ? 'border-white text-white hover:bg-zinc-900' : 'border-zinc-700 text-white hover:bg-zinc-800'}`}>
                                             <Fingerprint className="w-5 h-5 mr-2 text-emerald-500" />
                                             Log Masuk MyDigital ID
                                         </button>

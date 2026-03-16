@@ -71,7 +71,6 @@ export default function Footer() {
                     <div className="lg:col-span-3">
                         <h4 className={`text-xs sm:text-sm font-bold tracking-widest uppercase mb-6 sm:mb-8 ${isHighContrast ? 'text-white' : 'text-zinc-100'}`}>{currentLang.resourcesTitle}</h4>
                         <ul className="space-y-3 sm:space-y-4 text-sm font-medium">
-                            <li><a href="#" className="hover:text-blue-400 transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-2 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all" /> Ministry of Human Resources</a></li>
                             <li><a href="#" className="hover:text-blue-400 transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-2 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all" /> Industrial Relations Dept</a></li>
                             <li><a href="#" className="hover:text-blue-400 transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-2 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all" /> Labour Department</a></li>
                             <li><a href="#" className="hover:text-blue-400 transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-2 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all" /> eMP User Manuals</a></li>

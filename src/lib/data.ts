@@ -159,6 +159,56 @@ export const courtLocations = [
   { region: "Sarawak", courts: ["Mahkamah 8"] }
 ];
 
+export const caseTypeDistribution = [
+  { type: 'Unfair Dismissal', count: 64, color: 'bg-blue-500' },
+  { type: 'Constructive Dismissal', count: 21, color: 'bg-indigo-500' },
+  { type: 'Collective Agreement', count: 18, color: 'bg-purple-500' },
+  { type: 'Trade Dispute', count: 12, color: 'bg-emerald-500' },
+  { type: 'Termination', count: 12, color: 'bg-amber-500' }
+];
+
+export const chairmanWorkload = [
+  { name: 'YA Dato Wan Jeffry Kassim', cases: 32 },
+  { name: 'YA Tuan Amrik Singh', cases: 24 },
+  { name: 'YA Puan Rusita Md Lazim', cases: 21 },
+  { name: 'YA Tuan Zulhelmy Hasan', cases: 18 },
+  { name: 'YA Dato Syed Noh Said', cases: 17 }
+];
+
+export const filingQueue = [
+  { id: 'F1001', submittedBy: 'Tay Hwee Lan', type: 'Unfair Dismissal', date: '2026-03-05', status: 'Pending Review' },
+  { id: 'F1002', submittedBy: 'Azman Bin Isa', type: 'Unfair Dismissal', date: '2026-03-05', status: 'Pending Review' },
+  { id: 'F1003', submittedBy: 'Ravi Kumar', type: 'Constructive Dismissal', date: '2026-03-05', status: 'Pending Review' },
+  { id: 'F1004', submittedBy: 'Ahmad Faiz', type: 'Termination', date: '2026-03-05', status: 'Approved' }
+];
+
+export const chairmanCases = [
+  { id: '1/1-1522/25', title: 'Tay Hwee Lan v Healthy Vision', status: 'Hearing', date: '12 Mar 2026', time: '09:00 AM' },
+  { id: '1/1-1079/25', title: 'Azman Bin Isa v Technip Energies', status: 'Trial', date: '12 Mar 2026', time: '11:00 AM' },
+  { id: '4/4-2024/25', title: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Mention', date: '14 Mar 2026', time: '02:30 PM' },
+  { id: '2/2-3041/25', title: 'Kesatuan Sekerja v Kilang Automotif', status: 'Hearing', date: '15 Mar 2026', time: '09:30 AM' }
+];
+
+export const integrationLogs = [
+  { id: '13001', system: 'JPPM', type: 'Case Sync', status: 'Success', time: '842 ms' },
+  { id: '13002', system: 'JPPM', type: 'Case Sync', status: 'Success', time: '921 ms' },
+  { id: '13003', system: 'MyDigital ID', type: 'Authentication', status: 'Success', time: '530 ms' },
+  { id: '13004', system: 'MyDigital ID', type: 'Authentication', status: 'Failed', time: '2200 ms' },
+  { id: '13005', system: 'JPPM', type: 'Case Sync', status: 'Failed', time: '4100 ms' },
+];
+
+export const mockNotices = [
+  { id: 'N-001', type: 'Hearing Notice', caseNo: '1/1-1522/25', parties: 'Tay Hwee Lan v Healthy Vision', status: 'Pending Dispatch' },
+  { id: 'N-002', type: 'Mention Notice', caseNo: '4/4-2024/25', parties: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Dispatched' },
+  { id: 'N-003', type: 'Award Collection', caseNo: '2/2-3041/25', parties: 'Thangaraj v DHL Express', status: 'Delivered' }
+];
+
+export const mockCAs = [
+  { id: 'CA-2026-001', union: 'National Union of Bank Employees', company: 'Maybank Berhad', submitted: '01 Mar 2026', status: 'Under Review' },
+  { id: 'CA-2026-002', union: 'Kesatuan Sekerja Pembuatan', company: 'Kilang Automotif Jaya', submitted: '28 Feb 2026', status: 'Approved' },
+  { id: 'CA-2026-003', union: 'Medical Workers Union', company: 'Private Hospitals Group', submitted: '15 Feb 2026', status: 'Cognizance Granted' }
+];
+
 export const iconColors = [UploadCloud, MessageSquare, Calendar, Search, FileText, BookOpen];
 
 export const allModules = [

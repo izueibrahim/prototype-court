@@ -1,3 +1,17 @@
+interface QuickLinkItem {
+    title: string;
+}
+
+interface HearingItem {
+    parties: string;
+    type: string;
+}
+
+interface NoticeItem {
+    date: string;
+    title: string;
+}
+
 type Translations = {
     [key: string]: {
         [key: string]: any;
@@ -6,7 +20,6 @@ type Translations = {
 
 export const t: Translations = {
     en: {
-        govPortal: 'Official Portal of the Ministry of Human Resources',
         portal: 'Industrial Court of Malaysia',
         home: 'Home',
         about: 'About Us',
@@ -84,16 +97,42 @@ export const t: Translations = {
         searchClearFilters: 'Clear All',
         searchNoResults: 'No results found',
         searchNoResultsSub: 'Try adjusting your keywords.',
+        dashOverview: 'Overview & Reports',
+        dashRegistration: 'Case Registration',
+        dashCases: 'Case Management',
+        dashSchedule: 'Court Schedule',
+        dashNotice: 'Notice Management',
+        dashCollective: 'Collective Agreement',
+        dashDisplay: 'Digital Display',
+        dashSearch: 'Smart Award Search',
+        dashAdmin: 'System Admin',
+        dashAnalytics: 'Award Analytics',
+        dashIntegration: 'System Integration',
+        dashUsage: 'Usage Reports',
+        dashChairman: 'Chairman Workspace',
+        logout: 'Sign Out',
+        kpiActive: 'Total Active Cases',
+        kpiNew: 'New Cases (Month)',
+        kpiClosed: 'Cases Closed (Month)',
+        kpiBacklog: 'Backlog Cases',
+        kpiResolution: 'Resolution Rate',
+        filingQueue: 'Recent Filing Queue',
+        chartTypeDist: 'Case Type Distribution',
+        chartMonthly: 'Monthly Case Trend',
+        chartWorkload: 'Chairman Workload Overview',
+        roleYDP: 'YDP / Executive',
+        roleChairman: 'Chairman (Judge)',
+        roleRegistrar: 'Registrar',
+        roleAdmin: 'Admin',
     },
     ms: {
-        govPortal: 'Portal Rasmi Kementerian Sumber Manusia',
         portal: 'Mahkamah Perusahaan Malaysia',
         home: 'Utama',
         about: 'Mengenai Kami',
         modules: 'e-Perkhidmatan',
         schedule: 'Jadual',
         contact: 'Hubungi',
-        login: 'Log Masuk SSO',
+        login: 'Log Masuk',
         a11yTitle: 'Pilihan Aksesibiliti',
         heroTitle: 'Keadilan Digital Tanpa Sempadan.',
         heroSub: 'Gerbang berpusat anda untuk pengurusan kes, e-pemfailan, dan prosiding mahkamah maya.',
@@ -165,5 +204,32 @@ export const t: Translations = {
         searchClearFilters: 'Kosongkan Semua',
         searchNoResults: 'Tiada keputusan ditemui',
         searchNoResultsSub: 'Cuba laraskan kata kunci anda.',
+        dashOverview: 'Ringkasan & Laporan',
+        dashRegistration: 'Pendaftaran Kes',
+        dashCases: 'Pengurusan Kes',
+        dashSchedule: 'Jadual Mahkamah',
+        dashNotice: 'Pengurusan Notis',
+        dashCollective: 'Perjanjian Kolektif',
+        dashDisplay: 'Paparan Digital',
+        dashSearch: 'Carian Pintar Award',
+        dashAdmin: 'Pentadbir Sistem',
+        dashAnalytics: 'Analitik Award',
+        dashIntegration: 'Integrasi Sistem',
+        dashUsage: 'Statistik Penggunaan',
+        dashChairman: 'Ruang Kerja Pengerusi',
+        logout: 'Log Keluar',
+        kpiActive: 'Jumlah Kes Aktif',
+        kpiNew: 'Kes Baru (Bulan Ini)',
+        kpiClosed: 'Kes Ditutup (Bulan Ini)',
+        kpiBacklog: 'Kes Tertunggak',
+        kpiResolution: 'Kadar Penyelesaian',
+        filingQueue: 'Barisan Pemfailan Terkini',
+        chartTypeDist: 'Taburan Jenis Kes',
+        chartMonthly: 'Trend Kes Bulanan',
+        chartWorkload: 'Beban Tugas Pengerusi',
+        roleYDP: 'YDP / Eksekutif',
+        roleChairman: 'Pengerusi (Hakim)',
+        roleRegistrar: 'Pendaftar',
+        roleAdmin: 'Pentadbir',
     }
 };
