@@ -49,6 +49,9 @@ export default function Navbar() {
                                         if (item === 'schedule') {
                                             e.preventDefault();
                                             setCurrentView('schedule');
+                                        } else if (item === 'about' || item === 'contact' || item === 'modules') {
+                                            e.preventDefault();
+                                            setCurrentView(item);
                                         } else {
                                             setCurrentView('portal');
                                         }
@@ -99,6 +102,9 @@ export default function Navbar() {
                                         if (item === 'schedule') {
                                             e.preventDefault();
                                             setCurrentView('schedule');
+                                        } else if (item === 'about' || item === 'contact' || item === 'modules') {
+                                            e.preventDefault();
+                                            setCurrentView(item);
                                         } else {
                                             setCurrentView('portal');
                                         }

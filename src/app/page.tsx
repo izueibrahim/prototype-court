@@ -13,6 +13,11 @@ import LoginSection from '@/sections/LoginSection';
 import FullSchedule from '@/sections/FullSchedule';
 import SearchPage from '@/sections/SearchPage';
 import CaseDetailsSection from '@/sections/CaseDetailsSection';
+import InternalDashboard from '@/sections/InternalDashboard';
+import EFilingDashboard from '@/sections/EFilingDashboard';
+import GuestDashboard from '@/sections/GuestDashboard';
+import AboutPage from '@/sections/AboutPage';
+import ContactPage from '@/sections/ContactPage';
 
 export default function Home() {
   const { currentView, textSize, wcagStates, isWcagOpen } = useAppStore();
@@ -67,6 +72,32 @@ export default function Home() {
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <CaseDetailsSection />
+          <Footer />
+        </div>
+      ) : currentView === 'dashboard-internal' ? (
+        <InternalDashboard />
+      ) : currentView === 'dashboard-efiling' ? (
+        <EFilingDashboard />
+      ) : currentView === 'dashboard-guest' ? (
+        <GuestDashboard />
+      ) : currentView === 'about' ? (
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <AboutPage />
+          <Footer />
+        </div>
+      ) : currentView === 'contact' ? (
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <ContactPage />
+          <Footer />
+        </div>
+      ) : currentView === 'modules' ? (
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <div className="flex-1">
+            <EServicesDirectory />
+          </div>
           <Footer />
         </div>
       ) : (

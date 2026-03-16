@@ -9,18 +9,25 @@ components:
 
 The Login Section is a multi-step authentication simulator.
 
-## Step 1: Role Selection
-Users choose between "Court Officer", "eFiling User", and "Guest Access". This updates the `loginRole` in the Zustand store.
+## Step 1: Authentication Method
+Users can choose between:
+- **Single Entry Point**: Traditional credentials-based login.
+- **MyDigital ID / SSO**: Secure authentication via the National Digital Identity platform.
 
-## Step 2: Authentication Form
-- **Officers/eFiling:** Standard ID and password fields.
-- **Guest:** Case Reference and Access Code (Hearing PIN) fields.
+## Step 2: Role Selection (Prototype Demo)
+In the prototype, users can simulate logins for various roles to test the different dashboard experiences:
+- **YDP / Executive**: Strategic oversight and allocation.
+- **Registrar**: Case registration and management.
+- **Chairman**: Judicial workspace and hearings.
+- **Admin**: System integration and logs.
+- **eFiling**: Document submission for parties.
+- **Guest**: Virtual hearing attendance.
 
-## Redirection Logic
-Upon successful "login" (simulated), the component uses `next/navigation` to route users:
-- `/dashboard/internal` for Officers.
-- `/dashboard/efiling` for eFiling users.
-- `/dashboard/guest` for Guest attendees.
+## Step 3: Redirection
+Upon successful authentication, the system routes users to their respective dashboards:
+- `src/sections/InternalDashboard.tsx` (Internal staff)
+- `src/sections/EFilingDashboard.tsx` (External users)
+- `src/sections/GuestDashboard.tsx` (Temporary guests)
 
 ## Styling
-Focuses on a dark, premium aesthetic with ambient glows, using `lucide-react` for role-distinguishing iconography.
+Focuses on a clean, professional aesthetic in Light Mode, utilizing `lucide-react` for security-related iconography (Lock, Fingerprint).

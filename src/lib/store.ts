@@ -14,9 +14,14 @@ type WcagStates = {
 };
 
 interface AppState {
-    currentView: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details';
+    currentView: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details' | 'about' | 'contact' | 'modules';
     loginRole: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null;
     dashActiveView: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings';
+    internalActionView: 'review_filing' | 'allocate_case' | 'case_detail' | 'hearing_notes' | null;
+    eFilingActiveView: 'cases' | 'new_filing' | 'case_details';
+    selectedInternalItem: any | null;
+    selectedEFilingCase: any | null;
+    dashMobileMenuOpen: boolean;
     selectedCaseId: string | null;
     searchQuery: string;
     scheduleSearchQuery: string;
@@ -25,9 +30,14 @@ interface AppState {
     textSize: number;
     wcagStates: WcagStates;
 
-    setCurrentView: (view: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details') => void;
+    setCurrentView: (view: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details' | 'about' | 'contact' | 'modules') => void;
     setLoginRole: (role: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null) => void;
     setDashActiveView: (view: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings') => void;
+    setInternalActionView: (view: 'review_filing' | 'allocate_case' | 'case_detail' | 'hearing_notes' | null) => void;
+    setEFilingActiveView: (view: 'cases' | 'new_filing' | 'case_details') => void;
+    setSelectedInternalItem: (item: any | null) => void;
+    setSelectedEFilingCase: (item: any | null) => void;
+    setDashMobileMenuOpen: (isOpen: boolean) => void;
     setSelectedCaseId: (id: string | null) => void;
     setSearchQuery: (query: string) => void;
     setScheduleSearchQuery: (query: string) => void;
@@ -43,6 +53,11 @@ export const useAppStore = create<AppState>((set) => ({
     currentView: 'portal',
     loginRole: null,
     dashActiveView: 'overview',
+    internalActionView: null,
+    eFilingActiveView: 'cases',
+    selectedInternalItem: null,
+    selectedEFilingCase: null,
+    dashMobileMenuOpen: false,
     selectedCaseId: null,
     searchQuery: '',
     scheduleSearchQuery: '',
@@ -64,6 +79,11 @@ export const useAppStore = create<AppState>((set) => ({
     setCurrentView: (view) => set({ currentView: view }),
     setLoginRole: (role) => set({ loginRole: role }),
     setDashActiveView: (view) => set({ dashActiveView: view }),
+    setInternalActionView: (view) => set({ internalActionView: view }),
+    setEFilingActiveView: (view) => set({ eFilingActiveView: view }),
+    setSelectedInternalItem: (item) => set({ selectedInternalItem: item }),
+    setSelectedEFilingCase: (item) => set({ selectedEFilingCase: item }),
+    setDashMobileMenuOpen: (isOpen) => set({ dashMobileMenuOpen: isOpen }),
     setSelectedCaseId: (id) => set({ selectedCaseId: id }),
     setSearchQuery: (query) => set({ searchQuery: query }),
     setScheduleSearchQuery: (query) => set({ scheduleSearchQuery: query }),

@@ -1,7 +1,7 @@
 import {
   Search, Calendar, Globe, Key, Bell, UploadCloud,
   FilePlus, Briefcase, Users, Monitor, BarChart, Settings,
-  MessageSquare, FileText, BookOpen
+  MessageSquare, FileText, BookOpen, Video
 } from 'lucide-react';
 import React from 'react';
 
@@ -195,6 +195,74 @@ export const courtLocations = [
   { region: "Sarawak", courts: ["Mahkamah 8"] }
 ];
 
+export const chYears = ['19', '20', '21', '22', '23', '24', '25', '26'];
+export const ch1 = [{ rg: 820, rs: 745 }, { rg: 756, rs: 689 }, { rg: 912, rs: 801 }, { rg: 1034, rs: 912 }, { rg: 1148, rs: 1021 }, { rg: 1206, rs: 1102 }, { rg: 1278, rs: 1156 }, { rg: 1321, rs: 1188 }];
+export const ch2 = [{ d: 412, c: 126, r: 109, t: 98 }, { d: 378, c: 118, r: 102, t: 91 }, { d: 451, c: 140, r: 110, t: 100 }, { d: 512, c: 162, r: 123, t: 115 }, { d: 548, c: 170, r: 138, t: 121 }, { d: 572, c: 184, r: 142, t: 129 }, { d: 603, c: 195, r: 150, t: 140 }, { d: 620, c: 201, r: 159, t: 152 }];
+export const ch3 = [{ ud: 820, ca: 84, td: 63, ur: 22 }, { ud: 756, ca: 72, td: 58, ur: 19 }, { ud: 912, ca: 95, td: 71, ur: 24 }, { ud: 1034, ca: 108, td: 83, ur: 29 }, { ud: 1148, ca: 122, td: 95, ur: 31 }, { ud: 1206, ca: 131, td: 102, ur: 36 }, { ud: 1278, ca: 142, td: 114, ur: 40 }, { ud: 1321, ca: 148, td: 121, ur: 45 }];
+export const ch4Vals = [10.8, 10.5, 10.2, 9.8, 9.5, 9.2, 9.1, 8.9];
+export const ch4Pts = ch4Vals.map((v, i) => `${i * (100 / 7)},${50 - ((v - 8) / 3 * 50)}`).join(' ');
+export const ch5 = [{ loc: 'Kuala Lumpur', val: 284 }, { loc: 'Selangor', val: 312 }, { loc: 'Johor', val: 176 }, { loc: 'Penang', val: 142 }, { loc: 'Perak', val: 118 }, { loc: 'Sabah', val: 95 }, { loc: 'Sarawak', val: 82 }];
+export const ch7Sched = [1122, 1034, 1178, 1245, 1328, 1401, 1468, 1512];
+export const ch7Comp = [1051, 970, 1112, 1191, 1267, 1344, 1420, 1468];
+export const ch7SchedPts = ch7Sched.map((v, i) => `${i * (100 / 7)},${50 - ((v - 900) / 700 * 50)}`).join(' ');
+export const ch7CompPts = ch7Comp.map((v, i) => `${i * (100 / 7)},${50 - ((v - 900) / 700 * 50)}`).join(' ');
+export const ch8 = [{ s1: 720, s2: 694, s3: 412 }, { s1: 688, s2: 642, s3: 398 }, { s1: 821, s2: 788, s3: 456 }, { s1: 901, s2: 867, s3: 502 }, { s1: 982, s2: 942, s3: 540 }, { s1: 1041, s2: 998, s3: 590 }, { s1: 1102, s2: 1051, s3: 620 }, { s1: 1158, s2: 1108, s3: 648 }];
+export const ch10 = [84, 91, 73, 61, 54, 48, 42, 39];
+export const iconColors = [UploadCloud, Video, Calendar, Search, FileText, BookOpen];
+
+export const allModules = [
+  {
+    items: [
+      { icon: Briefcase, enTitle: 'Case Management', msTitle: 'Pengurusan Kes', enDesc: 'Management of the entire trial process.', msDesc: 'Pengurusan proses perbicaraan menyeluruh.', href: '/modules/case-management' },
+      { icon: Users, enTitle: 'Collective Agreement', msTitle: 'Perjanjian Kolektif', enDesc: 'Registration and review of CA.', msDesc: 'Pengurusan pendaftaran dan semakan CA.', href: '/modules/collective-agreement' },
+      { icon: Search, enTitle: 'Search Full Awards', msTitle: 'Carian Penuh Awards', enDesc: 'Semantic AI & Full-Text Search.', msDesc: 'Carian AI Semantik & Full-Text Search.', href: '/modules/search-awards' },
+      { icon: Briefcase, enTitle: 'Practice Notes', msTitle: 'Nota Latihan', enDesc: 'Practice Notes.', msDesc: 'Senarai Nota Latihan', href: '/modules/practice-notes' },
+      { icon: Briefcase, enTitle: 'Forms', msTitle: 'Borang', enDesc: 'Forms.', msDesc: 'Senarai Borang', href: '/modules/forms' },
+      { icon: Briefcase, enTitle: 'User Guides', msTitle: 'Panduan Pengguna', enDesc: 'User Guides.', msDesc: 'Senarai Panduan Pengguna', href: '/modules/user-guides' },
+      { icon: Briefcase, enTitle: 'Resources', msTitle: 'Lain-lain Capaian', enDesc: 'Access Links to Other Resources.', msDesc: 'Senarai Lain-lain Capaian', href: '/modules/resources' },
+    ]
+  },
+  { 
+    items: [
+      { icon: Key, enTitle: 'Access Management [M2]', enDesc: 'Centralized Login (SSO) & MyDigital ID.' }, 
+      { icon: UploadCloud, enTitle: 'e-Filing & e-Service [M4]', enDesc: 'Online case document filing for parties.' }, 
+      { icon: MessageSquare, enTitle: 'e-Mention [M5]', enDesc: 'Virtual case mention proceedings.' }, 
+      { icon: Search, enTitle: 'Smart Award Search [M8]', enDesc: 'Semantic AI & Full-Text Search.' }, 
+      { icon: Bell, enTitle: 'Notice Management [M3]', enDesc: 'Notifications, reminders, and schedules.' }
+    ] 
+  },
+  { 
+    items: [
+      { icon: FilePlus, enTitle: 'Case Registration [M9]', enDesc: 'Registration and automated distribution.' }, 
+      { icon: Briefcase, enTitle: 'Case Management [M10]', enDesc: 'Management of the entire trial process.' }, 
+      { icon: Users, enTitle: 'Collective Agreement [M11]', enDesc: 'Registration and review of CA.' }, 
+      { icon: BarChart, enTitle: 'Dashboard & Reports [M12]', enDesc: 'Automated statistics and analytics.' }, 
+      { icon: Settings, enTitle: 'System Admin [M13]', enDesc: 'System configuration and audit logs.' }
+    ] 
+  }
+];
+
+export const mockAnalyticsStats = [
+  { metric: "Settlement Rate", value: "72%", trend: "+5%", color: "text-emerald-500", bg: "bg-emerald-50" },
+  { metric: "Average Duration", value: "145 Days", trend: "-12 Days", color: "text-blue-500", bg: "bg-blue-50" },
+  { metric: "Awards Appealed", value: "18", trend: "-2", color: "text-amber-500", bg: "bg-amber-50" },
+  { metric: "Hearings/Month", value: "312", trend: "+24", color: "text-indigo-500", bg: "bg-indigo-50" }
+];
+
+export const mockUsageLogs = [
+  { id: "UL-001", user: "azman.isa@mpm.gov.my", role: "Officer", action: "Case Registration (Manual)", time: "10 mins ago" },
+  { id: "UL-002", user: "system_admin", role: "Admin", action: "Database Backup Completed", time: "1 hour ago" },
+  { id: "UL-003", user: "tay.hl@firm.my", role: "e-Filing", action: "Submitted Document: Bundle of Pleadings", time: "2 hours ago" },
+  { id: "UL-004", user: "judge.jeffry@mpm.gov.my", role: "Chairman", action: "Updated Hearing Result: Case 1/1-1522/25", time: "3 hours ago" }
+];
+
+export const mockSystemSettings = [
+  { name: "Public E-Filing Gateway", status: "Online", lastDowntime: "None (99.9% Uptime)" },
+  { name: "Global CMS Sync", status: "Active", lastDowntime: "14 Feb 2026 02:00 AM" },
+  { name: "AI Award Semantic Search", status: "Online", lastDowntime: "10 Mar 2026 03:20 AM" },
+  { name: "Automated Notice Dispatch", status: "Online", lastDowntime: "None" }
+];
+
 export const caseTypeDistribution = [
   { type: 'Unfair Dismissal', count: 64, color: 'bg-blue-500' },
   { type: 'Constructive Dismissal', count: 21, color: 'bg-indigo-500' },
@@ -204,11 +272,9 @@ export const caseTypeDistribution = [
 ];
 
 export const chairmanWorkload = [
-  { name: 'YA Dato Wan Jeffry Kassim', cases: 32 },
-  { name: 'YA Tuan Amrik Singh', cases: 24 },
-  { name: 'YA Puan Rusita Md Lazim', cases: 21 },
-  { name: 'YA Tuan Zulhelmy Hasan', cases: 18 },
-  { name: 'YA Dato Syed Noh Said', cases: 17 }
+  { name: "Y.A. Dato' Wan Jeffry Kassim", cases: 28, color: "bg-emerald-500" },
+  { name: "Y.A. Puan Rusita Md Lazim", cases: 35, color: "bg-blue-500" },
+  { name: "Y.A. Tuan Amrik Singh", cases: 41, color: "bg-amber-500" }
 ];
 
 export const filingQueue = [
@@ -245,39 +311,3 @@ export const mockCAs = [
   { id: 'CA-2026-003', union: 'Medical Workers Union', company: 'Private Hospitals Group', submitted: '15 Feb 2026', status: 'Cognizance Granted' }
 ];
 
-export const iconColors = [UploadCloud, MessageSquare, Calendar, Search, FileText, BookOpen];
-
-export const allModules = [
-  {
-    items: [
-      { icon: Briefcase, enTitle: 'Case Management', msTitle: 'Pengurusan Kes', enDesc: 'Management of the entire trial process.', msDesc: 'Pengurusan proses perbicaraan menyeluruh.', href: '/modules/case-management' },
-      { icon: Users, enTitle: 'Collective Agreement', msTitle: 'Perjanjian Kolektif', enDesc: 'Registration and review of CA.', msDesc: 'Pengurusan pendaftaran dan semakan CA.', href: '/modules/collective-agreement' },
-      { icon: Search, enTitle: 'Search Full Awards', msTitle: 'Carian Penuh Awards', enDesc: 'Semantic AI & Full-Text Search.', msDesc: 'Carian AI Semantik & Full-Text Search.', href: '/modules/search-awards' },
-      { icon: Briefcase, enTitle: 'Practice Notes', msTitle: 'Nota Latihan', enDesc: 'Practice Notes.', msDesc: 'Senarai Nota Latihan', href: '/modules/practice-notes' },
-      { icon: Briefcase, enTitle: 'Forms', msTitle: 'Borang', enDesc: 'Forms.', msDesc: 'Senarai Borang', href: '/modules/forms' },
-      { icon: Briefcase, enTitle: 'User Guides', msTitle: 'Panduan Pengguna', enDesc: 'User Guides.', msDesc: 'Senarai Panduan Pengguna', href: '/modules/user-guides' },
-      { icon: Briefcase, enTitle: 'Resources', msTitle: 'Lain-lain Capaian', enDesc: 'Access Links to Other Resources.', msDesc: 'Senarai Lain-lain Capaian', href: '/modules/resources' },
-    ]
-  }
-];
-
-export const mockAnalyticsStats = [
-  { metric: "Settlement Rate", value: "72%", trend: "+5%", color: "text-emerald-500", bg: "bg-emerald-50" },
-  { metric: "Average Duration", value: "145 Days", trend: "-12 Days", color: "text-blue-500", bg: "bg-blue-50" },
-  { metric: "Awards Appealed", value: "18", trend: "-2", color: "text-amber-500", bg: "bg-amber-50" },
-  { metric: "Hearings/Month", value: "312", trend: "+24", color: "text-indigo-500", bg: "bg-indigo-50" }
-];
-
-export const mockUsageLogs = [
-  { id: "UL-001", user: "azman.isa@mpm.gov.my", role: "Officer", action: "Case Registration (Manual)", time: "10 mins ago" },
-  { id: "UL-002", user: "system_admin", role: "Admin", action: "Database Backup Completed", time: "1 hour ago" },
-  { id: "UL-003", user: "tay.hl@firm.my", role: "e-Filing", action: "Submitted Document: Bundle of Pleadings", time: "2 hours ago" },
-  { id: "UL-004", user: "judge.jeffry@mpm.gov.my", role: "Chairman", action: "Updated Hearing Result: Case 1/1-1522/25", time: "3 hours ago" }
-];
-
-export const mockSystemSettings = [
-  { name: "Public E-Filing Gateway", status: "Online", lastDowntime: "None (99.9% Uptime)" },
-  { name: "Global CMS Sync", status: "Active", lastDowntime: "14 Feb 2026 02:00 AM" },
-  { name: "AI Award Semantic Search", status: "Online", lastDowntime: "10 Mar 2026 03:20 AM" },
-  { name: "Automated Notice Dispatch", status: "Online", lastDowntime: "None" }
-];
