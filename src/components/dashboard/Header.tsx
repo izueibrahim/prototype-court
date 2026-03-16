@@ -32,6 +32,14 @@ export default function Header() {
           </button>
           <div className="w-px h-6 bg-zinc-200"></div>
           <button className="btn-ghost p-2 text-zinc-400 hover:text-blue-600 transition-colors"><Bell className="w-5 h-5" /></button>
+          <div className="w-px h-6 bg-zinc-200"></div>
+          <button 
+            onClick={handleLogout}
+            className="btn-ghost text-zinc-400 hover:text-red-600 transition-colors flex items-center gap-2"
+          >
+            <LogOut className="w-4 h-4" />
+            <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Sign Out</span>
+          </button>
           <div className="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-sm border border-indigo-100 shadow-inner">EU</div>
         </div>
       </header>
@@ -67,6 +75,14 @@ export default function Header() {
         <button className="btn-ghost w-11 h-11 p-0 rounded-xl text-zinc-400 hover:text-blue-600 border border-zinc-100 relative">
           <Bell className="w-5 h-5" />
           <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-600 rounded-full border-2 border-white"></span>
+        </button>
+        <div className="w-px h-8 bg-zinc-100"></div>
+        <button 
+            onClick={handleLogout}
+            className="btn-ghost text-zinc-400 hover:text-red-600 transition-colors flex items-center gap-2 px-4 h-11 border border-zinc-100 rounded-xl"
+        >
+            <LogOut className="w-4 h-4" />
+            <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Sign Out</span>
         </button>
         <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 font-black text-sm border border-blue-100 shadow-inner">
           {demoRole === 'ydp' ? 'YP' : demoRole === 'chairman' ? 'CH' : demoRole === 'admin' ? 'AD' : 'RO'}

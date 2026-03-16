@@ -64,6 +64,15 @@ export default function HeroSection() {
                         {currentLang.searchBtn}
                     </button>
                 </div>
+
+                <div className="mt-8 flex flex-wrap justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+                    <button 
+                        onClick={() => setCurrentView('schedule')}
+                        className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-black uppercase tracking-widest transition-all ${isHighContrast ? 'border border-white text-white hover:bg-white hover:text-black' : 'bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 hover:text-white'}`}
+                    >
+                        View Full Schedule
+                    </button>
+                </div>
             </div>
         </div>
     );

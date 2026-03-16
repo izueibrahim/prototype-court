@@ -70,7 +70,7 @@ export default function Navbar() {
                             <div className={`pl-6 border-l h-8 flex items-center ${isHighContrast ? 'border-white' : 'border-zinc-200'}`}>
                                 <button
                                     onClick={() => setCurrentView('login')}
-                                    className={isHighContrast ? 'btn-primary bg-white text-black hover:bg-zinc-200' : 'btn-primary'}
+                                    className={isHighContrast ? 'btn-primary bg-white text-black hover:bg-zinc-200' : 'btn-primary bg-blue-700 shadow-lg shadow-blue-500/30 ring-2 ring-blue-500/20'}
                                 >
                                     <LogIn className="w-4 h-4" />
                                     {currentLang.login}
