@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type WcagStates = {
     highContrast: boolean;
@@ -16,7 +17,7 @@ type WcagStates = {
 interface AppState {
     currentView: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details' | 'about' | 'contact' | 'modules';
     loginRole: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null;
-    dashActiveView: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings';
+    dashActiveView: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings' | 'sebutan';
     internalActionView: 'review_filing' | 'allocate_case' | 'case_detail' | 'hearing_notes' | null;
     eFilingActiveView: 'cases' | 'new_filing' | 'case_details';
     selectedInternalItem: any | null;
@@ -30,11 +31,11 @@ interface AppState {
     textSize: number;
     wcagStates: WcagStates;
 
-    setCurrentView: (view: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details' | 'about' | 'contact' | 'modules') => void;
-    setLoginRole: (role: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null) => void;
-    setDashActiveView: (view: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings') => void;
-    setInternalActionView: (view: 'review_filing' | 'allocate_case' | 'case_detail' | 'hearing_notes' | null) => void;
-    setEFilingActiveView: (view: 'cases' | 'new_filing' | 'case_details') => void;
+    setCurrentView: (view: AppState['currentView']) => void;
+    setLoginRole: (role: AppState['loginRole']) => void;
+    setDashActiveView: (view: AppState['dashActiveView']) => void;
+    setInternalActionView: (view: AppState['internalActionView']) => void;
+    setEFilingActiveView: (view: AppState['eFilingActiveView']) => void;
     setSelectedInternalItem: (item: any | null) => void;
     setSelectedEFilingCase: (item: any | null) => void;
     setDashMobileMenuOpen: (isOpen: boolean) => void;
@@ -49,67 +50,81 @@ interface AppState {
     resetWcag: () => void;
 }
 
-export const useAppStore = create<AppState>((set) => ({
-    currentView: 'portal',
-    loginRole: null,
-    dashActiveView: 'overview',
-    internalActionView: null,
-    eFilingActiveView: 'cases',
-    selectedInternalItem: null,
-    selectedEFilingCase: null,
-    dashMobileMenuOpen: false,
-    selectedCaseId: null,
-    searchQuery: '',
-    scheduleSearchQuery: '',
-    lang: 'en',
-    isWcagOpen: false,
-    textSize: 100,
-    wcagStates: {
-        highContrast: false,
-        textSpacing: false,
-        invert: false,
-        greyHues: false,
-        underline: false,
-        bigCursor: false,
-        readingGuide: false,
-        tts: false,
-        stt: false
-    },
+export const useAppStore = create<AppState>()(
+    persist(
+        (set) => ({
+            currentView: 'portal',
+            loginRole: null,
+            dashActiveView: 'overview',
+            internalActionView: null,
+            eFilingActiveView: 'cases',
+            selectedInternalItem: null,
+            selectedEFilingCase: null,
+            dashMobileMenuOpen: false,
+            selectedCaseId: null,
+            searchQuery: '',
+            scheduleSearchQuery: '',
+            lang: 'en',
+            isWcagOpen: false,
+            textSize: 100,
+            wcagStates: {
+                highContrast: false,
+                textSpacing: false,
+                invert: false,
+                greyHues: false,
+                underline: false,
+                bigCursor: false,
+                readingGuide: false,
+                tts: false,
+                stt: false
+            },
 
-    setCurrentView: (view) => set({ currentView: view }),
-    setLoginRole: (role) => set({ loginRole: role }),
-    setDashActiveView: (view) => set({ dashActiveView: view }),
-    setInternalActionView: (view) => set({ internalActionView: view }),
-    setEFilingActiveView: (view) => set({ eFilingActiveView: view }),
-    setSelectedInternalItem: (item) => set({ selectedInternalItem: item }),
-    setSelectedEFilingCase: (item) => set({ selectedEFilingCase: item }),
-    setDashMobileMenuOpen: (isOpen) => set({ dashMobileMenuOpen: isOpen }),
-    setSelectedCaseId: (id) => set({ selectedCaseId: id }),
-    setSearchQuery: (query) => set({ searchQuery: query }),
-    setScheduleSearchQuery: (query) => set({ scheduleSearchQuery: query }),
-    setLang: (lang) => set({ lang }),
-    setIsWcagOpen: (isOpen) => set({ isWcagOpen: isOpen }),
-    setTextSize: (size) => set((state) => ({
-        textSize: typeof size === 'function' ? size(state.textSize) : size
-    })),
-    toggleWcagState: (key) => set((state) => ({
-        wcagStates: { ...state.wcagStates, [key]: !state.wcagStates[key] }
-    })),
-    setWcagState: (key, value) => set((state) => ({
-        wcagStates: { ...state.wcagStates, [key]: value }
-    })),
-    resetWcag: () => set({
-        textSize: 100,
-        wcagStates: {
-            highContrast: false,
-            textSpacing: false,
-            invert: false,
-            greyHues: false,
-            underline: false,
-            bigCursor: false,
-            readingGuide: false,
-            tts: false,
-            stt: false
+            setCurrentView: (view) => set({ currentView: view }),
+            setLoginRole: (role) => set({ loginRole: role }),
+            setDashActiveView: (view) => set({ dashActiveView: view }),
+            setInternalActionView: (view) => set({ internalActionView: view }),
+            setEFilingActiveView: (view) => set({ eFilingActiveView: view }),
+            setSelectedInternalItem: (item) => set({ selectedInternalItem: item }),
+            setSelectedEFilingCase: (item) => set({ selectedEFilingCase: item }),
+            setDashMobileMenuOpen: (isOpen) => set({ dashMobileMenuOpen: isOpen }),
+            setSelectedCaseId: (id) => set({ selectedCaseId: id }),
+            setSearchQuery: (query) => set({ searchQuery: query }),
+            setScheduleSearchQuery: (query) => set({ scheduleSearchQuery: query }),
+            setLang: (lang) => set({ lang }),
+            setIsWcagOpen: (isOpen) => set({ isWcagOpen: isOpen }),
+            setTextSize: (size) => set((state) => ({
+                textSize: typeof size === 'function' ? size(state.textSize) : size
+            })),
+            toggleWcagState: (key) => set((state) => ({
+                wcagStates: { ...state.wcagStates, [key]: !state.wcagStates[key] }
+            })),
+            setWcagState: (key, value) => set((state) => ({
+                wcagStates: { ...state.wcagStates, [key]: value }
+            })),
+            resetWcag: () => set({
+                textSize: 100,
+                wcagStates: {
+                    highContrast: false,
+                    textSpacing: false,
+                    invert: false,
+                    greyHues: false,
+                    underline: false,
+                    bigCursor: false,
+                    readingGuide: false,
+                    tts: false,
+                    stt: false
+                }
+            })
+        }),
+        {
+            name: 'emp-v2-storage',
+            partialize: (state) => ({ 
+                currentView: state.currentView, 
+                loginRole: state.loginRole,
+                dashActiveView: state.dashActiveView,
+                lang: state.lang,
+                wcagStates: state.wcagStates
+            }),
         }
-    })
-}));
+    )
+);

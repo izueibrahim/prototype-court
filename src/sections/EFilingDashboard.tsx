@@ -1,17 +1,17 @@
 "use client";
 
 import React from 'react';
-import { 
-  Scale, X, Briefcase, LogOut, Menu, FilePlus, ArrowLeft, UserCircle, 
-  Building2, FileSignature, ChevronDown, UploadCloud, Upload, 
+import {
+  Scale, X, Briefcase, LogOut, Menu, FilePlus, ArrowLeft, UserCircle,
+  Building2, FileSignature, ChevronDown, UploadCloud, Upload,
   FileText, Check, Calendar, Download, Trash2, File as FileIcon
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 
 export default function EFilingDashboard() {
-  const { 
-    currentView, setCurrentView, eFilingActiveView, setEFilingActiveView, 
-    selectedEFilingCase, setSelectedEFilingCase, dashMobileMenuOpen, setDashMobileMenuOpen 
+  const {
+    currentView, setCurrentView, eFilingActiveView, setEFilingActiveView,
+    selectedEFilingCase, setSelectedEFilingCase, dashMobileMenuOpen, setDashMobileMenuOpen
   } = useAppStore();
 
   const handleLogout = () => {
@@ -35,8 +35,8 @@ export default function EFilingDashboard() {
           <div className="flex items-center gap-3">
             <img src="/jata-negara.png" alt="Logo" className="h-10 w-auto" />
             <div className="flex flex-col">
-              <span className="text-zinc-900 font-extrabold text-sm leading-tight">Mahkamah Perusahaan</span>
-              <span className="text-zinc-500 font-semibold text-[10px] leading-tight">Industrial Court</span>
+              <span className="text-zinc-900 font-extrabold text-xs sm:text-sm tracking-tight leading-tight">Mahkamah Perusahaan</span>
+              <span className="text-zinc-500 font-semibold text-[10px] sm:text-xs tracking-tight leading-tight">Industrial Court</span>
             </div>
           </div>
           <button className="md:hidden text-zinc-400 hover:text-zinc-900" onClick={() => setDashMobileMenuOpen(false)}>
@@ -44,8 +44,8 @@ export default function EFilingDashboard() {
           </button>
         </div>
         <div className="flex-1 overflow-y-auto py-6 space-y-1.5 px-4">
-          <button 
-            onClick={() => { setEFilingActiveView('cases'); setDashMobileMenuOpen(false); }} 
+          <button
+            onClick={() => { setEFilingActiveView('cases'); setDashMobileMenuOpen(false); }}
             className={`w-full flex items-center px-4 py-3 rounded-[14px] font-bold text-sm transition-all ${eFilingActiveView === 'cases' || eFilingActiveView === 'case_details' ? 'bg-blue-700 text-white shadow-lg shadow-blue-700/20' : 'text-zinc-500 hover:bg-zinc-50'}`}
           >
             <Briefcase className="w-5 h-5 mr-3" /> My Cases
@@ -57,14 +57,17 @@ export default function EFilingDashboard() {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#f8fafc]">
-        <header className="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 md:px-8 flex-shrink-0">
-          <div className="flex items-center gap-3">
+        {/* Standardized Top Header */}
+        <header className="h-20 sm:h-24 bg-white/70 backdrop-blur-xl border-b border-slate-200 shadow-sm flex items-center justify-between px-4 sm:px-6 lg:px-8 flex-shrink-0 relative z-30">
+          <div className="flex items-center gap-3 sm:gap-6">
             <button className="md:hidden p-2 -ml-2 text-slate-500 hover:text-slate-900 rounded-lg hover:bg-slate-100" onClick={() => setDashMobileMenuOpen(true)}>
               <Menu className="w-6 h-6" />
             </button>
-            <h1 className="text-lg md:text-xl font-extrabold text-slate-900 tracking-tight">External User Workspace</h1>
+
+            {/* Top Header — Branding moved to sidebar */}
+            <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 uppercase">External User Workspace</h1>
           </div>
-          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs md:text-sm border-2 border-white shadow-sm">EU</div>
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 font-black text-xs md:text-sm border border-indigo-100 shadow-inner">EU</div>
         </header>
 
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">

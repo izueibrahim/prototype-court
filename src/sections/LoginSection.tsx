@@ -39,35 +39,42 @@ export default function LoginSection() {
     return (
         <div className={`min-h-screen flex flex-col ${isHighContrast ? 'bg-black' : 'bg-zinc-50'}`}>
 
-            {/* Login Header — matches portal Navbar style */}
-            <header className={`h-20 sm:h-24 px-4 sm:px-8 flex justify-between items-center border-b ${isHighContrast ? 'bg-black border-white' : 'bg-white border-zinc-200 shadow-sm transition-colors'}`}>
-                <button 
-                    onClick={() => setCurrentView('portal')}
-                    className="flex items-center gap-3 sm:gap-4 text-left outline-none hover:opacity-80 transition-opacity"
-                >
-                    <img src="/jata-negara.png" alt="Logo" className="h-10 w-auto sm:h-12" />
-                    <div className="flex flex-col justify-center">
-                        <span className={`font-black text-xs sm:text-sm tracking-tight leading-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
-                            Mahkamah Perusahaan
-                        </span>
-                        <span className={`font-bold text-[10px] sm:text-xs tracking-tight leading-tight ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
-                            Industrial Court
-                        </span>
-                    </div>
-                </button>
-                <div className="flex items-center gap-4">
-                    <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className={`hidden sm:flex items-center px-3 py-1.5 rounded-lg border text-sm font-bold transition-colors gap-1.5 ${isHighContrast ? 'border-white text-white' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50 hover:text-blue-600'}`}>
-                        <Globe className="w-4 h-4" />
-                        {lang === 'en' ? 'BM' : 'EN'}
-                    </button>
-                    <button
-                        onClick={() => { setCurrentView('portal'); setLoginRole(null); }}
-                        className={isHighContrast ? 'px-4 py-2 rounded-xl text-sm font-bold border border-white text-white bg-black' : 'px-4 py-2 rounded-xl text-sm font-bold bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 shadow-sm'}
+            {/* Login Header — standardized to match portal Navbar style */}
+            <header className={`relative z-40 h-20 sm:h-24 border-b transition-colors ${isHighContrast ? 'bg-black border-white' : 'bg-white/70 backdrop-blur-xl border-zinc-200/50 shadow-sm'}`}>
+                <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <button 
+                        onClick={() => setCurrentView('portal')}
+                        className="flex items-center gap-3 sm:gap-4 text-left outline-none hover:opacity-80 transition-opacity"
                     >
-                        <ArrowLeft className="w-4 h-4 mr-2 inline" />
-                        <span className="hidden sm:inline">{currentLang.backToPortal}</span>
-                        <span className="sm:hidden">Back</span>
+                        <img 
+                            src="/jata-negara.png" 
+                            alt="Jata Negara" 
+                            className="h-12 sm:h-14 w-auto object-contain" 
+                        />
+                        <div className="flex flex-col justify-center">
+                            <span className={`font-extrabold text-base sm:text-lg tracking-tight leading-snug ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                Mahkamah Perusahaan Malaysia
+                            </span>
+                            <div className={`my-0.5 h-px w-full ${isHighContrast ? 'bg-white/40' : 'bg-zinc-200'}`} />
+                            <span className={`font-semibold text-xs sm:text-sm tracking-wide leading-snug ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                                Industrial Court of Malaysia
+                            </span>
+                        </div>
                     </button>
+                    <div className="flex items-center gap-4">
+                        <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className={`hidden sm:flex items-center px-3 py-1.5 rounded-lg border text-sm font-bold transition-colors gap-1.5 ${isHighContrast ? 'border-white text-white' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50 hover:text-blue-600'}`}>
+                            <Globe className="w-4 h-4" />
+                            {lang === 'en' ? 'BM' : 'EN'}
+                        </button>
+                        <button
+                            onClick={() => { setCurrentView('portal'); setLoginRole(null); }}
+                            className={isHighContrast ? 'px-4 py-2 rounded-xl text-sm font-bold border border-white text-white bg-black' : 'px-4 py-2 rounded-xl text-sm font-bold bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 shadow-sm'}
+                        >
+                            <ArrowLeft className="w-4 h-4 mr-2 inline" />
+                            <span className="hidden sm:inline">{currentLang.backToPortal}</span>
+                            <span className="sm:hidden">Back</span>
+                        </button>
+                    </div>
                 </div>
             </header>
 

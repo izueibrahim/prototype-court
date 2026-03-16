@@ -41,9 +41,21 @@ export default function Header() {
   const demoRole = loginRole || 'officer';
 
   return (
-    <header className="h-24 bg-white border-b border-zinc-200 flex items-center justify-between px-10 flex-shrink-0 transition-all">
-      <div className="flex items-center">
-        <h1 className="text-2xl font-black text-zinc-900 tracking-tight">
+    <header className="h-20 sm:h-24 bg-white/70 backdrop-blur-xl border-b border-zinc-200 flex items-center justify-between px-6 sm:px-8 lg:px-10 flex-shrink-0 transition-all relative z-30 shadow-sm">
+      <div className="flex items-center gap-4 sm:gap-8">
+        <div className="flex flex-col justify-center">
+            <span className="font-extrabold text-xs sm:text-sm tracking-tight leading-tight text-zinc-900 uppercase">
+                Mahkamah Perusahaan
+            </span>
+            <div className="h-px w-full bg-zinc-100 my-0.5" />
+            <span className="font-semibold text-[10px] sm:text-xs tracking-tight leading-tight text-zinc-500 uppercase">
+                Industrial Court
+            </span>
+        </div>
+        
+        <div className="h-8 w-px bg-zinc-200 hidden sm:block"></div>
+
+        <h1 className="text-sm sm:text-lg lg:text-xl font-black text-zinc-900 tracking-tight uppercase">
           {dashActiveView === 'overview' ? currentLang.dashOverview
           : dashActiveView === 'chairman' ? currentLang.dashChairman
           : dashActiveView === 'analytics' ? currentLang.dashAnalytics
@@ -58,17 +70,17 @@ export default function Header() {
           : 'System Administration'}
         </h1>
       </div>
-      <div className="flex items-center gap-6">
-        <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className="btn-ghost text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2.5 rounded-xl border border-zinc-100 hover:border-blue-200">
+      <div className="flex items-center gap-3 md:gap-6">
+        <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className="hidden md:flex btn-ghost text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2.5 rounded-xl border border-zinc-100 hover:border-blue-200">
           <Globe className="w-4 h-4 mr-2 text-blue-600" />
           {lang === 'en' ? 'Bahasa Melayu' : 'English'}
         </button>
-        <div className="w-px h-8 bg-zinc-100"></div>
-        <button className="btn-ghost w-11 h-11 p-0 rounded-xl text-zinc-400 hover:text-blue-600 border border-zinc-100 relative">
+        <div className="hidden sm:block w-px h-8 bg-zinc-100"></div>
+        <button className="btn-ghost w-10 h-10 sm:w-11 sm:h-11 p-0 rounded-xl text-zinc-400 hover:text-blue-600 border border-zinc-100 relative">
           <Bell className="w-5 h-5" />
           <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-600 rounded-full border-2 border-white"></span>
         </button>
-        <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 font-black text-sm border border-blue-100 shadow-inner">
+        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 font-black text-xs sm:text-sm border border-blue-100 shadow-inner">
           {demoRole === 'ydp' ? 'YP' : demoRole === 'chairman' ? 'CH' : demoRole === 'admin' ? 'AD' : 'RO'}
         </div>
       </div>

@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState } from 'react';
-import { 
-  Search, Calendar, Scale, FileText, Globe, Menu, X, 
-  ChevronRight, ChevronDown, ChevronLeft, Gavel, FileSignature, MessageSquare, 
-  Building2, LogIn, MapPin, Clock, Key, Bell, UploadCloud, 
-  FilePlus, Briefcase, Users, Monitor, BarChart, Settings, 
-  Landmark, BookOpen, HandHeart, List, Grid, Phone, Mail, Shield, 
-  ShieldAlert, FileWarning, MoveHorizontal, FoldHorizontal, 
-  Contrast, Droplet, Underline, MousePointer2, AlignJustify, 
-  Volume2, Mic, Download, ArrowUpRight, ArrowLeft, HelpCircle, 
+import {
+  Search, Calendar, Scale, FileText, Globe, Menu, X,
+  ChevronRight, ChevronDown, ChevronLeft, Gavel, FileSignature, MessageSquare,
+  Building2, LogIn, MapPin, Clock, Key, Bell, UploadCloud,
+  FilePlus, Briefcase, Users, Monitor, BarChart, Settings,
+  Landmark, BookOpen, HandHeart, List, Grid, Phone, Mail, Shield,
+  ShieldAlert, FileWarning, MoveHorizontal, FoldHorizontal,
+  Contrast, Droplet, Underline, MousePointer2, AlignJustify,
+  Volume2, Mic, Download, ArrowUpRight, ArrowLeft, HelpCircle,
   ShieldCheck, UserCircle, Video, Lock, Fingerprint, Filter,
   SlidersHorizontal, FileSearch, LayoutDashboard, LogOut, Activity, Users2,
   PieChart, ServerCrash, Smartphone, Wrench, RefreshCw, CheckCircle2, AlertCircle,
@@ -18,16 +18,17 @@ import {
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
-import { 
-    chYears, ch1, ch2, ch3, ch4Pts, ch4Vals, ch5, ch7SchedPts, ch7CompPts, 
-    ch7Comp, ch8, ch10, upcomingHearings, latestJudgments, mockSearchResults,
-    caseTypeDistribution, chairmanWorkload, filingQueue, chairmanCases,
-    integrationLogs, mockNotices, mockCAs, mockAnalyticsStats, mockUsageLogs,
-    mockSystemSettings
+import SebutanChat from '@/components/sebutan/SebutanChat';
+import {
+  chYears, ch1, ch2, ch3, ch4Pts, ch4Vals, ch5, ch7SchedPts, ch7CompPts,
+  ch7Comp, ch8, ch10, upcomingHearings, latestJudgments, mockSearchResults,
+  caseTypeDistribution, chairmanWorkload, filingQueue, chairmanCases,
+  integrationLogs, mockNotices, mockCAs, mockAnalyticsStats, mockUsageLogs,
+  mockSystemSettings
 } from '@/lib/data';
 
 export default function InternalDashboard() {
-  const { 
+  const {
     lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView,
     dashActiveView, setDashActiveView, dashMobileMenuOpen, setDashMobileMenuOpen
   } = useAppStore();
@@ -63,6 +64,7 @@ export default function InternalDashboard() {
     { id: 'schedule_int', icon: Calendar, label: currentLang.dashSchedule, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer'] },
     { id: 'notice', icon: Bell, label: currentLang.dashNotice, roles: ['admin', 'registrar', 'officer'] },
     { id: 'collective', icon: Users, label: currentLang.dashCollective, roles: ['admin', 'registrar', 'officer', 'ca-unit'] },
+    { id: 'sebutan', icon: MessageSquare, label: 'E-Sebutan', roles: ['admin', 'registrar', 'chairman'] },
     { id: 'display', icon: Tv, label: currentLang.dashDisplay, roles: ['admin', 'ydp'] },
     { id: 'integration', icon: ServerCrash, label: currentLang.dashIntegration, roles: ['admin', 'ydp'] },
     { id: 'usage', icon: Activity, label: currentLang.dashUsage, roles: ['admin', 'ydp'] },
@@ -73,7 +75,7 @@ export default function InternalDashboard() {
 
   return (
     <div className={`flex h-screen overflow-hidden ${isHighContrast ? 'bg-black text-white' : 'bg-slate-50 text-slate-900'}`}>
-      
+
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 md:w-72 transition-transform duration-300 transform ${dashMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:inset-0 ${isHighContrast ? 'bg-black border-r border-white' : 'bg-white border-r border-slate-200'}`}>
         <div className="flex flex-col h-full">
@@ -90,8 +92,8 @@ export default function InternalDashboard() {
               <button
                 key={item.id}
                 onClick={() => { setDashActiveView(item.id as any); setDashMobileMenuOpen(false); }}
-                className={`w-full flex items-center px-4 py-3 rounded-xl transition-all duration-200 group ${dashActiveView === item.id 
-                  ? (isHighContrast ? 'bg-white text-black' : 'bg-blue-700 text-white shadow-lg shadow-blue-700/20') 
+                className={`w-full flex items-center px-4 py-3 rounded-xl transition-all duration-200 group ${dashActiveView === item.id
+                  ? (isHighContrast ? 'bg-white text-black' : 'bg-blue-700 text-white shadow-lg shadow-blue-700/20')
                   : (isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900')}`}
               >
                 <item.icon className={`w-5 h-5 mr-3 transition-transform group-hover:scale-110 ${dashActiveView === item.id ? 'text-current' : 'text-zinc-400'}`} />
@@ -102,7 +104,7 @@ export default function InternalDashboard() {
           </nav>
 
           <div className="p-4 mt-auto">
-            <button 
+            <button
               onClick={handleLogout}
               className={`w-full flex items-center px-4 py-3 rounded-xl transition-colors ${isHighContrast ? 'border border-white text-white hover:bg-zinc-900' : 'bg-zinc-100 text-zinc-600 hover:bg-rose-50 hover:text-rose-600'}`}
             >
@@ -115,38 +117,43 @@ export default function InternalDashboard() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0 bg-inherit relative h-full">
-        {/* Top Header */}
-        <header className={`h-16 md:h-20 flex items-center justify-between px-4 md:px-8 border-b relative z-30 transition-colors ${isHighContrast ? 'bg-black border-white text-white' : 'bg-white border-slate-200 shadow-sm'}`}>
-          <div className="flex items-center gap-4">
-            <button onClick={() => setDashMobileMenuOpen(!dashMobileMenuOpen)} className="lg:hidden p-2 rounded-lg bg-slate-100 text-slate-600"><Menu className="w-6 h-6" /></button>
-            <h1 className="text-lg md:text-xl font-black tracking-tight truncate max-w-[200px] md:max-w-none">
-              {dashActiveView === 'overview' ? currentLang.dashOverview 
-                : dashActiveView === 'chairman' ? currentLang.dashChairman 
-                : dashActiveView === 'analytics' ? currentLang.dashAnalytics
-                : dashActiveView === 'registration' ? currentLang.dashRegistration
-                : dashActiveView === 'cases' ? currentLang.dashCases
-                : dashActiveView === 'schedule_int' ? currentLang.dashSchedule
-                : dashActiveView === 'notice' ? currentLang.dashNotice
-                : dashActiveView === 'collective' ? currentLang.dashCollective
-                : dashActiveView === 'display' ? currentLang.dashDisplay
-                : dashActiveView === 'integration' ? currentLang.dashIntegration
-                : dashActiveView === 'usage' ? currentLang.dashUsage
-                : 'System Administration'}
+        {/* Standardized Top Header */}
+        <header className={`h-20 sm:h-24 flex items-center justify-between px-4 sm:px-6 lg:px-8 border-b relative z-30 transition-colors ${isHighContrast ? 'bg-black border-white text-white' : 'bg-white/70 backdrop-blur-xl border-zinc-200/50 shadow-sm'}`}>
+          <div className="flex items-center gap-4 lg:gap-8">
+            <button onClick={() => setDashMobileMenuOpen(!dashMobileMenuOpen)} className="lg:hidden p-2 rounded-lg bg-slate-100 text-slate-600">
+              <Menu className="w-6 h-6" />
+            </button>
+
+
+            <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-zinc-900 truncate max-w-[150px] sm:max-w-none uppercase">
+              {dashActiveView === 'overview' ? currentLang.dashOverview
+                : dashActiveView === 'chairman' ? currentLang.dashChairman
+                  : dashActiveView === 'analytics' ? currentLang.dashAnalytics
+                    : dashActiveView === 'registration' ? currentLang.dashRegistration
+                      : dashActiveView === 'cases' ? currentLang.dashCases
+                        : dashActiveView === 'schedule_int' ? currentLang.dashSchedule
+                          : dashActiveView === 'notice' ? currentLang.dashNotice
+                            : dashActiveView === 'collective' ? currentLang.dashCollective
+                              : dashActiveView === 'display' ? currentLang.dashDisplay
+                                : dashActiveView === 'integration' ? currentLang.dashIntegration
+                                  : dashActiveView === 'usage' ? currentLang.dashUsage
+                                    : 'System Administration'}
             </h1>
           </div>
+
           <div className="flex items-center gap-3 md:gap-5">
-            <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className="hidden sm:block text-xs font-extrabold text-slate-400 hover:text-blue-600 transition-colors uppercase">{lang === 'en' ? 'MS' : 'EN'}</button>
+            <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className="hidden sm:block text-[10px] font-black text-slate-400 hover:text-blue-600 transition-colors uppercase tracking-widest">{lang === 'en' ? 'MS' : 'EN'}</button>
             <div className="hidden sm:block w-px h-5 bg-slate-200"></div>
             <button className="text-slate-400 hover:text-blue-600 transition-colors"><Bell className="w-5 h-5" /></button>
-            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-extrabold text-xs md:text-sm border-2 border-white shadow-sm">
-                {demoRole === 'ydp' ? 'YP' : demoRole === 'chairman' ? 'CH' : demoRole === 'admin' ? 'AD' : 'RO'}
+            <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 font-black text-xs md:text-sm border border-blue-100 shadow-inner">
+              {demoRole === 'ydp' ? 'YP' : demoRole === 'chairman' ? 'CH' : demoRole === 'admin' ? 'AD' : 'RO'}
             </div>
           </div>
         </header>
 
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 hide-scrollbar">
           <div className="max-w-7xl mx-auto space-y-6">
-            
+
             {/* ---------------- OVERVIEW ---------------- */}
             {dashActiveView === 'overview' && (
               <>
@@ -767,6 +774,13 @@ export default function InternalDashboard() {
                     </tbody>
                   </table>
                 </div>
+              </div>
+            )}
+
+            {/* ---------------- E-SEBUTAN ---------------- */}
+            {dashActiveView === 'sebutan' && (
+              <div className="h-[calc(100vh-12rem)] min-h-[500px]">
+                <SebutanChat />
               </div>
             )}
 
