@@ -118,8 +118,8 @@ export const useAppStore = create<AppState>()(
         }),
         {
             name: 'emp-v2-storage',
-            partialize: (state) => ({ 
-                currentView: state.currentView, 
+            partialize: (state) => ({
+                currentView: state.currentView,
                 loginRole: state.loginRole,
                 dashActiveView: state.dashActiveView,
                 lang: state.lang,

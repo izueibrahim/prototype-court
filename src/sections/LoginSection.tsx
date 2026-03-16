@@ -42,14 +42,14 @@ export default function LoginSection() {
             {/* Login Header — standardized to match portal Navbar style */}
             <header className={`relative z-40 h-20 sm:h-24 border-b transition-colors ${isHighContrast ? 'bg-black border-white' : 'bg-white/70 backdrop-blur-xl border-zinc-200/50 shadow-sm'}`}>
                 <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <button 
+                    <button
                         onClick={() => setCurrentView('portal')}
                         className="flex items-center gap-3 sm:gap-4 text-left outline-none hover:opacity-80 transition-opacity"
                     >
-                        <img 
-                            src="/jata-negara.png" 
-                            alt="Jata Negara" 
-                            className="h-12 sm:h-14 w-auto object-contain" 
+                        <img
+                            src="/jata-negara.png"
+                            alt="Jata Negara"
+                            className="h-12 sm:h-14 w-auto object-contain"
                         />
                         <div className="flex flex-col justify-center">
                             <span className={`font-extrabold text-base sm:text-lg tracking-tight leading-snug ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
@@ -230,7 +230,7 @@ export default function LoginSection() {
                                 )}
 
                                 <div className="pt-2">
-                                    <button 
+                                    <button
                                         type="submit"
                                         className={isHighContrast ? 'w-full py-4 rounded-xl text-lg font-bold bg-white text-black' : 'w-full py-4 rounded-xl text-lg font-bold bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all'}>
                                         {loginRole === 'guest' ? currentLang.joinHearing : currentLang.signIn}
@@ -248,7 +248,7 @@ export default function LoginSection() {
                                             <span className={`absolute px-4 text-xs font-black uppercase tracking-widest ${isHighContrast ? 'bg-black text-zinc-600' : 'bg-white text-zinc-400'}`}>OR</span>
                                             <div className={`w-full border-t ${isHighContrast ? 'border-zinc-700' : 'border-zinc-200'}`}></div>
                                         </div>
-                                        <button 
+                                        <button
                                             type="button"
                                             onClick={handleLoginSubmit}
                                             className={isHighContrast ? 'w-full py-3 rounded-xl border border-white text-white bg-black font-bold flex items-center justify-center gap-2' : 'w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 font-bold flex items-center justify-center gap-2 hover:bg-zinc-50 shadow-sm'}>
