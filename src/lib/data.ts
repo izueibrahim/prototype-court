@@ -260,3 +260,24 @@ export const allModules = [
     ]
   }
 ];
+
+export const mockAnalyticsStats = [
+  { metric: "Settlement Rate", value: "72%", trend: "+5%", color: "text-emerald-500", bg: "bg-emerald-50" },
+  { metric: "Average Duration", value: "145 Days", trend: "-12 Days", color: "text-blue-500", bg: "bg-blue-50" },
+  { metric: "Awards Appealed", value: "18", trend: "-2", color: "text-amber-500", bg: "bg-amber-50" },
+  { metric: "Hearings/Month", value: "312", trend: "+24", color: "text-indigo-500", bg: "bg-indigo-50" }
+];
+
+export const mockUsageLogs = [
+  { id: "UL-001", user: "azman.isa@mpm.gov.my", role: "Officer", action: "Case Registration (Manual)", time: "10 mins ago" },
+  { id: "UL-002", user: "system_admin", role: "Admin", action: "Database Backup Completed", time: "1 hour ago" },
+  { id: "UL-003", user: "tay.hl@firm.my", role: "e-Filing", action: "Submitted Document: Bundle of Pleadings", time: "2 hours ago" },
+  { id: "UL-004", user: "judge.jeffry@mpm.gov.my", role: "Chairman", action: "Updated Hearing Result: Case 1/1-1522/25", time: "3 hours ago" }
+];
+
+export const mockSystemSettings = [
+  { name: "Public E-Filing Gateway", status: "Online", lastDowntime: "None (99.9% Uptime)" },
+  { name: "Global CMS Sync", status: "Active", lastDowntime: "14 Feb 2026 02:00 AM" },
+  { name: "AI Award Semantic Search", status: "Online", lastDowntime: "10 Mar 2026 03:20 AM" },
+  { name: "Automated Notice Dispatch", status: "Online", lastDowntime: "None" }
+];

@@ -2,16 +2,59 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  /* Brand Colors */
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-50: #eff6ff;
+  
+  /* Radius & Shadows */
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  
+  --shadow-premium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-premium-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 
-/* Base resets & smooth scrolling */
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply text-zinc-900 bg-zinc-50 font-sans antialiased;
+  }
 }
 
-body {
-  @apply text-zinc-900 bg-zinc-50;
+@layer components {
+  /* Standardized Buttons */
+  .btn-primary {
+    @apply px-6 py-2.5 rounded-xl font-bold transition-all shadow-md hover:shadow-xl active:scale-95 flex items-center justify-center gap-2;
+    @apply bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500/20 active:bg-blue-800;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-2.5 rounded-xl font-bold transition-all border flex items-center justify-center gap-2;
+    @apply bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 shadow-sm active:bg-zinc-100;
+  }
+  
+  .btn-ghost {
+    @apply px-4 py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2;
+    @apply text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 active:bg-zinc-200;
+  }
+
+  .btn-outline {
+    @apply px-6 py-2.5 rounded-xl font-bold transition-all border flex items-center justify-center gap-2;
+    @apply border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100;
+  }
+
+  /* Shared Card Styles */
+  .card-premium {
+    @apply bg-white border border-zinc-200 rounded-3xl shadow-sm hover:shadow-md transition-shadow;
+  }
 }
+
+/* Base resets & smooth scrolling moved to base layer */
 
 /* Accessibility global styles */
 .hide-scrollbar::-webkit-scrollbar {
@@ -22,10 +65,7 @@ body {
   scrollbar-width: none;
 }
 
-/* High Contrast mode utilities can be injected dynamically, or written here.
-   The monolithic app used inline style injections. We"ll keep most of the logic 
-   in the UI components, but global overrides can live here. */
-
+/* High Contrast mode utilities */
 .a11y-underline a, .a11y-underline button { 
   text-decoration: underline !important; 
   text-underline-offset: 4px; 

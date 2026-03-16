@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Search, SlidersHorizontal, FileSearch, Gavel, 
   Briefcase, FileText, MapPin, Calendar, ArrowUpRight, 
-  ArrowLeft, ChevronRight, ChevronDown 
+  ArrowLeft, ChevronRight, ChevronDown, ChevronLeft
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
@@ -48,91 +48,92 @@ export default function SearchPage() {
           </div>
         )}
         <div className="max-w-7xl mx-auto relative z-10">
-          <nav className="flex items-center text-sm font-medium text-blue-400 mb-6">
+          <nav className="flex items-center text-sm font-black text-blue-400 mb-6 uppercase tracking-widest">
             <button onClick={() => setCurrentView('portal')} className="hover:text-blue-300 transition-colors flex items-center">
-              <ArrowLeft className="w-4 h-4 mr-1.5" />
+              <ArrowLeft className="w-4 h-4 mr-2" />
               {currentLang.home}
             </button>
-            <ChevronRight className="w-4 h-4 mx-2 text-zinc-500" />
-            <span className="text-zinc-300">{currentLang.searchResTitle}</span>
+            <ChevronRight className="w-4 h-4 mx-3 text-zinc-600" />
+            <span className="text-white/60">{currentLang.searchResTitle}</span>
           </nav>
-          <h1 className={`text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 ${isHighContrast ? 'text-white' : 'text-white'}`}>
+          <h1 className={`text-4xl sm:text-6xl font-black tracking-tighter mb-4 ${isHighContrast ? 'text-white' : 'text-white'}`}>
             {currentLang.searchResTitle}
           </h1>
           
-          <div className="flex items-center gap-4 max-w-2xl mt-6">
+          <div className="flex items-center gap-4 max-w-2xl mt-8">
             <div className="relative flex-1">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-zinc-400" />
               </div>
               <input 
                 type="text" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full pl-12 pr-4 py-3.5 rounded-2xl border text-base font-medium transition-all ${isHighContrast ? 'bg-black border-white text-white placeholder-zinc-500' : 'bg-zinc-800/50 border-zinc-700 text-white placeholder-zinc-400 focus:bg-zinc-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'}`}
+                className={`w-full pl-14 pr-6 py-4 rounded-2xl border text-lg font-bold transition-all outline-none ${isHighContrast ? 'bg-black border-2 border-white text-white placeholder-zinc-500' : 'bg-white/10 backdrop-blur-md border-white/10 text-white placeholder-zinc-400 focus:bg-white/20 focus:border-white/30 focus:ring-4 focus:ring-white/10 shadow-2xl'}`}
                 placeholder={currentLang.searchPlace}
               />
             </div>
+            <button className="btn-primary py-4 px-8 hidden sm:block">Search Result</button>
           </div>
         </div>
       </div>
 
-      <div className={`flex-1 py-8 sm:py-12 ${isHighContrast ? 'bg-black' : 'bg-zinc-50'}`}>
+      <div className={`flex-1 py-10 sm:py-16 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col lg:flex-row gap-8 items-start">
+          <div className="flex flex-col lg:flex-row gap-12 items-start">
             {/* SIDEBAR: Filters */}
-            <aside className="w-full lg:w-1/4 space-y-6 flex-shrink-0 hidden lg:block">
-              <div className={`p-6 rounded-3xl shadow-sm ${isHighContrast ? 'bg-black border-2 border-white' : 'bg-white border border-zinc-200'}`}>
-                <h3 className={`text-lg font-bold mb-6 flex items-center ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
-                  <SlidersHorizontal className="w-5 h-5 mr-2 text-blue-500" /> Filters
+            <aside className="w-full lg:w-1/4 space-y-8 flex-shrink-0 hidden lg:block">
+              <div className={`p-8 rounded-[2.5rem] border ${isHighContrast ? 'bg-black border-white' : 'bg-white border-zinc-200 shadow-premium'}`}>
+                <h3 className={`text-xl font-black mb-8 flex items-center tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                  <SlidersHorizontal className="w-5 h-5 mr-3 text-blue-600" /> Filters
                 </h3>
 
-                <div className="space-y-6">
+                <div className="space-y-8">
                   <div>
-                    <label className={`text-[10px] font-bold uppercase tracking-wider mb-2 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.searchFilterCategory}</label>
-                    <div className="space-y-2">
+                    <label className={`text-[10px] font-black uppercase tracking-widest mb-4 block ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>{currentLang.searchFilterCategory}</label>
+                    <div className="space-y-3">
                       {['All Categories', 'Award', 'Case / Hearing', 'Practice Note'].map(cat => (
-                        <label key={cat} className="flex items-center gap-3 cursor-pointer group">
-                          <div className={`w-5 h-5 rounded flex items-center justify-center border transition-colors ${cat === 'All Categories' ? (isHighContrast ? 'bg-white border-white' : 'bg-blue-600 border-blue-600') : (isHighContrast ? 'border-zinc-500 group-hover:border-white' : 'border-zinc-300 group-hover:border-blue-400')}`}>
+                        <label key={cat} className="flex items-center gap-4 cursor-pointer group">
+                          <div className={`w-6 h-6 rounded-lg flex items-center justify-center border-2 transition-all ${cat === 'All Categories' ? (isHighContrast ? 'bg-white border-white' : 'bg-blue-600 border-blue-600 scale-105') : (isHighContrast ? 'border-zinc-800 hover:border-white' : 'border-zinc-100 group-hover:border-blue-200')}`}>
                             {cat === 'All Categories' && <div className={`w-2.5 h-2.5 rounded-sm ${isHighContrast ? 'bg-black' : 'bg-white'}`} />}
                           </div>
-                          <span className={`text-sm font-semibold transition-colors ${isHighContrast ? 'text-zinc-300 group-hover:text-white' : 'text-zinc-700 group-hover:text-zinc-900'}`}>{cat}</span>
+                          <span className={`text-sm font-black tracking-tight transition-colors ${isHighContrast ? 'text-zinc-400 group-hover:text-white' : 'text-zinc-600 group-hover:text-blue-600'}`}>{cat}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
-                  <div className={`w-full h-px ${isHighContrast ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>
+                  <div className={`w-full h-px ${isHighContrast ? 'bg-zinc-800' : 'bg-zinc-100'}`}></div>
 
                   <div>
-                    <label className={`text-[10px] font-bold uppercase tracking-wider mb-2 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.searchFilterYear}</label>
+                    <label className={`text-[10px] font-black uppercase tracking-widest mb-4 block ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>{currentLang.searchFilterYear}</label>
                     <div className="relative">
-                      <select className={`w-full pl-4 pr-10 py-2.5 rounded-xl border text-sm font-semibold appearance-none transition-all ${isHighContrast ? 'bg-black border-white text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500'}`}>
+                      <select className={`w-full pl-5 pr-12 py-3.5 rounded-2xl border text-sm font-black appearance-none transition-all outline-none ${isHighContrast ? 'bg-black border-white text-white' : 'bg-zinc-50 border-zinc-100 text-zinc-900 focus:bg-white focus:border-blue-500 shadow-sm'}`}>
                         <option>All Years</option>
                         <option>2026</option>
                         <option>2025</option>
                         <option>2024</option>
                       </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
+                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
                     </div>
                   </div>
 
                   <div>
-                    <label className={`text-[10px] font-bold uppercase tracking-wider mb-2 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.searchFilterCourt}</label>
+                    <label className={`text-[10px] font-black uppercase tracking-widest mb-4 block ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>{currentLang.searchFilterCourt}</label>
                     <div className="relative">
-                      <select className={`w-full pl-4 pr-10 py-2.5 rounded-xl border text-sm font-semibold appearance-none transition-all ${isHighContrast ? 'bg-black border-white text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500'}`}>
+                      <select className={`w-full pl-5 pr-12 py-3.5 rounded-2xl border text-sm font-black appearance-none transition-all outline-none ${isHighContrast ? 'bg-black border-white text-white' : 'bg-zinc-50 border-zinc-100 text-zinc-900 focus:bg-white focus:border-blue-500 shadow-sm'}`}>
                         <option>All Courts</option>
                         {courtLocations.flatMap(l => l.courts).map(court => (
                           <option key={court}>{court}</option>
                         ))}
                       </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
+                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
                     </div>
                   </div>
 
-                  <div className="pt-2">
-                    <button className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all border ${isHighContrast ? 'border-white text-white hover:bg-zinc-900' : 'border-zinc-300 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900'}`}>
+                  <div className="pt-4">
+                    <button className="btn-secondary w-full">
                       {currentLang.searchClearFilters}
                     </button>
                   </div>
@@ -142,18 +143,20 @@ export default function SearchPage() {
 
             {/* MAIN CONTENT: Listings */}
             <div className="w-full lg:w-3/4 flex flex-col">
-              <div className="mb-6">
-                <p className={`text-sm sm:text-base font-semibold ${tTextSub}`}>
-                  {currentLang.searchResShowing} <span className={isHighContrast ? 'text-white' : 'text-zinc-900'}>{filteredSearchResults.length} items</span> {searchQuery ? `for "${searchQuery}"` : ''}
+              <div className="mb-8">
+                <p className={`text-base font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                  {currentLang.searchResShowing} <span className={`font-black ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{filteredSearchResults.length} items</span> {searchQuery ? `found for your query` : ''}
                 </p>
               </div>
 
-              <div className="space-y-4 sm:space-y-6">
+              <div className="space-y-6 sm:space-y-8">
                 {filteredSearchResults.length === 0 ? (
-                  <div className={`p-12 text-center rounded-3xl border-2 border-dashed flex flex-col items-center justify-center ${isHighContrast ? 'border-zinc-800 bg-black' : 'border-zinc-200 bg-white'}`}>
-                    <FileSearch className={`w-16 h-16 mb-4 ${isHighContrast ? 'text-zinc-600' : 'text-zinc-300'}`} />
-                    <h3 className={`text-xl font-bold mb-2 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.searchNoResults}</h3>
-                    <p className={`text-sm ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>{currentLang.searchNoResultsSub} &quot;{searchQuery}&quot;</p>
+                  <div className={`p-16 text-center rounded-[3rem] border-2 border-dashed flex flex-col items-center justify-center ${isHighContrast ? 'border-zinc-800 bg-zinc-900' : 'border-zinc-100 bg-zinc-50/50'}`}>
+                    <div className="w-20 h-20 rounded-3xl bg-zinc-100 flex items-center justify-center mb-6 text-zinc-400">
+                        <FileSearch className="w-10 h-10" />
+                    </div>
+                    <h3 className={`text-2xl font-black mb-3 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.searchNoResults}</h3>
+                    <p className={`text-sm max-w-sm mx-auto font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>{currentLang.searchNoResultsSub} &quot;{searchQuery}&quot;. Please try reflecting your search with broader terms.</p>
                   </div>
                 ) : (
                   filteredSearchResults.map((res, idx) => {
@@ -163,51 +166,52 @@ export default function SearchPage() {
                     return (
                       <div 
                         key={idx} 
-                        className={`p-5 sm:p-7 rounded-2xl sm:rounded-3xl border transition-all duration-300 group ${isHighContrast ? 'bg-black border-white hover:ring-2 hover:ring-white' : 'bg-white border-zinc-200 shadow-sm hover:shadow-lg hover:border-blue-300'}`}
+                        className={`p-7 sm:p-10 rounded-[2.5rem] border transition-all duration-500 group animate-in fade-in slide-in-from-bottom-4 ${isHighContrast ? 'bg-black border-white hover:bg-zinc-900' : 'bg-white border-zinc-100 hover:border-blue-400 hover:shadow-premium'}`}
+                        style={{ animationDelay: `${idx * 100}ms` }}
                       >
-                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                          <div className="flex-1 pr-0 sm:pr-8">
-                            <div className="flex items-center gap-3 mb-3">
-                              <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-bold uppercase tracking-wider ${isHighContrast ? 'border border-white text-white' : isAward ? 'bg-emerald-100 text-emerald-800' : isCase ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}>
-                                {isAward ? <Gavel className="w-3 h-3 mr-1.5" /> : isCase ? <Briefcase className="w-3 h-3 mr-1.5" /> : <FileText className="w-3 h-3 mr-1.5" />}
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-6">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-4 mb-5">
+                              <span className={`inline-flex items-center px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest ${isHighContrast ? 'border-2 border-white text-white' : isAward ? 'bg-emerald-50 text-emerald-700' : isCase ? 'bg-blue-50 text-blue-700' : 'bg-purple-50 text-purple-700'}`}>
+                                {isAward ? <Gavel className="w-3.5 h-3.5 mr-2" /> : isCase ? <Briefcase className="w-3.5 h-3.5 mr-2" /> : <FileText className="w-3.5 h-3.5 mr-2" />}
                                 {res.type}
                               </span>
-                              <span className={`text-xs sm:text-sm font-mono font-bold ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                                {highlightText(res.id, searchQuery)}
+                              <span className={`text-xs font-mono font-black ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                                #{res.id}
                               </span>
                             </div>
-                            <h4 className={`text-lg sm:text-xl font-bold leading-tight mb-3 ${isHighContrast ? 'text-white' : 'text-blue-700 group-hover:text-blue-800'}`}>
+                            <h4 className={`text-2xl sm:text-3xl font-black tracking-tighter leading-tight mb-4 group-hover:text-blue-600 transition-colors ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                               {highlightText(res.title, searchQuery)}
                             </h4>
-                            <div className={`flex flex-wrap gap-x-5 gap-y-2 text-xs sm:text-sm font-semibold ${tTextSub}`}>
+                            <div className={`flex flex-wrap gap-x-8 gap-y-3 text-sm font-black uppercase tracking-widest ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`}>
                               <div className="flex items-center">
-                                <MapPin className="w-4 h-4 mr-1.5 opacity-60 flex-shrink-0" /> {highlightText(res.court, searchQuery)}
+                                <MapPin className="w-4 h-4 mr-2.5 text-blue-600 opacity-70" /> {highlightText(res.court, searchQuery)}
                               </div>
                               <div className="flex items-center">
-                                <Calendar className="w-4 h-4 mr-1.5 opacity-60 flex-shrink-0" /> {res.date}
+                                <Calendar className="w-4 h-4 mr-2.5 text-blue-600 opacity-70" /> {res.date}
                               </div>
                             </div>
                           </div>
                           
-                          <button className={`hidden sm:flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-xl transition-all ${isHighContrast ? 'border border-white text-white hover:bg-white hover:text-black' : 'bg-zinc-50 text-blue-600 hover:bg-blue-600 hover:text-white shadow-sm'}`}>
-                            <ArrowUpRight className="w-6 h-6" />
+                          <button className={`hidden sm:flex flex-shrink-0 items-center justify-center w-14 h-14 rounded-2xl transition-all duration-500 ${isHighContrast ? 'border-2 border-white text-white hover:bg-white hover:text-black' : 'bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-100'}`}>
+                            <ArrowUpRight className="w-8 h-8" />
                           </button>
                         </div>
 
-                        <p className={`text-sm sm:text-base leading-relaxed mb-6 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-600'}`}>
-                          {highlightText(res.summary, searchQuery)}
+                        <p className={`text-base sm:text-lg leading-relaxed mb-8 font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                          {res.summary}
                         </p>
 
-                        <div className={`pt-5 border-t flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${isHighContrast ? 'border-zinc-800' : 'border-zinc-100'}`}>
-                          <div className="flex flex-wrap gap-2">
+                        <div className={`pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-6 ${isHighContrast ? 'border-zinc-800' : 'border-zinc-50'}`}>
+                          <div className="flex flex-wrap gap-3">
                             {res.keywords.map((kw, i) => (
-                              <span key={i} className={`px-2.5 py-1 text-[10px] sm:text-xs font-semibold rounded-md border ${isHighContrast ? 'bg-black border-zinc-600 text-zinc-300' : 'bg-white border-zinc-200 text-zinc-600'}`}>
-                                {highlightText(kw, searchQuery)}
+                              <span key={i} className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-xl border ${isHighContrast ? 'bg-black border-zinc-700 text-zinc-400' : 'bg-white border-zinc-100 text-zinc-500 shadow-sm transition-colors hover:border-blue-200'}`}>
+                                {kw}
                               </span>
                             ))}
                           </div>
-                          <button className={`w-full sm:hidden flex items-center justify-center py-2.5 rounded-xl text-sm font-bold transition-all ${isHighContrast ? 'border border-white text-white hover:bg-white hover:text-black' : 'bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white'}`}>
-                            View Document <ArrowUpRight className="w-4 h-4 ml-1.5" />
+                          <button className="btn-secondary w-full sm:w-auto px-8">
+                            View Document Detail
                           </button>
                         </div>
                       </div>
@@ -216,19 +220,25 @@ export default function SearchPage() {
                 )}
               </div>
 
-              {/* Pagination - Hide if no results */}
+              {/* Pagination */}
               {filteredSearchResults.length > 0 && (
-                <div className="mt-10 flex justify-center">
-                  <div className={`inline-flex rounded-xl shadow-sm ${isHighContrast ? 'border border-white' : 'bg-white border border-zinc-200'}`}>
-                    <button className={`px-4 py-2 text-sm font-semibold rounded-l-xl ${isHighContrast ? 'text-white hover:bg-zinc-800' : 'text-zinc-500 hover:bg-zinc-50'}`}>Prev</button>
-                    <button className={`px-4 py-2 text-sm font-bold ${isHighContrast ? 'bg-white text-black' : 'bg-blue-50 text-blue-600 border-x border-blue-100'}`}>1</button>
-                    <button className={`px-4 py-2 text-sm font-semibold ${isHighContrast ? 'text-white hover:bg-zinc-800' : 'text-zinc-700 hover:bg-zinc-50 border-r border-zinc-200'}`}>2</button>
-                    <button className={`px-4 py-2 text-sm font-semibold rounded-r-xl ${isHighContrast ? 'text-white hover:bg-zinc-800' : 'text-zinc-500 hover:bg-zinc-50'}`}>Next</button>
+                <div className="mt-16 flex justify-center">
+                  <div className={`inline-flex items-center p-1.5 rounded-2xl ${isHighContrast ? 'border-2 border-white' : 'bg-zinc-50 border border-zinc-100 shadow-sm'}`}>
+                    <button className={`w-12 h-12 flex items-center justify-center rounded-xl transition-colors ${isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-400 hover:text-blue-600 hover:bg-white'}`}>
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <div className="px-6 flex gap-2">
+                        <button className={`w-10 h-10 flex items-center justify-center rounded-xl text-sm font-black ${isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white shadow-lg shadow-blue-100'}`}>1</button>
+                        <button className={`w-10 h-10 flex items-center justify-center rounded-xl text-sm font-black transition-colors ${isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-400 hover:text-blue-600 hover:bg-white'}`}>2</button>
+                        <button className={`w-10 h-10 flex items-center justify-center rounded-xl text-sm font-black transition-colors ${isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-400 hover:text-blue-600 hover:bg-white'}`}>3</button>
+                    </div>
+                    <button className={`w-12 h-12 flex items-center justify-center rounded-xl transition-colors ${isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-400 hover:text-blue-600 hover:bg-white'}`}>
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
                   </div>
                 </div>
               )}
             </div>
-            
           </div>
         </div>
       </div>

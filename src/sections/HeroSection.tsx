@@ -30,7 +30,7 @@ export default function HeroSection() {
             )}
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-32 flex flex-col items-center text-center">
-                <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold mb-8 border ${isHighContrast ? 'border-white text-white' : 'border-blue-500/30 bg-blue-500/10 text-blue-300'}`}>
+                <div className={`inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold mb-8 border ${isHighContrast ? 'border-white text-white' : 'border-blue-500/30 bg-blue-500/10 text-blue-300'}`}>
                     <span className="flex w-2 h-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
                     Version 2.0 Live
                 </div>
@@ -42,12 +42,12 @@ export default function HeroSection() {
                         </span>
                     ))}
                 </h1>
-                <p className="text-base sm:text-xl text-zinc-400 mb-10 sm:mb-14 max-w-2xl font-normal leading-relaxed px-4">
+                <p className={`text-base sm:text-xl mb-10 sm:mb-14 max-w-2xl font-medium leading-relaxed px-4 ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>
                     {currentLang.heroSub}
                 </p>
 
-                <div className={`w-full max-w-3xl p-1.5 sm:p-2 rounded-2xl flex flex-col sm:flex-row items-center shadow-2xl transition-all focus-within:ring-4 ${isHighContrast ? 'bg-black border border-white focus-within:ring-white/50' : 'bg-white/10 backdrop-blur-md border border-white/10 focus-within:bg-white/15 focus-within:border-white/30 focus-within:ring-blue-500/20'}`}>
-                    <div className="pl-0 sm:pl-4 pt-4 sm:pt-0 pb-2 sm:pb-0 text-zinc-400 w-full sm:w-auto flex justify-center sm:block hidden sm:flex">
+                <div className={`w-full max-w-3xl p-2 rounded-2xl flex flex-col sm:flex-row items-center transition-all focus-within:ring-4 ${isHighContrast ? 'bg-black border border-white focus-within:ring-white/50' : 'bg-white/10 backdrop-blur-md border border-white/10 shadow-2xl focus-within:bg-white/15 focus-within:border-white/30 focus-within:ring-blue-500/20'}`}>
+                    <div className="pl-4 hidden sm:flex text-zinc-400">
                         <Search className="w-6 h-6" />
                     </div>
                     <input
@@ -56,7 +56,7 @@ export default function HeroSection() {
                         onChange={(e) => setLocalSearch(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                         placeholder={currentLang.searchPlace}
-                        className="w-full px-4 py-3 sm:py-4 text-white placeholder:text-zinc-400 bg-transparent border-none focus:ring-0 text-base sm:text-lg outline-none font-medium text-center sm:text-left"
+                        className={`w-full px-4 py-3 sm:py-4 bg-transparent border-none focus:ring-0 text-base sm:text-lg outline-none font-bold text-center sm:text-left text-white placeholder:text-zinc-400`}
                     />
                     <button 
                         onClick={handleSearch}
