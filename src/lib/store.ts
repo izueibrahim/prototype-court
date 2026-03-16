@@ -14,9 +14,10 @@ type WcagStates = {
 };
 
 interface AppState {
-    currentView: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest';
+    currentView: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details';
     loginRole: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null;
     dashActiveView: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings';
+    selectedCaseId: string | null;
     searchQuery: string;
     scheduleSearchQuery: string;
     lang: 'en' | 'ms';
@@ -24,9 +25,10 @@ interface AppState {
     textSize: number;
     wcagStates: WcagStates;
 
-    setCurrentView: (view: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest') => void;
+    setCurrentView: (view: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details') => void;
     setLoginRole: (role: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null) => void;
     setDashActiveView: (view: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings') => void;
+    setSelectedCaseId: (id: string | null) => void;
     setSearchQuery: (query: string) => void;
     setScheduleSearchQuery: (query: string) => void;
     setLang: (lang: 'en' | 'ms') => void;
@@ -41,6 +43,7 @@ export const useAppStore = create<AppState>((set) => ({
     currentView: 'portal',
     loginRole: null,
     dashActiveView: 'overview',
+    selectedCaseId: null,
     searchQuery: '',
     scheduleSearchQuery: '',
     lang: 'en',
@@ -61,6 +64,7 @@ export const useAppStore = create<AppState>((set) => ({
     setCurrentView: (view) => set({ currentView: view }),
     setLoginRole: (role) => set({ loginRole: role }),
     setDashActiveView: (view) => set({ dashActiveView: view }),
+    setSelectedCaseId: (id) => set({ selectedCaseId: id }),
     setSearchQuery: (query) => set({ searchQuery: query }),
     setScheduleSearchQuery: (query) => set({ scheduleSearchQuery: query }),
     setLang: (lang) => set({ lang }),

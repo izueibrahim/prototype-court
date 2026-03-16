@@ -7,14 +7,50 @@ import React from 'react';
 
 export const upcomingHearings = [
   { 
-    id: '1/1-1522/25', 
-    court: 'Mahkamah 1', 
+    id: '22/4-1318/24', 
+    court: 'Court 22', 
     judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim', 
-    time: '09:00 AM',
-    claimant: 'Tay Hwee Lan',
-    respondent: 'Healthy Vision',
-    keywords: ['Constructive Dismissal', 'Unpaid Wages', 'Breach of Contract'],
-    summary: 'The claimant alleges constructive dismissal due to a significant, unilateral reduction in responsibilities and non-payment of contractual allowances over a period of 3 months.'
+    date: '15 January 2025',
+    time: '09:00 AM', // Used briefly for hearing list
+    claimant: 'Kailash a/l Ganeshan',
+    respondent: 'TNT Consultancy Sdn Bhd',
+    keywords: ['Dismissal', 'Active', 'Final award'],
+    summary: 'The claimant alleges unfair dismissal. Case is currently at the Final Award stage after a complete cycle of mentions, hearings, and document filings.',
+    status: 'Active',
+    stage: 'Final award',
+    mentions: [
+      { date: '25-11-2024 10:30:00', status: 'Completed' },
+      { date: '20-01-2025 09:30:00', status: 'Completed' },
+      { date: '20-02-2025 09:00:00', status: 'Postponed' },
+      { date: '06-03-2025 10:00:00', status: 'Completed' },
+      { date: '17-06-2025 09:01:00', status: 'Completed' }
+    ],
+    hearings: [
+      { date: '14-07-2025 11:31:00', location: 'Local', status: 'Part-heard' },
+      { date: '15-07-2025 09:00:00', location: 'Local', status: 'Postponed' },
+      { date: '02-09-2025 10:00:30', location: 'Local', status: 'Part-heard' },
+      { date: '03-09-2025 09:00:00', location: 'Local', status: 'Postponed' },
+      { date: '21-10-2025 09:42:00', location: 'Local', status: 'Part-heard' },
+      { date: '22-10-2025 10:00:00', location: 'Local', status: 'Completed' }
+    ],
+    filings: [
+      { id: 1, document: 'Form A', date: '04-12-2024', party1: true, party2: false },
+      { id: 2, document: 'Form B', date: '04-12-2024', party1: true, party2: false },
+      { id: 3, document: 'Form A', date: '12-12-2024', party1: false, party2: true },
+      { id: 4, document: 'Form B', date: '12-12-2024', party1: false, party2: true },
+      { id: 5, document: 'Statement of Case', date: '06-01-2025', party1: true, party2: false },
+      { id: 6, document: 'Statement in Reply', date: '21-02-2025', party1: false, party2: true },
+      { id: 7, document: 'Bundle of Documents', date: '21-02-2025', party1: false, party2: true },
+      { id: 8, document: 'Rejoinder', date: '06-03-2025', party1: true, party2: false },
+      { id: 9, document: 'Supplementary Bundle', date: '07-07-2025', party1: false, party2: true },
+      { id: 10, document: 'Witness Statements', date: '07-07-2025', party1: false, party2: true },
+      { id: 14, document: 'Witness Statements', date: '09-07-2025', party1: true, party2: false },
+      { id: 17, document: 'Written Submissions', date: '12-01-2026', party1: true, party2: false },
+      { id: 19, document: 'Written Submissions', date: '13-01-2026', party1: false, party2: true },
+      { id: 21, document: 'Reply/Further Written Submissions', date: '05-02-2026', party1: true, party2: false },
+      { id: 22, document: 'Reply/Further Written Submissions', date: '09-03-2026', party1: false, party2: true },
+      { id: 24, document: 'Ultimatum Date (Final)', date: '09-03-2026', party1: false, party2: true }
+    ]
   },
   { 
     id: '1/1-1079/25', 

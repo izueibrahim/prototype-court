@@ -12,6 +12,7 @@ import HearingsSchedule from '@/sections/HearingsSchedule';
 import LoginSection from '@/sections/LoginSection';
 import FullSchedule from '@/sections/FullSchedule';
 import SearchPage from '@/sections/SearchPage';
+import CaseDetailsSection from '@/sections/CaseDetailsSection';
 
 export default function Home() {
   const { currentView, textSize, wcagStates, isWcagOpen } = useAppStore();
@@ -60,6 +61,12 @@ export default function Home() {
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <SearchPage />
+          <Footer />
+        </div>
+      ) : currentView === 'case-details' ? (
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <CaseDetailsSection />
           <Footer />
         </div>
       ) : (

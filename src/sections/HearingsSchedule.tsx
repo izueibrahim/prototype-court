@@ -115,7 +115,7 @@ export default function HearingsSchedule() {
                                                     <p className={`text-xs sm:text-sm leading-relaxed ${isHighContrast ? 'text-white' : 'text-zinc-700'}`}>{hearing.summary}</p>
                                                 </div>
                                                 <div className="flex flex-col sm:flex-row gap-3">
-                                                    <button className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-zinc-900 text-white hover:bg-blue-600 shadow-md'}`}>
+                                                    <button onClick={() => setCurrentView('case-details')} className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-zinc-900 text-white hover:bg-blue-600 shadow-md'}`}>
                                                         View Details
                                                     </button>
                                                     <button className={`w-full sm:w-auto flex justify-center items-center px-5 py-2.5 rounded-xl text-sm font-bold border transition-all ${isHighContrast ? 'border-white text-white hover:bg-zinc-800' : 'bg-white border-zinc-300 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-400 shadow-sm'}`}>
@@ -182,7 +182,7 @@ export default function HearingsSchedule() {
                                                     <p className={`text-xs sm:text-sm leading-relaxed ${isHighContrast ? 'text-white' : 'text-zinc-700'}`}>{judgment.summary}</p>
                                                 </div>
                                                 <div className="flex flex-col sm:flex-row gap-3">
-                                                    <button className={`w-full sm:w-auto flex justify-center items-center px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-md'}`}>
+                                                    <button onClick={() => setCurrentView('case-details')} className={`w-full sm:w-auto flex justify-center items-center px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-md'}`}>
                                                         <Download className="w-4 h-4 mr-2" /> Download Full Award
                                                     </button>
                                                 </div>
