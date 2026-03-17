@@ -150,7 +150,11 @@ export const t: Translations = {
         analyticsMetrics: "Analytics Metrics",
         usageActivity: "Usage Activity",
         systemSettings: "System Settings",
-        courtDisplay: "Court Display Feed"
+        courtDisplay: "Court Display Feed",
+        loginWelcome: "Welcome back",
+        loginBrandingTitle: "Advancing Digital Justice for Industrial Harmony.",
+        loginBrandingSub: "The official integrated gateway for Case Management and Judicial Services.",
+        loginStat: "Over 50,000+ Awards Published"
     },
     ms: {
         portal: 'Mahkamah Perusahaan Malaysia',
@@ -284,6 +288,10 @@ export const t: Translations = {
         analyticsMetrics: "Metrik Analitik",
         usageActivity: "Aktiviti Penggunaan",
         systemSettings: "Tetapan Sistem",
-        courtDisplay: "Siaran Paparan Mahkamah"
+        courtDisplay: "Siaran Paparan Mahkamah",
+        loginWelcome: "Selamat kembali",
+        loginBrandingTitle: "Memacu Keadilan Digital untuk Keharmonian Perusahaan.",
+        loginBrandingSub: "Gerbang bersepadu rasmi untuk Pengurusan Kes dan Perkhidmatan Kehakiman.",
+        loginStat: "Lebih 50,000+ Award Diterbitkan"
     }
 };
