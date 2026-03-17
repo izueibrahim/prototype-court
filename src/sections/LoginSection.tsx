@@ -6,7 +6,7 @@ import { t } from '@/lib/i18n';
 import {
     Globe, ArrowLeft, ShieldCheck, UserCircle,
     Video, ChevronRight, Mail, Lock, Briefcase, Key, ArrowUpRight, HelpCircle, Fingerprint,
-    Scale, Gavel
+    Scale, Gavel, Settings, CheckCircle2
 } from 'lucide-react';
 
 import { useRouter } from 'next/navigation';
@@ -15,12 +15,21 @@ export default function LoginSection() {
     const router = useRouter();
     const { lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView, setDashActiveView, setEFilingActiveView } = useAppStore();
     const [demoRole, setDemoRole] = React.useState<'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest'>('officer');
+    const [showMFA, setShowMFA] = React.useState(false);
+    const [otp, setOtp] = React.useState(['', '', '', '', '', '']);
 
     const currentLang = t[lang];
     const isHighContrast = wcagStates.highContrast;
 
     const handleLoginSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        
+        // MFA Simulation for Admin/YDP/Chairman
+        if (!showMFA && ['admin', 'ydp', 'chairman'].includes(demoRole)) {
+            setShowMFA(true);
+            return;
+        }
+
         setLoginRole(demoRole);
         if (['ydp', 'registrar', 'officer', 'chairman', 'ca_unit', 'admin'].includes(demoRole)) {
             setCurrentView('dashboard-internal');
@@ -111,6 +120,21 @@ export default function LoginSection() {
                                     </button>
                                 </div>
 
+                                {/* Pentadbir Sistem (Admin) */}
+                                <button
+                                    onClick={() => { setDemoRole('admin'); setLoginRole('officer'); }}
+                                    className={`w-full flex items-center p-5 sm:p-6 rounded-2xl border text-left transition-all group mb-4 ${isHighContrast ? 'border-white hover:bg-zinc-900' : 'border-zinc-200 bg-zinc-50 hover:bg-white hover:border-amber-400 shadow-sm'}`}
+                                >
+                                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center mr-5 flex-shrink-0 transition-transform group-hover:scale-105 ${isHighContrast ? 'border border-white text-white' : 'bg-amber-600 text-white shadow-inner'}`}>
+                                        <Settings className="w-7 h-7" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className={`text-lg font-black mb-1 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.roleAdmin}</h3>
+                                        <p className={`text-sm leading-snug pr-4 font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.roleAdminDesc}</p>
+                                    </div>
+                                    <ChevronRight className={`w-5 h-5 flex-shrink-0 ${isHighContrast ? 'text-white' : 'text-zinc-300 group-hover:text-amber-600'}`} />
+                                </button>
+
                                 {/* eFiling User */}
                                 <button
                                     onClick={() => { setDemoRole('efiling'); setLoginRole('efiling'); }}
@@ -154,110 +178,164 @@ export default function LoginSection() {
 
                             <div className={`flex items-center gap-4 mb-8 pb-8 border-b ${isHighContrast ? 'border-zinc-700' : 'border-zinc-100'}`}>
                                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${isHighContrast ? 'border border-white text-white' : 'bg-blue-600 text-white shadow-inner'}`}>
-                                    {loginRole === 'officer' && <ShieldCheck className="w-6 h-6" />}
+                                    {loginRole === 'officer' && (demoRole === 'admin' ? <Settings className="w-6 h-6" /> : <ShieldCheck className="w-6 h-6" />)}
                                     {loginRole === 'efiling' && <UserCircle className="w-6 h-6" />}
                                     {loginRole === 'guest' && <Video className="w-6 h-6" />}
                                 </div>
                                 <div>
                                     <h2 className={`text-2xl font-black tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
-                                        {loginRole === 'officer' ? (demoRole === 'ydp' ? 'YDP / Executive' : demoRole === 'chairman' ? 'Chairman (Judge)' : currentLang.roleOfficer) : loginRole === 'efiling' ? currentLang.roleEfiling : currentLang.roleGuest}
+                                        {loginRole === 'officer' ? (demoRole === 'ydp' ? 'YDP / Executive' : demoRole === 'chairman' ? 'Chairman (Judge)' : demoRole === 'admin' ? currentLang.roleAdmin : currentLang.roleOfficer) : loginRole === 'efiling' ? currentLang.roleEfiling : currentLang.roleGuest}
                                     </h2>
                                     <p className={`text-sm mt-1 font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>Secure authentication portal</p>
                                 </div>
                             </div>
 
-                            <form className="space-y-6" onSubmit={handleLoginSubmit}>
-                                {(loginRole === 'officer' || loginRole === 'efiling') && (
-                                    <>
-                                        <div>
-                                            <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.userId}</label>
-                                            <div className="relative">
-                                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                    <Mail className={`h-5 w-5 ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`} />
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    className={`block w-full rounded-xl py-3.5 pl-12 pr-4 placeholder:text-zinc-400 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-400 focus:ring-blue-500/10 shadow-sm'}`}
-                                                    placeholder="Enter your ID or email"
-                                                />
-                                            </div>
+                            {showMFA ? (
+                                <form className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500" onSubmit={handleLoginSubmit}>
+                                    <div className="text-center">
+                                        <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                                            <ShieldCheck className="w-8 h-8" />
                                         </div>
-                                        <div>
-                                            <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.password}</label>
-                                            <div className="relative">
-                                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                    <Lock className={`h-5 w-5 ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`} />
-                                                </div>
-                                                <input
-                                                    type="password"
-                                                    className={`block w-full rounded-xl py-3.5 pl-12 pr-4 placeholder:text-zinc-400 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-400 focus:ring-blue-500/10 shadow-sm'}`}
-                                                    placeholder="••••••••"
-                                                />
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
+                                        <h3 className={`text-xl font-black mb-2 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.mfaTitle}</h3>
+                                        <p className={`text-sm font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>{currentLang.mfaSub}</p>
+                                    </div>
 
-                                {loginRole === 'guest' && (
-                                    <>
-                                        <div>
-                                            <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.caseRef}</label>
-                                            <div className="relative">
-                                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                    <Briefcase className={`h-5 w-5 ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`} />
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    className={`block w-full rounded-xl py-3.5 pl-12 pr-4 placeholder:text-zinc-400 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-400 focus:ring-blue-500/10 shadow-sm'}`}
-                                                    placeholder="e.g. 1/1-1522/25"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.accessCode}</label>
-                                            <div className="relative">
-                                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                    <Key className={`h-5 w-5 ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`} />
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    className={`block w-full rounded-xl py-3.5 pl-12 pr-4 placeholder:text-zinc-400 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-400 focus:ring-blue-500/10 shadow-sm'}`}
-                                                    placeholder="6-digit hearing PIN"
-                                                />
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
+                                    <div className="flex justify-between gap-2 sm:gap-4">
+                                        {otp.map((digit, idx) => (
+                                            <input
+                                                key={idx}
+                                                type="text"
+                                                maxLength={1}
+                                                value={digit}
+                                                onChange={(e) => {
+                                                    const newOtp = [...otp];
+                                                    newOtp[idx] = e.target.value;
+                                                    setOtp(newOtp);
+                                                    if (e.target.value && idx < 5) {
+                                                        const nextInput = e.target.nextElementSibling as HTMLInputElement;
+                                                        if (nextInput) nextInput.focus();
+                                                    }
+                                                }}
+                                                className={`w-10 h-14 sm:w-14 sm:h-16 text-center text-xl font-black rounded-xl border-2 transition-all ${isHighContrast ? 'bg-black border-white text-white' : 'bg-zinc-50 border-zinc-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none'}`}
+                                            />
+                                        ))}
+                                    </div>
 
-                                <div className="pt-2">
-                                    <button
-                                        type="submit"
-                                        className={isHighContrast ? 'w-full py-4 rounded-xl text-lg font-bold bg-white text-black' : 'w-full py-4 rounded-xl text-lg font-bold bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all'}>
-                                        {loginRole === 'guest' ? currentLang.joinHearing : currentLang.signIn}
-                                        <ArrowUpRight className="w-5 h-5 ml-2 inline" />
-                                    </button>
-                                </div>
-
-                                {loginRole === 'efiling' && (
-                                    <div className={`pt-4 border-t flex flex-col items-center gap-4 ${isHighContrast ? 'border-zinc-700' : 'border-zinc-100'}`}>
-                                        <div className="w-full flex justify-between text-sm font-bold">
-                                            <a href="#" className={`transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-zinc-700'}`}>{currentLang.forgotPwd}</a>
-                                            <a href="#" className="text-blue-600 hover:text-blue-700 transition-colors">{currentLang.register}</a>
-                                        </div>
-                                        <div className="relative w-full flex items-center justify-center mt-2">
-                                            <span className={`absolute px-4 text-xs font-black uppercase tracking-widest ${isHighContrast ? 'bg-black text-zinc-600' : 'bg-white text-zinc-400'}`}>OR</span>
-                                            <div className={`w-full border-t ${isHighContrast ? 'border-zinc-700' : 'border-zinc-200'}`}></div>
-                                        </div>
+                                    <div className="pt-2">
                                         <button
-                                            type="button"
-                                            onClick={handleLoginSubmit}
-                                            className={isHighContrast ? 'w-full py-3 rounded-xl border border-white text-white bg-black font-bold flex items-center justify-center gap-2' : 'w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 font-bold flex items-center justify-center gap-2 hover:bg-zinc-50 shadow-sm'}>
-                                            <Fingerprint className="w-5 h-5 text-emerald-600" />
-                                            Log Masuk MyDigital ID
+                                            type="submit"
+                                            className={isHighContrast ? 'w-full py-4 rounded-xl text-lg font-bold bg-white text-black' : 'w-full py-4 rounded-xl text-lg font-bold bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all active:scale-[0.98]'}>
+                                            {currentLang.verify}
+                                            <ArrowUpRight className="w-5 h-5 ml-2 inline" />
                                         </button>
                                     </div>
-                                )}
-                            </form>
+
+                                    <button 
+                                        type="button"
+                                        onClick={() => setShowMFA(false)}
+                                        className={`w-full mt-4 text-sm font-bold transition-colors ${isHighContrast ? 'text-zinc-500 hover:text-white' : 'text-zinc-400 hover:text-zinc-900'}`}
+                                    >
+                                        Cancel & Back
+                                    </button>
+                                </form>
+                            ) : (
+                                <form className="space-y-6" onSubmit={handleLoginSubmit}>
+                                    {(loginRole === 'officer' || loginRole === 'efiling') && (
+                                        <>
+                                            <div>
+                                                <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.userId}</label>
+                                                <div className="relative">
+                                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                        <Mail className={`h-5 w-5 ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`} />
+                                                    </div>
+                                                    <input
+                                                        type="text"
+                                                        defaultValue={demoRole === 'admin' ? 'admin_icourt@mpm.gov.my' : ''}
+                                                        className={`block w-full rounded-xl py-3.5 pl-12 pr-4 placeholder:text-zinc-400 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-400 focus:ring-blue-500/10 shadow-sm'}`}
+                                                        placeholder="Enter your ID or email"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.password}</label>
+                                                <div className="relative">
+                                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                        <Lock className={`h-5 w-5 ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`} />
+                                                    </div>
+                                                    <input
+                                                        type="password"
+                                                        defaultValue={demoRole === 'admin' ? '••••••••' : ''}
+                                                        className={`block w-full rounded-xl py-3.5 pl-12 pr-4 placeholder:text-zinc-400 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-400 focus:ring-blue-500/10 shadow-sm'}`}
+                                                        placeholder="••••••••"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {loginRole === 'guest' && (
+                                        <>
+                                            <div>
+                                                <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.caseRef}</label>
+                                                <div className="relative">
+                                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                        <Briefcase className={`h-5 w-5 ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`} />
+                                                    </div>
+                                                    <input
+                                                        type="text"
+                                                        className={`block w-full rounded-xl py-3.5 pl-12 pr-4 placeholder:text-zinc-400 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-400 focus:ring-blue-500/10 shadow-sm'}`}
+                                                        placeholder="e.g. 1/1-1522/25"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.accessCode}</label>
+                                                <div className="relative">
+                                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                        <Key className={`h-5 w-5 ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`} />
+                                                    </div>
+                                                    <input
+                                                        type="text"
+                                                        className={`block w-full rounded-xl py-3.5 pl-12 pr-4 placeholder:text-zinc-400 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-400 focus:ring-blue-500/10 shadow-sm'}`}
+                                                        placeholder="6-digit hearing PIN"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+
+                                    <div className="pt-2">
+                                        <button 
+                                            type="submit"
+                                            className={isHighContrast ? 'w-full py-4 rounded-xl text-lg font-bold bg-white text-black' : 'w-full py-4 rounded-xl text-lg font-bold bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all'}>
+                                            {loginRole === 'guest' ? currentLang.joinHearing : currentLang.signIn}
+                                            <ArrowUpRight className="w-5 h-5 ml-2 inline" />
+                                        </button>
+                                    </div>
+
+                                    {(loginRole === 'efiling' || loginRole === 'officer') && (
+                                        <div className={`pt-4 border-t flex flex-col items-center gap-4 ${isHighContrast ? 'border-zinc-700' : 'border-zinc-100'}`}>
+                                            {loginRole === 'efiling' && (
+                                                <div className="w-full flex justify-between text-sm font-bold">
+                                                    <a href="#" className={`transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-zinc-700'}`}>{currentLang.forgotPwd}</a>
+                                                    <a href="#" className="text-blue-600 hover:text-blue-700 transition-colors">{currentLang.register}</a>
+                                                </div>
+                                            )}
+                                            <div className="relative w-full flex items-center justify-center mt-2">
+                                                <span className={`absolute px-4 text-xs font-black uppercase tracking-widest ${isHighContrast ? 'bg-black text-zinc-600' : 'bg-white text-zinc-400'}`}>OR</span>
+                                                <div className={`w-full border-t ${isHighContrast ? 'border-zinc-700' : 'border-zinc-200'}`}></div>
+                                            </div>
+                                            <button 
+                                                type="button"
+                                                onClick={handleLoginSubmit}
+                                                className={isHighContrast ? 'w-full py-3 rounded-xl border border-white text-white bg-black font-bold flex items-center justify-center gap-2' : 'w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 font-bold flex items-center justify-center gap-2 hover:bg-zinc-50 shadow-sm'}>
+                                                <Fingerprint className="w-5 h-5 text-emerald-600" />
+                                                Log Masuk MyDigital ID
+                                            </button>
+                                        </div>
+                                    )}
+                                </form>
+                            )}
                         </div>
                     )}
                 </div>
