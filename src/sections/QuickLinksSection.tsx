@@ -36,7 +36,7 @@ export default function QuickLinksSection() {
                                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${isHighContrast ? 'border border-white text-white group-hover:bg-white group-hover:text-black' : 'bg-blue-600 text-white shadow-inner group-hover:bg-blue-700'}`}>
                                     <Icon className="w-6 h-6" strokeWidth={2.5} />
                                 </div>
-                                <span className={`text-sm font-extrabold whitespace-nowrap tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                <span className={`text-body-sm font-bold whitespace-nowrap tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                                     {link.title.replace('\n', ' ')}
                                 </span>
                             </button>

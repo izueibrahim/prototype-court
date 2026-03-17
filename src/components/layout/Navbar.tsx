@@ -30,11 +30,11 @@ export default function Navbar() {
                                 className="h-12 sm:h-14 w-auto object-contain"
                             />
                             <div className="flex flex-col justify-center">
-                                <span className={`font-extrabold text-base sm:text-lg tracking-tight leading-snug ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                <span className={`text-h6 tracking-tight leading-snug ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                                     Mahkamah Perusahaan Malaysia
                                 </span>
                                 <div className={`my-0.5 h-px w-full ${isHighContrast ? 'bg-white/40' : 'bg-zinc-200'}`} />
-                                <span className={`font-semibold text-xs sm:text-sm tracking-wide leading-snug ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                                <span className={`text-ui-label leading-snug ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
                                     Industrial Court of Malaysia
                                 </span>
                             </div>
@@ -56,7 +56,7 @@ export default function Navbar() {
                                             setCurrentView('portal');
                                         }
                                     }}
-                                    className={`text-sm font-bold transition-colors cursor-pointer ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-500 hover:text-blue-600'}`}
+                                    className={`text-body-sm font-bold transition-colors cursor-pointer ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-500 hover:text-blue-600'}`}
                                 >
                                     {currentLang[item]}
                                 </a>
@@ -64,7 +64,7 @@ export default function Navbar() {
                             <div className="flex items-center gap-6 mr-6">
                                 <button 
                                     onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} 
-                                    className={`flex items-center text-sm font-bold transition-colors px-3 py-1.5 rounded-lg border ${isHighContrast ? 'border-white text-white' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50 hover:text-blue-600'}`}
+                                    className={`flex items-center text-ui-label transition-colors px-3 py-1.5 rounded-lg border ${isHighContrast ? 'border-white text-white' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50 hover:text-blue-600'}`}
                                 >
                                     <Globe className="w-4 h-4 mr-2" />
                                     {lang === 'en' ? 'BM' : 'EN'}
@@ -109,7 +109,7 @@ export default function Navbar() {
                                             setCurrentView('portal');
                                         }
                                     }}
-                                    className={`text-base font-bold px-4 py-3 rounded-xl cursor-pointer ${isHighContrast ? 'text-white hover:bg-zinc-900 border border-transparent hover:border-white' : 'text-zinc-600 hover:bg-blue-50 hover:text-blue-600'}`}
+                                    className={`text-h6 px-4 py-3 rounded-xl cursor-pointer ${isHighContrast ? 'text-white hover:bg-zinc-900 border border-transparent hover:border-white' : 'text-zinc-600 hover:bg-blue-50 hover:text-blue-600'}`}
                                 >
                                     {currentLang[item]}
                                 </a>

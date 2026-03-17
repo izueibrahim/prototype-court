@@ -47,7 +47,7 @@ export default function CaseDetailsSection() {
           </div>
         )}
         <div className="max-w-7xl mx-auto relative z-10">
-          <nav className="flex items-center text-xs font-black text-blue-400 mb-8 uppercase tracking-widest">
+          <nav className="flex items-center text-ui-label text-blue-400 mb-8 uppercase">
             <button onClick={() => setCurrentView('schedule')} className="hover:text-blue-300 transition-colors flex items-center group">
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
               {currentLang.home}
@@ -59,20 +59,20 @@ export default function CaseDetailsSection() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
             <div className="flex-1 max-w-4xl">
               <div className="flex flex-wrap items-center gap-4 mb-6">
-                <span className={`inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.15em] ${isHighContrast ? 'border-2 border-white text-white' : 'bg-blue-600 text-white shadow-lg shadow-blue-900/40'}`}>
+                <span className={`inline-flex items-center px-4 py-1.5 rounded-full text-ui-label font-bold uppercase transition-shadow ${isHighContrast ? 'border-2 border-white text-white' : 'bg-blue-600 text-white shadow-lg shadow-blue-900/40'}`}>
                   <Shield className="w-3 h-3 mr-2" />
                   {activeCase.stage || 'Active Proceedings'}
                 </span>
-                <span className={`text-xs font-mono font-black py-1 px-3 rounded-lg ${isHighContrast ? 'bg-zinc-900 text-zinc-400 border border-zinc-800' : 'bg-white/5 text-zinc-400 border border-white/10'}`}>
+                <span className={`text-body-sm font-mono font-bold py-1 px-3 rounded-lg ${isHighContrast ? 'bg-zinc-900 text-zinc-400 border border-zinc-800' : 'bg-white/5 text-zinc-400 border border-white/10'}`}>
                   REFERENCE ID: {activeCase.id}
                 </span>
               </div>
-              <h1 className={`text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter mb-8 leading-[1.1] ${isHighContrast ? 'text-white' : 'text-white'}`}>
+              <h1 className={`text-h1 tracking-tighter mb-8 leading-[1.1] ${isHighContrast ? 'text-white' : 'text-white'}`}>
                 {activeCase.claimant}
                 <span className="text-zinc-600 font-medium italic mx-4 block sm:inline">v.</span>
                 {activeCase.respondent}
               </h1>
-              <div className="flex flex-wrap gap-6 text-sm font-black uppercase tracking-widest">
+              <div className="flex flex-wrap gap-6 text-ui-label font-bold uppercase">
                 <div className="flex items-center text-zinc-400">
                   <Building2 className="w-4 h-4 mr-3 text-blue-500" />
                   {activeCase.court}
@@ -89,7 +89,7 @@ export default function CaseDetailsSection() {
             <div className="flex gap-3">
               <button className="btn-primary py-4 px-8 rounded-2xl flex items-center gap-3 bg-white text-zinc-950 hover:bg-zinc-200 border-none transition-all">
                 <Printer className="w-5 h-5" />
-                <span className="uppercase text-[10px] tracking-widest font-black">Print Case File</span>
+                <span className="uppercase text-ui-label font-bold">Print Case File</span>
               </button>
             </div>
           </div>
@@ -107,9 +107,9 @@ export default function CaseDetailsSection() {
             <div className={tCardBg}>
               <div className="p-8 sm:p-10">
                 <div className="flex items-center justify-between mb-10 pb-6 border-b border-zinc-100">
-                  <h3 className="text-xl font-black flex items-center tracking-tight text-zinc-900 uppercase">
+                  <h3 className="text-h3 flex items-center tracking-tight text-zinc-900 uppercase">
                     <Briefcase className="w-6 h-6 mr-4 text-blue-600" />
-                    Butiran Kes <span className="text-zinc-400 font-medium ml-2">(Details)</span>
+                    Butiran Kes <span className="text-zinc-400 font-medium ml-2 font-body text-body-sm">(Details)</span>
                   </h3>
                 </div>
 
@@ -121,10 +121,10 @@ export default function CaseDetailsSection() {
                     { label: 'Status', val: activeCase.status || 'Active', icon: CheckCircle2 },
                   ].map((field, i) => (
                     <div key={i} className="space-y-3">
-                      <div className="flex items-center gap-2 text-[10px] font-black text-zinc-400 uppercase tracking-widest">
+                      <div className="flex items-center gap-2 text-ui-label font-bold text-zinc-400 uppercase">
                         <field.icon className="w-3 h-3" /> {field.label}
                       </div>
-                      <p className="text-sm sm:text-base font-black text-zinc-900 tracking-tight leading-tight">{field.val}</p>
+                      <p className="text-body-md font-black text-zinc-900 tracking-tight leading-tight">{field.val}</p>
                     </div>
                   ))}
                 </div>
@@ -141,9 +141,9 @@ export default function CaseDetailsSection() {
             <div className={tCardBg}>
               <div className="p-8 sm:p-10">
                 <div className="flex items-center justify-between mb-8">
-                  <h3 className="text-xl font-black flex items-center tracking-tight text-zinc-900 uppercase">
+                  <h3 className="text-h3 flex items-center tracking-tight text-zinc-900 uppercase">
                     <FileText className="w-6 h-6 mr-4 text-indigo-600" />
-                    Pemfailan <span className="text-zinc-400 font-medium ml-2">(Document Filing)</span>
+                    Pemfailan <span className="text-zinc-400 font-medium ml-2 font-body text-body-sm">(Document Filing)</span>
                   </h3>
                 </div>
 
@@ -152,10 +152,10 @@ export default function CaseDetailsSection() {
                     <table className="w-full text-left">
                       <thead>
                         <tr className="border-b-2 border-zinc-100">
-                          <th className="py-4 px-4 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">ID</th>
-                          <th className="py-4 px-4 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Document Title</th>
-                          <th className="py-4 px-4 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Filed On</th>
-                          <th className="py-4 px-4 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 text-center">Parties Verified</th>
+                          <th className="py-4 px-4 text-ui-label font-bold uppercase text-zinc-400">ID</th>
+                          <th className="py-4 px-4 text-ui-label font-bold uppercase text-zinc-400">Document Title</th>
+                          <th className="py-4 px-4 text-ui-label font-bold uppercase text-zinc-400">Filed On</th>
+                          <th className="py-4 px-4 text-ui-label font-bold uppercase text-zinc-400 text-center">Parties Verified</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-zinc-50">
@@ -197,14 +197,14 @@ export default function CaseDetailsSection() {
                     <FileText className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-white text-sm font-black uppercase tracking-widest">{activeCase.awardNo ? 'Statement of Award' : 'Statement of Case'}</h4>
-                    <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mt-0.5">MP.GOV.MY Secure Document Server</p>
+                    <h4 className="text-white text-body-sm font-bold uppercase tracking-widest">{activeCase.awardNo ? 'Statement of Award' : 'Statement of Case'}</h4>
+                    <p className="text-white/40 text-ui-label font-bold uppercase mt-0.5">MP.GOV.MY Secure Document Server</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center bg-white/5 p-1 rounded-xl border border-white/10 hidden md:flex">
                     <button className="p-2 text-white/60 hover:text-white transition-colors"><ZoomOut className="w-4 h-4" /></button>
-                    <span className="px-3 text-white text-[10px] font-black font-mono">100%</span>
+                    <span className="px-3 text-white text-ui-label font-bold font-mono">100%</span>
                     <button className="p-2 text-white/60 hover:text-white transition-colors"><ZoomIn className="w-4 h-4" /></button>
                   </div>
                   <button className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-white border border-white/10 hover:bg-white/10 transition-all"><Printer className="w-4 h-4" /></button>
@@ -220,15 +220,15 @@ export default function CaseDetailsSection() {
                       <div className="h-1 w-20 bg-blue-600 rounded-full"></div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-1">REFERENCE NO.</p>
-                      <p className="text-sm font-black text-zinc-900 font-mono tracking-tighter">{activeCase.id}</p>
+                      <p className="text-ui-label font-bold text-zinc-400 uppercase mb-1">REFERENCE NO.</p>
+                      <p className="text-body-sm font-bold text-zinc-900 font-mono tracking-tighter">{activeCase.id}</p>
                     </div>
                   </div>
 
                   <div className="space-y-12 mb-20 text-center">
                     <div className="space-y-4">
-                      <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em]">Claimant</p>
-                      <p className="text-2xl font-black text-zinc-900 tracking-tight leading-tight uppercase">{activeCase.claimant}</p>
+                      <p className="text-ui-label font-bold text-zinc-400 uppercase tracking-[0.3em]">Claimant</p>
+                      <p className="text-h3 text-zinc-900 tracking-tight leading-tight uppercase">{activeCase.claimant}</p>
                     </div>
                     <div className="flex items-center justify-center gap-6">
                       <div className="h-px w-12 bg-zinc-200"></div>
@@ -236,8 +236,8 @@ export default function CaseDetailsSection() {
                       <div className="h-px w-12 bg-zinc-200"></div>
                     </div>
                     <div className="space-y-4">
-                      <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em]">Respondent</p>
-                      <p className="text-2xl font-black text-zinc-900 tracking-tight leading-tight uppercase">{activeCase.respondent}</p>
+                      <p className="text-ui-label font-bold text-zinc-400 uppercase tracking-[0.3em]">Respondent</p>
+                      <p className="text-h3 text-zinc-900 tracking-tight leading-tight uppercase">{activeCase.respondent}</p>
                     </div>
                   </div>
 
@@ -249,8 +249,8 @@ export default function CaseDetailsSection() {
 
                   <div className="mt-20 pt-10 border-t border-zinc-100 flex flex-col md:flex-row justify-between gap-10">
                     <div>
-                      <p className="text-[8px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-3">Presiding Dignity</p>
-                      <p className="text-sm font-black text-zinc-900 uppercase tracking-tighter">{activeCase.judge}</p>
+                      <p className="text-ui-label font-bold text-zinc-400 uppercase mb-3 text-[8px]">Presiding Dignity</p>
+                      <p className="text-body-sm font-bold text-zinc-900 uppercase tracking-tighter">{activeCase.judge}</p>
                     </div>
                     <div className="md:text-right">
                       <p className="text-[8px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-3">Certified Official Seal</p>
@@ -269,11 +269,11 @@ export default function CaseDetailsSection() {
             <div className={tCardBg}>
               <div className="p-8">
                 <div className="flex items-center justify-between mb-10">
-                  <h3 className="text-lg font-black flex items-center tracking-tight text-zinc-900 uppercase">
+                  <h3 className="text-h3 flex items-center tracking-tight text-zinc-900 uppercase">
                     <History className="w-5 h-5 mr-3 text-amber-500" />
-                    Sejarah Kes <span className="text-zinc-400 font-medium ml-2">(History)</span>
+                    Sejarah Kes <span className="text-zinc-400 font-medium ml-2 font-body text-body-sm">(History)</span>
                   </h3>
-                  <button className="text-[10px] font-black text-blue-600 hover:text-blue-700 uppercase tracking-widest flex items-center transition-colors">
+                  <button className="text-ui-label font-bold text-blue-600 hover:text-blue-700 uppercase flex items-center transition-colors">
                     Full Log <ExternalLink className="w-3 h-3 ml-1.5" />
                   </button>
                 </div>
@@ -286,12 +286,12 @@ export default function CaseDetailsSection() {
                       </div>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className={`text-[10px] font-black uppercase tracking-widest ${m.status === 'Completed' ? 'text-emerald-600' : 'text-amber-600'}`}>
+                          <span className={`text-ui-label font-bold uppercase ${m.status === 'Completed' ? 'text-emerald-600' : 'text-amber-600'}`}>
                             {m.status === 'Completed' ? 'SELESAI' : 'TANGGUH'}
                           </span>
-                          <span className="text-[10px] font-bold text-zinc-400 font-mono tracking-tighter">Sebutan</span>
+                          <span className="text-ui-label font-bold text-zinc-400 font-mono tracking-tighter">Sebutan</span>
                         </div>
-                        <h5 className="text-sm font-black text-zinc-900 leading-tight">Proceeding Logged: Mentions</h5>
+                        <h5 className="text-body-sm font-bold text-zinc-900 leading-tight">Proceeding Logged: Mentions</h5>
                         <div className="flex items-center text-[11px] font-bold text-zinc-400 tracking-tight">
                           <Calendar className="w-3 h-3 mr-2" /> {m.date}
                         </div>
@@ -306,12 +306,12 @@ export default function CaseDetailsSection() {
                       </div>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className={`text-[10px] font-black uppercase tracking-widest ${h.status === 'Completed' ? 'text-blue-600' : 'text-zinc-500'}`}>
+                          <span className={`text-ui-label font-bold uppercase ${h.status === 'Completed' ? 'text-blue-600' : 'text-zinc-500'}`}>
                             {h.status === 'Completed' ? 'SELESAI' : 'DALAM PROSES'}
                           </span>
-                          <span className="text-[10px] font-bold text-zinc-400 font-mono tracking-tighter">Bicara</span>
+                          <span className="text-ui-label font-bold text-zinc-400 font-mono tracking-tighter">Bicara</span>
                         </div>
-                        <h5 className="text-sm font-black text-zinc-900 leading-tight">Formal Hearing Stage</h5>
+                        <h5 className="text-body-sm font-bold text-zinc-900 leading-tight">Formal Hearing Stage</h5>
                         <div className="flex flex-col gap-1 mt-1">
                           <div className="flex items-center text-[11px] font-bold text-zinc-400 tracking-tight">
                             <Calendar className="w-3 h-3 mr-2" /> {h.date}
@@ -326,7 +326,7 @@ export default function CaseDetailsSection() {
                 </div>
 
                 <div className="mt-12">
-                  <button className="btn-secondary w-full py-4 rounded-2xl border-2 border-zinc-100 text-xs font-black uppercase tracking-widest hover:border-blue-600 hover:text-blue-600 transition-all">
+                  <button className="btn-secondary w-full py-4 rounded-2xl border-2 border-zinc-100 text-ui-label font-bold uppercase hover:border-blue-600 hover:text-blue-600 transition-all">
                     Archive Access
                   </button>
                 </div>
@@ -338,9 +338,9 @@ export default function CaseDetailsSection() {
                 <User className="w-7 h-7" />
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-1">Assigned Registrar</p>
-                <p className="text-sm font-black leading-tight tracking-tight uppercase">Siti Aishah Binti Md Nor</p>
-                <button className="text-[9px] font-black uppercase tracking-widest text-blue-200 mt-2 hover:text-white transition-colors flex items-center">
+                <p className="text-ui-label font-bold uppercase text-white/50 mb-1">Assigned Registrar</p>
+                <p className="text-body-sm font-bold leading-tight tracking-tight uppercase">Siti Aishah Binti Md Nor</p>
+                <button className="text-ui-label font-bold uppercase text-blue-200 mt-2 hover:text-white transition-colors flex items-center">
                   Contact Officer <ChevronRight className="w-3 h-3 ml-1" />
                 </button>
               </div>

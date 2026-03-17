@@ -8,6 +8,19 @@
   --color-brand-700: #1d4ed8;
   --color-brand-50: #eff6ff;
   
+  /* Typography Scale (Minor Third) */
+  --font-size-display: 4rem;      /* 64px */
+  --font-size-h1: 3rem;           /* 48px */
+  --font-size-h2: 2.25rem;        /* 36px */
+  --font-size-h3: 1.875rem;       /* 30px */
+  --font-size-h4: 1.5rem;         /* 24px */
+  --font-size-h5: 1.25rem;        /* 20px */
+  --font-size-h6: 1.125rem;       /* 18px */
+  --font-size-body-lg: 1.125rem;  /* 18px */
+  --font-size-body-md: 1rem;      /* 16px */
+  --font-size-body-sm: 0.875rem;  /* 14px */
+  --font-size-ui-label: 0.75rem;  /* 12px */
+
   /* Radius & Shadows */
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
@@ -20,34 +33,51 @@
   --shadow-supreme: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
 }
 
+/* Typography Utilities - Extending generated tokens with composite styles */
+@utility text-display { font-size: var(--font-size-display); @apply font-black tracking-tighter leading-[1.1]; }
+@utility text-h1 { font-size: var(--font-size-h1); @apply font-black tracking-tight leading-[1.1]; }
+@utility text-h2 { font-size: var(--font-size-h2); @apply font-black tracking-tight leading-[1.2]; }
+@utility text-h3 { font-size: var(--font-size-h3); @apply font-black tracking-tight leading-[1.3]; }
+@utility text-h4 { font-size: var(--font-size-h4); @apply font-bold tracking-tight leading-[1.4]; }
+@utility text-h5 { font-size: var(--font-size-h5); @apply font-bold leading-[1.5]; }
+@utility text-h6 { font-size: var(--font-size-h6); @apply font-bold leading-[1.5]; }
+
+@utility text-body-lg { font-size: var(--font-size-body-lg); @apply font-medium leading-relaxed; }
+@utility text-body-md { font-size: var(--font-size-body-md); @apply font-normal leading-relaxed; }
+@utility text-body-sm { font-size: var(--font-size-body-sm); @apply font-normal leading-relaxed; }
+
+@utility text-ui-label { font-size: var(--font-size-ui-label); @apply font-black uppercase tracking-widest; }
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   body {
     @apply text-zinc-900 bg-zinc-50 font-sans antialiased;
+    font-size: var(--font-size-body-md);
   }
 }
 
 @layer components {
+
   /* Standardized Buttons */
   .btn-primary {
-    @apply px-6 py-2.5 rounded-xl font-bold transition-all shadow-md hover:shadow-xl active:scale-95 flex items-center justify-center gap-2;
+    @apply px-6 py-2.5 rounded-xl text-h6 font-bold transition-all shadow-md hover:shadow-xl active:scale-95 flex items-center justify-center gap-2;
     @apply bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500/20 active:bg-blue-800;
   }
   
   .btn-secondary {
-    @apply px-6 py-2.5 rounded-xl font-bold transition-all border flex items-center justify-center gap-2;
+    @apply px-6 py-2.5 rounded-xl text-h6 font-bold transition-all border flex items-center justify-center gap-2;
     @apply bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 shadow-sm active:bg-zinc-100;
   }
   
   .btn-ghost {
-    @apply px-4 py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2;
+    @apply px-4 py-2 rounded-lg text-body-sm font-bold transition-all flex items-center justify-center gap-2;
     @apply text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 active:bg-zinc-200;
   }
 
   .btn-outline {
-    @apply px-6 py-2.5 rounded-xl font-bold transition-all border flex items-center justify-center gap-2;
+    @apply px-6 py-2.5 rounded-xl text-h6 font-bold transition-all border flex items-center justify-center gap-2;
     @apply border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100;
   }
 

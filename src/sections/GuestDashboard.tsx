@@ -8,7 +8,8 @@ import { useAppStore } from '@/lib/store';
 import SebutanChat from '@/components/sebutan/SebutanChat';
 
 export default function GuestDashboard() {
-  const { setCurrentView } = useAppStore();
+  const { setCurrentView, wcagStates } = useAppStore();
+  const isHighContrast = wcagStates.highContrast;
 
   const handleLogout = () => {
     setCurrentView('login');
@@ -21,14 +22,14 @@ export default function GuestDashboard() {
           <div className="flex items-center gap-3 md:gap-4">
             <img src="/jata-negara.png" alt="Logo" className="h-10 sm:h-12 w-auto" />
             <div className="flex flex-col">
-              <span className="text-zinc-900 font-extrabold text-sm leading-tight uppercase tracking-tight">Mahkamah Perusahaan</span>
+              <span className={`text-h6 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>Mahkamah Perusahaan</span>
               <div className="h-px w-full bg-zinc-100 my-0.5"></div>
-              <span className="text-zinc-500 font-bold text-[10px] leading-tight uppercase tracking-wider">Industrial Court</span>
+              <span className={`text-ui-label ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>Industrial Court</span>
             </div>
           </div>
           <div className="flex items-center gap-4 w-full sm:w-auto">
-            <div className="px-3 py-1 bg-blue-50 text-blue-700 text-[10px] font-black uppercase tracking-widest rounded-lg border border-blue-100">Live Virtual Mention</div>
-            <button onClick={handleLogout} className="flex-1 sm:flex-none px-6 py-2.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white rounded-xl text-sm font-bold transition-all shadow-sm">Leave Session</button>
+            <div className="px-3 py-1 bg-blue-50 text-blue-700 text-ui-label rounded-lg border border-blue-100">Live Virtual Mention</div>
+            <button onClick={handleLogout} className="flex-1 sm:flex-none px-6 py-2.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white rounded-xl text-body-sm font-bold transition-all shadow-sm">Leave Session</button>
           </div>
         </header>
 
@@ -41,8 +42,8 @@ export default function GuestDashboard() {
                 <UserCircle className="w-12 h-12 md:w-16 md:h-16 text-zinc-700" />
               </div>
               <div className="relative z-10 text-center">
-                <p className="font-black text-xs md:text-sm text-zinc-300 uppercase tracking-widest px-3 py-1 bg-zinc-900/80 rounded-full border border-zinc-800">YA Chairman (Host)</p>
-                <p className="text-[10px] font-bold text-zinc-500 mt-2 tracking-widest uppercase">Mahkamah 1 • Kuala Lumpur</p>
+                <p className="text-ui-label text-zinc-300 px-3 py-1 bg-zinc-900/80 rounded-full border border-zinc-800 inline-block">YA Chairman (Host)</p>
+                <p className="text-ui-label text-zinc-500 mt-2 block">Mahkamah 1 • Kuala Lumpur</p>
               </div>
               <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-zinc-900 p-2.5 rounded-xl border border-zinc-800 shadow-inner"><Mic className="w-4 h-4 text-zinc-600" /></div>
             </div>
@@ -51,8 +52,8 @@ export default function GuestDashboard() {
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
               <div className="w-20 h-20 md:w-28 md:h-28 bg-blue-700 rounded-full flex items-center justify-center text-3xl md:text-4xl font-black text-white mb-4 md:mb-6 relative z-10 shadow-2xl ring-8 ring-blue-900/10 group-hover:scale-105 transition-all duration-500">Me</div>
               <div className="relative z-10 text-center">
-                <p className="font-black text-xs md:text-sm text-blue-100 uppercase tracking-widest">Claimant Representative</p>
-                <p className="text-[10px] font-bold text-blue-400 mt-2 tracking-widest uppercase">Case: 1/1-1522/25</p>
+                <p className="text-ui-label text-blue-100 block">Claimant Representative</p>
+                <p className="text-ui-label text-blue-400 mt-2 block">Case: 1/1-1522/25</p>
               </div>
               <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-emerald-500 p-2.5 rounded-xl border border-emerald-400 shadow-lg shadow-emerald-500/20 animate-pulse"><Mic className="w-4 h-4 text-white" /></div>
             </div>

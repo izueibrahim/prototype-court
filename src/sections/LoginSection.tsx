@@ -14,7 +14,8 @@ import { useRouter } from 'next/navigation';
 export default function LoginSection() {
     const router = useRouter();
     const { lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView, setDashActiveView, setEFilingActiveView } = useAppStore();
-    const [demoRole, setDemoRole] = React.useState<'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest'>('officer');
+    const [step, setStep] = React.useState<1 | 2>(1);
+    const [demoRole, setDemoRole] = React.useState<'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest'>('ydp');
     const [showMFA, setShowMFA] = React.useState(false);
     const [otp, setOtp] = React.useState(['', '', '', '', '', '']);
 
@@ -57,12 +58,12 @@ export default function LoginSection() {
                         className="flex items-center gap-3 hover:opacity-80 transition-opacity"
                     >
                         <img src="/jata-negara.png" alt="Logo" className="h-10 w-auto" />
-                        <span className={`font-extrabold text-sm sm:text-base tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                        <span className={`text-h6 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                             Mahkamah Perusahaan
                         </span>
                     </button>
                     <div className="flex items-center gap-3">
-                        <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className={`flex items-center px-2 py-1.5 rounded-lg border text-xs font-bold transition-colors gap-1 ${isHighContrast ? 'border-white text-white' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50'}`}>
+                        <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className={`flex items-center px-2 py-1.5 rounded-lg border text-ui-label transition-colors gap-1 ${isHighContrast ? 'border-white text-white' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50'}`}>
                             <Globe className="w-3.5 h-3.5" />
                             {lang === 'en' ? 'BM' : 'EN'}
                         </button>
@@ -71,22 +72,22 @@ export default function LoginSection() {
 
                 <main className="flex-1 flex items-center justify-center px-6 sm:px-12 lg:px-20 py-12">
                     <div className="w-full max-w-md">
-                        {!loginRole ? (
+                        {step === 1 ? (
                             // STEP 1: SELECT ACCESS ROLE
                             <div className="animate-in fade-in zoom-in-95 duration-300">
                                 <div className="mb-10">
-                                    <h2 className={`text-4xl font-black mb-3 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.loginWelcome}</h2>
-                                    <p className={`text-base font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.selectAccessSub}</p>
+                                    <h2 className={`text-h2 mb-3 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.loginWelcome}</h2>
+                                    <p className={`text-body-md font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.selectAccessSub}</p>
                                 </div>
 
                                 <div className="space-y-6">
                                     <div className="relative">
-                                        <label className={`block text-xs font-black uppercase tracking-widest mb-3 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>Select Your Role</label>
+                                        <label className={`block text-ui-label mb-3 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>Select Your Role</label>
                                         <div className="relative group">
                                             <select
                                                 value={demoRole}
                                                 onChange={(e) => setDemoRole(e.target.value as any)}
-                                                className={`w-full appearance-none bg-white py-5 px-6 rounded-2xl border-2 font-bold text-lg transition-all cursor-pointer focus:outline-none focus:ring-4 ${isHighContrast ? 'bg-black border-white text-white focus:ring-white/20' : 'border-zinc-100 text-zinc-900 focus:border-blue-500 focus:ring-blue-500/10 hover:border-zinc-200'}`}
+                                                className={`w-full appearance-none bg-white py-5 px-6 rounded-2xl border-2 text-h6 transition-all cursor-pointer focus:outline-none focus:ring-4 ${isHighContrast ? 'bg-black border-white text-white focus:ring-white/20' : 'border-zinc-100 text-zinc-900 focus:border-blue-500 focus:ring-blue-500/10 hover:border-zinc-200'}`}
                                             >
                                                 <option value="ydp">YDP / Executive</option>
                                                 <option value="chairman">Chairman</option>
@@ -101,20 +102,16 @@ export default function LoginSection() {
                                     </div>
 
                                     <div className="pt-4">
-                                        <button
-                                            onClick={() => {
-                                                if (['ydp', 'chairman', 'admin'].includes(demoRole)) setLoginRole('officer');
-                                                else if (demoRole === 'efiling') setLoginRole('efiling');
-                                                else if (demoRole === 'guest') setLoginRole('guest');
-                                            }}
-                                            className={isHighContrast ? 'w-full py-5 rounded-2xl text-xl font-bold bg-white text-black flex items-center justify-center gap-3 transition-transform active:scale-[0.98]' : 'w-full py-5 rounded-2xl text-xl font-bold bg-blue-600 text-white shadow-xl shadow-blue-500/20 hover:bg-blue-700 flex items-center justify-center gap-3 transition-all active:scale-[0.98]'}
-                                        >
-                                            Next Step
-                                            <ArrowUpRight className="w-6 h-6" />
-                                        </button>
+                                            <button
+                                                onClick={() => setStep(2)}
+                                                className={isHighContrast ? 'w-full py-5 rounded-2xl text-h5 bg-white text-black flex items-center justify-center gap-3 transition-transform active:scale-[0.98]' : 'w-full py-5 rounded-2xl text-h5 bg-blue-600 text-white shadow-xl shadow-blue-500/20 hover:bg-blue-700 flex items-center justify-center gap-3 transition-all active:scale-[0.98]'}
+                                            >
+                                                Next Step
+                                                <ArrowUpRight className="w-6 h-6" />
+                                            </button>
                                     </div>
 
-                                    <div className="flex items-center gap-4 text-xs font-black uppercase tracking-widest text-zinc-400">
+                                    <div className="flex items-center gap-4 text-ui-label text-zinc-400">
                                         <div className="h-px flex-1 bg-zinc-100"></div>
                                         <span>Authentication Required</span>
                                         <div className="h-px flex-1 bg-zinc-100"></div>
@@ -125,17 +122,17 @@ export default function LoginSection() {
                             // STEP 2: SPECIFIC LOGIN FORMS
                             <div className="animate-in slide-in-from-right-8 fade-in duration-300">
                                 <button
-                                    onClick={() => setLoginRole(null)}
-                                    className={`flex items-center text-sm font-bold mb-8 transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-blue-600'}`}
+                                    onClick={() => { setStep(1); setShowMFA(false); }}
+                                    className={`flex items-center text-body-sm font-bold mb-8 transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-blue-600'}`}
                                 >
                                     <ArrowLeft className="w-4 h-4 mr-2" /> Back to Roles
                                 </button>
 
                                 <div className="mb-10">
-                                    <h2 className={`text-4xl font-black mb-2 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
-                                        {loginRole === 'officer' ? (demoRole === 'ydp' ? 'YDP / Executive' : demoRole === 'chairman' ? 'Chairman' : demoRole === 'admin' ? currentLang.roleAdmin : currentLang.roleOfficer) : loginRole === 'efiling' ? currentLang.roleEfiling : currentLang.roleGuest}
+                                    <h2 className={`text-h2 mb-2 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                        {demoRole === 'ydp' ? 'YDP / Executive' : demoRole === 'chairman' ? 'Chairman' : demoRole === 'admin' ? currentLang.roleAdmin : demoRole === 'efiling' ? currentLang.roleEfiling : demoRole === 'guest' ? currentLang.roleGuest : currentLang.roleOfficer}
                                     </h2>
-                                    <p className={`text-base font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>Enter your credentials to continue</p>
+                                    <p className={`text-body-md font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>Enter your credentials to continue</p>
                                 </div>
 
                                 {showMFA ? (
@@ -164,7 +161,7 @@ export default function LoginSection() {
                                         <div className="pt-2">
                                             <button
                                                 type="submit"
-                                                className={isHighContrast ? 'w-full py-4 rounded-xl text-lg font-bold bg-white text-black' : 'w-full py-4 rounded-xl text-lg font-bold bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all active:scale-[0.98]'}>
+                                                className={isHighContrast ? 'w-full py-4 rounded-xl text-h6 font-bold bg-white text-black' : 'w-full py-4 rounded-xl text-h6 font-bold bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all active:scale-[0.98]'}>
                                                 {currentLang.verify}
                                                 <ArrowUpRight className="w-5 h-5 ml-2 inline" />
                                             </button>
@@ -173,51 +170,51 @@ export default function LoginSection() {
                                         <button
                                             type="button"
                                             onClick={() => setShowMFA(false)}
-                                            className={`w-full mt-4 text-sm font-bold transition-colors ${isHighContrast ? 'text-zinc-500 hover:text-white' : 'text-zinc-400 hover:text-zinc-900'}`}
+                                            className={`w-full mt-4 text-body-sm font-bold transition-colors ${isHighContrast ? 'text-zinc-500 hover:text-white' : 'text-zinc-400 hover:text-zinc-900'}`}
                                         >
                                             Cancel & Back
                                         </button>
                                     </form>
                                 ) : (
                                     <form className="space-y-6" onSubmit={handleLoginSubmit}>
-                                        {(loginRole === 'officer' || loginRole === 'efiling') && (
+                                        {demoRole !== 'guest' && (
                                             <>
                                                 <div>
-                                                    <label className={`block text-xs font-black uppercase tracking-widest mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.userId}</label>
+                                                    <label className={`block text-ui-label mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.userId}</label>
                                                     <input
                                                         type="text"
                                                         defaultValue={demoRole === 'admin' ? 'admin_icourt@mpm.gov.my' : ''}
-                                                        className={`block w-full rounded-xl py-4 px-4 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-blue-500/10 shadow-sm'}`}
+                                                        className={`block w-full rounded-xl py-4 px-4 text-body-md font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-blue-500/10 shadow-sm'}`}
                                                         placeholder="name@example.com"
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className={`block text-xs font-black uppercase tracking-widest mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.password}</label>
+                                                    <label className={`block text-ui-label mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.password}</label>
                                                     <input
                                                         type="password"
                                                         defaultValue={demoRole === 'admin' ? '••••••••' : ''}
-                                                        className={`block w-full rounded-xl py-4 px-4 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-blue-500/10 shadow-sm'}`}
+                                                        className={`block w-full rounded-xl py-4 px-4 text-body-md font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-blue-500/10 shadow-sm'}`}
                                                         placeholder="••••••••"
                                                     />
                                                 </div>
                                             </>
                                         )}
 
-                                        {loginRole === 'guest' && (
+                                        {demoRole === 'guest' && (
                                             <>
                                                 <div>
-                                                    <label className={`block text-xs font-black uppercase tracking-widest mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.caseRef}</label>
+                                                    <label className={`block text-ui-label mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.caseRef}</label>
                                                     <input
                                                         type="text"
-                                                        className={`block w-full rounded-xl py-4 px-4 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-blue-500/10 shadow-sm'}`}
+                                                        className={`block w-full rounded-xl py-4 px-4 text-body-md font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-blue-500/10 shadow-sm'}`}
                                                         placeholder="e.g. 1/1-1522/25"
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className={`block text-xs font-black uppercase tracking-widest mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.accessCode}</label>
+                                                    <label className={`block text-ui-label mb-2 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.accessCode}</label>
                                                     <input
                                                         type="text"
-                                                        className={`block w-full rounded-xl py-4 px-4 font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-blue-500/10 shadow-sm'}`}
+                                                        className={`block w-full rounded-xl py-4 px-4 text-body-md font-bold focus:ring-4 focus:outline-none transition-all ${isHighContrast ? 'bg-black border-2 border-white text-white focus:ring-white/50' : 'bg-zinc-50 border border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-blue-500/10 shadow-sm'}`}
                                                         placeholder="6-digit PIN"
                                                     />
                                                 </div>
@@ -227,37 +224,37 @@ export default function LoginSection() {
                                         <div className="flex items-center justify-between py-2">
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="checkbox" className="w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500" />
-                                                <span className={`text-sm font-bold ${isHighContrast ? 'text-white' : 'text-zinc-600'}`}>Remember me</span>
+                                                <span className={`text-body-sm font-bold ${isHighContrast ? 'text-white' : 'text-zinc-600'}`}>Remember me</span>
                                             </label>
-                                            <a href="#" className="text-sm font-bold text-blue-600 hover:text-blue-700">{currentLang.forgotPwd}</a>
+                                            <a href="#" className="text-body-sm font-bold text-blue-600 hover:text-blue-700">{currentLang.forgotPwd}</a>
                                         </div>
 
                                         <div className="pt-2">
                                             <button
                                                 type="submit"
-                                                className={isHighContrast ? 'w-full py-4 rounded-xl text-lg font-bold bg-white text-black' : 'w-full py-4 rounded-xl text-lg font-bold bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all active:scale-[0.98]'}>
-                                                {loginRole === 'guest' ? currentLang.joinHearing : currentLang.signIn}
+                                                className={isHighContrast ? 'w-full py-4 rounded-xl text-h6 font-bold bg-white text-black' : 'w-full py-4 rounded-xl text-h6 font-bold bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all active:scale-[0.98]'}>
+                                                {demoRole === 'guest' ? currentLang.joinHearing : currentLang.signIn}
                                                 <ArrowUpRight className="w-5 h-5 ml-2 inline" />
                                             </button>
                                         </div>
 
-                                        {(loginRole === 'efiling' || loginRole === 'officer') && (
+                                         {demoRole !== 'guest' && (
                                             <div className="pt-6">
                                                 <div className="relative flex items-center justify-center mb-6">
                                                     <div className={`w-full border-t ${isHighContrast ? 'border-zinc-700' : 'border-zinc-200'}`}></div>
-                                                    <span className={`absolute px-4 text-xs font-black uppercase tracking-widest ${isHighContrast ? 'bg-black text-zinc-600' : 'bg-white text-zinc-400'}`}>OR</span>
+                                                    <span className={`absolute px-4 text-ui-label ${isHighContrast ? 'bg-black text-zinc-600' : 'bg-white text-zinc-400'}`}>OR</span>
                                                 </div>
                                                 <button
                                                     type="button"
                                                     onClick={handleLoginSubmit}
-                                                    className={isHighContrast ? 'w-full py-4 rounded-xl border border-white text-white bg-black font-bold flex items-center justify-center gap-3 transition-transform active:scale-[0.98]' : 'w-full py-4 rounded-xl border border-zinc-200 bg-white text-zinc-800 font-bold flex items-center justify-center gap-3 hover:bg-zinc-50 shadow-sm transition-transform active:scale-[0.98]'}>
+                                                    className={isHighContrast ? 'w-full py-4 rounded-xl border border-white text-white bg-black text-body-md font-bold flex items-center justify-center gap-3 transition-transform active:scale-[0.98]' : 'w-full py-4 rounded-xl border border-zinc-200 bg-white text-zinc-800 text-body-md font-bold flex items-center justify-center gap-3 hover:bg-zinc-50 shadow-sm transition-transform active:scale-[0.98]'}>
                                                     <Fingerprint className="w-6 h-6 text-emerald-600" />
                                                     Log Masuk MyDigital ID
                                                 </button>
                                             </div>
                                         )}
 
-                                        <p className="text-center pt-4 text-sm font-bold">
+                                        <p className="text-center pt-4 text-body-sm font-bold">
                                             <span className={isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}>Don't have an account? </span>
                                             <a href="#" className="text-blue-600 hover:underline">Sign up</a>
                                         </p>
@@ -269,7 +266,7 @@ export default function LoginSection() {
                 </main>
 
                 <footer className="h-20 px-10 flex items-center justify-between">
-                    <button className={`flex items-center text-xs font-black uppercase tracking-widest transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-blue-600'}`}>
+                    <button className={`flex items-center text-ui-label transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-blue-600'}`}>
                         <HelpCircle className="w-4 h-4 mr-2" />
                         {currentLang.help}
                     </button>
@@ -294,11 +291,11 @@ export default function LoginSection() {
                     <div className="mb-12 flex items-center gap-4">
                     </div>
 
-                    <h1 className="text-5xl xl:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tight">
+                    <h1 className={`text-display text-white mb-8`}>
                         {currentLang.loginBrandingTitle}
                     </h1>
 
-                    <p className="text-xl text-blue-100 font-medium mb-12 max-w-lg leading-relaxed opacity-90">
+                    <p className="text-body-lg text-blue-100 mb-12 max-w-lg opacity-90">
                         {currentLang.loginBrandingSub}
                     </p>
 
@@ -306,7 +303,7 @@ export default function LoginSection() {
                         {/* Feature Badges */}
                         <div className="flex flex-wrap gap-3">
                             {['Secure E-Filing', 'Real-time Analytics', 'Virtual Courtroom'].map(tag => (
-                                <span key={tag} className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-xs font-bold text-white uppercase tracking-wider">
+                                <span key={tag} className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-ui-label text-white">
                                     {tag}
                                 </span>
                             ))}

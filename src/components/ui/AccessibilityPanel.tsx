@@ -46,9 +46,6 @@ export default function AccessibilityPanel() {
                 aria-label="Accessibility Tools"
             >
                 <Accessibility className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-white" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
-                    A11y
-                </span>
             </button>
 
             {/* Backdrop */}
@@ -60,7 +57,7 @@ export default function AccessibilityPanel() {
             {/* Slide-over panel */}
             <div className={`fixed top-0 right-0 z-[100] h-full w-full sm:w-[400px] shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out ${isWcagOpen ? 'translate-x-0' : 'translate-x-full'} ${isHighContrast ? 'bg-black border-l-2 border-white text-white' : 'bg-white text-zinc-900'}`}>
                 <div className={`flex justify-between items-center p-6 border-b ${isHighContrast ? 'border-white' : 'border-zinc-100'}`}>
-                    <h2 className="text-xl font-bold flex items-center gap-3">
+                    <h2 className="text-h3 flex items-center gap-3">
                         <Accessibility className={`w-6 h-6 ${isHighContrast ? 'text-white' : 'text-blue-600'}`} />
                         {currentLang.a11yTitle}
                     </h2>
@@ -82,12 +79,12 @@ export default function AccessibilityPanel() {
                                 key={i}
                                 onClick={opt.action}
                                 className={`w-full flex items-center px-5 py-3.5 border rounded-2xl transition-all duration-200 ${opt.active
-                                        ? (isHighContrast ? 'bg-white text-black border-white' : 'bg-blue-600 text-white border-blue-600 shadow-md')
-                                        : (isHighContrast ? 'bg-black text-white border-zinc-700 hover:border-white' : 'bg-white text-zinc-700 border-zinc-200 hover:bg-zinc-50')
+                                    ? (isHighContrast ? 'bg-white text-black border-white' : 'bg-blue-600 text-white border-blue-600 shadow-md')
+                                    : (isHighContrast ? 'bg-black text-white border-zinc-700 hover:border-white' : 'bg-white text-zinc-700 border-zinc-200 hover:bg-zinc-50')
                                     }`}
                             >
                                 <Icon className={`w-5 h-5 mr-4 flex-shrink-0 transition-colors ${opt.active ? (isHighContrast ? 'text-black' : 'text-white') : 'text-zinc-500'}`} strokeWidth={1.5} />
-                                <span className="text-[1.05rem] font-medium">{opt.label}</span>
+                                <span className="text-body-md font-medium">{opt.label}</span>
                             </button>
                         );
                     })}

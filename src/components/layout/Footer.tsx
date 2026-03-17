@@ -26,19 +26,19 @@ export default function Footer() {
                                 className={`h-14 sm:h-16 w-auto object-contain ${isHighContrast ? 'brightness-0 invert' : ''}`}
                             />
                             <div>
-                                <h3 className={`text-base sm:text-lg font-extrabold leading-snug ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                <h3 className={`text-h6 leading-snug ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                                     Mahkamah Perusahaan Malaysia
                                 </h3>
                                 <div className={`my-0.5 h-px w-full ${isHighContrast ? 'bg-white/30' : 'bg-zinc-200'}`} />
-                                <p className={`text-xs sm:text-sm font-semibold tracking-wide ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                                <p className={`text-ui-label ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>
                                     Industrial Court of Malaysia
                                 </p>
                             </div>
                         </button>
-                        <p className={`text-sm sm:text-base leading-relaxed mb-8 font-medium ${isHighContrast ? 'text-white' : 'text-zinc-600'}`}>
+                        <p className={`text-body-md leading-relaxed mb-8 ${isHighContrast ? 'text-white' : 'text-zinc-600'}`}>
                             {currentLang.footerDesc}
                         </p>
-                        <ul className="space-y-4 sm:space-y-5 text-sm font-bold">
+                        <ul className="space-y-4 sm:space-y-5 text-body-sm font-bold">
                             <li className="flex items-start group">
                                 <MapPin className={`w-5 h-5 mr-3 mt-0.5 flex-shrink-0 transition-colors ${isHighContrast ? 'text-white' : 'text-zinc-400 group-hover:text-blue-600'}`} />
                                 <span className={`${isHighContrast ? 'text-white' : 'text-zinc-700'}`}>Mahkamah Perusahaan Malaysia,<br />Wisma Perkeso, Jalan Tun Razak,<br />50400 Kuala Lumpur, Malaysia</span>
@@ -55,8 +55,8 @@ export default function Footer() {
                     </div>
 
                     <div className="lg:col-span-3 lg:col-start-7">
-                        <h4 className={`text-xs sm:text-sm font-bold tracking-widest uppercase mb-6 sm:mb-8 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.quickLinksTitle}</h4>
-                        <ul className="space-y-3 sm:space-y-4 text-sm font-bold">
+                        <h4 className={`text-ui-label mb-6 sm:mb-8 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.quickLinksTitle}</h4>
+                        <ul className="space-y-3 sm:space-y-4 text-body-sm font-bold">
                             {currentLang.quickLinks.slice(0, 5).map((link: any, idx: number) => (
                                 <li key={idx}>
                                     <a href="#" className={`flex items-center group transition-colors ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-600 hover:text-blue-600'}`}>
@@ -69,8 +69,8 @@ export default function Footer() {
                     </div>
 
                     <div className="lg:col-span-3">
-                        <h4 className={`text-xs sm:text-sm font-bold tracking-widest uppercase mb-6 sm:mb-8 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.resourcesTitle}</h4>
-                        <ul className="space-y-3 sm:space-y-4 text-sm font-bold">
+                        <h4 className={`text-ui-label mb-6 sm:mb-8 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.resourcesTitle}</h4>
+                        <ul className="space-y-3 sm:space-y-4 text-body-sm font-bold">
                             <li><a href="#" className={`flex items-center group transition-colors ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-600 hover:text-blue-600'}`}><ChevronRight className="w-4 h-4 mr-2 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all" /> Industrial Relations Dept</a></li>
                             <li><a href="#" className={`flex items-center group transition-colors ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-600 hover:text-blue-600'}`}><ChevronRight className="w-4 h-4 mr-2 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all" /> Labour Department</a></li>
                             <li><a href="#" className={`flex items-center group transition-colors ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-600 hover:text-blue-600'}`}><ChevronRight className="w-4 h-4 mr-2 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all" /> eMP User Manuals</a></li>
@@ -82,10 +82,10 @@ export default function Footer() {
 
             <div className={`border-t ${isHighContrast ? 'border-white' : 'border-zinc-200'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col lg:flex-row justify-between items-center gap-4 sm:gap-6 text-center lg:text-left">
-                    <p className={`text-xs sm:text-sm font-bold ${isHighContrast ? 'text-white' : 'text-zinc-500'}`}>
+                    <p className={`text-body-sm font-bold ${isHighContrast ? 'text-white' : 'text-zinc-500'}`}>
                         &copy; 2026 {currentLang.rights}
                     </p>
-                    <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm font-bold">
+                    <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-body-sm font-bold">
                         <a href="#" className={`flex items-center transition-colors ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-500 hover:text-blue-600'}`}><Shield className="w-4 h-4 mr-1.5 opacity-60" /> Privacy</a>
                         <a href="#" className={`flex items-center transition-colors ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-500 hover:text-blue-600'}`}><ShieldAlert className="w-4 h-4 mr-1.5 opacity-60" /> Security</a>
                         <a href="#" className={`flex items-center transition-colors ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-500 hover:text-blue-600'}`}><FileWarning className="w-4 h-4 mr-1.5 opacity-60" /> Disclaimer</a>

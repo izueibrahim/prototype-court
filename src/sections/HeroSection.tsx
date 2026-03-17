@@ -30,19 +30,19 @@ export default function HeroSection() {
             )}
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-32 flex flex-col items-center text-center">
-                <div className={`inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold mb-8 border ${isHighContrast ? 'border-white text-white' : 'border-blue-500/30 bg-blue-500/10 text-blue-300'}`}>
+                <div className={`inline-flex items-center px-4 py-1.5 rounded-full text-ui-label mb-8 border ${isHighContrast ? 'border-white text-white' : 'border-blue-500/30 bg-blue-500/10 text-blue-300'}`}>
                     <span className="flex w-2 h-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
                     Version 2.0 Live
                 </div>
 
-                <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-[1.1]">
+                <h1 className={`text-display text-white mb-6 uppercase tracking-tighter`}>
                     {currentLang.heroTitle.split(' ').map((word: string, i: number, arr: string[]) => (
                         <span key={i} className={i === arr.length - 1 && !isHighContrast ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300' : ''}>
                             {word}{' '}
                         </span>
                     ))}
                 </h1>
-                <p className={`text-base sm:text-xl mb-10 sm:mb-14 max-w-2xl font-medium leading-relaxed px-4 ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>
+                <p className={`text-body-lg mb-10 sm:mb-14 max-w-2xl px-4 ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>
                     {currentLang.heroSub}
                 </p>
 
@@ -56,11 +56,11 @@ export default function HeroSection() {
                         onChange={(e) => setLocalSearch(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                         placeholder={currentLang.searchPlace}
-                        className={`w-full px-4 py-3 sm:py-4 bg-transparent border-none focus:ring-0 text-base sm:text-lg outline-none font-bold text-center sm:text-left text-white placeholder:text-zinc-400`}
+                        className={`w-full px-4 py-3 sm:py-4 bg-transparent border-none focus:ring-0 text-h6 outline-none text-center sm:text-left text-white placeholder:text-zinc-400`}
                     />
                     <button 
                         onClick={handleSearch}
-                        className={`w-full sm:w-auto px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-transform hover:scale-[1.02] active:scale-95 whitespace-nowrap mt-2 sm:mt-0 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-blue-600 text-white shadow-lg shadow-blue-900/50'}`}>
+                        className={`w-full sm:w-auto px-8 py-3 sm:py-4 rounded-xl text-h6 font-bold transition-transform hover:scale-[1.02] active:scale-95 whitespace-nowrap mt-2 sm:mt-0 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-blue-600 text-white shadow-lg shadow-blue-900/50'}`}>
                         {currentLang.searchBtn}
                     </button>
                 </div>

@@ -8,12 +8,12 @@ import { MapPin, Building2, ChevronDown, Download, Clock, Calendar, Search, Arro
 
 export default function FullSchedule() {
     const { lang, wcagStates, setCurrentView, scheduleSearchQuery, setScheduleSearchQuery } = useAppStore();
-    
+
     // UI states
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const [selectedRegion, setSelectedRegion] = useState("Kuala Lumpur");
     const [selectedCourt, setSelectedCourt] = useState("Mahkamah 1");
-    
+
     // Calendar states
     const [calendarMonth, setCalendarMonth] = useState(2); // 0-11 (March)
     const [calendarYear, setCalendarYear] = useState(2026);
@@ -23,8 +23,8 @@ export default function FullSchedule() {
     const isHighContrast = wcagStates.highContrast;
     const tTextSub = isHighContrast ? 'text-zinc-300' : 'text-zinc-500';
 
-    const mockHearingsTypes = lang === 'en' ? 
-        ['Trial (B)', 'Trial (B)', 'Mention (S)', 'Hearing (B)', 'Mention (S)', 'Decision (K)'] : 
+    const mockHearingsTypes = lang === 'en' ?
+        ['Trial (B)', 'Trial (B)', 'Mention (S)', 'Hearing (B)', 'Mention (S)', 'Decision (K)'] :
         ['Bicara (B)', 'Bicara (B)', 'Sebutan (S)', 'Bicara (B)', 'Sebutan (S)', 'Keputusan (K)'];
 
     // Dynamic Calendar Logic
@@ -56,8 +56,8 @@ export default function FullSchedule() {
                     </div>
                 )}
                 <div className="max-w-7xl mx-auto relative z-10">
-                    <button 
-                        className="flex items-center text-sm font-semibold text-blue-400 mb-4 hover:text-blue-300 transition-colors" 
+                    <button
+                        className="flex items-center text-body-sm font-bold text-blue-400 mb-4 hover:text-blue-300 transition-colors"
                         onClick={() => {
                             setScheduleSearchQuery("");
                             setCurrentView('portal');
@@ -66,10 +66,10 @@ export default function FullSchedule() {
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         {currentLang.backToPortal}
                     </button>
-                    <h1 className={`text-3xl sm:text-5xl font-black tracking-tight mb-4 ${isHighContrast ? 'text-white' : 'text-white'}`}>
+                    <h1 className={`text-display text-white mb-4`}>
                         {currentLang.fullScheduleTitle}
                     </h1>
-                    <p className={`text-base sm:text-lg max-w-2xl font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-400'}`}>
+                    <p className={`text-body-lg max-w-2xl font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-400'}`}>
                         {currentLang.fullScheduleSub}
                     </p>
                 </div>
@@ -77,17 +77,17 @@ export default function FullSchedule() {
 
             <div className={`flex-1 py-6 sm:py-10 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    
+
                     <div className="flex flex-col lg:flex-row gap-8 items-start">
                         {/* SIDEBAR: Filters & Calendar */}
                         <aside className="w-full lg:w-1/3 xl:w-1/4 space-y-6 flex-shrink-0">
                             <div className={`p-6 rounded-3xl shadow-sm border ${isHighContrast ? 'bg-black border-white' : 'bg-white border-zinc-200'}`}>
-                                
+
                                 <div className="mb-6">
-                                    <label className={`text-[10px] font-black uppercase tracking-widest mb-2 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.step1Region}</label>
+                                    <label className={`text-ui-label font-bold uppercase mb-2 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.step1Region}</label>
                                     <div className="relative">
                                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-                                        <select 
+                                        <select
                                             value={selectedRegion}
                                             onChange={(e) => {
                                                 setSelectedRegion(e.target.value);
@@ -103,10 +103,10 @@ export default function FullSchedule() {
                                 </div>
 
                                 <div className="mb-8">
-                                    <label className={`text-[10px] font-black uppercase tracking-widest mb-2 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.step2Court}</label>
+                                    <label className={`text-ui-label font-bold uppercase mb-2 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.step2Court}</label>
                                     <div className="relative">
                                         <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-                                        <select 
+                                        <select
                                             value={selectedCourt}
                                             onChange={(e) => setSelectedCourt(e.target.value)}
                                             className={`w-full pl-9 pr-10 py-3 rounded-xl border text-sm font-bold appearance-none transition-all outline-none ${isHighContrast ? 'bg-black border-white text-white focus:ring-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10'}`}
@@ -123,29 +123,29 @@ export default function FullSchedule() {
 
                                 {/* STEP 3: CALENDAR */}
                                 <div>
-                                    <label className={`text-[10px] font-black uppercase tracking-widest mb-4 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.step3Date}</label>
-                                    
+                                    <label className={`text-ui-label font-bold uppercase mb-4 block ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.step3Date}</label>
+
                                     <div className="flex items-center justify-between mb-4 gap-2">
                                         <div className="flex flex-1 gap-2 relative">
                                             <div className="relative flex-1">
-                                                <select 
-                                                    value={calendarMonth} 
+                                                <select
+                                                    value={calendarMonth}
                                                     onChange={handleMonthChange}
                                                     className={`w-full appearance-none py-1.5 pl-2 pr-6 rounded-lg border text-sm font-bold outline-none ${isHighContrast ? 'bg-black text-white border-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900 focus:border-blue-500'}`}
                                                 >
                                                     {currentLang.months.map((m: string, i: number) => <option key={i} value={i}>{m}</option>)}
                                                 </select>
-                                                <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500"/>
+                                                <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500" />
                                             </div>
                                             <div className="relative w-24">
-                                                <select 
-                                                    value={calendarYear} 
+                                                <select
+                                                    value={calendarYear}
                                                     onChange={handleYearChange}
                                                     className={`w-full appearance-none py-1.5 pl-2 pr-6 rounded-lg border text-sm font-bold outline-none ${isHighContrast ? 'bg-black text-white border-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900 focus:border-blue-500'}`}
                                                 >
                                                     {availableYears.map(y => <option key={y} value={y}>{y}</option>)}
                                                 </select>
-                                                <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500"/>
+                                                <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500" />
                                             </div>
                                         </div>
                                         <div className="flex space-x-1 flex-shrink-0">
@@ -157,7 +157,7 @@ export default function FullSchedule() {
                                             </button>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="lg:hidden flex overflow-x-auto hide-scrollbar gap-2 sm:gap-3 pb-2 snap-x">
                                         {daysInMonthArray.map(day => {
                                             const hasHearing = daysWithHearings.includes(day);
@@ -176,16 +176,16 @@ export default function FullSchedule() {
                                     <div className="hidden lg:block">
                                         <div className="grid grid-cols-7 gap-1 mb-2 text-center">
                                             {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
-                                                <div key={day} className={`text-[10px] font-black uppercase tracking-widest ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>{day}</div>
+                                                <div key={day} className={`text-ui-label font-bold uppercase ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>{day}</div>
                                             ))}
                                         </div>
                                         <div className="grid grid-cols-7 gap-1">
-                                            {blankDaysArray.map(d => <div key={`blank-${d}`} className="h-9"></div>) }
+                                            {blankDaysArray.map(d => <div key={`blank-${d}`} className="h-9"></div>)}
                                             {daysInMonthArray.map(day => {
                                                 const hasHearing = daysWithHearings.includes(day);
                                                 const isSelected = selectedDate === day;
                                                 return (
-                                                    <button key={day} onClick={() => setSelectedDate(day)} className={`relative h-9 w-full rounded-xl flex items-center justify-center text-sm font-black transition-all ${isSelected ? (isHighContrast ? 'bg-white text-black shadow-md' : 'bg-blue-600 text-white shadow-lg shadow-blue-200') : (isHighContrast ? 'text-white hover:bg-zinc-900 hover:text-white' : 'text-zinc-700 hover:bg-blue-50 hover:text-blue-600')}`}>
+                                                    <button key={day} onClick={() => setSelectedDate(day)} className={`relative h-9 w-full rounded-xl flex items-center justify-center text-body-sm font-bold transition-all ${isSelected ? (isHighContrast ? 'bg-white text-black shadow-md' : 'bg-blue-600 text-white shadow-lg shadow-blue-200') : (isHighContrast ? 'text-white hover:bg-zinc-900 hover:text-white' : 'text-zinc-700 hover:bg-blue-50 hover:text-blue-600')}`}>
                                                         <span className="relative z-10">{day}</span>
                                                         {hasHearing && <span className={`absolute bottom-1.5 w-1 h-1 rounded-full ${isSelected ? (isHighContrast ? 'bg-black' : 'bg-white') : (isHighContrast ? 'bg-blue-600' : 'bg-blue-300')}`}></span>}
                                                     </button>
@@ -193,8 +193,8 @@ export default function FullSchedule() {
                                             })}
                                         </div>
                                     </div>
-                                    
-                                    <div className={`mt-4 lg:mt-6 pt-4 border-t flex items-center justify-between text-[10px] font-black uppercase tracking-widest ${isHighContrast ? 'border-zinc-800 text-zinc-400' : 'border-zinc-100 text-zinc-400'}`}>
+
+                                    <div className={`mt-4 lg:mt-6 pt-4 border-t flex items-center justify-between text-ui-label font-bold uppercase ${isHighContrast ? 'border-zinc-800 text-zinc-400' : 'border-zinc-100 text-zinc-400'}`}>
                                         <div className="flex items-center">
                                             <span className={`w-1.5 h-1.5 rounded-full mr-2 ${isHighContrast ? 'bg-white' : 'bg-blue-600'}`}></span>
                                             {lang === 'en' ? 'Scheduled' : 'Dijadualkan'}
@@ -211,10 +211,10 @@ export default function FullSchedule() {
                         <div className="w-full lg:flex-1 flex flex-col">
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
                                 <div className="w-full lg:w-auto flex flex-col">
-                                    <h2 className={`text-2xl sm:text-3xl font-black tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                    <h2 className={`text-h3 text-zinc-900`}>
                                         {selectedDate} {currentLang.months[calendarMonth]} {calendarYear}
                                     </h2>
-                                    <p className={`text-sm font-bold mt-1.5 flex items-center ${isHighContrast ? 'text-white/60' : 'text-zinc-500'}`}>
+                                    <p className={`text-body-sm font-bold mt-1.5 flex items-center ${isHighContrast ? 'text-white/60' : 'text-zinc-500'}`}>
                                         <MapPin className="w-4 h-4 mr-1.5 text-blue-600" /> {selectedRegion} <span className="mx-2 opacity-30">•</span> <Building2 className="w-4 h-4 mr-1.5 text-blue-600" /> {selectedCourt}
                                     </p>
                                 </div>
@@ -224,15 +224,15 @@ export default function FullSchedule() {
                                         <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                                             <Search className="h-4 w-4 text-zinc-400" />
                                         </div>
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
                                             value={scheduleSearchQuery}
                                             onChange={(e) => setScheduleSearchQuery(e.target.value)}
                                             className={`w-full sm:w-72 pl-10 pr-10 py-3 rounded-xl border text-sm font-bold transition-all outline-none ${isHighContrast ? 'bg-black border-white text-white placeholder-zinc-500' : 'bg-white border-zinc-200 text-zinc-900 placeholder-zinc-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 shadow-sm'}`}
                                             placeholder={currentLang.filterSearch}
                                         />
                                         {scheduleSearchQuery && (
-                                            <button 
+                                            <button
                                                 onClick={() => setScheduleSearchQuery('')}
                                                 className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-zinc-600 transition-colors"
                                             >
@@ -248,10 +248,10 @@ export default function FullSchedule() {
                                 {(() => {
                                     let displayedHearings = [];
                                     const isSearching = scheduleSearchQuery.trim().length > 0;
-                                    
+
                                     if (isSearching) {
                                         const query = scheduleSearchQuery.toLowerCase();
-                                        displayedHearings = upcomingHearings.filter(h => 
+                                        displayedHearings = upcomingHearings.filter(h =>
                                             h.claimant.toLowerCase().includes(query) ||
                                             h.respondent.toLowerCase().includes(query) ||
                                             h.id.toLowerCase().includes(query) ||
@@ -266,72 +266,72 @@ export default function FullSchedule() {
                                         return displayedHearings.map((hearing, idx) => {
                                             const isExpanded = expandedId === hearing.id;
                                             const hType = mockHearingsTypes[idx % mockHearingsTypes.length] || "Trial";
-                                            
-                                            return (
-                                            <div 
-                                                key={idx} 
-                                                className={`flex flex-col rounded-3xl overflow-hidden transition-all duration-300 border ${isHighContrast ? 'bg-black border-white' : 'bg-white shadow-sm'} ${isExpanded ? (isHighContrast ? 'ring-2 ring-white border-transparent' : 'border-blue-500 shadow-premium ring-4 ring-blue-500/5 z-10') : 'border-zinc-200 hover:border-blue-400 hover:shadow-md'}`}
-                                            >
-                                                <div 
-                                                    onClick={() => setExpandedId(isExpanded ? null : hearing.id)}
-                                                    className="flex flex-col sm:flex-row cursor-pointer group"
-                                                >
-                                                    <div className={`sm:w-44 p-5 sm:p-7 sm:border-r flex flex-row sm:flex-col justify-between sm:justify-center items-center ${isHighContrast ? 'border-white' : 'bg-zinc-50/50 border-zinc-100 group-hover:bg-blue-50/40 transition-colors'}`}>
-                                                        <span className={`text-xl sm:text-2xl font-black tracking-tighter ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{hearing.time}</span>
-                                                        <span className={`mt-0 sm:mt-3 inline-flex items-center px-3 py-1 rounded-lg text-[10px] sm:text-[11px] font-black uppercase tracking-widest ${isHighContrast ? 'border border-white text-white' : 'bg-blue-100 text-blue-700'}`}>
-                                                            {hType}
-                                                        </span>
-                                                    </div>
-                                                    
-                                                    <div className="p-5 sm:p-7 flex-1 flex flex-col justify-center relative pr-14">
-                                                        <h4 className={`text-lg sm:text-xl font-black mb-2 leading-snug tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
-                                                            <span>{hearing.claimant}</span>
-                                                            <span className="text-zinc-300 font-medium mx-3 text-sm opacity-50 italic">vs</span>
-                                                            <span>{hearing.respondent}</span>
-                                                        </h4>
-                                                        <p className={`text-xs font-mono font-bold mb-4 ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>{hearing.id}</p>
-                                                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 text-xs font-bold uppercase tracking-widest">
-                                                            <div className={`flex items-center ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                                                                <Clock className="w-4 h-4 mr-2 text-blue-500 opacity-70" /> {hearing.time} • Room 4
-                                                            </div>
-                                                            <div className={`flex items-center ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                                                                <Building2 className="w-4 h-4 mr-2 text-blue-500 opacity-70" /> {hearing.judge}
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div className={`absolute right-5 sm:right-7 top-1/2 -translate-y-1/2 w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${isHighContrast ? 'text-white border border-white hover:bg-white hover:text-black' : 'text-zinc-300 bg-zinc-50 border border-zinc-100 group-hover:text-blue-600 group-hover:bg-blue-50 group-hover:border-blue-100'} ${isExpanded ? (isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white border-blue-600 rotate-180') : ''}`}>
-                                                            <ChevronDown className="w-6 h-6" />
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                {isExpanded && (
-                                                    <div className={`p-6 sm:p-8 border-t animate-in fade-in slide-in-from-top-2 duration-300 ${isHighContrast ? 'border-white bg-zinc-900' : 'border-zinc-100 bg-zinc-50/50'}`}>
-                                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
-                                                            <div className="md:col-span-2">
-                                                                <h5 className="text-[10px] font-black uppercase tracking-widest mb-3 text-zinc-400">Summary of Dispute</h5>
-                                                                <p className={`text-sm leading-relaxed font-medium ${isHighContrast ? 'text-white' : 'text-zinc-700'}`}>{hearing.summary}</p>
-                                                            </div>
-                                                            <div>
-                                                                <h5 className="text-[10px] font-black uppercase tracking-widest mb-3 text-zinc-400">Tags & Keywords</h5>
-                                                                <div className="flex flex-wrap gap-2">
-                                                                    {hearing.keywords.map((kw: string) => (
-                                                                        <span key={kw} className={`px-3 py-1.5 text-[10px] font-black rounded-lg border uppercase tracking-tighter ${isHighContrast ? 'bg-black border-white text-white' : 'bg-white border-zinc-200 text-zinc-600 shadow-sm'}`}>{kw}</span>
-                                                                    ))}
+                                            return (
+                                                <div
+                                                    key={idx}
+                                                    className={`flex flex-col rounded-3xl overflow-hidden transition-all duration-300 border ${isHighContrast ? 'bg-black border-white' : 'bg-white shadow-sm'} ${isExpanded ? (isHighContrast ? 'ring-2 ring-white border-transparent' : 'border-blue-500 shadow-premium ring-4 ring-blue-500/5 z-10') : 'border-zinc-200 hover:border-blue-400 hover:shadow-md'}`}
+                                                >
+                                                    <div
+                                                        onClick={() => setExpandedId(isExpanded ? null : hearing.id)}
+                                                        className="flex flex-col sm:flex-row cursor-pointer group"
+                                                    >
+                                                        <div className={`sm:w-44 p-5 sm:p-7 sm:border-r flex flex-row sm:flex-col justify-between sm:justify-center items-center ${isHighContrast ? 'border-white' : 'bg-zinc-50/50 border-zinc-100 group-hover:bg-blue-50/40 transition-colors'}`}>
+                                                            <span className={`text-h4 font-bold ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{hearing.time}</span>
+                                                            <span className={`mt-0 sm:mt-3 inline-flex items-center px-3 py-1 rounded-lg text-ui-label font-bold uppercase ${isHighContrast ? 'border border-white text-white' : 'bg-blue-100 text-blue-700'}`}>
+                                                                {hType}
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="p-5 sm:p-7 flex-1 flex flex-col justify-center relative pr-14">
+                                                            <h4 className={`text-h5 mb-2 leading-snug tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                                                <span>{hearing.claimant}</span>
+                                                                <span className="text-zinc-300 font-medium mx-3 text-sm opacity-50 italic">vs</span>
+                                                                <span>{hearing.respondent}</span>
+                                                            </h4>
+                                                            <p className={`text-ui-label font-bold font-mono mb-4 ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>{hearing.id}</p>
+                                                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 text-ui-label font-bold uppercase">
+                                                                <div className={`flex items-center ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                                                    <Clock className="w-4 h-4 mr-2 text-blue-500 opacity-70" /> {hearing.time} • Room 4
+                                                                </div>
+                                                                <div className={`flex items-center ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                                                    <Building2 className="w-4 h-4 mr-2 text-blue-500 opacity-70" /> {hearing.judge}
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-8 border-t border-zinc-200/50">
-                                                            <button className="btn-primary px-8">
-                                                                View Full Case Folder
-                                                            </button>
-                                                            <button className="btn-secondary px-8 flex items-center justify-center">
-                                                                <Download className="w-4 h-4 mr-2" /> Download Brief (PDF)
-                                                            </button>
+
+                                                            <div className={`absolute right-5 sm:right-7 top-1/2 -translate-y-1/2 w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${isHighContrast ? 'text-white border border-white hover:bg-white hover:text-black' : 'text-zinc-300 bg-zinc-50 border border-zinc-100 group-hover:text-blue-600 group-hover:bg-blue-50 group-hover:border-blue-100'} ${isExpanded ? (isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white border-blue-600 rotate-180') : ''}`}>
+                                                                <ChevronDown className="w-6 h-6" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                )}
-                                            </div>
+
+                                                    {isExpanded && (
+                                                        <div className={`p-6 sm:p-8 border-t animate-in fade-in slide-in-from-top-2 duration-300 ${isHighContrast ? 'border-white bg-zinc-900' : 'border-zinc-100 bg-zinc-50/50'}`}>
+                                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
+                                                                <div className="md:col-span-2">
+                                                                    <h5 className="text-ui-label font-bold uppercase mb-3 text-zinc-400">Summary of Dispute</h5>
+                                                                    <p className={`text-body-sm leading-relaxed font-medium ${isHighContrast ? 'text-white' : 'text-zinc-700'}`}>{hearing.summary}</p>
+                                                                </div>
+                                                                <div>
+                                                                    <h5 className="text-ui-label font-bold uppercase mb-3 text-zinc-400">Tags & Keywords</h5>
+                                                                    <div className="flex flex-wrap gap-2">
+                                                                        {hearing.keywords.map((kw: string) => (
+                                                                            <span key={kw} className={`px-3 py-1.5 text-ui-label font-bold rounded-lg border uppercase ${isHighContrast ? 'bg-black border-white text-white' : 'bg-white border-zinc-200 text-zinc-600 shadow-sm'}`}>{kw}</span>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-8 border-t border-zinc-200/50">
+                                                                <button className="btn-primary px-8">
+                                                                    View Full Case Folder
+                                                                </button>
+                                                                <button className="btn-secondary px-8 flex items-center justify-center">
+                                                                    <Download className="w-4 h-4 mr-2" /> Download Brief (PDF)
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             );
                                         });
                                     } else {
@@ -342,9 +342,9 @@ export default function FullSchedule() {
                                                         <div className="w-20 h-20 rounded-3xl bg-zinc-50 flex items-center justify-center mb-6 mx-auto border border-zinc-100 text-zinc-300">
                                                             <Search className="w-10 h-10" />
                                                         </div>
-                                                        <h4 className={`text-2xl font-black mb-3 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>No Matches Found</h4>
-                                                        <p className={`text-sm max-w-sm mx-auto font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>We couldn&apos;t find any records matching &quot;{scheduleSearchQuery}&quot;. Please check your spelling or try different terms.</p>
-                                                        <button 
+                                                        <h4 className={`text-h3 mb-3 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>No Matches Found</h4>
+                                                        <p className={`text-body-sm max-w-sm mx-auto font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>We couldn&apos;t find any records matching &quot;{scheduleSearchQuery}&quot;. Please check your spelling or try different terms.</p>
+                                                        <button
                                                             onClick={() => setScheduleSearchQuery('')}
                                                             className="mt-8 btn-ghost text-blue-600 font-bold"
                                                         >
@@ -356,8 +356,8 @@ export default function FullSchedule() {
                                                         <div className="w-20 h-20 rounded-3xl bg-zinc-50 flex items-center justify-center mb-6 mx-auto border border-zinc-100 text-zinc-300">
                                                             <Calendar className="w-10 h-10" />
                                                         </div>
-                                                        <h4 className={`text-2xl font-black mb-3 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>No Hearings Scheduled</h4>
-                                                        <p className={`text-sm max-w-sm mx-auto font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>There are no industrial court proceedings listed for {selectedCourt} on this specific date.</p>
+                                                        <h4 className={`text-h3 mb-3 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>No Hearings Scheduled</h4>
+                                                        <p className={`text-body-sm max-w-sm mx-auto font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>There are no industrial court proceedings listed for {selectedCourt} on this specific date.</p>
                                                     </div>
                                                 )}
                                             </div>

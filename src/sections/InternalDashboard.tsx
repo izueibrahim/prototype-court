@@ -99,15 +99,15 @@ export default function InternalDashboard() {
           <div className="p-6 flex items-center gap-3">
             <img src="/jata-negara.png" alt="Logo" className="h-10 w-auto" />
             <div className="flex flex-col">
-              <span className={`font-black text-xs leading-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>Mahkamah Perusahaan</span>
-              <span className={`font-bold text-[9px] leading-tight ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>Industrial Court</span>
+              <span className={`text-h6 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>Mahkamah Perusahaan</span>
+              <span className={`text-ui-label ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>Industrial Court</span>
             </div>
           </div>
 
           <nav className="flex-1 overflow-y-auto px-4 space-y-6 py-4 custom-scrollbar">
             {filteredNavGroups.map((group, gIdx) => (
               <div key={gIdx} className="space-y-2">
-                <h4 className={`px-4 text-[10px] font-extrabold tracking-widest ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'} uppercase`}>
+                <h4 className={`px-4 text-ui-label ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>
                   {group.label}
                 </h4>
                 <div className="space-y-1">
@@ -120,7 +120,7 @@ export default function InternalDashboard() {
                         : (isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900')}`}
                     >
                       <item.icon className={`w-5 h-5 mr-3 transition-transform group-hover:scale-110 ${dashActiveView === item.id ? 'text-blue-500' : 'text-zinc-400'}`} />
-                      <span className="text-sm font-bold tracking-tight">{item.label}</span>
+                      <span className="text-body-sm font-bold tracking-tight">{item.label}</span>
                     </button>
                   ))}
                 </div>
@@ -134,7 +134,7 @@ export default function InternalDashboard() {
               className={`w-full flex items-center px-4 py-3 rounded-xl transition-colors ${isHighContrast ? 'border border-white text-white hover:bg-zinc-900' : 'bg-zinc-100 text-zinc-600 hover:bg-rose-50 hover:text-rose-600'}`}
             >
               <LogOut className="w-5 h-5 mr-3" />
-              <span className="text-sm font-bold">{currentLang.logout}</span>
+              <span className="text-body-sm font-bold">{currentLang.logout}</span>
             </button>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function InternalDashboard() {
             </button>
 
 
-            <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-zinc-900 truncate max-w-[150px] sm:max-w-none uppercase">
+            <h1 className="text-h6 text-zinc-900 truncate max-w-[150px] sm:max-w-none">
               {dashActiveView === 'overview' ? currentLang.dashOverview
                 : dashActiveView === 'chairman' ? currentLang.dashChairman
                   : dashActiveView === 'analytics' ? currentLang.dashAnalytics
@@ -183,55 +183,55 @@ export default function InternalDashboard() {
             {dashActiveView === 'overview' && (
               <>
                 <div className="bg-white p-4 mb-6 rounded-[20px] border border-slate-200 shadow-sm flex flex-wrap gap-3 items-center relative z-20">
-                  <div className="flex items-center gap-2 text-slate-600 font-bold text-sm px-2"><Filter className="w-4 h-4" /> Advanced Reporting Filters:</div>
-                  <select value={filterYear} onChange={e => setFilterYear(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Years (2019-2026)</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option></select>
-                  <select value={filterLocation} onChange={e => setFilterLocation(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Court Locations</option><option>Kuala Lumpur</option><option>Selangor</option><option>Johor</option><option>Penang</option><option>Perak</option></select>
-                  <select value={filterCaseType} onChange={e => setFilterCaseType(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Case Types</option><option>Unfair Dismissal</option><option>Constructive Dismissal</option><option>Collective Agreement</option><option>Trade Dispute</option></select>
-                  <select value={filterChairman} onChange={e => setFilterChairman(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Chairmen</option><option>Y.A. Dato' Wan Jeffry</option><option>Y.A. Tuan Amrik Singh</option><option>Y.A. Tuan Zulhelmy</option></select>
-                  <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Statuses</option><option>Registered</option><option>Mention</option><option>Hearing</option><option>Award Pending</option><option>Closed</option></select>
-                  <button className="ml-auto px-5 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 shadow-md transition-colors">Apply Filters</button>
+                  <div className="flex items-center gap-2 text-slate-600 text-body-sm font-bold px-2"><Filter className="w-4 h-4" /> Advanced Reporting Filters:</div>
+                  <select value={filterYear} onChange={e => setFilterYear(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Years (2019-2026)</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option></select>
+                  <select value={filterLocation} onChange={e => setFilterLocation(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Court Locations</option><option>Kuala Lumpur</option><option>Selangor</option><option>Johor</option><option>Penang</option><option>Perak</option></select>
+                  <select value={filterCaseType} onChange={e => setFilterCaseType(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Case Types</option><option>Unfair Dismissal</option><option>Constructive Dismissal</option><option>Collective Agreement</option><option>Trade Dispute</option></select>
+                  <select value={filterChairman} onChange={e => setFilterChairman(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Chairmen</option><option>Y.A. Dato' Wan Jeffry</option><option>Y.A. Tuan Amrik Singh</option><option>Y.A. Tuan Zulhelmy</option></select>
+                  <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Statuses</option><option>Registered</option><option>Mention</option><option>Hearing</option><option>Award Pending</option><option>Closed</option></select>
+                  <button className="ml-auto px-5 py-2 bg-blue-600 text-white text-ui-label font-bold rounded-lg hover:bg-blue-700 shadow-md transition-colors">Apply Filters</button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                   <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden">
                     <div className="flex justify-between items-start mb-4">
-                      <div><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1">{currentLang.kpiActive}</p><h3 className="text-3xl md:text-4xl font-black text-slate-900">127</h3></div>
+                      <div><p className="text-ui-label text-slate-500 mb-1 leading-none">{currentLang.kpiActive}</p><h3 className="text-h1 text-slate-900">127</h3></div>
                       <div className="p-2.5 bg-blue-50 rounded-[14px] text-blue-600"><Briefcase className="w-5 h-5 md:w-6 md:h-6" /></div>
                     </div>
-                    <div className="flex items-center text-xs font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-1 rounded-md"><Activity className="w-3 h-3 mr-1" /> Trending up 5%</div>
+                    <div className="flex items-center text-ui-label font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-1 rounded-md"><Activity className="w-3 h-3 mr-1" /> Trending up 5%</div>
                   </div>
                   <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden">
                     <div className="flex justify-between items-start mb-4">
-                      <div><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1">Avg Resolution Time</p><h3 className="text-3xl md:text-4xl font-black text-slate-900">68 <span className="text-lg md:text-xl text-slate-400">days</span></h3></div>
+                      <div><p className="text-ui-label text-slate-500 mb-1 leading-none">Avg Resolution Time</p><h3 className="text-h1 text-slate-900">68 <span className="text-h4 text-slate-400">days</span></h3></div>
                       <div className="p-2.5 bg-indigo-50 rounded-[14px] text-indigo-600"><Clock className="w-5 h-5 md:w-6 md:h-6" /></div>
                     </div>
-                    <div className="flex items-center text-xs font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-1 rounded-md"><ArrowDown className="w-3 h-3 mr-1" /> 5 days faster</div>
+                    <div className="flex items-center text-ui-label font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-1 rounded-md"><ArrowDown className="w-3 h-3 mr-1" /> 5 days faster</div>
                   </div>
                   <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] col-span-1 md:col-span-2 flex items-center justify-between overflow-hidden relative">
                     <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-blue-50 to-transparent z-0"></div>
                     <div className="relative z-10">
-                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1">{currentLang.kpiResolution}</p>
-                      <div className="flex items-baseline gap-3"><h3 className="text-3xl md:text-4xl font-black text-slate-900">67%</h3><span className="text-emerald-600 font-bold text-sm bg-emerald-50 px-2 py-0.5 rounded-md">+3% YoY</span></div>
-                      <p className="text-xs font-bold text-slate-400 mt-2 md:mt-3">Target: 80% resolution within 90 days</p>
+                      <p className="text-ui-label text-slate-500 mb-1 leading-none">{currentLang.kpiResolution}</p>
+                      <div className="flex items-baseline gap-3"><h3 className="text-h1 text-slate-900">67%</h3><span className="text-emerald-600 font-bold text-body-sm bg-emerald-50 px-2 py-0.5 rounded-md">+3% YoY</span></div>
+                      <p className="text-body-sm font-bold text-slate-400 mt-2 md:mt-3">Target: 80% resolution within 90 days</p>
                     </div>
                     <div className="relative w-20 h-20 md:w-28 md:h-28 flex items-center justify-center z-10">
                       <svg className="w-full h-full transform -rotate-90">
                         <circle cx="50%" cy="50%" r="40%" stroke="currentColor" strokeWidth="10%" fill="transparent" className="text-slate-100" />
                         <circle cx="50%" cy="50%" r="40%" stroke="currentColor" strokeWidth="10%" fill="transparent" strokeDasharray="250%" strokeDashoffset="82.5%" className="text-blue-600 transition-all duration-1000 ease-out" strokeLinecap="round" />
                       </svg>
-                      <span className="absolute text-base md:text-lg font-black text-slate-800">67%</span>
+                      <span className="absolute text-h4 text-slate-800">67%</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between mt-4">
-                  <h2 className="text-xl font-extrabold text-slate-900 flex items-center"><PieChart className="w-5 h-5 mr-2 text-blue-600" /> Advanced Analytics & Reporting</h2>
+                  <h2 className="text-h3 text-slate-900 flex items-center"><PieChart className="w-5 h-5 mr-2 text-blue-600" /> Advanced Analytics & Reporting</h2>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                   {/* 1. Reg vs Resolved */}
                   <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
-                    <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4">1. Reg vs Resolved (Unfair Dismissal)</h3>
+                    <h3 className="text-ui-label text-slate-500 uppercase mb-4">1. Reg vs Resolved (Unfair Dismissal)</h3>
                     <div className="relative h-48 mt-auto border-b border-slate-200">
                       <div className="absolute inset-0 flex flex-col justify-between pb-1 z-0"><div className="border-b border-slate-100 w-full h-0"></div><div className="border-b border-slate-100 w-full h-0"></div><div className="border-b border-slate-100 w-full h-0"></div></div>
                       <div className="relative z-10 flex items-end gap-2 h-full justify-between px-2 pb-0">
@@ -252,7 +252,7 @@ export default function InternalDashboard() {
 
                   {/* 2. Types of UD Resolved */}
                   <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
-                    <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4">2. Types of UD Resolved</h3>
+                    <h3 className="text-ui-label text-slate-500 uppercase mb-4">2. Types of UD Resolved</h3>
                     <div className="relative h-48 mt-auto border-b border-slate-200">
                       <div className="relative z-10 flex items-end gap-3 h-full justify-between px-2 pb-0">
                         {ch2.map((d, i) => (
@@ -277,7 +277,7 @@ export default function InternalDashboard() {
 
                   {/* 3. Reg by Category */}
                   <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
-                    <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4">3. Reg. Categories (Other than UD)</h3>
+                    <h3 className="text-ui-label text-slate-500 uppercase mb-4">3. Reg. Categories (Other than UD)</h3>
                     <div className="relative h-48 mt-auto border-b border-slate-200">
                       <div className="relative z-10 flex items-end gap-2 h-full justify-between px-2 pb-0">
                         {ch3.map((d, i) => (
@@ -819,12 +819,12 @@ export default function InternalDashboard() {
             {dashActiveView === 'schedule_int' && (
               <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
-                  <h3 className="text-lg md:text-xl font-extrabold text-slate-900">Master Court Calendar</h3>
-                  <button className="text-xs md:text-sm font-bold bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 shadow-md flex items-center justify-center"><Calendar className="w-4 h-4 mr-2" /> Schedule</button>
+                  <h3 className="text-h3 text-slate-900">Master Court Calendar</h3>
+                  <button className="text-body-sm font-bold bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 shadow-md flex items-center justify-center"><Calendar className="w-4 h-4 mr-2" /> Schedule</button>
                 </div>
                 <div className="border border-slate-200 rounded-[20px] overflow-hidden bg-slate-50 overflow-x-auto">
                   <div className="min-w-[600px]">
-                    <div className="grid grid-cols-5 bg-slate-100 border-b border-slate-200 text-[10px] font-extrabold text-slate-500 uppercase tracking-widest divide-x divide-slate-200">
+                    <div className="grid grid-cols-5 bg-slate-100 border-b border-slate-200 text-ui-label text-slate-500 divide-x divide-slate-200">
                       {['Mon 9', 'Tue 10', 'Wed 11', 'Thu 12', 'Fri 13'].map(d => <div key={d} className="p-3 md:p-4 text-center">{d}</div>)}
                     </div>
                     <div className="grid grid-cols-5 min-h-[400px] divide-x divide-slate-200 bg-white">
@@ -835,9 +835,9 @@ export default function InternalDashboard() {
                         {chairmanCases.slice(0, 2).map((c, i) => (
                           <div key={i} className="p-2 md:p-3 bg-white border border-blue-200 shadow-sm rounded-xl cursor-pointer hover:border-blue-500 transition-colors relative overflow-hidden">
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
-                            <span className="text-[10px] md:text-xs font-black text-slate-900 block mb-1">09:00 AM</span>
-                            <span className="text-[9px] md:text-[10px] font-bold text-slate-500 block leading-tight">{c.id}</span>
-                            <span className="text-[9px] md:text-[10px] font-bold text-blue-700 bg-blue-50 mt-2 inline-block px-1.5 rounded">{c.status}</span>
+                            <span className="text-ui-label text-slate-900 block mb-1">09:00 AM</span>
+                            <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
+                            <span className="text-ui-label text-blue-700 bg-blue-50 mt-2 inline-block px-1.5 rounded">{c.status}</span>
                           </div>
                         ))}
                       </div>
@@ -851,13 +851,13 @@ export default function InternalDashboard() {
             {/* ---------------- M3 NOTICE ---------------- */}
             {dashActiveView === 'notice' && (
               <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8"><h3 className="text-lg md:text-xl font-extrabold text-slate-900">Dispatch Notices</h3><button className="text-xs md:text-sm font-bold bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-xl shadow-md">Generate Notice</button></div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8"><h3 className="text-h3 text-slate-900">Dispatch Notices</h3><button className="text-body-sm font-bold bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-xl shadow-md">Generate Notice</button></div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left min-w-[600px]">
-                    <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Notice ID</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Notice Type</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Related Case</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 text-right">Status</th></tr></thead>
+                    <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Notice ID</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Notice Type</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Related Case</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Status</th></tr></thead>
                     <tbody className="divide-y divide-slate-50">
                       {mockNotices.map((n, i) => (
-                        <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-xs font-mono font-bold text-slate-900">{n.id}</td><td className="py-4 px-4 text-xs font-bold text-slate-700">{n.type}</td><td className="py-4 px-4"><span className="text-xs font-bold text-blue-600 block">{n.caseNo}</span><span className="text-[10px] font-semibold text-slate-500">{n.parties}</span></td><td className="py-4 px-4 text-right"><span className={`inline-flex px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${n.status === 'Delivered' || n.status === 'Dispatched' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>{n.status}</span></td></tr>
+                        <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-body-sm font-mono font-bold text-slate-900">{n.id}</td><td className="py-4 px-4 text-body-sm font-bold text-slate-700">{n.type}</td><td className="py-4 px-4"><span className="text-body-sm font-bold text-blue-600 block">{n.caseNo}</span><span className="text-ui-label font-semibold text-slate-500">{n.parties}</span></td><td className="py-4 px-4 text-right"><span className={`inline-flex px-3 py-1 rounded-lg text-ui-label font-bold uppercase tracking-wider ${n.status === 'Delivered' || n.status === 'Dispatched' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>{n.status}</span></td></tr>
                       ))}
                     </tbody>
                   </table>
@@ -868,13 +868,13 @@ export default function InternalDashboard() {
             {/* ---------------- M11 COLLECTIVE ---------------- */}
             {dashActiveView === 'collective' && (
               <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8"><h3 className="text-lg md:text-xl font-extrabold text-slate-900">Collective Agreements</h3><button className="text-xs md:text-sm font-bold bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-xl shadow-md">Register CA</button></div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8"><h3 className="text-h3 text-slate-900">Collective Agreements</h3><button className="text-body-sm font-bold bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-xl shadow-md">Register CA</button></div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left min-w-[600px]">
-                    <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">CA Number</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Parties</th><th className="py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Submitted</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 text-right">Status</th></tr></thead>
+                    <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">CA Number</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Parties</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Submitted</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Status</th></tr></thead>
                     <tbody className="divide-y divide-slate-50">
                       {mockCAs.map((ca, i) => (
-                        <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-xs font-mono font-bold text-blue-600">{ca.id}</td><td className="py-4 px-4"><span className="text-xs font-bold text-slate-800 block">{ca.union}</span><span className="text-[10px] font-semibold text-slate-500 block mt-0.5">v {ca.company}</span></td><td className="py-4 px-4 text-xs font-semibold text-slate-500">{ca.submitted}</td><td className="py-4 px-4 text-right"><span className={`inline-flex px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${ca.status.includes('Approved') || ca.status.includes('Granted') ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'}`}>{ca.status}</span></td></tr>
+                        <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-body-sm font-mono font-bold text-blue-600">{ca.id}</td><td className="py-4 px-4"><span className="text-body-sm font-bold text-slate-800 block">{ca.union}</span><span className="text-ui-label font-semibold text-slate-500 block mt-0.5">v {ca.company}</span></td><td className="py-4 px-4 text-body-sm font-semibold text-slate-500">{ca.submitted}</td><td className="py-4 px-4 text-right"><span className={`inline-flex px-3 py-1 rounded-lg text-ui-label font-bold uppercase tracking-wider ${ca.status.includes('Approved') || ca.status.includes('Granted') ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'}`}>{ca.status}</span></td></tr>
                       ))}
                     </tbody>
                   </table>
@@ -892,21 +892,21 @@ export default function InternalDashboard() {
             {/* ---------------- M7 DIGITAL DISPLAY ---------------- */}
             {dashActiveView === 'display' && (
               <div className="flex flex-col items-center">
-                <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">Live Preview: Mahkamah 1 External Display</p>
+                <p className="text-ui-label text-slate-400 mb-6 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">Live Preview: Mahkamah 1 External Display</p>
                 <div className="w-full max-w-4xl aspect-video bg-[#0B1120] rounded-[24px] md:rounded-[32px] border-[8px] md:border-[12px] border-slate-900 shadow-2xl p-6 md:p-10 flex flex-col justify-between text-white relative overflow-hidden">
                   <div className="absolute -top-10 -right-10 md:-top-20 md:-right-20 p-4 opacity-10"><Scale className="w-48 h-48 md:w-96 md:h-96" /></div>
                   <div className="relative z-10">
-                    <h2 className="text-xl md:text-3xl font-bold text-slate-400 tracking-widest uppercase">Mahkamah 1</h2>
-                    <h3 className="text-2xl md:text-4xl font-black mt-2 md:mt-3 text-blue-400">Y.A. Dato' Wan Jeffry Bin Kassim</h3>
+                    <h2 className="text-h3 text-slate-400 tracking-widest uppercase mb-1">Mahkamah 1</h2>
+                    <h3 className="text-h2 text-blue-400">Y.A. Dato' Wan Jeffry Bin Kassim</h3>
                   </div>
                   <div className="bg-slate-900/80 p-4 md:p-8 rounded-[16px] md:rounded-[24px] border border-slate-700 backdrop-blur-xl relative z-10">
-                    <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-6"><span className="px-3 py-1 md:px-4 md:py-1.5 bg-rose-500 text-white font-black text-xs md:text-sm uppercase tracking-widest rounded-lg animate-pulse shadow-[0_0_20px_rgba(244,63,94,0.5)]">Now Hearing</span> <span className="font-mono text-lg md:text-2xl font-bold text-slate-300">1/1-1522/25</span></div>
-                    <h4 className="text-2xl md:text-4xl font-black mb-1 md:mb-2">Tay Hwee Lan</h4>
-                    <p className="text-sm md:text-2xl font-bold text-slate-400">Lawan: Healthy Vision Sdn Bhd</p>
+                    <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-6"><span className="px-3 py-1 md:px-4 md:py-1.5 bg-rose-500 text-white text-ui-label tracking-widest rounded-lg animate-pulse shadow-[0_0_20px_rgba(244,63,94,0.5)]">Now Hearing</span> <span className="font-mono text-h4 text-slate-300">1/1-1522/25</span></div>
+                    <h4 className="text-h2 mb-1 md:mb-2 text-white">Tay Hwee Lan</h4>
+                    <p className="text-h4 text-slate-400">Lawan: Healthy Vision Sdn Bhd</p>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end relative z-10 gap-4 mt-4 md:mt-0">
-                    <div><p className="text-[10px] md:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Next Case</p><p className="font-bold text-sm md:text-xl text-slate-300">11:00 AM - Azman Bin Isa</p></div>
-                    <div className="text-3xl md:text-5xl font-black font-mono tracking-tighter text-blue-400">09:14 AM</div>
+                    <div><p className="text-ui-label text-slate-500 uppercase mb-1">Next Case</p><p className="font-bold text-body-lg text-slate-300">11:00 AM - Azman Bin Isa</p></div>
+                    <div className="text-display font-mono text-blue-400">09:14 AM</div>
                   </div>
                 </div>
               </div>
@@ -916,19 +916,19 @@ export default function InternalDashboard() {
             {dashActiveView === 'chairman' && !internalActionView && (
               <>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-2">Assigned Cases</p><h3 className="text-3xl md:text-4xl font-black text-slate-900">28</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-2">Hearings This Week</p><h3 className="text-3xl md:text-4xl font-black text-slate-900">6</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-2">Mentions This Week</p><h3 className="text-3xl md:text-4xl font-black text-slate-900">4</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-rose-200 bg-rose-50/30 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-[10px] font-extrabold uppercase tracking-widest text-rose-500 mb-2">Awards Pending</p><h3 className="text-3xl md:text-4xl font-black text-rose-600">3</h3></div>
+                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">Assigned Cases</p><h3 className="text-h1 text-slate-900">28</h3></div>
+                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">Hearings This Week</p><h3 className="text-h1 text-slate-900">6</h3></div>
+                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">Mentions This Week</p><h3 className="text-h1 text-slate-900">4</h3></div>
+                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-rose-200 bg-rose-50/30 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-rose-500 mb-2">Awards Pending</p><h3 className="text-h1 text-rose-600">3</h3></div>
                 </div>
                 <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
-                  <h3 className="text-lg font-extrabold text-slate-900 mb-6 md:mb-8">Assigned Case Roster</h3>
+                  <h3 className="text-h3 text-slate-900 mb-6 md:mb-8">Assigned Case Roster</h3>
                   <div className="overflow-x-auto">
                     <table className="w-full text-left min-w-[600px]">
-                      <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Case Number</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Case Title</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 text-center">Status</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 text-right">Hearing Date</th></tr></thead>
+                      <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Case Number</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Case Title</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-center">Status</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Hearing Date</th></tr></thead>
                       <tbody className="divide-y divide-slate-50">
                         {chairmanCases.map((c, i) => (
-                          <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-xs font-mono font-bold text-blue-600 cursor-pointer hover:underline">{c.id}</td><td className="py-4 px-4 text-xs md:text-sm font-bold text-slate-900">{c.title}</td><td className="py-4 px-4 text-center"><span className="px-3 py-1 rounded-lg bg-amber-100 text-amber-800 text-[10px] font-bold uppercase tracking-wider">{c.status}</span></td><td className="py-4 px-4 text-xs font-bold text-slate-500 text-right"><button onClick={() => { setSelectedInternalItem(c); setInternalActionView('hearing_notes'); }} className="px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition-colors">Workspace</button></td></tr>
+                          <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-body-sm font-mono font-bold text-blue-600 cursor-pointer hover:underline">{c.id}</td><td className="py-4 px-4 text-body-sm text-slate-900">{c.title}</td><td className="py-4 px-4 text-center"><span className="px-3 py-1 rounded-lg bg-amber-100 text-amber-800 text-ui-label">{c.status}</span></td><td className="py-4 px-4 text-body-sm text-slate-500 text-right"><button onClick={() => { setSelectedInternalItem(c); setInternalActionView('hearing_notes'); }} className="px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-lg text-body-sm transition-colors">Workspace</button></td></tr>
                         ))}
                       </tbody>
                     </table>
@@ -943,44 +943,44 @@ export default function InternalDashboard() {
                   <div className="flex items-center gap-4">
                     <button onClick={() => setInternalActionView(null)} className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-50 shadow-sm"><ArrowLeft className="w-5 h-5" /></button>
                     <div>
-                      <h2 className="text-xl font-black text-slate-900">Hearing Workspace</h2>
-                      <p className="text-xs font-bold text-blue-600">{selectedInternalItem.id} &bull; {selectedInternalItem.title}</p>
+                      <h2 className="text-h3 text-slate-900">Hearing Workspace</h2>
+                      <p className="text-body-sm text-blue-600">{selectedInternalItem.id} &bull; {selectedInternalItem.title}</p>
                     </div>
                   </div>
-                  <button className="px-5 py-2.5 bg-emerald-600 text-white text-sm font-bold rounded-xl hover:bg-emerald-700 shadow-md flex items-center"><Save className="w-4 h-4 mr-2" /> Save Notes</button>
+                  <button className="px-5 py-2.5 bg-emerald-600 text-white text-body-sm rounded-xl hover:bg-emerald-700 shadow-md flex items-center"><Save className="w-4 h-4 mr-2" /> Save Notes</button>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
                   <div className="lg:col-span-2 flex flex-col bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl relative">
                     <div className="p-6 bg-slate-800/50 border-b border-white/10 flex justify-between items-center text-white">
-                      <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></div><h3 className="text-xs font-black uppercase tracking-widest opacity-80">Live Hearing Record</h3></div>
+                      <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></div><h3 className="text-ui-label text-white/80">Live Hearing Record</h3></div>
                       <div className="flex gap-2"><button className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"><Mic className="w-4 h-4" /></button><button className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"><Video className="w-4 h-4" /></button></div>
                     </div>
                     <div className="flex-1 p-8 overflow-y-auto">
-                      <textarea placeholder="Start typing hearing notes, evidence observations, and witness testimonies..." className="w-full h-full bg-transparent text-slate-200 text-lg font-medium leading-relaxed resize-none outline-none placeholder:text-slate-600"></textarea>
+                      <textarea placeholder="Start typing hearing notes, evidence observations, and witness testimonies..." className="w-full h-full bg-transparent text-h4 leading-relaxed resize-none outline-none placeholder:text-slate-600"></textarea>
                     </div>
-                    <div className="p-4 bg-slate-800/50 border-t border-white/10 text-[10px] font-bold text-slate-500 text-center uppercase tracking-widest">Autosaved at 09:42:15 AM</div>
+                    <div className="p-4 bg-slate-800/50 border-t border-white/10 text-ui-label text-slate-500 text-center uppercase">Autosaved at 09:42:15 AM</div>
                   </div>
                   <div className="space-y-6 overflow-y-auto pr-2">
                     <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center"><Gavel className="w-4 h-4 mr-2" /> Bench Reference</h4>
+                      <h4 className="text-ui-label text-slate-400 mb-4 flex items-center"><Gavel className="w-4 h-4 mr-2" /> Bench Reference</h4>
                       <div className="space-y-4">
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                          <p className="text-xs font-bold text-slate-800 mb-1">Relevant Award</p>
-                          <p className="text-[10px] font-semibold text-slate-500 mb-2">Award 120/2024 - Similar Redundancy Facts</p>
-                          <button className="text-blue-600 text-[10px] font-bold hover:underline">View Decision</button>
+                          <p className="text-body-sm text-slate-800 mb-1">Relevant Award</p>
+                          <p className="text-ui-label text-slate-500 mb-2 leading-tight">Award 120/2024 - Similar Redundancy Facts</p>
+                          <button className="text-blue-600 text-ui-label hover:underline">View Decision</button>
                         </div>
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                          <p className="text-xs font-bold text-slate-800 mb-1">Claimant's IC Number</p>
-                          <p className="text-sm font-mono font-bold text-slate-600">880214-14-XXXX</p>
+                          <p className="text-body-sm text-slate-400 uppercase">Claimant's IC Number</p>
+                          <p className="text-h6 font-mono text-slate-600">880214-14-XXXX</p>
                         </div>
                       </div>
                     </div>
                     <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center"><FileText className="w-4 h-4 mr-2" /> Pleadings Quick Access</h4>
+                      <h4 className="text-ui-label text-slate-400 mb-4 flex items-center"><FileText className="w-4 h-4 mr-2" /> Pleadings Quick Access</h4>
                       <div className="space-y-2">
                         {['Statement of Case', 'Statement in Reply', 'Bundle of Documents', 'Witness Statement - C1'].map((doc, idx) => (
                           <button key={idx} className="w-full text-left p-3 hover:bg-blue-50 rounded-xl border border-transparent hover:border-blue-100 transition-all group">
-                            <span className="text-xs font-bold text-slate-700 group-hover:text-blue-700">{doc}</span>
+                            <span className="text-body-sm text-slate-700 group-hover:text-blue-700">{doc}</span>
                           </button>
                         ))}
                       </div>
@@ -995,12 +995,12 @@ export default function InternalDashboard() {
               <div className="bg-white p-6 md:p-10 rounded-[32px] border border-slate-200 shadow-sm animate-in fade-in duration-500">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                   <div>
-                    <h3 className="text-2xl font-black text-slate-900">User & Role Management</h3>
-                    <p className="text-sm font-bold text-slate-500 mt-1">Manage platform access, roles, and permissions (US-061).</p>
+                    <h3 className="text-h2 text-slate-900">User & Role Management</h3>
+                    <p className="text-body-sm text-slate-500 mt-1">Manage platform access, roles, and permissions (US-061).</p>
                   </div>
                   <button 
                     onClick={() => setInternalActionView('add_user')}
-                    className="flex justify-center items-center px-6 py-3 bg-[#111111] text-white text-sm font-bold rounded-xl hover:bg-black shadow-md transition-all active:scale-95">
+                    className="flex justify-center items-center px-6 py-3 bg-[#111111] text-white text-body-sm rounded-xl hover:bg-black shadow-md transition-all active:scale-95">
                     <FilePlus className="w-4 h-4 mr-2" /> Add New User
                   </button>
                 </div>
@@ -1009,10 +1009,10 @@ export default function InternalDashboard() {
                     <table className="w-full text-left min-w-[700px]">
                       <thead>
                         <tr className="border-b border-slate-100">
-                          <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400">User</th>
-                          <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400">Role</th>
-                          <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400 text-center">Status</th>
-                          <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400 text-right">Action</th>
+                          <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase">User</th>
+                          <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase">Role</th>
+                          <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase text-center">Status</th>
+                          <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Action</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-50">
@@ -1025,12 +1025,12 @@ export default function InternalDashboard() {
                           <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
                             <td className="py-6 px-4">
                               <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-black text-[#3B82F6]">{user.name[0]}</div>
-                                <div><p className="text-sm font-black text-[#1E1E2D]">{user.name}</p><p className="text-xs font-bold text-slate-400">{user.email}</p></div>
-                              </div>
-                            </td>
-                            <td className="py-6 px-4"><span className="px-3 py-1 bg-blue-50 text-[#3B82F6] text-[11px] font-black rounded-lg uppercase tracking-wider">{user.role}</span></td>
-                            <td className="py-6 px-4 text-center"><span className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${user.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>{user.status}</span></td>
+                                 <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-h6 text-[#3B82F6]">{user.name[0]}</div>
+                                 <div><p className="text-body-md text-[#1E1E2D] tracking-tight">{user.name}</p><p className="text-ui-label text-slate-400">{user.email}</p></div>
+                               </div>
+                             </td>
+                             <td className="py-6 px-4"><span className="px-3 py-1 bg-blue-50 text-[#3B82F6] text-ui-label rounded-lg uppercase tracking-wider">{user.role}</span></td>
+                             <td className="py-6 px-4 text-center"><span className={`px-2.5 py-1 rounded-full text-ui-label ${user.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>{user.status}</span></td>
                             <td className="py-6 px-4 text-right">
                               <button 
                                 onClick={() => { setSelectedInternalItem(user); setInternalActionView('edit_user'); }}
@@ -1053,22 +1053,22 @@ export default function InternalDashboard() {
                   <button onClick={() => setInternalActionView(null)} className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
                     <ArrowLeft className="w-5 h-5" />
                   </button>
-                  <h3 className="text-2xl font-black text-slate-900">Add New System User</h3>
+                  <h3 className="text-h2 text-slate-900">Add New System User</h3>
                 </div>
 
                 <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setInternalActionView(null); }}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-slate-400">Full Name</label>
-                      <input type="text" placeholder="e.g. Mohd Amin" className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none font-bold" required />
+                      <label className="text-ui-label text-slate-400">Full Name</label>
+                      <input type="text" placeholder="e.g. Mohd Amin" className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-body-md font-bold" required />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-slate-400">Email Address</label>
-                      <input type="email" placeholder="name@mpm.gov.my" className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none font-bold" required />
+                      <label className="text-ui-label text-slate-400">Email Address</label>
+                      <input type="email" placeholder="name@mpm.gov.my" className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-body-md font-bold" required />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-slate-400">Assigned Role</label>
-                      <select className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none font-bold appearance-none">
+                      <label className="text-ui-label text-slate-400">Assigned Role</label>
+                      <select className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-body-md font-bold appearance-none">
                         <option>Chairman</option>
                         <option>Registrar</option>
                         <option>YDP / Executive</option>
@@ -1079,10 +1079,10 @@ export default function InternalDashboard() {
                   </div>
 
                   <div className="pt-6 border-t border-slate-100 flex gap-4">
-                    <button type="submit" className="flex-1 py-4 bg-blue-600 text-white font-black rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all active:scale-[0.98]">
+                    <button type="submit" className="flex-1 py-4 bg-blue-600 text-white text-body-md font-bold rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all active:scale-[0.98]">
                       Create Account
                     </button>
-                    <button type="button" onClick={() => setInternalActionView(null)} className="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl hover:bg-slate-200 transition-all">
+                    <button type="button" onClick={() => setInternalActionView(null)} className="flex-1 py-4 bg-slate-100 text-slate-600 text-body-md font-bold rounded-2xl hover:bg-slate-200 transition-all">
                       Cancel
                     </button>
                   </div>
@@ -1099,11 +1099,11 @@ export default function InternalDashboard() {
                       <ArrowLeft className="w-5 h-5" />
                     </button>
                     <div>
-                      <h3 className="text-2xl font-black text-slate-900">User Settings</h3>
-                      <p className="text-sm font-bold text-blue-600 uppercase tracking-widest">{selectedInternalItem.name}</p>
+                      <h3 className="text-h2 text-slate-900">User Settings</h3>
+                      <p className="text-ui-label text-blue-600">{selectedInternalItem.name}</p>
                     </div>
                   </div>
-                  <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${selectedInternalItem.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+                  <div className={`px-4 py-1.5 rounded-full text-ui-label font-bold uppercase tracking-widest ${selectedInternalItem.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
                     {selectedInternalItem.status}
                   </div>
                 </div>
@@ -1111,20 +1111,20 @@ export default function InternalDashboard() {
                 <div className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Account Information</h4>
+                      <h4 className="text-ui-label text-slate-400 mb-4">Account Information</h4>
                       <div className="space-y-4">
-                        <div><p className="text-[10px] font-bold text-slate-400 uppercase">Current Role</p><p className="text-sm font-black text-slate-900">{selectedInternalItem.role}</p></div>
-                        <div><p className="text-[10px] font-bold text-slate-400 uppercase">Registered Email</p><p className="text-sm font-black text-slate-900">{selectedInternalItem.email}</p></div>
+                        <div><p className="text-ui-label text-slate-400 mb-1">Current Role</p><p className="text-body-md font-black text-slate-900">{selectedInternalItem.role}</p></div>
+                        <div><p className="text-ui-label text-slate-400 mb-1">Registered Email</p><p className="text-body-md font-black text-slate-900">{selectedInternalItem.email}</p></div>
                       </div>
                     </div>
 
                     <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
                       <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Quick Actions</h4>
                       <div className="space-y-3">
-                        <button className="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:border-blue-400 hover:text-blue-600 transition-all flex items-center justify-center gap-2">
+                        <button className="w-full p-3 bg-white border border-slate-200 rounded-xl text-body-sm font-bold text-slate-700 hover:border-blue-400 hover:text-blue-600 transition-all flex items-center justify-center gap-2">
                           <Key className="w-4 h-4" /> Reset Password
                         </button>
-                        <button className={`w-full p-3 bg-white border rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${selectedInternalItem.status === 'Active' ? 'border-rose-100 text-rose-600 hover:bg-rose-50' : 'border-emerald-100 text-emerald-600 hover:bg-emerald-50'}`}>
+                        <button className={`w-full p-3 bg-white border rounded-xl text-body-sm font-bold transition-all flex items-center justify-center gap-2 ${selectedInternalItem.status === 'Active' ? 'border-rose-100 text-rose-600 hover:bg-rose-50' : 'border-emerald-100 text-emerald-600 hover:bg-emerald-50'}`}>
                           {selectedInternalItem.status === 'Active' ? <><ShieldAlert className="w-4 h-4" /> Deactivate Account</> : <><CheckCircle2 className="w-4 h-4" /> Activate Account</>}
                         </button>
                       </div>
@@ -1165,23 +1165,23 @@ export default function InternalDashboard() {
                 <div className="bg-white p-8 md:p-10 rounded-[32px] border border-zinc-200 shadow-sm">
                   <div className="flex items-center justify-between mb-8">
                     <div>
-                      <h3 className="text-2xl font-black text-zinc-900">API Integration Monitoring</h3>
-                      <p className="text-sm font-bold text-slate-500 mt-1">Real-time status of cross-agency and SSO integrations (US-062).</p>
+                      <h3 className="text-h2 text-zinc-900">API Integration Monitoring</h3>
+                      <p className="text-body-sm font-bold text-slate-500 mt-1">Real-time status of cross-agency and SSO integrations (US-062).</p>
                     </div>
-                    <span className="flex items-center px-4 py-2 bg-emerald-50 text-emerald-700 text-xs font-black rounded-full uppercase tracking-widest border border-emerald-100">All Systems Operational</span>
+                    <span className="flex items-center px-4 py-2 bg-emerald-50 text-emerald-700 text-ui-label font-bold rounded-full uppercase border border-emerald-100">All Systems Operational</span>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {mockSystemSettings.map((s, i) => (
                       <div key={i} className="p-6 bg-zinc-50 rounded-3xl border border-zinc-200 relative overflow-hidden group hover:border-blue-400 transition-all">
                         <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity"><ServerCrash className="w-16 h-16" /></div>
-                        <h4 className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-1">{s.name}</h4>
+                        <h4 className="text-zinc-500 text-ui-label mb-1">{s.name}</h4>
                         <div className="flex items-center gap-2 mb-4">
                           <div className={`w-2.5 h-2.5 rounded-full ${s.status === 'Online' || s.status === 'Active' ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]'}`}></div>
-                          <p className="text-xl font-black text-zinc-900">{s.status}</p>
+                          <p className="text-h2 text-zinc-900">{s.status}</p>
                         </div>
                         <div className="flex justify-between items-end">
-                            <div><p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Last Downtime</p><p className="text-xs font-black text-zinc-600">{s.lastDowntime}</p></div>
-                            <div className="text-right"><p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Latency</p><p className="text-xs font-black text-blue-600">42ms</p></div>
+                            <div><p className="text-ui-label text-zinc-400 mb-1">Last Downtime</p><p className="text-body-sm font-bold text-zinc-600">{s.lastDowntime}</p></div>
+                            <div className="text-right"><p className="text-ui-label text-zinc-400 mb-1">Latency</p><p className="text-body-sm font-bold text-blue-600">42ms</p></div>
                         </div>
                       </div>
                     ))}
@@ -1189,7 +1189,7 @@ export default function InternalDashboard() {
                 </div>
                 <div className="bg-white p-8 md:p-10 rounded-[32px] border border-zinc-200 shadow-sm">
                   <div className="flex items-center justify-between mb-10">
-                    <h3 className="text-xl font-black text-zinc-900">Recent API Transactions (JPPM/SSO/MyDigitalID)</h3>
+                    <h3 className="text-h3 text-zinc-900">Recent API Transactions (JPPM/SSO/MyDigitalID)</h3>
                     <div className="flex gap-2"><div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400 cursor-pointer hover:bg-white"><ChevronLeft className="w-4 h-4" /></div><div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400 cursor-pointer hover:bg-white"><ChevronRight className="w-4 h-4" /></div></div>
                   </div>
                   <div className="space-y-4">
@@ -1197,11 +1197,11 @@ export default function InternalDashboard() {
                       <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 hover:bg-white rounded-2xl border border-slate-100 hover:border-blue-200 transition-all group">
                         <div className="flex items-center gap-5">
                           <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm transition-transform group-hover:rotate-12 ${log.status === 'Success' ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'}`}><RefreshCw className="w-6 h-6" /></div>
-                          <div><p className="text-base font-black text-zinc-900">{log.system} {log.type}</p><p className="text-xs font-bold text-zinc-400">Request ID: {log.id}</p></div>
+                          <div><p className="text-body-lg font-black text-zinc-900">{log.system} {log.type}</p><p className="text-ui-label text-zinc-400">Request ID: {log.id}</p></div>
                         </div>
                         <div className="text-right">
-                          <span className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${log.status === 'Success' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-200' : 'bg-rose-500 text-white shadow-lg shadow-rose-200'}`}>{log.status}</span>
-                          <p className="text-xs font-bold text-zinc-400 mt-2">Timestamp: {log.time}</p>
+                          <span className={`px-4 py-1 rounded-full text-ui-label font-bold uppercase transition-shadow ${log.status === 'Success' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-200' : 'bg-rose-500 text-white shadow-lg shadow-rose-200'}`}>{log.status}</span>
+                          <p className="text-ui-label text-zinc-400 mt-2">Timestamp: {log.time}</p>
                         </div>
                       </div>
                     ))}
@@ -1213,13 +1213,13 @@ export default function InternalDashboard() {
             {/* ---------------- M12 USAGE ---------------- */}
             {dashActiveView === 'usage' && (
               <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
-                <div className="flex items-center justify-between mb-8"><h3 className="text-xl font-extrabold text-slate-900">Platform Usage Logs</h3><button className="p-2 hover:bg-slate-100 rounded-xl transition-colors"><ArrowUpRight className="w-5 h-5 text-slate-400" /></button></div>
+                <div className="flex items-center justify-between mb-8"><h3 className="text-h3 text-slate-900">Platform Usage Logs</h3><button className="p-2 hover:bg-slate-100 rounded-xl transition-colors"><ArrowUpRight className="w-5 h-5 text-slate-400" /></button></div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left min-w-[600px]">
-                    <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Timestamp</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Platform User</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 text-center">Role</th><th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 text-right">Activity</th></tr></thead>
+                    <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Timestamp</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Platform User</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-center">Role</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Activity</th></tr></thead>
                     <tbody className="divide-y divide-slate-50">
                       {mockUsageLogs.map((log, i) => (
-                        <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-xs font-semibold text-slate-500">{log.time}</td><td className="py-4 px-4"><p className="text-xs font-bold text-slate-900">{log.user}</p><p className="text-[10px] font-bold text-slate-400">{log.id}</p></td><td className="py-4 px-4 text-center"><span className="px-2.5 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-lg uppercase tracking-wider">{log.role}</span></td><td className="py-4 px-4 text-right text-xs font-bold text-slate-700">{log.action}</td></tr>
+                        <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-body-sm font-semibold text-slate-500">{log.time}</td><td className="py-4 px-4"><p className="text-body-sm font-bold text-slate-900">{log.user}</p><p className="text-ui-label text-slate-400">{log.id}</p></td><td className="py-4 px-4 text-center"><span className="px-2.5 py-1 bg-slate-100 text-slate-600 text-ui-label font-bold rounded-lg uppercase tracking-wider">{log.role}</span></td><td className="py-4 px-4 text-right text-body-sm font-bold text-slate-700">{log.action}</td></tr>
                       ))}
                     </tbody>
                   </table>
@@ -1231,16 +1231,16 @@ export default function InternalDashboard() {
             {dashActiveView === 'settings' && (
               <div className="max-w-4xl mx-auto space-y-8">
                 <div className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm">
-                  <h3 className="text-xl font-extrabold text-slate-900 mb-8 pb-4 border-b border-slate-100">System Preferences</h3>
+                  <h3 className="text-h3 text-slate-900 mb-8 pb-4 border-b border-slate-100">System Preferences</h3>
                   <div className="space-y-8">
-                    <div className="flex items-center justify-between"><div className="space-y-1"><h4 className="text-sm font-bold text-slate-900">Strict Document Validation</h4><p className="text-xs font-semibold text-slate-500">Enable OCR-based automatic validation for e-Filing submissions.</p></div><div className="w-12 h-6 bg-blue-600 rounded-full relative p-1 cursor-pointer shadow-inner"><div className="w-4 h-4 bg-white rounded-full absolute right-1"></div></div></div>
-                    <div className="flex items-center justify-between"><div className="space-y-1"><h4 className="text-sm font-bold text-slate-900">Public Portal Maintenance Mode</h4><p className="text-xs font-semibold text-slate-500">Restrict access to external users during system upgrades.</p></div><div className="w-12 h-6 bg-slate-200 rounded-full relative p-1 cursor-pointer shadow-inner"><div className="w-4 h-4 bg-white rounded-full absolute left-1"></div></div></div>
-                    <div className="flex items-center justify-between"><div className="space-y-1"><h4 className="text-sm font-bold text-slate-900">Email Dispatch Notifications</h4><p className="text-xs font-semibold text-slate-500">Automatically notify parties via email on all case updates.</p></div><div className="w-12 h-6 bg-blue-600 rounded-full relative p-1 cursor-pointer shadow-inner"><div className="w-4 h-4 bg-white rounded-full absolute right-1"></div></div></div>
+                    <div className="flex items-center justify-between"><div className="space-y-1"><h4 className="text-body-md font-bold text-slate-900">Strict Document Validation</h4><p className="text-body-sm text-slate-500">Enable OCR-based automatic validation for e-Filing submissions.</p></div><div className="w-12 h-6 bg-blue-600 rounded-full relative p-1 cursor-pointer shadow-inner"><div className="w-4 h-4 bg-white rounded-full absolute right-1"></div></div></div>
+                    <div className="flex items-center justify-between"><div className="space-y-1"><h4 className="text-body-md font-bold text-slate-900">Public Portal Maintenance Mode</h4><p className="text-body-sm text-slate-500">Restrict access to external users during system upgrades.</p></div><div className="w-12 h-6 bg-slate-200 rounded-full relative p-1 cursor-pointer shadow-inner"><div className="w-4 h-4 bg-white rounded-full absolute left-1"></div></div></div>
+                    <div className="flex items-center justify-between"><div className="space-y-1"><h4 className="text-body-md font-bold text-slate-900">Email Dispatch Notifications</h4><p className="text-body-sm text-slate-500">Automatically notify parties via email on all case updates.</p></div><div className="w-12 h-6 bg-blue-600 rounded-full relative p-1 cursor-pointer shadow-inner"><div className="w-4 h-4 bg-white rounded-full absolute right-1"></div></div></div>
                   </div>
                 </div>
                 <div className="bg-rose-50 border border-rose-200 p-8 rounded-[32px] flex items-center justify-between">
-                  <div><h3 className="text-lg font-extrabold text-rose-900">Danger Zone</h3><p className="text-sm font-semibold text-rose-700 mt-1">Actions in this section are irreversible and affect global data.</p></div>
-                  <button className="px-6 py-2.5 bg-rose-600 text-white font-bold rounded-xl hover:bg-rose-700 shadow-md transition-colors">Clear System Cache</button>
+                  <div><h3 className="text-h3 text-rose-900">Danger Zone</h3><p className="text-body-sm text-rose-700 mt-1">Actions in this section are irreversible and affect global data.</p></div>
+                  <button className="px-6 py-2.5 bg-rose-600 text-white text-body-sm font-bold rounded-xl hover:bg-rose-700 shadow-md transition-colors">Clear System Cache</button>
                 </div>
               </div>
             )}

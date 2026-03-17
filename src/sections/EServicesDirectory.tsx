@@ -34,11 +34,11 @@ export default function EServicesDirectory() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2
-            className={`text-3xl sm:text-5xl font-black mb-4 tracking-tight ${isHighContrast ? "text-white" : "text-zinc-900"}`}
+            className={`text-h1 mb-4 ${isHighContrast ? "text-white" : "text-zinc-900"}`}
           >
             {currentLang.architectureTitle}
           </h2>
-          <p className={`text-base sm:text-lg max-w-2xl mx-auto font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
+          <p className={`text-body-lg max-w-2xl mx-auto font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
             {currentLang.architectureSub}
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function EServicesDirectory() {
               <button
                 key={idx}
                 onClick={() => setActiveTab(idx)}
-                className={`px-6 sm:px-8 py-3 rounded-2xl font-black text-sm whitespace-nowrap snap-center transition-all duration-300 ${
+                className={`px-6 sm:px-8 py-3 rounded-2xl text-body-sm font-bold whitespace-nowrap snap-center transition-all duration-300 ${
                   activeTab === idx
                     ? isHighContrast
                       ? "bg-white text-black shadow-lg"
@@ -125,11 +125,11 @@ export default function EServicesDirectory() {
                       <mod.icon className="w-7 h-7 sm:w-8 sm:h-8 font-black" />
                     </div>
                     <h4
-                      className={`text-xl sm:text-2xl font-black leading-tight mb-4 tracking-tight ${isHighContrast ? "text-white" : "text-zinc-900"}`}
+                      className={`text-h3 mb-4 ${isHighContrast ? "text-white" : "text-zinc-900"}`}
                     >
                       {lang === "en" ? mod.enTitle : mod.msTitle}
                     </h4>
-                    <p className={`text-sm sm:text-base leading-relaxed font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
+                    <p className={`text-body-sm leading-relaxed font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
                       {lang === "en" ? mod.enDesc : mod.msDesc}
                     </p>
                   </div>
@@ -138,7 +138,7 @@ export default function EServicesDirectory() {
                     className={`flex items-center justify-between mt-8 pt-6 border-t ${isHighContrast ? "border-zinc-800" : "border-zinc-50"}`}
                   >
                     <span
-                      className={`text-xs sm:text-sm font-black uppercase tracking-widest ${isHighContrast ? "text-white" : "text-blue-600"}`}
+                      className={`text-ui-label font-bold uppercase ${isHighContrast ? "text-white" : "text-blue-600"}`}
                     >
                       Explore Service
                     </span>
