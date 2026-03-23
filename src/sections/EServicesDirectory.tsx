@@ -49,15 +49,14 @@ export default function EServicesDirectory() {
               <button
                 key={idx}
                 onClick={() => setActiveTab(idx)}
-                className={`px-6 sm:px-8 py-3 rounded-2xl text-body-sm font-bold whitespace-nowrap snap-center transition-all duration-300 ${
-                  activeTab === idx
+                className={`px-6 sm:px-8 py-3 rounded-2xl text-body-sm font-bold whitespace-nowrap snap-center transition-all duration-300 ${activeTab === idx
                     ? isHighContrast
                       ? "bg-white text-black shadow-lg"
                       : "bg-blue-600 text-white shadow-lg shadow-blue-200"
                     : isHighContrast
                       ? "border-2 border-white text-white hover:bg-zinc-900"
                       : "bg-zinc-50 border border-zinc-200 text-zinc-600 hover:bg-zinc-100 hover:text-blue-600 shadow-sm"
-                }`}
+                  }`}
               >
                 {tabLabel}
               </button>
@@ -69,11 +68,10 @@ export default function EServicesDirectory() {
       <div className="relative group/carousel">
         <button
           onClick={() => scroll("left")}
-          className={`absolute left-2 sm:left-4 lg:left-12 top-1/2 -translate-y-12 z-20 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 ${
-            isHighContrast
+          className={`absolute left-2 sm:left-4 lg:left-12 top-1/2 -translate-y-12 z-20 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 ${isHighContrast
               ? "bg-black border-2 border-white text-white hover:bg-white hover:text-black"
               : "bg-white/80 backdrop-blur-md text-zinc-900 hover:text-blue-600 hover:scale-110 border border-zinc-200"
-          }`}
+            }`}
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-6 h-6" />
@@ -81,11 +79,10 @@ export default function EServicesDirectory() {
 
         <button
           onClick={() => scroll("right")}
-          className={`absolute right-2 sm:right-4 lg:right-12 top-1/2 -translate-y-12 z-20 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 ${
-            isHighContrast
+          className={`absolute right-2 sm:right-4 lg:right-12 top-1/2 -translate-y-12 z-20 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 ${isHighContrast
               ? "bg-black border-2 border-white text-white hover:bg-white hover:text-black"
               : "bg-white/80 backdrop-blur-md text-zinc-900 hover:text-blue-600 hover:scale-110 border border-zinc-200"
-          }`}
+            }`}
           aria-label="Scroll right"
         >
           <ChevronRight className="w-6 h-6" />
@@ -103,24 +100,22 @@ export default function EServicesDirectory() {
                   key={idx}
                   onClick={() => {
                     if (mod.enTitle === 'Case Management' || mod.enTitle === 'Collective Agreement') {
-                        setCurrentView('login');
+                      setCurrentView('login');
                     } else if (mod.enTitle === 'Search Full Awards') {
-                        setCurrentView('schedule');
+                      setCurrentView('schedule');
                     }
                   }}
-                  className={`flex-none w-[280px] sm:w-[340px] lg:w-[380px] p-8 sm:p-10 rounded-[2.5rem] flex flex-col transition-all duration-500 text-left snap-start group/card border ${
-                    isHighContrast
+                  className={`flex-none w-[280px] sm:w-[340px] lg:w-[380px] p-8 sm:p-10 rounded-[2.5rem] flex flex-col transition-all duration-500 text-left snap-start group/card border ${isHighContrast
                       ? "bg-black border-white hover:bg-zinc-900"
                       : "bg-white border-zinc-100 hover:border-blue-400 hover:shadow-premium cursor-pointer"
-                  }`}
+                    }`}
                 >
                   <div className="flex-1 flex flex-col">
                     <div
-                      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-3xl flex items-center justify-center mb-6 sm:mb-8 transition-all duration-500 group-hover/card:scale-110 group-hover/card:-rotate-3 ${
-                        isHighContrast
+                      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-3xl flex items-center justify-center mb-6 sm:mb-8 transition-all duration-500 group-hover/card:scale-110 group-hover/card:-rotate-3 ${isHighContrast
                           ? "border-2 border-white text-white"
                           : "bg-blue-50 text-blue-600 border border-blue-100 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-100"
-                      }`}
+                        }`}
                     >
                       <mod.icon className="w-7 h-7 sm:w-8 sm:h-8 font-black" />
                     </div>
@@ -143,11 +138,10 @@ export default function EServicesDirectory() {
                       Explore Service
                     </span>
                     <div
-                      className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-2xl transition-all duration-500 ${
-                        isHighContrast
+                      className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-2xl transition-all duration-500 ${isHighContrast
                           ? "text-white border-2 border-white group-hover/card:bg-white group-hover/card:text-black"
                           : "bg-zinc-50 text-zinc-300 border border-zinc-100 group-hover/card:text-blue-600 group-hover/card:bg-blue-50 group-hover/card:border-blue-200 group-hover/card:translate-x-1"
-                      }`}
+                        }`}
                     >
                       <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>

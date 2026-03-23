@@ -2,24 +2,43 @@
 
 import React, { useState } from 'react';
 import {
-  Search, Calendar, Gavel, Scale, FileText, Download, Users2, Activity, Settings, 
-  MessageSquare, LayoutDashboard, Briefcase, Bell, Mail, Clock, ShieldCheck, 
+  Search, Calendar, Gavel, Scale, FileText, Download, Users2, Activity, Settings,
+  MessageSquare, LayoutDashboard, Briefcase, Bell, Mail, Clock, ShieldCheck,
   LogOut, Menu, X, Plus, Printer, Share2, Filter, MoreVertical, CheckCircle2,
-  ChevronRight, ArrowLeft, ArrowUpRight, Save, Mic, Video, ServerCrash, RefreshCw, 
+  ChevronRight, ArrowLeft, ArrowUpRight, Save, Mic, Video, ServerCrash, RefreshCw,
   ChevronLeft, FilePlus, SlidersHorizontal, Key, ShieldAlert, KanbanSquare, Tv,
   ArrowDown, Check, Upload, Trash2, File as FileIcon, FileCheck, ClipboardList,
-  ChevronDown, Users, PieChart
+  ChevronDown, ChevronUp, Users, PieChart, User, TrendingUp, TrendingDown
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
 import SebutanChat from '@/components/sebutan/SebutanChat';
 import {
-  chYears, ch1, ch2, ch3, ch4Pts, ch4Vals, ch5, ch7SchedPts, ch7CompPts,
+  chYears, courtLocations, caseTypes, caseStatuses, ch1, ch2, ch3, ch4Pts, ch4Vals, ch5, ch7SchedPts, ch7CompPts,
   ch7Comp, ch8, ch10, upcomingHearings, latestJudgments, mockSearchResults,
   caseTypeDistribution, chairmanWorkload, filingQueue, chairmanCases,
-  integrationLogs, mockNotices, mockCAs, mockAnalyticsStats, mockUsageLogs,
+  integrationLogs, mockNotices, mockCAs, mockUsageLogs,
+  executiveStats, opsStats, chairmanStats, awardAnalyticsStats, integrationStats, usageStats,
   mockSystemSettings
 } from '@/lib/data';
+
+const EmptyState = ({ title, description, icon: Icon, actionLabel, onAction }: any) => (
+  <div className="flex flex-col items-center justify-center py-20 px-8 text-center bg-white rounded-[32px] border-2 border-dashed border-slate-200 shadow-sm">
+    <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 mb-6">
+      <Icon className="w-10 h-10" />
+    </div>
+    <h3 className="text-2xl font-black text-slate-900 mb-2">{title}</h3>
+    <p className="text-base font-bold text-slate-500 max-w-md mb-8">{description}</p>
+    {actionLabel && (
+      <button
+        onClick={onAction}
+        className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-black rounded-xl shadow-lg shadow-blue-600/20 transition-all active:scale-95 flex items-center gap-2"
+      >
+        <Plus className="w-4 h-4" /> {actionLabel}
+      </button>
+    )}
+  </div>
+);
 
 export default function InternalDashboard() {
   const {
@@ -32,6 +51,10 @@ export default function InternalDashboard() {
   const isHighContrast = wcagStates.highContrast;
 
   // Local dashboard state
+  const [showOverviewFilters, setShowOverviewFilters] = useState(true);
+  const [showAnalyticsFilters, setShowAnalyticsFilters] = useState(false);
+  const [showCasesFilters, setShowCasesFilters] = useState(false);
+  const [hideNoticePreview, setHideNoticePreview] = useState(false);
   const [filterYear, setFilterYear] = useState('2026');
   const [filterLocation, setFilterLocation] = useState('All Locations');
   const [filterCaseType, setFilterCaseType] = useState('All Types');
@@ -50,23 +73,24 @@ export default function InternalDashboard() {
   const navGroups = [
     {
       label: 'DASHBOARDS',
-      roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer'],
+      roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'efiling'],
       items: [
-        { id: 'overview', icon: LayoutDashboard, label: currentLang.dashOverview, roles: ['admin', 'ydp', 'chairman', 'registrar'] },
+        { id: 'overview', icon: LayoutDashboard, label: currentLang.dashOverview, roles: ['admin', 'ydp', 'chairman', 'registrar', 'efiling'] },
         { id: 'chairman', icon: Gavel, label: currentLang.dashChairman, roles: ['admin', 'chairman'] },
         { id: 'analytics', icon: PieChart, label: currentLang.dashAnalytics, roles: ['admin', 'ydp'] },
       ]
     },
     {
       label: 'TERAS (CORE)',
-      roles: ['admin', 'ydp', 'registrar', 'officer', 'ca-unit', 'chairman'],
+      roles: ['admin', 'ydp', 'registrar', 'officer', 'ca_unit', 'chairman', 'efiling', 'guest'],
       items: [
-        { id: 'registration', icon: FilePlus, label: currentLang.dashRegistration, roles: ['admin', 'registrar', 'officer', 'ydp'] },
-        { id: 'cases', icon: KanbanSquare, label: currentLang.dashCases, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer'] },
-        { id: 'schedule_int', icon: Calendar, label: currentLang.dashSchedule, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer'] },
+        { id: 'registration', icon: FilePlus, label: currentLang.dashRegistration, roles: ['admin', 'registrar', 'officer', 'ydp', 'efiling'] },
+        { id: 'cases', icon: KanbanSquare, label: currentLang.dashCases, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'efiling'] },
+        { id: 'schedule_int', icon: Calendar, label: currentLang.dashSchedule, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'efiling', 'guest'] },
         { id: 'notice', icon: Bell, label: currentLang.dashNotice, roles: ['admin', 'registrar', 'officer'] },
-        { id: 'collective', icon: Users, label: currentLang.dashCollective, roles: ['admin', 'registrar', 'officer', 'ca-unit'] },
-        { id: 'sebutan', icon: MessageSquare, label: 'E-Sebutan', roles: ['admin', 'registrar', 'chairman'] },
+        { id: 'notice_board', icon: Bell, label: 'Notice Board', roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'ca_unit', 'efiling', 'guest'] },
+        { id: 'collective', icon: Users, label: currentLang.dashCollective, roles: ['admin', 'registrar', 'officer', 'ca_unit', 'efiling'] },
+        { id: 'sebutan', icon: MessageSquare, label: 'E-Sebutan', roles: ['admin', 'registrar', 'chairman', 'ydp', 'efiling', 'guest'] },
         { id: 'display', icon: Tv, label: currentLang.dashDisplay, roles: ['admin', 'ydp'] },
       ]
     },
@@ -114,7 +138,11 @@ export default function InternalDashboard() {
                   {group.items.map((item) => (
                     <button
                       key={item.id}
-                      onClick={() => { setDashActiveView(item.id as any); setDashMobileMenuOpen(false); }}
+                      onClick={() => {
+                        setDashActiveView(item.id as any);
+                        setDashMobileMenuOpen(false);
+                        setInternalActionView(null);
+                      }}
                       className={`w-full flex items-center px-4 py-2.5 rounded-xl transition-all duration-200 group ${dashActiveView === item.id
                         ? (isHighContrast ? 'bg-white text-black' : 'bg-[#1E1E2D] text-white shadow-lg')
                         : (isHighContrast ? 'text-white hover:bg-zinc-900' : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900')}`}
@@ -160,9 +188,10 @@ export default function InternalDashboard() {
                           : dashActiveView === 'notice' ? currentLang.dashNotice
                             : dashActiveView === 'collective' ? currentLang.dashCollective
                               : dashActiveView === 'display' ? currentLang.dashDisplay
-                                : dashActiveView === 'integration' ? currentLang.dashIntegration
-                                  : dashActiveView === 'usage' ? currentLang.dashUsage
-                                    : 'System Administration'}
+                                : dashActiveView === 'sebutan' ? 'E-Sebutan Virtual Room'
+                                  : dashActiveView === 'integration' ? currentLang.dashIntegration
+                                    : dashActiveView === 'usage' ? currentLang.dashUsage
+                                      : 'System Administration'}
             </h1>
           </div>
 
@@ -181,51 +210,71 @@ export default function InternalDashboard() {
 
             {/* ---------------- OVERVIEW ---------------- */}
             {dashActiveView === 'overview' && (
-              <>
-                <div className="bg-white p-4 mb-6 rounded-[20px] border border-slate-200 shadow-sm flex flex-wrap gap-3 items-center relative z-20">
-                  <div className="flex items-center gap-2 text-slate-600 text-body-sm font-bold px-2"><Filter className="w-4 h-4" /> Advanced Reporting Filters:</div>
-                  <select value={filterYear} onChange={e => setFilterYear(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Years (2019-2026)</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option></select>
-                  <select value={filterLocation} onChange={e => setFilterLocation(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Court Locations</option><option>Kuala Lumpur</option><option>Selangor</option><option>Johor</option><option>Penang</option><option>Perak</option></select>
-                  <select value={filterCaseType} onChange={e => setFilterCaseType(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Case Types</option><option>Unfair Dismissal</option><option>Constructive Dismissal</option><option>Collective Agreement</option><option>Trade Dispute</option></select>
-                  <select value={filterChairman} onChange={e => setFilterChairman(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Chairmen</option><option>Y.A. Dato' Wan Jeffry</option><option>Y.A. Tuan Amrik Singh</option><option>Y.A. Tuan Zulhelmy</option></select>
-                  <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="bg-slate-50 border border-slate-200 text-slate-700 text-ui-label rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"><option>All Statuses</option><option>Registered</option><option>Mention</option><option>Hearing</option><option>Award Pending</option><option>Closed</option></select>
-                  <button className="ml-auto px-5 py-2 bg-blue-600 text-white text-ui-label font-bold rounded-lg hover:bg-blue-700 shadow-md transition-colors">Apply Filters</button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden">
-                    <div className="flex justify-between items-start mb-4">
-                      <div><p className="text-ui-label text-slate-500 mb-1 leading-none">{currentLang.kpiActive}</p><h3 className="text-h1 text-slate-900">127</h3></div>
-                      <div className="p-2.5 bg-blue-50 rounded-[14px] text-blue-600"><Briefcase className="w-5 h-5 md:w-6 md:h-6" /></div>
-                    </div>
-                    <div className="flex items-center text-ui-label font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-1 rounded-md"><Activity className="w-3 h-3 mr-1" /> Trending up 5%</div>
-                  </div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden">
-                    <div className="flex justify-between items-start mb-4">
-                      <div><p className="text-ui-label text-slate-500 mb-1 leading-none">Avg Resolution Time</p><h3 className="text-h1 text-slate-900">68 <span className="text-h4 text-slate-400">days</span></h3></div>
-                      <div className="p-2.5 bg-indigo-50 rounded-[14px] text-indigo-600"><Clock className="w-5 h-5 md:w-6 md:h-6" /></div>
-                    </div>
-                    <div className="flex items-center text-ui-label font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-1 rounded-md"><ArrowDown className="w-3 h-3 mr-1" /> 5 days faster</div>
-                  </div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] col-span-1 md:col-span-2 flex items-center justify-between overflow-hidden relative">
-                    <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-blue-50 to-transparent z-0"></div>
-                    <div className="relative z-10">
-                      <p className="text-ui-label text-slate-500 mb-1 leading-none">{currentLang.kpiResolution}</p>
-                      <div className="flex items-baseline gap-3"><h3 className="text-h1 text-slate-900">67%</h3><span className="text-emerald-600 font-bold text-body-sm bg-emerald-50 px-2 py-0.5 rounded-md">+3% YoY</span></div>
-                      <p className="text-body-sm font-bold text-slate-400 mt-2 md:mt-3">Target: 80% resolution within 90 days</p>
-                    </div>
-                    <div className="relative w-20 h-20 md:w-28 md:h-28 flex items-center justify-center z-10">
-                      <svg className="w-full h-full transform -rotate-90">
-                        <circle cx="50%" cy="50%" r="40%" stroke="currentColor" strokeWidth="10%" fill="transparent" className="text-slate-100" />
-                        <circle cx="50%" cy="50%" r="40%" stroke="currentColor" strokeWidth="10%" fill="transparent" strokeDasharray="250%" strokeDashoffset="82.5%" className="text-blue-600 transition-all duration-1000 ease-out" strokeLinecap="round" />
-                      </svg>
-                      <span className="absolute text-h4 text-slate-800">67%</span>
-                    </div>
+              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-h3 text-slate-900 font-black">Performance Overview</h3>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">Real-time indicators and statistical trends of court operations.</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between mt-4">
-                  <h2 className="text-h3 text-slate-900 flex items-center"><PieChart className="w-5 h-5 mr-2 text-blue-600" /> Advanced Analytics & Reporting</h2>
+                <div className="bg-slate-50/50 p-6 md:p-8 rounded-[32px] border border-slate-100 flex flex-col gap-6">
+                  <div
+                    className="flex justify-between items-center cursor-pointer group"
+                    onClick={() => setShowOverviewFilters(!showOverviewFilters)}
+                  >
+                    <div className="flex items-center gap-3 text-slate-500 group-hover:text-blue-600 transition-colors">
+                      <Filter className="w-5 h-5" />
+                      <span className="text-[12px] font-black uppercase tracking-[0.1em]">Advanced Reporting Filters</span>
+                    </div>
+                    {showOverviewFilters ? <ChevronUp className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" /> : <ChevronDown className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" />}
+                  </div>
+
+                  {showOverviewFilters && (
+                    <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-top-2 duration-300">
+                      <div className="flex flex-wrap gap-4 items-center">
+                        <select defaultValue="2026" className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[120px]">
+                          {chYears.map(y => <option key={y} value={y}>{y}</option>)}
+                        </select>
+                        <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                          <option>ALL COURT LOCATIONS</option>
+                          {courtLocations.map(l => <option key={l.region} value={l.region}>{l.region.toUpperCase()}</option>)}
+                        </select>
+                        <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                          <option>ALL CASE TYPES</option>
+                          {caseTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                        </select>
+                        <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                          <option>ALL CHAIRMEN</option>
+                          {['Y.A. DATO\' WAN JEFFRY', 'Y.A. TUAN AMRIK SINGH', 'Y.A. PUAN RUSITA MD LAZIM', 'Y.A. TUAN ZULHELMY HASAN'].map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                        <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                          <option>ALL STATUSES</option>
+                          {caseStatuses.map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                      <div className="flex justify-end">
+                        <button className="px-10 py-3.5 bg-blue-600 text-white text-[11px] font-black rounded-2xl uppercase tracking-widest hover:bg-blue-700 shadow-[0_10px_25px_-5px_rgba(37,99,235,0.4)] transition-all active:scale-95 font-black uppercase tracking-widest">Apply Filters</button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                  {(demoRole === 'ydp' ? executiveStats :
+                    demoRole === 'registrar' || demoRole === 'officer' ? opsStats :
+                      demoRole === 'chairman' ? chairmanStats : executiveStats).map((stat, i) => (
+                        <div key={i} className={`p-6 rounded-[28px] border border-slate-100 ${stat.bg} flex flex-col justify-between hover:shadow-md transition-all`}>
+                          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 leading-tight mb-3">{stat.metric}</p>
+                          <div className="flex items-baseline justify-between mt-auto">
+                            <h4 className={`text-2xl font-black ${stat.color} leading-none`}>{stat.value}</h4>
+                            <div className={`flex items-center text-[10px] font-bold ${stat.trend.startsWith('+') ? 'text-emerald-500' : 'text-rose-500'}`}>
+                              {stat.trend.startsWith('+') ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
+                              {stat.trend.replace('+', '').replace('-', '')}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -429,17 +478,75 @@ export default function InternalDashboard() {
                   </div>
                   <div className="flex justify-between mt-4 px-4">{chYears.map(y => <span key={y} className="flex-1 text-center text-xs font-black text-slate-400">{y}</span>)}</div>
                 </div>
-              </>
+              </div>
             )}
-            {/* ---------------- M8 ANALYTICS ---------------- */}
+
             {dashActiveView === 'analytics' && (
-              <div className="space-y-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-sm"><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-2">Total Awards</p><h3 className="text-3xl md:text-4xl font-black text-slate-900">8,421</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-sm"><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-2">Searches Today</p><h3 className="text-3xl md:text-4xl font-black text-slate-900">924</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-sm"><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-2">Success Rate</p><h3 className="text-3xl md:text-4xl font-black text-emerald-600">92%</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-sm"><p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-2">Published (2026)</p><h3 className="text-3xl md:text-4xl font-black text-blue-600">312</h3></div>
+              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-h3 text-slate-900 font-black">Award Analytics & Insights</h3>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">Deep insights into Industrial Court awards and case settlement trends.</p>
+                  </div>
                 </div>
+
+                <div className="bg-slate-50/50 p-6 md:p-8 rounded-[32px] border border-slate-100 flex flex-col gap-6">
+                  <div
+                    className="flex justify-between items-center cursor-pointer group"
+                    onClick={() => setShowAnalyticsFilters(!showAnalyticsFilters)}
+                  >
+                    <div className="flex items-center gap-3 text-slate-500 group-hover:text-blue-600 transition-colors">
+                      <Filter className="w-5 h-5" />
+                      <span className="text-[12px] font-black uppercase tracking-[0.1em]">Advanced Reporting Filters:</span>
+                    </div>
+                    {showAnalyticsFilters ? <ChevronUp className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" /> : <ChevronDown className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" />}
+                  </div>
+
+                  {showAnalyticsFilters && (
+                    <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-top-2 duration-300">
+                      <div className="flex flex-wrap gap-4 items-center">
+                        <select defaultValue="2026" className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[120px]">
+                          {chYears.map(y => <option key={y} value={y}>{y}</option>)}
+                        </select>
+                        <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                          <option>ALL COURT LOCATIONS</option>
+                          {courtLocations.map(l => <option key={l.region} value={l.region}>{l.region.toUpperCase()}</option>)}
+                        </select>
+                        <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                          <option>ALL CASE TYPES</option>
+                          {caseTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                        </select>
+                        <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                          <option>ALL CHAIRMEN</option>
+                          {['Y.A. DATO\' WAN JEFFRY', 'Y.A. TUAN AMRIK SINGH', 'Y.A. PUAN RUSITA MD LAZIM', 'Y.A. TUAN ZULHELMY HASAN'].map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                        <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                          <option>ALL STATUSES</option>
+                          {caseStatuses.map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                      <div className="flex justify-end">
+                        <button className="px-10 py-3.5 bg-blue-600 text-white text-[11px] font-black rounded-2xl uppercase tracking-widest hover:bg-blue-700 shadow-[0_10px_25px_-5px_rgba(37,99,235,0.4)] transition-all active:scale-95 font-black uppercase tracking-widest">Apply Filters</button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  {awardAnalyticsStats.map((stat, i) => (
+                    <div key={i} className={`p-6 rounded-[28px] border border-slate-100 ${stat.bg} flex flex-col justify-between hover:shadow-md transition-all`}>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 leading-tight mb-3">{stat.metric}</p>
+                      <div className="flex items-baseline justify-between mt-auto">
+                        <h4 className={`text-2xl font-black ${stat.color} leading-none`}>{stat.value}</h4>
+                        <div className={`flex items-center text-[10px] font-bold ${stat.trend.startsWith('+') ? 'text-emerald-500' : 'text-rose-500'}`}>
+                          {stat.trend.startsWith('+') ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
+                          {stat.trend.replace('+', '').replace('-', '')}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                     <h3 className="text-base md:text-lg font-extrabold text-slate-900 mb-6 md:mb-8">Search Volume (30 Days)</h3>
@@ -473,59 +580,87 @@ export default function InternalDashboard() {
             {dashActiveView === 'registration' && !internalActionView && (
               <div className="bg-white p-6 md:p-10 rounded-[32px] border border-slate-200 shadow-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-                  <h3 className="text-2xl font-black text-slate-900">Registration Queue</h3>
-                  <button className="flex justify-center items-center px-6 py-3 bg-[#3B82F6] text-white text-sm font-bold rounded-xl hover:bg-blue-700 shadow-md transition-all active:scale-95">
-                    <RefreshCw className="w-4 h-4 mr-2" /> Sync JPPM
-                  </button>
+                  <div>
+                    <h3 className="text-h3 text-slate-900 font-black">
+                      {demoRole === 'efiling' ? 'Submit New Case Filing' : 'Case Registration'}
+                    </h3>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">Register new cases or manage existing electronic filings.</p>
+                  </div>
+                  {demoRole === 'efiling' ? (
+                    <button className="flex justify-center items-center px-6 py-3 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all active:scale-95">
+                      <Plus className="w-4 h-4 mr-2" /> New Filing submission
+                    </button>
+                  ) : (
+                    <button className="flex justify-center items-center px-6 py-3 bg-[#3B82F6] text-white text-sm font-bold rounded-xl hover:bg-blue-700 shadow-md transition-all active:scale-95">
+                      <RefreshCw className="w-4 h-4 mr-2" /> Sync JPPM
+                    </button>
+                  )}
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left min-w-[700px]">
-                    <thead>
-                      <tr className="border-b border-slate-100">
-                        <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400">Source</th>
-                        <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400">Parties</th>
-                        <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400">Received Date</th>
-                        <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400 text-right">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-50">
-                      {filingQueue.map((item, idx) => (
-                        <tr key={idx} className="hover:bg-slate-50/50 transition-colors group">
-                          <td className="py-6 px-4">
-                            <span className="px-4 py-1.5 bg-blue-50 text-[#3B82F6] text-[11px] font-black rounded-lg uppercase tracking-wider">
-                              eFiling
-                            </span>
-                          </td>
-                          <td className="py-6 px-4">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm md:text-base font-black text-[#1E1E2D]">{item.submittedBy}</span>
-                              <span className="text-zinc-300 font-black text-sm uppercase">v</span>
-                              <span className="text-sm md:text-base font-black text-[#1E1E2D]">Company XYZ</span>
-                            </div>
-                          </td>
-                          <td className="py-6 px-4 text-sm font-bold text-slate-500">{item.date}</td>
-                          <td className="py-6 px-4 text-right">
-                            <button 
-                              onClick={() => { setSelectedInternalItem(item); setInternalActionView('review_filing'); }} 
-                              className="px-6 py-2.5 bg-[#111111] hover:bg-black text-white text-xs font-black rounded-xl shadow-md transition-all active:scale-95"
-                            >
-                              Review & Register
-                            </button>
-                          </td>
+                {demoRole === 'efiling' && filingQueue.length === 0 ? (
+                  <EmptyState
+                    title="No filings found"
+                    description="You haven't submitted any new cases yet. Start by filing your first document."
+                    icon={FilePlus}
+                    actionLabel="Submit New Filing"
+                    onAction={() => { }}
+                  />
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left min-w-[700px]">
+                      <thead>
+                        <tr className="border-b border-slate-100">
+                          <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400">
+                            {demoRole === 'efiling' ? 'Status' : 'Source'}
+                          </th>
+                          <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400">Parties</th>
+                          <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400">
+                            {demoRole === 'efiling' ? 'Submission Date' : 'Received Date'}
+                          </th>
+                          <th className="py-5 px-4 text-[11px] font-black uppercase tracking-[0.1em] text-slate-400 text-right">Action</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      </thead>
+                      <tbody className="divide-y divide-slate-50">
+                        {filingQueue.map((item, idx) => (
+                          <tr key={idx} className="hover:bg-slate-50/50 transition-colors group">
+                            <td className="py-6 px-4">
+                              <span className={`px-4 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider ${demoRole === 'efiling'
+                                ? 'bg-amber-50 text-amber-600'
+                                : 'bg-blue-50 text-[#3B82F6]'
+                                }`}>
+                                {demoRole === 'efiling' ? 'Pending Review' : 'eFiling'}
+                              </span>
+                            </td>
+                            <td className="py-6 px-4">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm md:text-base font-black text-[#1E1E2D]">{item.submittedBy}</span>
+                                <span className="text-zinc-300 font-black text-sm uppercase">v</span>
+                                <span className="text-sm md:text-base font-black text-[#1E1E2D]">Company XYZ</span>
+                              </div>
+                            </td>
+                            <td className="py-6 px-4 text-sm font-bold text-slate-500">{item.date}</td>
+                            <td className="py-6 px-4 text-right">
+                              <button
+                                onClick={() => { setSelectedInternalItem(item); setInternalActionView('review_filing'); }}
+                                className="px-6 py-2.5 bg-[#111111] hover:bg-black text-white text-xs font-black rounded-xl shadow-md transition-all active:scale-95"
+                              >
+                                Review & Register
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             )}
 
             {dashActiveView === 'registration' && internalActionView === 'review_filing' && selectedInternalItem && (
               <div className="max-w-6xl mx-auto">
                 <div className="flex items-center gap-6 mb-10">
-                  <button 
-                    onClick={() => setInternalActionView(null)} 
-                    className="w-12 h-12 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"
+                  <button
+                    onClick={() => setInternalActionView(null)}
+                    className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"
                   >
                     <ArrowLeft className="w-6 h-6" />
                   </button>
@@ -543,7 +678,7 @@ export default function InternalDashboard() {
                         <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Submitted By</h4>
                         <p className="text-2xl font-black text-[#1E1E2D]">{selectedInternalItem.submittedBy}</p>
                       </div>
-                      
+
                       <div>
                         <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Dispute Type</h4>
                         <span className="px-5 py-2 bg-zinc-100 text-zinc-900 text-sm font-black rounded-xl inline-flex">
@@ -577,7 +712,7 @@ export default function InternalDashboard() {
                           <CheckCircle2 className="w-6 h-6 text-emerald-500" />
                           <h3 className="text-xl font-black text-[#1E1E2D]">Registrar Validation</h3>
                         </div>
-                        
+
                         <div className="space-y-6 mb-10">
                           {[
                             'Parties information is complete',
@@ -598,17 +733,17 @@ export default function InternalDashboard() {
 
                         <div className="space-y-3">
                           <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block px-1">Assign Case Number</label>
-                          <input 
-                            type="text" 
-                            defaultValue="1/1-1555/26" 
+                          <input
+                            type="text"
+                            defaultValue="1/1-1555/26"
                             className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-xl font-mono font-black text-[#1E1E2D] focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all shadow-inner"
                           />
                         </div>
                       </div>
 
                       <div className="mt-10">
-                        <button 
-                          onClick={() => setInternalActionView(null)} 
+                        <button
+                          onClick={() => setInternalActionView(null)}
                           className="w-full py-5 bg-[#3B82F6] hover:bg-blue-700 text-white text-base font-extrabold rounded-2xl shadow-xl shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-3"
                         >
                           Register & Forward for Allocation
@@ -622,55 +757,139 @@ export default function InternalDashboard() {
 
             {/* ---------------- M10 CASE MANAGEMENT ---------------- */}
             {dashActiveView === 'cases' && !internalActionView && (
-              <div className="flex flex-col h-[calc(100vh-12rem)] min-h-[500px]">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                  <div className="flex items-center gap-4">
-                    <h3 className="text-lg md:text-xl font-extrabold text-slate-900">Active Cases Kanban</h3>
+              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm flex flex-col h-[calc(100vh-12rem)] min-h-[500px]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
+                  <div>
+                    <h3 className="text-h3 text-slate-900 font-black">
+                      {demoRole === 'efiling' ? 'My Portfolio: Active Cases' : 'Active Case Management'}
+                    </h3>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">Manage and track ongoing industrial court proceedings.</p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3">
                     {demoRole === 'ydp' && (
-                      <button onClick={() => setInternalActionView('allocate_case')} className="px-4 py-2 bg-amber-100 text-amber-800 text-xs font-bold rounded-lg hover:bg-amber-200 flex items-center border border-amber-200 shadow-sm animate-pulse">
+                      <button onClick={() => setInternalActionView('allocate_case')} className="px-4 py-2 bg-amber-100 text-amber-800 text-[10px] font-black rounded-lg hover:bg-amber-200 flex items-center border border-amber-200 shadow-sm animate-pulse uppercase tracking-widest">
                         <ClipboardList className="w-4 h-4 mr-2" /> 3 Pending Allocation
                       </button>
                     )}
-                  </div>
-                  <div className="flex gap-2 md:gap-3">
-                    <div className="relative flex-1">
+                    <div className="relative">
                       <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input type="text" placeholder="Search case..." className="text-sm font-semibold pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none w-full md:w-64" />
+                      <input type="text" placeholder="Search case..." className="text-sm font-semibold pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none w-full md:w-64 shadow-sm" />
                     </div>
-                    <button className="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-bold rounded-xl hover:bg-slate-200 flex items-center flex-shrink-0"><Filter className="w-4 h-4 md:mr-2" /><span className="hidden md:inline">Filter</span></button>
+                    <button
+                      onClick={() => setShowCasesFilters(!showCasesFilters)}
+                      className={`px-5 py-2.5 rounded-xl flex items-center transition-all border font-black active:scale-95 ${showCasesFilters ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/20' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
+                    >
+                      <Filter className="w-4 h-4 md:mr-2" />
+                      <span className="hidden md:inline">Advanced Filter</span>
+                    </button>
                   </div>
                 </div>
-                <div className="flex-1 flex gap-4 md:gap-6 overflow-x-auto pb-4 hide-scrollbar snap-x">
-                  {['Registered', 'Allocation', 'Mention/Hearing', 'Award Pending'].map((stage, i) => (
-                    <div key={i} className="w-72 md:w-80 flex-shrink-0 flex flex-col bg-slate-100/50 rounded-[24px] border border-slate-200 p-3 md:p-4 snap-center">
-                      <div className="mb-4 font-extrabold text-xs md:text-sm text-slate-800 flex justify-between items-center px-2">
-                        {stage} <span className="bg-slate-200 text-slate-600 px-2.5 py-1 rounded-lg text-[10px] md:text-xs">{i === 3 ? 1 : 3}</span>
-                      </div>
-                      <div className="flex-1 space-y-3 md:space-y-4 overflow-y-auto hide-scrollbar">
-                        {chairmanCases.slice(0, i === 3 ? 1 : 3).map((c, j) => (
-                          <div key={j} onClick={() => { setSelectedInternalItem(c); setInternalActionView('case_detail'); }} className="bg-white p-4 md:p-5 rounded-[16px] border border-slate-200 shadow-sm cursor-pointer hover:border-blue-500 hover:shadow-md transition-all group">
-                            <div className="flex justify-between items-start mb-3">
-                              <p className="text-[10px] md:text-xs font-mono font-bold text-slate-500 group-hover:text-blue-600 transition-colors">{c.id}</p>
-                              <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[9px] md:text-[10px] font-bold uppercase">{c.status}</span>
+
+                {showCasesFilters && (
+                  <div className="mb-8 bg-slate-50/50 p-6 md:p-8 rounded-[32px] border border-slate-100 flex flex-col gap-6 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <div className="flex flex-wrap gap-4 items-center">
+                      <select defaultValue="2026" className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[120px]">
+                        {chYears.map(y => <option key={y} value={y}>{y}</option>)}
+                      </select>
+                      <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                        <option>ALL COURT LOCATIONS</option>
+                        {courtLocations.map(l => <option key={l.region} value={l.region}>{l.region.toUpperCase()}</option>)}
+                      </select>
+                      <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                        <option>ALL CASE TYPES</option>
+                        {caseTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                      </select>
+                      <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                        <option>ALL CHAIRMEN</option>
+                        {['Y.A. DATO\' WAN JEFFRY', 'Y.A. TUAN AMRIK SINGH', 'Y.A. PUAN RUSITA MD LAZIM', 'Y.A. TUAN ZULHELMY HASAN'].map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                      <select className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[200px]">
+                        <option>ALL CASE STATUSES</option>
+                        {caseStatuses.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                    <div className="flex justify-end">
+                      <button className="px-10 py-3.5 bg-[#111111] text-white text-[11px] font-black rounded-2xl uppercase tracking-widest hover:bg-black shadow-lg transition-all active:scale-95">Apply Search</button>
+                    </div>
+                  </div>
+                )}
+
+                {demoRole === 'efiling' && chairmanCases.length === 0 ? (
+                  <div className="flex-1 bg-white rounded-[32px] border border-slate-200 shadow-sm flex items-center justify-center p-12">
+                    <EmptyState
+                      title="No cases found"
+                      description="You don't have any active cases yet. Once your filing is approved, it will appear here."
+                      icon={Briefcase}
+                      actionLabel="Submit New Filing"
+                      onAction={() => setDashActiveView('registration')}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex-1 space-y-6 overflow-y-auto pr-2 custom-scrollbar">
+                    {chairmanCases.map((c, i) => {
+                      const currentStage = i === 0 ? 3 : i === 1 ? 2 : 4; // Mock stage
+                      const stages = ['Registered', 'Allocation', 'Mention', 'Hearing', 'Award'];
+
+                      return (
+                        <div key={i} onClick={() => { setSelectedInternalItem(c); setInternalActionView('case_detail'); }} className="bg-white p-8 md:p-10 rounded-[40px] border border-slate-200 shadow-sm hover:border-indigo-400 hover:shadow-xl transition-all group cursor-pointer relative overflow-hidden">
+                          <div className="absolute top-0 left-0 w-2 h-full bg-slate-100 group-hover:bg-indigo-600 transition-colors"></div>
+
+                          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+                            <div className="flex items-center gap-6">
+                              <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-sm shadow-lg ring-4 ring-slate-50">
+                                {demoRole === 'efiling' ? 'MY' : 'CH'}
+                              </div>
+                              <div>
+                                <div className="flex items-center gap-3 mb-1">
+                                  <span className="text-sm font-mono font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">{c.id}</span>
+                                  <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">{c.status}</span>
+                                </div>
+                                <h4 className="text-xl md:text-2xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors">{c.title}</h4>
+                                <p className="text-sm font-bold text-slate-400 mt-2 flex items-center gap-2"><Calendar className="w-4 h-4" /> Last Action: {c.date}</p>
+                              </div>
                             </div>
-                            <p className="text-xs md:text-sm font-extrabold text-slate-900 leading-tight mb-4">{c.title}</p>
-                            <div className="flex justify-between items-center">
-                              <span className="text-[9px] md:text-[10px] font-bold text-slate-400 flex items-center"><Calendar className="w-3 h-3 mr-1" /> {c.date}</span>
-                              <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-[9px] md:text-[10px] font-bold ring-2 ring-white">CH</span>
+                            <div className="flex items-center gap-3 relative z-20">
+                              <button
+                                onClick={(e) => { e.stopPropagation(); setDashActiveView('sebutan'); }}
+                                className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-blue-500/20 uppercase tracking-widest active:scale-95"
+                              >
+                                Join Session
+                              </button>
+                              <button className="px-8 py-3.5 bg-slate-100 hover:bg-slate-900 hover:text-white text-slate-700 text-[10px] font-black rounded-xl transition-all shadow-inner uppercase tracking-widest">Case Details</button>
                             </div>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+
+                          {/* Horizontal Stepper */}
+                          <div className="pt-8 border-t border-slate-50">
+                            <div className="flex items-center w-full">
+                              {stages.map((stage, idx) => (
+                                <React.Fragment key={idx}>
+                                  <div className="flex flex-col items-center relative z-10 flex-1">
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-500 ${idx <= currentStage ? 'bg-blue-600 border-blue-100 text-white shadow-lg' : 'bg-white border-slate-100 text-slate-300'
+                                      }`}>
+                                      {idx < currentStage ? <Check className="w-6 h-6" /> : <span className="text-xs font-black">{idx + 1}</span>}
+                                    </div>
+                                    <span className={`text-[10px] font-black uppercase mt-4 tracking-[0.2em] ${idx <= currentStage ? 'text-blue-600' : 'text-slate-300'}`}>{stage}</span>
+                                  </div>
+                                  {idx < stages.length - 1 && (
+                                    <div className={`h-1.5 flex-1 -mx-8 mb-9 transition-all duration-1000 ${idx < currentStage ? 'bg-blue-600' : 'bg-slate-100'}`}></div>
+                                  )}
+                                </React.Fragment>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             )}
 
             {dashActiveView === 'cases' && internalActionView === 'allocate_case' && (
               <div className="max-w-6xl mx-auto h-[calc(100vh-10rem)] flex flex-col">
                 <div className="flex items-center gap-4 mb-6 flex-shrink-0">
-                  <button onClick={() => setInternalActionView(null)} className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-sm transition-colors"><ArrowLeft className="w-5 h-5" /></button>
+                  <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"><ArrowLeft className="w-6 h-6" /></button>
                   <div>
                     <h2 className="text-xl md:text-2xl font-extrabold text-slate-900">YDP Case Allocation Panel</h2>
                     <p className="text-sm font-semibold text-slate-500">Review system recommendations and assign to Chairmen.</p>
@@ -741,73 +960,183 @@ export default function InternalDashboard() {
             )}
 
             {dashActiveView === 'cases' && internalActionView === 'case_detail' && selectedInternalItem && (
-              <div className="max-w-5xl mx-auto space-y-6">
-                <div className="flex items-center justify-between bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
-                  <div className="flex items-center gap-4">
-                    <button onClick={() => setInternalActionView(null)} className="w-10 h-10 bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-sm transition-colors"><ArrowLeft className="w-5 h-5" /></button>
+              <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-500">
+                {/* Case Header */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/50 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                  <div className="flex items-center gap-6 relative z-10">
+                    <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-95"><ArrowLeft className="w-6 h-6" /></button>
                     <div>
-                      <h2 className="text-xl md:text-2xl font-extrabold text-slate-900">{selectedInternalItem.title}</h2>
-                      <div className="flex items-center gap-3 mt-1">
-                        <span className="text-sm font-mono font-bold text-blue-600">{selectedInternalItem.id}</span>
-                        <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded uppercase">{selectedInternalItem.status}</span>
+                      <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">{selectedInternalItem.title}</h2>
+                      <div className="flex items-center gap-4 mt-2">
+                        <span className="text-base font-mono font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">{selectedInternalItem.id}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                        <span className="text-sm font-black text-slate-400 uppercase tracking-widest">{selectedInternalItem.type || 'Dismissal Case'}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="hidden sm:flex items-center gap-3">
-                    <button className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-200">Court Schedule</button>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 shadow-sm">Issue Notice</button>
+                  <div className="flex items-center gap-3 relative z-10">
+                    <button className="flex-1 md:flex-none px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-black rounded-2xl transition-all">Export Case PDF</button>
+                    <button className="flex-1 md:flex-none px-6 py-3 bg-[#111111] hover:bg-black text-white text-sm font-black rounded-2xl shadow-xl transition-all active:scale-95">Action Menu</button>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white p-6 md:p-8 rounded-[24px] border border-slate-200 shadow-sm">
-                      <h3 className="text-base font-extrabold text-slate-900 uppercase tracking-wider text-xs mb-6 border-b border-slate-100 pb-4">Case History & Timeline</h3>
-                      <div className="relative pl-4 border-l-2 border-blue-100 space-y-8">
-                        <div className="relative">
-                          <div className="absolute -left-[25px] top-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center ring-4 ring-white"><Check className="w-3.5 h-3.5" /></div>
-                          <h4 className="text-sm font-extrabold text-slate-900">Registered</h4>
-                          <p className="text-xs font-semibold text-slate-500 mt-1">10 Jan 2026</p>
+                {/* Case Lifecycle Stepper */}
+                <div className="bg-white p-10 rounded-[40px] border border-slate-200 shadow-sm">
+                  <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 mb-10 text-center">Case Lifecycle Progress</h3>
+                  <div className="relative flex justify-between">
+                    <div className="absolute top-5 left-0 w-full h-1 bg-slate-100 -z-10"></div>
+                    <div className="absolute top-5 left-0 h-1 bg-blue-500 -z-10 transition-all duration-1000" style={{ width: '40%' }}></div>
+
+                    {[
+                      { label: 'Registration', date: '10 Jan' },
+                      { label: 'Allocation', date: '12 Jan' },
+                      { label: 'Mention', date: '15 Feb' },
+                      { label: 'Hearing', date: 'TBC' },
+                      { label: 'Award', date: 'TBC' }
+                    ].map((step, idx) => {
+                      const caseIdx = chairmanCases.findIndex(c => c.id === selectedInternalItem.id);
+                      const currentStage = caseIdx === 0 ? 3 : caseIdx === 1 ? 2 : 4;
+                      const isCompleted = idx < currentStage;
+                      const isActive = idx === currentStage;
+                      const isPending = idx > currentStage;
+
+                      return (
+                        <div key={idx} className="flex flex-col items-center gap-3 bg-white px-2">
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-500 ${isCompleted || isActive ? 'bg-blue-600 border-blue-100 text-white shadow-lg shadow-blue-500/20' :
+                            'bg-white border-slate-100 text-slate-300'
+                            } ${isActive ? 'scale-125' : ''}`}>
+                            {isCompleted ? <Check className="w-5 h-5" /> : <span className="text-xs font-black">{idx + 1}</span>}
+                          </div>
+                          <div className="text-center">
+                            <p className={`text-[11px] font-black uppercase tracking-wider mb-0.5 ${isPending ? 'text-slate-300' : 'text-slate-900'}`}>{step.label}</p>
+                            <p className="text-[10px] font-bold text-slate-400">{step.date}</p>
+                          </div>
                         </div>
-                        <div className="relative">
-                          <div className="absolute -left-[25px] top-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center ring-4 ring-white"><Check className="w-3.5 h-3.5" /></div>
-                          <h4 className="text-sm font-extrabold text-slate-900">Allocated to YA Dato' Wan Jeffry</h4>
-                          <p className="text-xs font-semibold text-slate-500 mt-1">12 Jan 2026</p>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="lg:col-span-2 space-y-8">
+                    {/* Parties Overiew */}
+                    <div className="bg-white p-8 md:p-10 rounded-[40px] border border-slate-200 shadow-sm">
+                      <h3 className="text-xl font-black text-slate-900 mb-8 flex items-center gap-3"><Users className="w-6 h-6 text-blue-600" /> Litigant Details</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div className="space-y-6">
+                          <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity"><User className="w-12 h-12" /></div>
+                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Claimant (Pihak Menuntut)</p>
+                            <p className="text-lg font-black text-slate-900 leading-tight">Tay Hwee Lan</p>
+                            <p className="text-xs font-bold text-blue-600 mt-2">Rep: Ahmad Faiz (Messrs Faiz & Co)</p>
+                          </div>
+                          <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity"><Scale className="w-12 h-12" /></div>
+                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Respondent (Pihak Menentang)</p>
+                            <p className="text-lg font-black text-slate-900 leading-tight">Healthy Vision Sdn Bhd</p>
+                            <p className="text-xs font-bold text-rose-600 mt-2">Rep: Self-Represented</p>
+                          </div>
                         </div>
+                        <div className="space-y-6">
+                          <div className="bg-blue-50/50 p-6 rounded-3xl border border-blue-100">
+                            <h4 className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-4">Assigned Bench</h4>
+                            <div className="flex items-center gap-4">
+                              <div className="w-12 h-12 bg-blue-700 rounded-2xl flex items-center justify-center text-white font-black text-sm shadow-lg ring-4 ring-blue-50">WJ</div>
+                              <div>
+                                <p className="text-sm font-black text-slate-900">YA Dato' Wan Jeffry</p>
+                                <p className="text-[10px] font-bold text-slate-500 uppercase">Chairman, Court 1</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm text-slate-900">
+                            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Next Event</p>
+                            <h4 className="text-xl font-black mb-2">Notice of Mention</h4>
+                            <p className="text-sm font-bold text-blue-600">Scheduled for 15 Feb 2026, 09:00 AM</p>
+                            <button onClick={() => setDashActiveView('sebutan')} className="w-full mt-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 uppercase tracking-widest">Join E-Sebutan Room</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Timeline */}
+                    <div className="bg-white p-8 md:p-10 rounded-[40px] border border-slate-200 shadow-sm relative">
+                      <h3 className="text-xl font-black text-slate-900 mb-10 flex items-center justify-between">
+                        <span className="flex items-center gap-3"><Activity className="w-6 h-6 text-rose-500" /> Case Activity Log</span>
+                        <button className="text-xs font-black text-blue-600 hover:underline">View Full Log</button>
+                      </h3>
+                      <div className="space-y-10 relative pl-6">
+                        <div className="absolute left-[31px] top-4 bottom-4 w-0.5 bg-slate-100"></div>
+
                         <div className="relative">
-                          <div className="absolute -left-[25px] top-0 w-6 h-6 rounded-full bg-amber-100 border-2 border-amber-500 flex items-center justify-center ring-4 ring-white"><div className="w-2 h-2 rounded-full bg-amber-500"></div></div>
-                          <h4 className="text-sm font-extrabold text-amber-600">Active Stage: {selectedInternalItem.status}</h4>
-                          <p className="text-xs font-semibold text-slate-500 mt-1">Pending next scheduled event</p>
+                          <div className="absolute -left-[32px] top-0 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-white shadow-md z-10 transition-transform hover:scale-150 cursor-pointer"></div>
+                          <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 hover:border-blue-200 hover:bg-white hover:shadow-xl transition-all group">
+                            <div className="flex justify-between items-start mb-2">
+                              <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors">Case Allocation Completed</h4>
+                              <span className="text-[10px] font-bold text-slate-400">12 Jan 2026, 14:15</span>
+                            </div>
+                            <p className="text-xs font-bold text-slate-500 leading-relaxed">Case file successfully assigned to Court 1 by the Registrar. Status updated to <span className="text-blue-600">Pending Mention</span>.</p>
+                          </div>
+                        </div>
+
+                        <div className="relative">
+                          <div className="absolute -left-[32px] top-0 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-white shadow-md z-10 transition-transform hover:scale-150 cursor-pointer"></div>
+                          <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 hover:border-blue-200 hover:bg-white hover:shadow-xl transition-all group">
+                            <div className="flex justify-between items-start mb-2">
+                              <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors">Initial Filing Received</h4>
+                              <span className="text-[10px] font-bold text-slate-400">10 Jan 2026, 09:30</span>
+                            </div>
+                            <p className="text-xs font-bold text-slate-500 leading-relaxed">User <span className="text-slate-900">Tay Hwee Lan</span> submitted Representative e-Filing (Form A). System-validated via MyDigitalID.</p>
+                            <div className="mt-4 flex gap-2">
+                              <span className="px-3 py-1 bg-white border border-slate-200 rounded-lg text-[9px] font-black text-slate-400 uppercase">FORM_A.PDF</span>
+                              <span className="px-3 py-1 bg-white border border-slate-200 rounded-lg text-[9px] font-black text-slate-400 uppercase">IC_RECORDS.PNG</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-6">
-                    <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
-                      <h3 className="text-base font-extrabold text-slate-900 uppercase tracking-wider text-xs mb-4">Parties</h3>
-                      <div className="space-y-4">
-                        <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                          <p className="text-[10px] font-bold uppercase text-slate-400 mb-1">Claimant</p>
-                          <p className="text-sm font-bold text-slate-900">Tay Hwee Lan</p>
+                  <div className="space-y-8">
+                    <div className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm overflow-hidden relative group">
+                      <div className="absolute -right-10 -bottom-10 opacity-5 group-hover:opacity-10 transition-opacity text-slate-900"><Scale className="w-48 h-48" /></div>
+                      <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] mb-8">Case Metadata</h3>
+                      <div className="space-y-6">
+                        <div>
+                          <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Company Industry</p>
+                          <p className="text-base font-black italic text-slate-700">Healthcare / Retail</p>
                         </div>
-                        <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                          <p className="text-[10px] font-bold uppercase text-slate-400 mb-1">Respondent</p>
-                          <p className="text-sm font-bold text-slate-900">Healthy Vision Sdn Bhd</p>
+                        <div>
+                          <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Estimated Relief</p>
+                          <p className="text-base font-black italic text-slate-700">RM 45,000.00</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Related Precedents</p>
+                          <p className="text-xs font-bold text-slate-500 leading-relaxed">Match found with Award 124/2023 - Redundancy Justification.</p>
                         </div>
                       </div>
                     </div>
-                    <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
-                      <h3 className="text-base font-extrabold text-slate-900 uppercase tracking-wider text-xs mb-4">Case Documents</h3>
-                      <div className="space-y-2">
-                        <button className="w-full flex items-center justify-between p-3 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 border border-slate-100 rounded-xl transition-colors group">
-                          <div className="flex items-center text-sm font-bold text-slate-700 group-hover:text-blue-700"><FileText className="w-4 h-4 mr-2" /> Statement of Case</div>
-                          <Download className="w-4 h-4 text-slate-400 group-hover:text-blue-600" />
-                        </button>
-                        <button className="w-full flex items-center justify-between p-3 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 border border-slate-100 rounded-xl transition-colors group">
-                          <div className="flex items-center text-sm font-bold text-slate-700 group-hover:text-blue-700"><FileText className="w-4 h-4 mr-2" /> Statement in Reply</div>
-                          <Download className="w-4 h-4 text-slate-400 group-hover:text-blue-600" />
-                        </button>
+
+                    <div className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
+                      <h3 className="text-xl font-black text-slate-900 mb-8 flex items-center gap-3"><FileText className="w-6 h-6 text-indigo-600" /> Evidence Bundle</h3>
+                      <div className="space-y-4">
+                        {[
+                          { name: 'Statement_of_Case.pdf', tag: 'SOC' },
+                          { name: 'Statement_in_Reply.pdf', tag: 'SIR' },
+                          { name: 'Employment_Contract.pdf', tag: 'EVIDENCE' },
+                          { name: 'Letter_of_Termination.pdf', tag: 'EVIDENCE' }
+                        ].map((doc, idx) => (
+                          <button key={idx} className="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-zinc-900 hover:text-white border border-slate-100 rounded-2xl transition-all group">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 bg-white rounded-lg shadow-sm group-hover:bg-white/10"><FileText className="w-4 h-4 text-slate-400 group-hover:text-white" /></div>
+                              <div className="text-left">
+                                <p className="text-xs font-black truncate max-w-[120px]">{doc.name}</p>
+                                <span className="text-[9px] font-black text-blue-600 group-hover:text-blue-300 uppercase tracking-widest">{doc.tag}</span>
+                              </div>
+                            </div>
+                            <Download className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </button>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -816,31 +1145,63 @@ export default function InternalDashboard() {
             )}
 
             {/* ---------------- M6 SCHEDULE INTERNAL ---------------- */}
-            {dashActiveView === 'schedule_int' && (
+            {dashActiveView === 'schedule_int' && !internalActionView && (
               <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
                   <h3 className="text-h3 text-slate-900">Master Court Calendar</h3>
-                  <button className="text-body-sm font-bold bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 shadow-md flex items-center justify-center"><Calendar className="w-4 h-4 mr-2" /> Schedule</button>
+                  <button onClick={() => setInternalActionView('add_schedule')} className="text-body-sm font-bold bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 shadow-md flex items-center justify-center transition-all active:scale-95"><Calendar className="w-4 h-4 mr-2" /> Schedule</button>
                 </div>
                 <div className="border border-slate-200 rounded-[20px] overflow-hidden bg-slate-50 overflow-x-auto">
-                  <div className="min-w-[600px]">
+                  <div className="min-w-[800px]">
                     <div className="grid grid-cols-5 bg-slate-100 border-b border-slate-200 text-ui-label text-slate-500 divide-x divide-slate-200">
                       {['Mon 9', 'Tue 10', 'Wed 11', 'Thu 12', 'Fri 13'].map(d => <div key={d} className="p-3 md:p-4 text-center">{d}</div>)}
                     </div>
                     <div className="grid grid-cols-5 min-h-[400px] divide-x divide-slate-200 bg-white">
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3"></div>
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3"></div>
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3"></div>
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3 bg-blue-50/30">
-                        {chairmanCases.slice(0, 2).map((c, i) => (
+                      {/* Mon 9 */}
+                      <div className="p-2 md:p-3 space-y-2 md:space-y-3">
+                        {upcomingHearings.slice(0, 1).map((c, i) => (
                           <div key={i} className="p-2 md:p-3 bg-white border border-blue-200 shadow-sm rounded-xl cursor-pointer hover:border-blue-500 transition-colors relative overflow-hidden">
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
-                            <span className="text-ui-label text-slate-900 block mb-1">09:00 AM</span>
+                            <span className="text-ui-label text-slate-900 block mb-1">{c.time || '09:00 AM'}</span>
                             <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
-                            <span className="text-ui-label text-blue-700 bg-blue-50 mt-2 inline-block px-1.5 rounded">{c.status}</span>
+                            <span className="text-ui-label text-blue-700 bg-blue-50 mt-2 inline-block px-1.5 rounded truncate w-full">{c.claimant} v {c.respondent}</span>
                           </div>
                         ))}
                       </div>
+                      {/* Tue 10 */}
+                      <div className="p-2 md:p-3 space-y-2 md:space-y-3">
+                        {upcomingHearings.slice(1, 2).map((c, i) => (
+                          <div key={i} className="p-2 md:p-3 bg-white border border-emerald-200 shadow-sm rounded-xl cursor-pointer hover:border-emerald-500 transition-colors relative overflow-hidden">
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500"></div>
+                            <span className="text-ui-label text-slate-900 block mb-1">{c.time || '10:00 AM'}</span>
+                            <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
+                            <span className="text-ui-label text-emerald-700 bg-emerald-50 mt-2 inline-block px-1.5 rounded truncate w-full">{c.claimant} v {c.respondent}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Wed 11 */}
+                      <div className="p-2 md:p-3 space-y-2 md:space-y-3 bg-blue-50/10">
+                        {upcomingHearings.slice(2, 4).map((c, i) => (
+                          <div key={i} className="p-2 md:p-3 bg-white border border-indigo-200 shadow-sm rounded-xl cursor-pointer hover:border-indigo-500 transition-colors relative overflow-hidden">
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500"></div>
+                            <span className="text-ui-label text-slate-900 block mb-1">{c.time || '11:00 AM'}</span>
+                            <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
+                            <span className="text-ui-label text-indigo-700 bg-indigo-50 mt-2 inline-block px-1.5 rounded truncate w-full">{c.claimant} v {c.respondent}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Thu 12 */}
+                      <div className="p-2 md:p-3 space-y-2 md:space-y-3 bg-blue-50/30">
+                        {upcomingHearings.slice(4, 5).map((c, i) => (
+                          <div key={i} className="p-2 md:p-3 bg-white border border-rose-200 shadow-sm rounded-xl cursor-pointer hover:border-rose-500 transition-colors relative overflow-hidden">
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-rose-500"></div>
+                            <span className="text-ui-label text-slate-900 block mb-1">{c.time || '02:00 PM'}</span>
+                            <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
+                            <span className="text-ui-label text-rose-700 bg-rose-50 mt-2 inline-block px-1.5 rounded truncate w-full">{c.claimant} v {c.respondent}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Fri 13 */}
                       <div className="p-2 md:p-3 space-y-2 md:space-y-3"></div>
                     </div>
                   </div>
@@ -848,16 +1209,141 @@ export default function InternalDashboard() {
               </div>
             )}
 
-            {/* ---------------- M3 NOTICE ---------------- */}
-            {dashActiveView === 'notice' && (
+            {dashActiveView === 'schedule_int' && internalActionView === 'add_schedule' && (
               <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8"><h3 className="text-h3 text-slate-900">Dispatch Notices</h3><button className="text-body-sm font-bold bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-xl shadow-md">Generate Notice</button></div>
+                <div className="flex items-start gap-4 mb-8 pb-6 border-b border-slate-100">
+                  <button onClick={() => setInternalActionView(null)} className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl transition-colors mt-1"><ArrowLeft className="w-5 h-5 text-slate-600" /></button>
+                  <div>
+                    <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Schedule New Hearing/Mention</h2>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">Assign a date, time, and court for an active case.</p>
+                  </div>
+                </div>
+
+                <div className="max-w- bg-slate-50 p-6 md:p-10 rounded-[32px] border border-slate-100 shadow-sm">
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[11px] uppercase tracking-widest font-black text-slate-500 ml-1">Case No. (Optional)</label>
+                        <input type="text" placeholder="e.g. 2/4-123/26" className="w-full p-4 border border-slate-200 rounded-2xl bg-white outline-none font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all placeholder:text-slate-300 placeholder:font-medium" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[11px] uppercase tracking-widest font-black text-slate-500 ml-1">Case Category</label>
+                        <select className="w-full p-4 border border-slate-200 rounded-2xl bg-white outline-none font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all">
+                          <option>Dismissal (S.20)</option>
+                          <option>Trade Dispute (S.26)</option>
+                          <option>Non-Compliance (S.56)</option>
+                          <option>Reference (S.33A)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[11px] uppercase tracking-widest font-black text-slate-500 ml-1">Claimant</label>
+                        <input type="text" placeholder="Enter Claimant Name" className="w-full p-4 border border-slate-200 rounded-2xl bg-white outline-none font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all placeholder:text-slate-300 placeholder:font-medium" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[11px] uppercase tracking-widest font-black text-slate-500 ml-1">Respondent</label>
+                        <input type="text" placeholder="Enter Respondent Name" className="w-full p-4 border border-slate-200 rounded-2xl bg-white outline-none font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all placeholder:text-slate-300 placeholder:font-medium" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[11px] uppercase tracking-widest font-black text-slate-500 ml-1">Date</label>
+                        <input type="date" className="w-full p-4 border border-slate-200 rounded-2xl bg-white outline-none font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all custom-date-input" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[11px] uppercase tracking-widest font-black text-slate-500 ml-1">Time</label>
+                        <input type="time" className="w-full p-4 border border-slate-200 rounded-2xl bg-white outline-none font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all custom-time-input" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[11px] uppercase tracking-widest font-black text-slate-500 ml-1">Court / Location</label>
+                      <select className="w-full p-4 border border-slate-200 rounded-2xl bg-white outline-none font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all">
+                        <option>Court 1 - Y.A. Dato' Wan Jeffry Bin Kassim</option>
+                        <option>Court 2 - Y.A. Puan Rusita Binti Md Lazim</option>
+                        <option>Court 3 - Y.A. Dato' Syed Noh Bin Said</option>
+                        <option>Court 4 - Y.A. Tuan Amrik Singh</option>
+                        <option>Virtual Court Hearing</option>
+                      </select>
+                    </div>
+
+                    <div className="flex justify-end gap-4 pt-8 mt-8 border-t border-slate-200/60">
+                      <button onClick={() => setInternalActionView(null)} className="px-8 py-3.5 font-bold text-slate-700 hover:bg-slate-200 bg-slate-100 rounded-2xl transition-all">Cancel</button>
+                      <button onClick={() => setInternalActionView(null)} className="px-8 py-3.5 font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-[0_10px_25px_-5px_rgba(37,99,235,0.4)] transition-all active:scale-95">Save Schedule</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ---------------- M3 NOTICE ---------------- */}
+            {dashActiveView === 'notice' && !internalActionView && (
+              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
+                  <div>
+                    <h3 className="text-h3 text-slate-900 font-black">Notice Management</h3>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">Create and manage official court announcements.</p>
+                  </div>
+                  <button
+                    onClick={() => setInternalActionView('notice_form')}
+                    className="flex items-center px-6 py-3 bg-[#111111] hover:bg-black text-white text-sm font-black rounded-xl shadow-md transition-all active:scale-95"
+                  >
+                    <Plus className="w-4 h-4 mr-2" /> + Tambah Notis
+                  </button>
+                </div>
+
+                <div className="flex flex-wrap gap-3 mb-6">
+                  <div className="relative flex-1 min-w-[200px]">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input type="text" placeholder="Search notices..." className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-semibold outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <select className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-600 outline-none">
+                    <option>All Categories</option>
+                    <option>Umum</option>
+                    <option>Kes</option>
+                  </select>
+                  <select className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-600 outline-none">
+                    <option>All Status</option>
+                    <option>Aktif</option>
+                    <option>Tidak Aktif</option>
+                  </select>
+                </div>
+
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left min-w-[600px]">
-                    <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Notice ID</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Notice Type</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Related Case</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Status</th></tr></thead>
+                  <table className="w-full text-left min-w-[800px]">
+                    <thead>
+                      <tr className="border-b border-slate-100">
+                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Tajuk Notis</th>
+                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Kategori</th>
+                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Tarikh</th>
+                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Status</th>
+                        <th className="py-4 px-4 text-right text-[11px] font-black uppercase tracking-widest text-slate-400">Action</th>
+                      </tr>
+                    </thead>
                     <tbody className="divide-y divide-slate-50">
                       {mockNotices.map((n, i) => (
-                        <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-body-sm font-mono font-bold text-slate-900">{n.id}</td><td className="py-4 px-4 text-body-sm font-bold text-slate-700">{n.type}</td><td className="py-4 px-4"><span className="text-body-sm font-bold text-blue-600 block">{n.caseNo}</span><span className="text-ui-label font-semibold text-slate-500">{n.parties}</span></td><td className="py-4 px-4 text-right"><span className={`inline-flex px-3 py-1 rounded-lg text-ui-label font-bold uppercase tracking-wider ${n.status === 'Delivered' || n.status === 'Dispatched' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>{n.status}</span></td></tr>
+                        <tr key={i} className="hover:bg-slate-50/50 transition-colors group">
+                          <td className="py-5 px-4 font-black text-slate-900 text-body-sm">{n.title}</td>
+                          <td className="py-5 px-4"><span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black rounded-lg uppercase">{n.category}</span></td>
+                          <td className="py-5 px-4 text-body-sm font-bold text-slate-500">{n.date}</td>
+                          <td className="py-5 px-4">
+                            <span className={`inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${n.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                              }`}>
+                              {n.status}
+                            </span>
+                          </td>
+                          <td className="py-5 px-4 text-right">
+                            <button
+                              onClick={() => { setSelectedInternalItem(n); setInternalActionView('notice_form'); }}
+                              className="px-4 py-2 bg-slate-100 hover:bg-zinc-900 hover:text-white text-slate-600 text-xs font-black rounded-lg transition-all"
+                            >
+                              Edit
+                            </button>
+                          </td>
+                        </tr>
                       ))}
                     </tbody>
                   </table>
@@ -865,19 +1351,311 @@ export default function InternalDashboard() {
               </div>
             )}
 
+            {dashActiveView === 'notice' && internalActionView === 'notice_form' && (
+              <div className="max-w-4xl mx-auto">
+                <div className="flex items-center gap-6 mb-10">
+                  <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"><ArrowLeft className="w-6 h-6" /></button>
+                  <div><h2 className="text-3xl font-black text-[#1E1E2D]">{selectedInternalItem ? 'Edit Notis' : 'Tambah Notis'}</h2><p className="text-base font-bold text-slate-500 mt-1">Configure notice details and published status.</p></div>
+                </div>
+
+                <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+                  <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Tajuk Notis</label><input type="text" defaultValue={selectedInternalItem?.title} placeholder="e.g. Penutupan Mahkamah" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Kategori</label><select className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner"><option>Umum</option><option>Kes</option></select></div>
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Status</label><select className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner"><option>Aktif</option><option>Tidak Aktif</option></select></div>
+                  </div>
+                  <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Kandungan Notis</label><textarea defaultValue={selectedInternalItem?.content} rows={5} placeholder="Isi kandungan notis..." className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner"></textarea></div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Tarikh Paparan</label><input type="date" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Tarikh Tamat (Optional)</label><input type="date" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                  </div>
+                  <div className="flex gap-4 pt-4">
+                    <button onClick={() => setInternalActionView(null)} className="flex-1 py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 text-base font-extrabold rounded-2xl transition-all">Batal</button>
+                    <button onClick={() => setInternalActionView(null)} className="flex-[2] py-4 bg-[#111111] hover:bg-black text-white text-base font-extrabold rounded-2xl shadow-xl transition-all active:scale-95">Simpan & Publish</button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {dashActiveView === 'notice_board' && (() => {
+              const activeNotices = mockNotices.filter(n => n.status === 'Aktif');
+              const displayNotice = selectedInternalItem || activeNotices[0];
+              const showPreview = !hideNoticePreview && displayNotice;
+
+              return (
+                <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8 pb-6 border-b border-slate-100">
+                    <div>
+                      <h3 className="text-h3 text-slate-900 font-black flex items-center gap-3">
+                        <Bell className="w-8 h-8 text-blue-600" /> Papan Kenyataan Digital
+                      </h3>
+                      <p className="text-body-sm text-slate-500 font-bold mt-1">Official announcements and notices from the Industrial Court.</p>
+                    </div>
+                  </div>
+
+                  <div className={`grid ${showPreview ? 'grid-cols-1 lg:grid-cols-3 gap-8' : 'grid-cols-1'}`}>
+                    {/* Left List */}
+                    <div className={`${showPreview ? 'col-span-1 lg:border-r border-slate-100 lg:pr-6 space-y-4 max-h-[800px] overflow-y-auto custom-scrollbar' : 'grid grid-cols-1 md:grid-cols-2 gap-6'}`}>
+                      {activeNotices.length > 0 ? (
+                        activeNotices.map((n, i) => (
+                          <div key={i} className={`bg-white p-6 sm:p-8 rounded-[24px] border transition-all group flex flex-col cursor-pointer ${showPreview && displayNotice?.id === n.id ? 'border-blue-500 shadow-md bg-blue-50/50' : 'border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-lg'}`} onClick={() => { setSelectedInternalItem(n); setHideNoticePreview(false); }}>
+                            <div className="flex justify-between items-start mb-4">
+                              <span className={`px-3 py-1 text-[10px] font-black rounded-lg uppercase tracking-widest ${showPreview && displayNotice?.id === n.id ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-600'}`}>{n.category}</span>
+                              <span className="text-[11px] font-bold text-slate-400">{n.date}</span>
+                            </div>
+                            <h4 className={`text-lg font-black transition-colors mb-3 ${showPreview && displayNotice?.id === n.id ? 'text-blue-700' : 'text-slate-900 group-hover:text-blue-600'}`}>{n.title}</h4>
+                            <p className="text-xs font-bold text-slate-500 line-clamp-2 leading-relaxed flex-1">{n.content}</p>
+                            <div className="mt-6 flex items-center justify-between">
+                              <span className="text-[11px] font-black text-blue-600 group-hover:underline uppercase tracking-widest">Klik untuk baca lanjut</span>
+                              <ChevronRight className={`w-4 h-4 transition-all ${showPreview && displayNotice?.id === n.id ? 'text-blue-600 translate-x-1' : 'text-slate-300 group-hover:text-blue-600 group-hover:translate-x-1'}`} />
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="col-span-full">
+                          <EmptyState
+                            title="No active notices"
+                            description="There are currently no official announcements on the board."
+                            icon={Bell}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right Preview */}
+                    {showPreview && (
+                      <div className="col-span-2 bg-slate-50 p-8 md:p-12 rounded-[32px] border border-slate-200 shadow-inner relative max-h-[800px] overflow-y-auto custom-scrollbar animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col">
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-600"></div>
+                        <button onClick={() => setHideNoticePreview(true)} className="self-end p-2 bg-white border border-slate-200 hover:bg-slate-100 rounded-xl transition-colors mb-6 shadow-sm"><X className="w-5 h-5 text-slate-600" /></button>
+
+                        <div className="flex justify-between items-center mb-8">
+                          <span className="px-4 py-1.5 bg-blue-100 text-blue-700 text-xs font-black rounded-xl uppercase tracking-widest">{displayNotice.category}</span>
+                          <span className="text-sm font-bold text-slate-500">{displayNotice.date}</span>
+                        </div>
+                        <h2 className="text-2xl md:text-4xl font-black text-slate-900 leading-tight mb-8 tracking-tight">{displayNotice.title}</h2>
+
+                        <div className="prose prose-slate prose-p:leading-relaxed prose-p:font-bold prose-p:text-slate-600 max-w-none flex-1">
+                          <p className="whitespace-pre-line text-sm md:text-base">{displayNotice.content}</p>
+                        </div>
+
+                        <div className="mt-12 pt-8 border-t border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                          <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 bg-white shadow-sm border border-slate-200 rounded-full flex items-center justify-center text-slate-400"><Scale className="w-5 h-5" /></div>
+                            <div>
+                              <p className="text-xs font-black text-slate-900 uppercase tracking-widest">Pendaftar Mahkamah</p>
+                              <p className="text-[10px] font-bold text-slate-500 mt-1">Industrial Court of Malaysia</p>
+                            </div>
+                          </div>
+                          <button className="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-900 text-xs uppercase tracking-widest font-black rounded-xl transition-all shadow-sm"><Printer className="w-4 h-4" /> Cetak Notis</button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* ---------------- M11 COLLECTIVE ---------------- */}
-            {dashActiveView === 'collective' && (
+            {dashActiveView === 'collective' && !internalActionView && (
               <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8"><h3 className="text-h3 text-slate-900">Collective Agreements</h3><button className="text-body-sm font-bold bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-xl shadow-md">Register CA</button></div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
+                  <div>
+                    <h3 className="text-h3 text-slate-900 font-black">
+                      {demoRole === 'efiling' ? 'My Portfolio: Collective Agreements' : 'Collective Agreements (CA)'}
+                    </h3>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">
+                      {demoRole === 'efiling' ? 'View and track your submitted agreements.' : 'Manage and track company-union agreements.'}
+                    </p>
+                  </div>
+                  {(demoRole === 'admin' || demoRole === 'registrar' || demoRole === 'ca_unit' || demoRole === 'efiling') && (
+                    <button
+                      onClick={() => setInternalActionView('ca_form')}
+                      className="flex items-center px-6 py-3 bg-[#111111] hover:bg-black text-white text-sm font-black rounded-xl shadow-md transition-all active:scale-95"
+                    >
+                      <Plus className="w-4 h-4 mr-2" /> {demoRole === 'efiling' ? 'Submit New CA' : 'Register New CA'}
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-3 mb-6">
+                  <div className="relative flex-1 min-w-[200px]">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input type="text" placeholder="Search CA by company or union..." className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-semibold outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <select className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-600 outline-none">
+                    <option>All Status</option>
+                    <option>Aktif</option>
+                    <option>Dalam Semakan</option>
+                    <option>Tamat</option>
+                  </select>
+                </div>
+
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left min-w-[600px]">
-                    <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">CA Number</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Parties</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Submitted</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Status</th></tr></thead>
+                  <table className="w-full text-left min-w-[800px]">
+                    <thead>
+                      <tr className="border-b border-slate-100">
+                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">CA Number</th>
+                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Parties</th>
+                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Validity Period</th>
+                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Status</th>
+                        <th className="py-4 px-4 text-right text-[11px] font-black uppercase tracking-widest text-slate-400">Action</th>
+                      </tr>
+                    </thead>
                     <tbody className="divide-y divide-slate-50">
-                      {mockCAs.map((ca, i) => (
-                        <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-body-sm font-mono font-bold text-blue-600">{ca.id}</td><td className="py-4 px-4"><span className="text-body-sm font-bold text-slate-800 block">{ca.union}</span><span className="text-ui-label font-semibold text-slate-500 block mt-0.5">v {ca.company}</span></td><td className="py-4 px-4 text-body-sm font-semibold text-slate-500">{ca.submitted}</td><td className="py-4 px-4 text-right"><span className={`inline-flex px-3 py-1 rounded-lg text-ui-label font-bold uppercase tracking-wider ${ca.status.includes('Approved') || ca.status.includes('Granted') ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'}`}>{ca.status}</span></td></tr>
-                      ))}
+                      {mockCAs.length > 0 ? (
+                        mockCAs.map((ca, i) => (
+                          <tr key={i} className="hover:bg-slate-50/50 transition-colors group">
+                            <td className="py-5 px-4">
+                              <span className="text-body-sm font-mono font-black text-blue-600">{ca.id}</span>
+                            </td>
+                            <td className="py-5 px-4">
+                              <span className="text-body-sm font-black text-slate-900 block">{ca.union}</span>
+                              <span className="text-ui-label font-bold text-slate-400 block mt-0.5">v {ca.employer}</span>
+                            </td>
+                            <td className="py-5 px-4">
+                              <span className="text-body-sm font-bold text-slate-600 block">{ca.start_date}</span>
+                              <span className="text-ui-label font-bold text-slate-400">to {ca.end_date}</span>
+                            </td>
+                            <td className="py-5 px-4">
+                              <span className={`inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${ca.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' :
+                                ca.status === 'Dalam Semakan' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800'
+                                }`}>
+                                {ca.status}
+                              </span>
+                            </td>
+                            <td className="py-5 px-4 text-right">
+                              <button
+                                onClick={() => { setSelectedInternalItem(ca); setInternalActionView('ca_detail'); }}
+                                className="px-4 py-2 bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 text-xs font-black rounded-lg transition-all"
+                              >
+                                {demoRole === 'efiling' ? 'View' : 'Manage'}
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan={5}>
+                            <EmptyState
+                              title="No agreements found"
+                              description="You haven't registered any collective agreements yet."
+                              icon={FileCheck}
+                              actionLabel="Register New CA"
+                              onAction={() => setInternalActionView('ca_form')}
+                            />
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            )}
+
+            {dashActiveView === 'collective' && internalActionView === 'ca_form' && (
+              <div className="max-w-4xl mx-auto">
+                <div className="flex items-center gap-6 mb-10">
+                  <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"><ArrowLeft className="w-6 h-6" /></button>
+                  <div><h2 className="text-3xl font-black text-[#1E1E2D]">Register New CA</h2><p className="text-base font-bold text-slate-500 mt-1">Submit a new collective agreement for cognizance.</p></div>
+                </div>
+
+                <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">CA Title</label><input type="text" placeholder="e.g. Perjanjian Kolektif 2026-2029" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Status</label><select className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner"><option>Dalam Semakan</option><option>Aktif</option></select></div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Employer / Company</label><input type="text" placeholder="Employer Name" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Union Name</label><input type="text" placeholder="Union Name" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Start Date</label><input type="date" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">End Date</label><input type="date" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">CA Document (PDF)</label>
+                    <div className="border-2 border-dashed border-slate-200 rounded-[24px] p-10 flex flex-col items-center justify-center hover:border-blue-400 hover:bg-blue-50/30 transition-all group cursor-pointer">
+                      <Upload className="w-10 h-10 text-slate-300 group-hover:text-blue-500 mb-4" />
+                      <p className="text-sm font-black text-slate-500 group-hover:text-blue-600">Click to upload or drag and drop</p>
+                      <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-wider">Maximum file size: 20MB</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4 pt-4">
+                    <button onClick={() => setInternalActionView(null)} className="flex-1 py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 text-base font-extrabold rounded-2xl transition-all">Cancel</button>
+                    <button onClick={() => setInternalActionView(null)} className="flex-[2] py-4 bg-[#111111] hover:bg-black text-white text-base font-extrabold rounded-2xl shadow-xl transition-all active:scale-95">Register Collective Agreement</button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {dashActiveView === 'collective' && internalActionView === 'ca_detail' && selectedInternalItem && (
+              <div className="max-w-5xl mx-auto space-y-8">
+                <div className="flex items-center justify-between bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"><ArrowLeft className="w-5 h-5" /></button>
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-black text-slate-900">{selectedInternalItem.title}</h2>
+                      <div className="flex items-center gap-3 mt-1">
+                        <span className="text-sm font-mono font-black text-blue-600">{selectedInternalItem.id}</span>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider ${selectedInternalItem.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' :
+                          selectedInternalItem.status === 'Dalam Semakan' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800'
+                          }`}>
+                          {selectedInternalItem.status}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <button className="p-2.5 bg-slate-50 text-slate-600 border border-slate-200 rounded-xl hover:text-blue-600 hover:border-blue-100 transition-all"><Printer className="w-5 h-5" /></button>
+                    <button className="px-5 py-2.5 bg-blue-600 text-white text-body-sm font-black rounded-xl hover:bg-blue-700 shadow-md">Edit CA</button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="lg:col-span-2 space-y-8">
+                    <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-10">
+                      <div className="grid grid-cols-2 gap-10">
+                        <div>
+                          <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Employer / Company</h4>
+                          <p className="text-lg font-black text-[#1E1E2D]">{selectedInternalItem.employer || selectedInternalItem.company}</p>
+                        </div>
+                        <div>
+                          <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Union Representative</h4>
+                          <p className="text-lg font-black text-[#1E1E2D]">{selectedInternalItem.union}</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-10">
+                        <div>
+                          <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Effective Date</h4>
+                          <p className="text-lg font-black text-[#1E1E2D]">{selectedInternalItem.start_date}</p>
+                        </div>
+                        <div>
+                          <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Expiry Date</h4>
+                          <p className="text-lg font-black text-[#1E1E2D]">{selectedInternalItem.end_date}</p>
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-6 underline decoration-blue-500/30 underline-offset-8">Status Transition History</h4>
+                        <div className="relative pl-4 border-l-2 border-slate-100 space-y-6">
+                          <div className="relative"><div className="absolute -left-[25px] top-0 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center ring-4 ring-white"><Check className="w-3.5 h-3.5" /></div><p className="text-sm font-black text-slate-900">CA Cognizance Granted</p><p className="text-xs font-bold text-slate-400">{selectedInternalItem.submitted}</p></div>
+                          <div className="relative"><div className="absolute -left-[25px] top-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center ring-4 ring-white"><Activity className="w-3.5 h-3.5" /></div><p className="text-sm font-black text-slate-900">In-Review</p><p className="text-xs font-bold text-slate-400">01 Mar 2026</p></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-8">
+                    <div className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm flex flex-col items-center">
+                      <div className="w-20 h-20 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-6 border border-rose-100 shadow-inner">
+                        <FileText className="w-10 h-10" />
+                      </div>
+                      <h4 className="text-lg font-black text-slate-900 mb-2">CA Document</h4>
+                      <p className="text-sm font-bold text-slate-400 mb-8 text-center">{selectedInternalItem.id}.pdf &bull; 4.2MB</p>
+                      <div className="w-full space-y-3">
+                        <button className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-black rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2"><Download className="w-4 h-4" /> Download PDF</button>
+                        <button className="w-full py-3.5 bg-slate-900 hover:bg-black text-white text-sm font-black rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2"><Search className="w-4 h-4" /> Full Preview</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -893,20 +1671,20 @@ export default function InternalDashboard() {
             {dashActiveView === 'display' && (
               <div className="flex flex-col items-center">
                 <p className="text-ui-label text-slate-400 mb-6 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">Live Preview: Mahkamah 1 External Display</p>
-                <div className="w-full max-w-4xl aspect-video bg-[#0B1120] rounded-[24px] md:rounded-[32px] border-[8px] md:border-[12px] border-slate-900 shadow-2xl p-6 md:p-10 flex flex-col justify-between text-white relative overflow-hidden">
-                  <div className="absolute -top-10 -right-10 md:-top-20 md:-right-20 p-4 opacity-10"><Scale className="w-48 h-48 md:w-96 md:h-96" /></div>
+                <div className="w-full max-w-4xl aspect-video bg-white rounded-[24px] md:rounded-[32px] border border-slate-200 shadow-premium p-6 md:p-10 flex flex-col justify-between text-slate-900 relative overflow-hidden">
+                  <div className="absolute -top-10 -right-10 md:-top-20 md:-right-20 p-4 opacity-5 text-slate-900"><Scale className="w-48 h-48 md:w-96 md:h-96" /></div>
                   <div className="relative z-10">
-                    <h2 className="text-h3 text-slate-400 tracking-widest uppercase mb-1">Mahkamah 1</h2>
-                    <h3 className="text-h2 text-blue-400">Y.A. Dato' Wan Jeffry Bin Kassim</h3>
+                    <h2 className="text-h3 text-slate-500 tracking-widest uppercase mb-1">Mahkamah 1</h2>
+                    <h3 className="text-h2 text-blue-700">Y.A. Dato' Wan Jeffry Bin Kassim</h3>
                   </div>
-                  <div className="bg-slate-900/80 p-4 md:p-8 rounded-[16px] md:rounded-[24px] border border-slate-700 backdrop-blur-xl relative z-10">
-                    <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-6"><span className="px-3 py-1 md:px-4 md:py-1.5 bg-rose-500 text-white text-ui-label tracking-widest rounded-lg animate-pulse shadow-[0_0_20px_rgba(244,63,94,0.5)]">Now Hearing</span> <span className="font-mono text-h4 text-slate-300">1/1-1522/25</span></div>
-                    <h4 className="text-h2 mb-1 md:mb-2 text-white">Tay Hwee Lan</h4>
-                    <p className="text-h4 text-slate-400">Lawan: Healthy Vision Sdn Bhd</p>
+                  <div className="bg-slate-50 p-4 md:p-8 rounded-[16px] md:rounded-[24px] border border-slate-200 relative z-10 shadow-sm">
+                    <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-6"><span className="px-3 py-1 md:px-4 md:py-1.5 bg-rose-500 text-white text-ui-label tracking-widest rounded-lg animate-pulse shadow-[0_0_15px_rgba(244,63,94,0.3)]">Now Hearing</span> <span className="font-mono text-h4 text-slate-500">1/1-1522/25</span></div>
+                    <h4 className="text-h2 mb-1 md:mb-2 text-slate-900">Tay Hwee Lan</h4>
+                    <p className="text-h4 text-slate-600">Lawan: Healthy Vision Sdn Bhd</p>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end relative z-10 gap-4 mt-4 md:mt-0">
-                    <div><p className="text-ui-label text-slate-500 uppercase mb-1">Next Case</p><p className="font-bold text-body-lg text-slate-300">11:00 AM - Azman Bin Isa</p></div>
-                    <div className="text-display font-mono text-blue-400">09:14 AM</div>
+                    <div><p className="text-ui-label text-slate-400 uppercase mb-1">Next Case</p><p className="font-bold text-body-lg text-slate-600">11:00 AM - Azman Bin Isa</p></div>
+                    <div className="text-display font-mono text-blue-700">09:14 AM</div>
                   </div>
                 </div>
               </div>
@@ -914,7 +1692,13 @@ export default function InternalDashboard() {
 
             {/* ---------------- CHAIRMAN WORKSPACE ---------------- */}
             {dashActiveView === 'chairman' && !internalActionView && (
-              <>
+              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-h3 text-slate-900 font-black">Chairman's Hearing Workspace</h3>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">Manage today's docket, upcoming hearings, and case awards.</p>
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                   <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">Assigned Cases</p><h3 className="text-h1 text-slate-900">28</h3></div>
                   <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">Hearings This Week</p><h3 className="text-h1 text-slate-900">6</h3></div>
@@ -928,20 +1712,40 @@ export default function InternalDashboard() {
                       <thead><tr className="border-b-2 border-slate-100"><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Case Number</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase">Case Title</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-center">Status</th><th className="py-3 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Hearing Date</th></tr></thead>
                       <tbody className="divide-y divide-slate-50">
                         {chairmanCases.map((c, i) => (
-                          <tr key={i} className="hover:bg-slate-50 transition-colors"><td className="py-4 px-4 text-body-sm font-mono font-bold text-blue-600 cursor-pointer hover:underline">{c.id}</td><td className="py-4 px-4 text-body-sm text-slate-900">{c.title}</td><td className="py-4 px-4 text-center"><span className="px-3 py-1 rounded-lg bg-amber-100 text-amber-800 text-ui-label">{c.status}</span></td><td className="py-4 px-4 text-body-sm text-slate-500 text-right"><button onClick={() => { setSelectedInternalItem(c); setInternalActionView('hearing_notes'); }} className="px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-lg text-body-sm transition-colors">Workspace</button></td></tr>
+                          <tr key={i} className="hover:bg-slate-50 transition-colors">
+                            <td className="py-4 px-4 text-body-sm font-mono font-bold text-blue-600 cursor-pointer hover:underline">{c.id}</td>
+                            <td className="py-4 px-4 text-body-sm text-slate-900">{c.title}</td>
+                            <td className="py-4 px-4 text-center">
+                              <span className="px-3 py-1 rounded-lg bg-amber-100 text-amber-800 text-ui-label">{c.status}</span>
+                            </td>
+                            <td className="py-4 px-4 text-body-sm text-slate-500 text-right flex items-center justify-end gap-2">
+                              <button
+                                onClick={() => setDashActiveView('sebutan')}
+                                className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-xl text-body-sm font-bold transition-colors shadow-md active:scale-95"
+                              >
+                                Start Session
+                              </button>
+                              <button
+                                onClick={() => { setSelectedInternalItem(c); setInternalActionView('hearing_notes'); }}
+                                className="px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-xl text-body-sm font-bold transition-colors"
+                              >
+                                Workspace
+                              </button>
+                            </td>
+                          </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
                 </div>
-              </>
+              </div>
             )}
 
             {dashActiveView === 'chairman' && internalActionView === 'hearing_notes' && selectedInternalItem && (
               <div className="max-w-6xl mx-auto flex flex-col h-[calc(100vh-10rem)]">
                 <div className="flex items-center justify-between mb-6 flex-shrink-0">
                   <div className="flex items-center gap-4">
-                    <button onClick={() => setInternalActionView(null)} className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-50 shadow-sm"><ArrowLeft className="w-5 h-5" /></button>
+                    <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"><ArrowLeft className="w-6 h-6" /></button>
                     <div>
                       <h2 className="text-h3 text-slate-900">Hearing Workspace</h2>
                       <p className="text-body-sm text-blue-600">{selectedInternalItem.id} &bull; {selectedInternalItem.title}</p>
@@ -950,15 +1754,15 @@ export default function InternalDashboard() {
                   <button className="px-5 py-2.5 bg-emerald-600 text-white text-body-sm rounded-xl hover:bg-emerald-700 shadow-md flex items-center"><Save className="w-4 h-4 mr-2" /> Save Notes</button>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
-                  <div className="lg:col-span-2 flex flex-col bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl relative">
-                    <div className="p-6 bg-slate-800/50 border-b border-white/10 flex justify-between items-center text-white">
-                      <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></div><h3 className="text-ui-label text-white/80">Live Hearing Record</h3></div>
-                      <div className="flex gap-2"><button className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"><Mic className="w-4 h-4" /></button><button className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"><Video className="w-4 h-4" /></button></div>
+                  <div className="lg:col-span-2 flex flex-col bg-white rounded-[32px] overflow-hidden shadow-premium border border-slate-200 relative">
+                    <div className="p-6 bg-slate-50 border-b border-slate-200 flex justify-between items-center text-slate-900">
+                      <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></div><h3 className="text-ui-label text-slate-500 font-black tracking-widest uppercase">Live Hearing Record</h3></div>
+                      <div className="flex gap-2"><button className="p-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors text-slate-400"><Mic className="w-4 h-4" /></button><button className="p-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors text-slate-400"><Video className="w-4 h-4" /></button></div>
                     </div>
                     <div className="flex-1 p-8 overflow-y-auto">
-                      <textarea placeholder="Start typing hearing notes, evidence observations, and witness testimonies..." className="w-full h-full bg-transparent text-h4 leading-relaxed resize-none outline-none placeholder:text-slate-600"></textarea>
+                      <textarea placeholder="Start typing hearing notes, evidence observations, and witness testimonies..." className="w-full h-full bg-white text-h4 text-slate-900 leading-relaxed resize-none outline-none placeholder:text-slate-300"></textarea>
                     </div>
-                    <div className="p-4 bg-slate-800/50 border-t border-white/10 text-ui-label text-slate-500 text-center uppercase">Autosaved at 09:42:15 AM</div>
+                    <div className="p-4 bg-slate-50 border-t border-slate-200 text-ui-label text-slate-400 text-center uppercase tracking-widest">Autosaved at 09:42:15 AM</div>
                   </div>
                   <div className="space-y-6 overflow-y-auto pr-2">
                     <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
@@ -998,50 +1802,50 @@ export default function InternalDashboard() {
                     <h3 className="text-h2 text-slate-900">User & Role Management</h3>
                     <p className="text-body-sm text-slate-500 mt-1">Manage platform access, roles, and permissions (US-061).</p>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setInternalActionView('add_user')}
                     className="flex justify-center items-center px-6 py-3 bg-[#111111] text-white text-body-sm rounded-xl hover:bg-black shadow-md transition-all active:scale-95">
                     <FilePlus className="w-4 h-4 mr-2" /> Add New User
                   </button>
                 </div>
-                
+
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left min-w-[700px]">
-                      <thead>
-                        <tr className="border-b border-slate-100">
-                          <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase">User</th>
-                          <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase">Role</th>
-                          <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase text-center">Status</th>
-                          <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Action</th>
+                  <table className="w-full text-left min-w-[700px]">
+                    <thead>
+                      <tr className="border-b border-slate-100">
+                        <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase">User</th>
+                        <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase">Role</th>
+                        <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase text-center">Status</th>
+                        <th className="py-5 px-4 text-ui-label text-slate-400 font-bold uppercase text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-50">
+                      {[
+                        { id: 'u1', name: 'Ahmad bin Zulkifli', email: 'ahmad.z@mpm.gov.my', role: 'Chairman', status: 'Active' },
+                        { id: 'u2', name: 'Sarah Lee', email: 'sarah.lee@mpm.gov.my', role: 'Registrar', status: 'Active' },
+                        { id: 'u3', name: 'Izzuddin Ibrahim', email: 'izzuddin@mpm.gov.my', role: 'Admin', status: 'Active' },
+                        { id: 'u4', name: 'Fatimah Zakaria', email: 'fatimah@mpm.gov.my', role: 'YDP', status: 'Inactive' },
+                      ].map((user, idx) => (
+                        <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
+                          <td className="py-6 px-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-h6 text-[#3B82F6]">{user.name[0]}</div>
+                              <div><p className="text-body-md text-[#1E1E2D] tracking-tight">{user.name}</p><p className="text-ui-label text-slate-400">{user.email}</p></div>
+                            </div>
+                          </td>
+                          <td className="py-6 px-4"><span className="px-3 py-1 bg-blue-50 text-[#3B82F6] text-ui-label rounded-lg uppercase tracking-wider">{user.role}</span></td>
+                          <td className="py-6 px-4 text-center"><span className={`px-2.5 py-1 rounded-full text-ui-label ${user.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>{user.status}</span></td>
+                          <td className="py-6 px-4 text-right">
+                            <button
+                              onClick={() => { setSelectedInternalItem(user); setInternalActionView('edit_user'); }}
+                              className="p-2.5 hover:bg-slate-100 rounded-xl transition-colors group">
+                              <SlidersHorizontal className="w-5 h-5 text-slate-400 group-hover:text-blue-600" />
+                            </button>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-50">
-                        {[
-                          { id: 'u1', name: 'Ahmad bin Zulkifli', email: 'ahmad.z@mpm.gov.my', role: 'Chairman', status: 'Active' },
-                          { id: 'u2', name: 'Sarah Lee', email: 'sarah.lee@mpm.gov.my', role: 'Registrar', status: 'Active' },
-                          { id: 'u3', name: 'Izzuddin Ibrahim', email: 'izzuddin@mpm.gov.my', role: 'Admin', status: 'Active' },
-                          { id: 'u4', name: 'Fatimah Zakaria', email: 'fatimah@mpm.gov.my', role: 'YDP', status: 'Inactive' },
-                        ].map((user, idx) => (
-                          <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
-                            <td className="py-6 px-4">
-                              <div className="flex items-center gap-3">
-                                 <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-h6 text-[#3B82F6]">{user.name[0]}</div>
-                                 <div><p className="text-body-md text-[#1E1E2D] tracking-tight">{user.name}</p><p className="text-ui-label text-slate-400">{user.email}</p></div>
-                               </div>
-                             </td>
-                             <td className="py-6 px-4"><span className="px-3 py-1 bg-blue-50 text-[#3B82F6] text-ui-label rounded-lg uppercase tracking-wider">{user.role}</span></td>
-                             <td className="py-6 px-4 text-center"><span className={`px-2.5 py-1 rounded-full text-ui-label ${user.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>{user.status}</span></td>
-                            <td className="py-6 px-4 text-right">
-                              <button 
-                                onClick={() => { setSelectedInternalItem(user); setInternalActionView('edit_user'); }}
-                                className="p-2.5 hover:bg-slate-100 rounded-xl transition-colors group">
-                                <SlidersHorizontal className="w-5 h-5 text-slate-400 group-hover:text-blue-600" />
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}
@@ -1050,8 +1854,8 @@ export default function InternalDashboard() {
             {dashActiveView === 'users' && internalActionView === 'add_user' && (
               <div className="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="flex items-center gap-4 mb-8">
-                  <button onClick={() => setInternalActionView(null)} className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
-                    <ArrowLeft className="w-5 h-5" />
+                  <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90">
+                    <ArrowLeft className="w-6 h-6" />
                   </button>
                   <h3 className="text-h2 text-slate-900">Add New System User</h3>
                 </div>
@@ -1095,8 +1899,8 @@ export default function InternalDashboard() {
               <div className="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-4">
-                    <button onClick={() => setInternalActionView(null)} className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
-                      <ArrowLeft className="w-5 h-5" />
+                    <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90">
+                      <ArrowLeft className="w-6 h-6" />
                     </button>
                     <div>
                       <h3 className="text-h2 text-slate-900">User Settings</h3>
@@ -1180,8 +1984,8 @@ export default function InternalDashboard() {
                           <p className="text-h2 text-zinc-900">{s.status}</p>
                         </div>
                         <div className="flex justify-between items-end">
-                            <div><p className="text-ui-label text-zinc-400 mb-1">Last Downtime</p><p className="text-body-sm font-bold text-zinc-600">{s.lastDowntime}</p></div>
-                            <div className="text-right"><p className="text-ui-label text-zinc-400 mb-1">Latency</p><p className="text-body-sm font-bold text-blue-600">42ms</p></div>
+                          <div><p className="text-ui-label text-zinc-400 mb-1">Last Downtime</p><p className="text-body-sm font-bold text-zinc-600">{s.lastDowntime}</p></div>
+                          <div className="text-right"><p className="text-ui-label text-zinc-400 mb-1">Latency</p><p className="text-body-sm font-bold text-blue-600">42ms</p></div>
                         </div>
                       </div>
                     ))}

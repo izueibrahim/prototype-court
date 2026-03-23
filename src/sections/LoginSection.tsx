@@ -5,7 +5,7 @@ import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
 import {
     Globe, ArrowLeft, ShieldCheck, UserCircle,
-    Video, ChevronRight, Mail, Lock, Briefcase, Key, ArrowUpRight, HelpCircle, Fingerprint,
+    Video, ChevronRight, Mail, Lock, Briefcase, Key, ArrowUpRight, HelpCircle,
     Scale, Gavel, Settings, CheckCircle2
 } from 'lucide-react';
 
@@ -111,11 +111,6 @@ export default function LoginSection() {
                                             </button>
                                     </div>
 
-                                    <div className="flex items-center gap-4 text-ui-label text-zinc-400">
-                                        <div className="h-px flex-1 bg-zinc-100"></div>
-                                        <span>Authentication Required</span>
-                                        <div className="h-px flex-1 bg-zinc-100"></div>
-                                    </div>
                                 </div>
                             </div>
                         ) : (
@@ -248,7 +243,7 @@ export default function LoginSection() {
                                                     type="button"
                                                     onClick={handleLoginSubmit}
                                                     className={isHighContrast ? 'w-full py-4 rounded-xl border border-white text-white bg-black text-body-md font-bold flex items-center justify-center gap-3 transition-transform active:scale-[0.98]' : 'w-full py-4 rounded-xl border border-zinc-200 bg-white text-zinc-800 text-body-md font-bold flex items-center justify-center gap-3 hover:bg-zinc-50 shadow-sm transition-transform active:scale-[0.98]'}>
-                                                    <Fingerprint className="w-6 h-6 text-emerald-600" />
+                                                    <img src="/mydigitalidlogo.png" alt="MyDigital ID" className="w-6 h-6 object-contain" />
                                                     Log Masuk MyDigital ID
                                                 </button>
                                             </div>

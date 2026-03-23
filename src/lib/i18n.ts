@@ -30,7 +30,7 @@ export const t: Translations = {
         a11yTitle: 'Accessibility Options',
         heroTitle: 'Seamless Digital Justice.',
         heroSub: 'Your unified gateway for case management, e-filing, and virtual court proceedings.',
-        searchPlace: 'Search by case number, award, or keywords...',
+        searchPlace: 'Case No, Award Title, or Keywords...',
         searchBtn: 'Search',
         homeHearingsTitle: 'Hearings & Judgments',
         homeHearingsSub: 'Real-time daily proceeding schedules and latest published awards.',
@@ -60,13 +60,13 @@ export const t: Translations = {
             { title: 'File a Document' }, { title: 'Join Virtual Court' }, { title: 'Practice Notes' }, { title: 'Selected Awards' }
         ],
         mockHearings: [
-            { parties: 'Tay Hwee Lan v Healthy Vision', type: 'Trial (B)' },
-            { parties: 'Azman Bin Isa v Technip Energies (M)', type: 'Trial (B)' },
-            { parties: 'Siti Nurhaliza v Syarikat ABC Sdn Bhd', type: 'Mention (S)' },
+            { parties: 'Tay Hwee Lan v Healthy Vision', type: 'Trial (T)' },
+            { parties: 'Azman Bin Isa v Technip Energies (M)', type: 'Trial (T)' },
+            { parties: 'Siti Nurhaliza v Syarikat ABC Sdn Bhd', type: 'Mention (M)' },
         ],
         notices: [
             { date: '12 March 2026', title: 'Practice Note No. 1 of 2026: Implementation of eMP v2.0 System for all new filings.' },
-            { date: '08 March 2026', title: 'Guidelines for remote attendance via e-Sebutan during public holidays.' }
+            { date: '08 March 2026', title: 'Guidelines for remote attendance via Virtual Court during public holidays.' }
         ],
         loginGateway: 'Unified Login Gateway',
         backToPortal: 'Back to Portal',
@@ -167,7 +167,7 @@ export const t: Translations = {
         a11yTitle: 'Pilihan Aksesibiliti',
         heroTitle: 'Keadilan Digital Tanpa Sempadan.',
         heroSub: 'Gerbang berpusat anda untuk pengurusan kes, e-pemfailan, dan prosiding mahkamah maya.',
-        searchPlace: 'Cari nombor kes, award, atau kata kunci...',
+        searchPlace: 'No. Kes, Tajuk Award, atau Kata Kunci...',
         searchBtn: 'Cari Portal',
         homeHearingsTitle: 'Perbicaraan & Penghakiman',
         homeHearingsSub: 'Jadual prosiding harian masa nyata dan award terkini yang diterbitkan.',

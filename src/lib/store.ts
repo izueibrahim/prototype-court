@@ -17,8 +17,8 @@ type WcagStates = {
 interface AppState {
     currentView: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details' | 'about' | 'contact' | 'modules';
     loginRole: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null;
-    dashActiveView: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings' | 'sebutan' | 'users';
-    internalActionView: 'review_filing' | 'allocate_case' | 'case_detail' | 'hearing_notes' | 'add_user' | 'edit_user' | null;
+    dashActiveView: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings' | 'sebutan' | 'users' | 'ca_mgmt' | 'notice_board';
+    internalActionView: 'review_filing' | 'allocate_case' | 'case_detail' | 'hearing_notes' | 'add_user' | 'edit_user' | 'ca_form' | 'ca_detail' | 'notice_form' | 'notice_detail' | 'waiting_room' | 'sebutan_session' | 'add_schedule' | null;
     eFilingActiveView: 'cases' | 'new_filing' | 'case_details';
     selectedInternalItem: any | null;
     selectedEFilingCase: any | null;

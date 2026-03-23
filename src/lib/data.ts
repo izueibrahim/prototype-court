@@ -6,14 +6,14 @@ import {
 import React from 'react';
 
 export const upcomingHearings = [
-  { 
-    id: '22/4-1318/24', 
-    court: 'Court 22', 
-    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim', 
+  {
+    id: '22/4-1318/24',
+    court: 'Court 22',
+    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim',
     date: '15 January 2025',
     time: '09:00 AM', // Used briefly for hearing list
-    claimant: 'Kailash a/l Ganeshan',
-    respondent: 'TNT Consultancy Sdn Bhd',
+    claimant: 'Tay Hwee Lan',
+    respondent: 'Healthy Vision Sdn Bhd',
     keywords: ['Dismissal', 'Active', 'Final award'],
     summary: 'The claimant alleges unfair dismissal. Case is currently at the Final Award stage after a complete cycle of mentions, hearings, and document filings.',
     status: 'Active',
@@ -52,50 +52,50 @@ export const upcomingHearings = [
       { id: 24, document: 'Ultimatum Date (Final)', date: '09-03-2026', party1: false, party2: true }
     ]
   },
-  { 
-    id: '1/1-1079/25', 
-    court: 'Mahkamah 1', 
-    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim', 
+  {
+    id: '1/1-1079/25',
+    court: 'Mahkamah 1',
+    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim',
     time: '11:00 AM',
     claimant: 'Azman Bin Isa',
     respondent: 'Technip Energies (M)',
     keywords: ['Retrenchment', 'Redundancy', 'LIFO Principle'],
     summary: 'A dispute regarding the company\'s retrenchment exercise. The union claims the company failed to follow the Last-In-First-Out (LIFO) principle and did not consult prior to the termination.'
   },
-  { 
-    id: '4/4-2024/25', 
-    court: 'Mahkamah 4', 
-    judge: 'Y.A. Tuan Amrik Singh', 
+  {
+    id: '4/4-2024/25',
+    court: 'Mahkamah 4',
+    judge: 'Y.A. Tuan Amrik Singh',
     time: '02:30 PM',
     claimant: 'Siti Nurhaliza',
     respondent: 'Syarikat ABC Sdn Bhd',
     keywords: ['Domestic Inquiry', 'Misconduct', 'Absenteeism'],
     summary: 'Mention for case management. The respondent asserts the dismissal was lawful following a properly conducted Domestic Inquiry regarding severe absenteeism.'
   },
-  { 
-    id: '2/2-3041/25', 
-    court: 'Mahkamah 2', 
-    judge: 'Y.A. Puan Rusita Binti Md Lazim', 
+  {
+    id: '2/2-3041/25',
+    court: 'Mahkamah 2',
+    judge: 'Y.A. Puan Rusita Binti Md Lazim',
     time: '09:30 AM',
     claimant: 'Kesatuan Sekerja Pembuatan',
     respondent: 'Kilang Automotif Jaya',
     keywords: ['Trade Union', 'Collective Agreement', 'Non-Compliance'],
     summary: 'Complaint of non-compliance with Article 14 of the Collective Agreement regarding annual bonus payouts.'
   },
-  { 
-    id: '5/5-1120/25', 
-    court: 'Mahkamah 5', 
-    judge: 'Y.A. Tuan Zulhelmy Bin Hasan', 
+  {
+    id: '5/5-1120/25',
+    court: 'Mahkamah 5',
+    judge: 'Y.A. Tuan Zulhelmy Bin Hasan',
     time: '10:00 AM',
     claimant: 'Ahmad Faiz',
     respondent: 'Global Tech Solutions',
     keywords: ['Sexual Harassment', 'Unfair Dismissal'],
     summary: 'Claimant disputes termination which was allegedly based on unproven sexual harassment allegations without a proper domestic inquiry.'
   },
-  { 
-    id: '3/3-0899/25', 
-    court: 'Mahkamah 3', 
-    judge: 'Y.A. Dato\' Syed Noh Bin Said', 
+  {
+    id: '3/3-0899/25',
+    court: 'Mahkamah 3',
+    judge: 'Y.A. Dato\' Syed Noh Bin Said',
     time: '03:00 PM',
     claimant: 'Sarah Lee',
     respondent: 'Bintang Retail Group',
@@ -105,22 +105,22 @@ export const upcomingHearings = [
 ];
 
 export const latestJudgments = [
-  { 
-    id: '2/2-3041/25', 
+  {
+    id: '2/2-3041/25',
     awardNo: 'Award 412/2026',
-    court: 'Mahkamah 2', 
-    judge: 'Y.A. Puan Rusita Binti Md Lazim', 
+    court: 'Mahkamah 2',
+    judge: 'Y.A. Puan Rusita Binti Md Lazim',
     date: '12 March 2026',
     claimant: 'Thangaraj a/l Narayanan',
     respondent: 'DHL Express (M) Sdn Bhd',
     keywords: ['Unfair Dismissal', 'Reinstatement Denied', 'Compensation'],
     summary: 'The court found the dismissal to be unfair due to procedural flaws, but reinstatement was deemed inappropriate. Compensation in lieu of reinstatement was awarded.'
   },
-  { 
-    id: '5/5-1120/25', 
+  {
+    id: '5/5-1120/25',
     awardNo: 'Award 409/2026',
-    court: 'Mahkamah 5', 
-    judge: 'Y.A. Tuan Zulhelmy Bin Hasan', 
+    court: 'Mahkamah 5',
+    judge: 'Y.A. Tuan Zulhelmy Bin Hasan',
     date: '10 March 2026',
     claimant: 'On Siang Aik',
     respondent: 'Million Effective Sdn. Bhd.',
@@ -195,7 +195,9 @@ export const courtLocations = [
   { region: "Sarawak", courts: ["Mahkamah 8"] }
 ];
 
-export const chYears = ['19', '20', '21', '22', '23', '24', '25', '26'];
+export const chYears = ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'];
+export const caseTypes = ['UNFAIR DISMISSAL', 'CONSTRUCTIVE DISMISSAL', 'RETRENCHMENT', 'TRADE DISPUTE', 'COLLECTIVE AGREEMENT', 'UNION RECOGNITION'];
+export const caseStatuses = ['ACTIVE', 'CLOSED', 'MENTION', 'HEARING', 'AWARD', 'STAYED'];
 export const ch1 = [{ rg: 820, rs: 745 }, { rg: 756, rs: 689 }, { rg: 912, rs: 801 }, { rg: 1034, rs: 912 }, { rg: 1148, rs: 1021 }, { rg: 1206, rs: 1102 }, { rg: 1278, rs: 1156 }, { rg: 1321, rs: 1188 }];
 export const ch2 = [{ d: 412, c: 126, r: 109, t: 98 }, { d: 378, c: 118, r: 102, t: 91 }, { d: 451, c: 140, r: 110, t: 100 }, { d: 512, c: 162, r: 123, t: 115 }, { d: 548, c: 170, r: 138, t: 121 }, { d: 572, c: 184, r: 142, t: 129 }, { d: 603, c: 195, r: 150, t: 140 }, { d: 620, c: 201, r: 159, t: 152 }];
 export const ch3 = [{ ud: 820, ca: 84, td: 63, ur: 22 }, { ud: 756, ca: 72, td: 58, ur: 19 }, { ud: 912, ca: 95, td: 71, ur: 24 }, { ud: 1034, ca: 108, td: 83, ur: 29 }, { ud: 1148, ca: 122, td: 95, ur: 31 }, { ud: 1206, ca: 131, td: 102, ur: 36 }, { ud: 1278, ca: 142, td: 114, ur: 40 }, { ud: 1321, ca: 148, td: 121, ur: 45 }];
@@ -222,31 +224,72 @@ export const allModules = [
       { icon: Briefcase, enTitle: 'Resources', msTitle: 'Lain-lain Capaian', enDesc: 'Access Links to Other Resources.', msDesc: 'Senarai Lain-lain Capaian', href: '/modules/resources' },
     ]
   },
-  { 
+  {
     items: [
-      { icon: Key, enTitle: 'Access Management [M2]', enDesc: 'Centralized Login (SSO) & MyDigital ID.' }, 
-      { icon: UploadCloud, enTitle: 'e-Filing & e-Service [M4]', enDesc: 'Online case document filing for parties.' }, 
-      { icon: MessageSquare, enTitle: 'e-Mention [M5]', enDesc: 'Virtual case mention proceedings.' }, 
-      { icon: Search, enTitle: 'Smart Award Search [M8]', enDesc: 'Semantic AI & Full-Text Search.' }, 
+      { icon: Key, enTitle: 'Access Management [M2]', enDesc: 'Centralized Login (SSO) & MyDigital ID.' },
+      { icon: UploadCloud, enTitle: 'e-Filing & e-Service [M4]', enDesc: 'Online case document filing for parties.' },
+      { icon: MessageSquare, enTitle: 'e-Mention [M5]', enDesc: 'Virtual case mention proceedings.' },
+      { icon: Search, enTitle: 'Smart Award Search [M8]', enDesc: 'Semantic AI & Full-Text Search.' },
       { icon: Bell, enTitle: 'Notice Management [M3]', enDesc: 'Notifications, reminders, and schedules.' }
-    ] 
+    ]
   },
-  { 
+  {
     items: [
-      { icon: FilePlus, enTitle: 'Case Registration [M9]', enDesc: 'Registration and automated distribution.' }, 
-      { icon: Briefcase, enTitle: 'Case Management [M10]', enDesc: 'Management of the entire trial process.' }, 
-      { icon: Users, enTitle: 'Collective Agreement [M11]', enDesc: 'Registration and review of CA.' }, 
-      { icon: BarChart, enTitle: 'Dashboard & Reports [M12]', enDesc: 'Automated statistics and analytics.' }, 
+      { icon: FilePlus, enTitle: 'Case Registration [M9]', enDesc: 'Registration and automated distribution.' },
+      { icon: Briefcase, enTitle: 'Case Management [M10]', enDesc: 'Management of the entire trial process.' },
+      { icon: Users, enTitle: 'Collective Agreement [M11]', enDesc: 'Registration and review of CA.' },
+      { icon: BarChart, enTitle: 'Dashboard & Reports [M12]', enDesc: 'Automated statistics and analytics.' },
       { icon: Settings, enTitle: 'System Admin [M13]', enDesc: 'System configuration and audit logs.' }
-    ] 
+    ]
   }
 ];
 
-export const mockAnalyticsStats = [
-  { metric: "Settlement Rate", value: "72%", trend: "+5%", color: "text-emerald-500", bg: "bg-emerald-50" },
-  { metric: "Average Duration", value: "145 Days", trend: "-12 Days", color: "text-blue-500", bg: "bg-blue-50" },
-  { metric: "Awards Appealed", value: "18", trend: "-2", color: "text-amber-500", bg: "bg-amber-50" },
-  { metric: "Hearings/Month", value: "312", trend: "+24", color: "text-indigo-500", bg: "bg-indigo-50" }
+export const executiveStats = [
+  { metric: "Total Active Cases", value: "127", trend: "+4%", color: "text-blue-600", bg: "bg-blue-50" },
+  { metric: "New Cases (Month)", value: "18", trend: "+2", color: "text-emerald-600", bg: "bg-emerald-50" },
+  { metric: "Cases Closed (Month)", value: "12", trend: "-1", color: "text-indigo-600", bg: "bg-indigo-50" },
+  { metric: "Backlog Cases", value: "23", trend: "-5", color: "text-amber-600", bg: "bg-amber-50" },
+  { metric: "Avg Days to Award", value: "68 Days", trend: "-12", color: "text-rose-600", bg: "bg-rose-50" },
+  { metric: "Resolution Rate", value: "0.67", trend: "+0.05", color: "text-purple-600", bg: "bg-purple-50" },
+];
+
+export const opsStats = [
+  { metric: "New Filings Today", value: "9", trend: "+3", color: "text-blue-600", bg: "bg-blue-50" },
+  { metric: "Pending Registration", value: "4", trend: "-1", color: "text-amber-600", bg: "bg-amber-50" },
+  { metric: "Pending Allocation", value: "3", trend: "0", color: "text-orange-600", bg: "bg-orange-50" },
+  { metric: "Mentions Today", value: "6", trend: "+1", color: "text-emerald-600", bg: "bg-emerald-50" },
+  { metric: "Hearings Today", value: "8", trend: "-2", color: "text-indigo-600", bg: "bg-indigo-50" },
+  { metric: "Notices Pending", value: "2", trend: "-1", color: "text-rose-600", bg: "bg-rose-50" },
+];
+
+export const chairmanStats = [
+  { metric: "Assigned Cases", value: "28", trend: "+2", color: "text-blue-600", bg: "bg-blue-50" },
+  { metric: "Hearings This Week", value: "6", trend: "+1", color: "text-emerald-600", bg: "bg-emerald-50" },
+  { metric: "Mentions This Week", value: "4", trend: "0", color: "text-indigo-600", bg: "bg-indigo-50" },
+  { metric: "Awards Pending", value: "3", trend: "-1", color: "text-amber-600", bg: "bg-amber-50" },
+  { metric: "Cases Closed (Month)", value: "5", trend: "+2", color: "text-purple-600", bg: "bg-purple-50" },
+];
+
+export const awardAnalyticsStats = [
+  { metric: "Total Awards Published", value: "8,421", trend: "+312", color: "text-blue-600", bg: "bg-blue-50" },
+  { metric: "Published 2026", value: "312", trend: "+24", color: "text-emerald-600", bg: "bg-emerald-50" },
+  { metric: "Search Queries Today", value: "924", trend: "+156", color: "text-indigo-600", bg: "bg-indigo-50" },
+  { metric: "Search Success Rate", value: "92%", trend: "+2%", color: "text-purple-600", bg: "bg-purple-50" },
+];
+
+export const integrationStats = [
+  { metric: "API Success Rate", value: "97.2%", trend: "+0.5%", color: "text-emerald-600", bg: "bg-emerald-50" },
+  { metric: "Failed Transactions", value: "14", trend: "-3", color: "text-rose-600", bg: "bg-rose-50" },
+  { metric: "Auth Success Rate", value: "99.1%", trend: "+0.1%", color: "text-blue-600", bg: "bg-blue-50" },
+  { metric: "Avg Response Time", value: "820ms", trend: "-50ms", color: "text-indigo-600", bg: "bg-indigo-50" },
+  { metric: "Retry Queue", value: "5", trend: "-2", color: "text-amber-600", bg: "bg-amber-50" },
+];
+
+export const usageStats = [
+  { metric: "Daily Active Users", value: "376", trend: "+42", color: "text-blue-600", bg: "bg-blue-50" },
+  { metric: "Monthly Active Users", value: "1,242", trend: "+128", color: "text-emerald-600", bg: "bg-emerald-50" },
+  { metric: "Logins Today", value: "182", trend: "+12", color: "text-indigo-600", bg: "bg-indigo-50" },
+  { metric: "Avg Session Duration", value: "18 min", trend: "+2 min", color: "text-purple-600", bg: "bg-purple-50" },
 ];
 
 export const mockUsageLogs = [
@@ -300,14 +343,186 @@ export const integrationLogs = [
 ];
 
 export const mockNotices = [
-  { id: 'N-001', type: 'Hearing Notice', caseNo: '1/1-1522/25', parties: 'Tay Hwee Lan v Healthy Vision', status: 'Pending Dispatch' },
-  { id: 'N-002', type: 'Mention Notice', caseNo: '4/4-2024/25', parties: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Dispatched' },
-  { id: 'N-003', type: 'Award Collection', caseNo: '2/2-3041/25', parties: 'Thangaraj v DHL Express', status: 'Delivered' }
+  {
+    id: 'N-001',
+    type: 'Hearing Notice',
+    category: 'Kes',
+    caseNo: '1/1-1522/25',
+    parties: 'Tay Hwee Lan v Healthy Vision',
+    title: 'Penutupan Mahkamah Sempena Hari Raya',
+    date: '2026-04-10',
+    content: 'Mahkamah akan ditutup dari 10 hingga 14 April 2026. Semua prosiding akan ditangguhkan.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-002',
+    type: 'Mention Notice',
+    category: 'Umum',
+    caseNo: '4/4-2024/25',
+    parties: 'Siti Nurhaliza v ABC Sdn Bhd',
+    title: 'Perubahan Jadual Sebutan Kes',
+    date: '2026-04-15',
+    content: 'Terdapat perubahan jadual sebutan bagi kes-kes di Mahkamah 4.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-003',
+    type: 'Award Collection',
+    category: 'Umum',
+    caseNo: '2/2-3041/25',
+    parties: 'Thangaraj v DHL Express',
+    title: 'Notis Pengumpulan Award',
+    date: '2025-12-01',
+    content: 'Pihak-pihak boleh menuntut award di pejabat pendaftar.',
+    status: 'Tidak Aktif'
+  },
+  {
+    id: 'N-004',
+    type: 'General Notification',
+    category: 'Umum',
+    caseNo: '-',
+    parties: '-',
+    title: 'Penyelenggaraan Sistem e-Filing Berjadual',
+    date: '2026-04-25',
+    content: 'Dimaklumkan bahawa sistem e-Filing akan mengalami gangguan operasi sementara bermula 12:00 AM hingga 6:00 AM pada 25 April 2026 untuk kerja-kerja penyelenggaraan berjadual. Segala kesulitan amatlah dikesali.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-005',
+    type: 'Guideline Update',
+    category: 'Umum',
+    caseNo: '-',
+    parties: '-',
+    title: 'Kemas Kini Pakaian Semasa Prosiding Maya',
+    date: '2026-04-28',
+    content: 'Peringatan mesra kepada semua peguam cara dan wakil pihak-pihak berhubung kod etika berpakaian semasa perbicaraan secara maya melalui e-Sebutan. Rujuk Arahan Amalan Terkini untuk butiran lanjut.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-006',
+    type: 'Mention Notice',
+    category: 'Kes',
+    caseNo: '5/5-1120/25',
+    parties: 'Ahmad Faiz v Global Tech Solutions',
+    title: 'Penangguhan Sebutan Kes 5/5-1120/25',
+    date: '2026-05-02',
+    content: 'Sila ambil maklum bahawa sesi sebutan kes bagi Ahmad Faiz v Global Tech Solutions yang dijadualkan pada hari ini ditangguhkan ke suatu tarikh yang akan diberitahu kelak.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-007',
+    type: 'Practice Direction',
+    category: 'Umum',
+    caseNo: '-',
+    parties: '-',
+    title: 'Arahan Amalan Bil. 2 Tahun 2026: Pengurusan Kes Secara Elektronik',
+    date: '2026-05-10',
+    content: 'Semua peguam cara dan pihak-pihak yang terlibat dikehendaki menggunakan sistem e-Filing eMP v2.0 untuk semua pemfailan bermula 1 Jun 2026. Pemfailan manual tidak lagi diterima kecuali dengan kebenaran khas.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-008',
+    type: 'Hearing Notice',
+    category: 'Kes',
+    caseNo: '3/3-456/26',
+    parties: 'Lim Wei Kang v Syarikat Pembinaan Utama',
+    title: 'Notis Perbicaraan Penuh - Kes 3/3-456/26',
+    date: '2026-05-15',
+    content: 'Perbicaraan penuh bagi kes Lim Wei Kang v Syarikat Pembinaan Utama dijadualkan pada 15 Mei 2026 jam 9:00 pagi di Mahkamah 2, Kuala Lumpur. Semua pihak diwajibkan hadir.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-009',
+    type: 'Relocation Notice',
+    category: 'Umum',
+    caseNo: '-',
+    parties: '-',
+    title: 'Pemindahan Pejabat Mahkamah Perusahaan Cawangan Pulau Pinang',
+    date: '2026-06-01',
+    content: 'Sila ambil maklum bahawa Pejabat Mahkamah Perusahaan Cawangan Pulau Pinang akan berpindah ke lokasi baharu di Bangunan Persekutuan, Jalan Dhoby, Georgetown mulai 1 Jun 2026.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-010',
+    type: 'Training Notice',
+    category: 'Umum',
+    caseNo: '-',
+    parties: '-',
+    title: 'Sesi Latihan eMP v2.0 untuk Peguam Bela & Peguam Cara',
+    date: '2026-06-05',
+    content: 'Satu sesi taklimat dan latihan penggunaan sistem eMP v2.0 akan diadakan secara atas talian pada 5 Jun 2026 jam 10:00 pagi. Pendaftaran adalah wajib bagi semua peguam yang aktif.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-011',
+    type: 'Holiday Notice',
+    category: 'Umum',
+    caseNo: '-',
+    parties: '-',
+    title: 'Cuti Kelepasan Am: Hari Keputeraan YDP Agong',
+    date: '2026-06-08',
+    content: 'Mahkamah Perusahaan akan ditutup pada 8 Jun 2026 sempena Hari Keputeraan Rasmi Seri Paduka Baginda Yang di-Pertuan Agong. Urusan mahkamah akan disambung semula pada hari berikutnya.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-012',
+    type: 'Appointment Notice',
+    category: 'Umum',
+    caseNo: '-',
+    parties: '-',
+    title: 'Pelantikan Pengerusi Mahkamah Perusahaan Baharu',
+    date: '2026-06-15',
+    content: 'Dukacita dimaklumkan mengenai pelantikan Y.A. Puan Nor Azlan sebagai Pengerusi Mahkamah Perusahaan yang baharu berkuat kuasa 15 Jun 2026.',
+    status: 'Aktif'
+  },
+  {
+    id: 'N-013',
+    type: 'System Update',
+    category: 'Umum',
+    caseNo: '-',
+    parties: '-',
+    title: 'Kemas Kini Ciri Keselamatan MyDigital ID',
+    date: '2026-06-20',
+    content: 'Sistem eMP v2.0 kini menyokong pengesahan dwi-faktor (2FA) melalui integrasi MyDigital ID yang dipertingkatkan. Pengguna digalakkan mengemas kini aplikasi MyDigital ID masing-masing.',
+    status: 'Aktif'
+  }
 ];
 
 export const mockCAs = [
-  { id: 'CA-2026-001', union: 'National Union of Bank Employees', company: 'Maybank Berhad', submitted: '01 Mar 2026', status: 'Under Review' },
-  { id: 'CA-2026-002', union: 'Kesatuan Sekerja Pembuatan', company: 'Kilang Automotif Jaya', submitted: '28 Feb 2026', status: 'Approved' },
-  { id: 'CA-2026-003', union: 'Medical Workers Union', company: 'Private Hospitals Group', submitted: '15 Feb 2026', status: 'Cognizance Granted' }
+  {
+    id: 'CA-2026-001',
+    title: 'Collective Agreement National Union of Bank Employees',
+    union: 'National Union of Bank Employees',
+    company: 'Maybank Berhad',
+    employer: 'Maybank Berhad',
+    submitted: '01 Mar 2026',
+    status: 'Under Review',
+    start_date: '2026-01-01',
+    end_date: '2028-12-31',
+    document_url: '/docs/CA_NUBE_MAYBANK.pdf'
+  },
+  {
+    id: 'CA-2026-002',
+    title: 'Collective Agreement Auto Manufacturing Jaya',
+    union: 'Manufacturing Workers Union',
+    company: 'Auto Manufacturing Jaya',
+    employer: 'Auto Manufacturing Jaya',
+    submitted: '28 Feb 2026',
+    status: 'Active',
+    start_date: '2026-01-01',
+    end_date: '2028-12-31',
+    document_url: '/docs/CA_JAYA.pdf'
+  },
+  {
+    id: 'CA-2026-003',
+    title: 'Collective Agreement Medical Workers Union',
+    union: 'Medical Workers Union',
+    company: 'Private Hospitals Group',
+    employer: 'Private Hospitals Group',
+    submitted: '15 Feb 2026',
+    status: 'Expired',
+    start_date: '2023-01-01',
+    end_date: '2025-12-31',
+    document_url: '/docs/CA_MEDICAL.pdf'
+  }
 ];
-

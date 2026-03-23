@@ -11,21 +11,38 @@ import {
 } from 'lucide-react';
 import { 
   caseTypeDistribution, chairmanCases, filingQueue, 
-  integrationLogs, mockNotices, mockCAs, upcomingHearings,
-  mockAnalyticsStats, mockUsageLogs, mockSystemSettings
+  integrationLogs, mockNotices, mockCAs, upcomingHearings
 } from '@/lib/data';
+import SebutanChat from '@/components/sebutan/SebutanChat';
+
+const mockAnalyticsStats = [
+  { metric: 'Total Cases', value: '1,234', trend: '+12%', bg: 'bg-white', color: 'text-emerald-500' },
+  { metric: 'Resolved', value: '892', trend: '+5%', bg: 'bg-white', color: 'text-emerald-500' },
+  { metric: 'Pending', value: '342', trend: '-2%', bg: 'bg-white', color: 'text-rose-500' },
+  { metric: 'Appealed', value: '45', trend: '+1%', bg: 'bg-white', color: 'text-rose-500' }
+];
+
+const mockUsageLogs = [
+  { role: 'Admin', user: 'Admin User', action: 'System Backup', time: '10:00 AM' },
+  { role: 'Officer', user: 'Officer User', action: 'Case Registration', time: '11:00 AM' }
+];
+
+const mockSystemSettings = [
+  { name: 'Core Database', lastDowntime: '2 mins ago', status: 'Online' },
+  { name: 'e-Filing Services', lastDowntime: '1 day ago', status: 'Active' }
+];
 
 export default function InternalDashboard() {
-  const { lang, dashActiveView } = useAppStore();
+  const { lang, dashActiveView, setDashActiveView } = useAppStore();
   const currentLang = t[lang] || t.en;
 
   const renderView = () => {
     switch (dashActiveView) {
       case 'overview': return <OverviewView lang={currentLang} />;
-      case 'chairman': return <ChairmanView lang={currentLang} />;
+      case 'chairman': return <ChairmanView lang={currentLang} setDashActiveView={setDashActiveView} />;
       case 'analytics': return <AnalyticsView lang={currentLang} />;
       case 'registration': return <RegistrationView lang={currentLang} />;
-      case 'cases': return <CasesView lang={currentLang} />;
+      case 'cases': return <CasesView lang={currentLang} setDashActiveView={setDashActiveView} />;
       case 'schedule_int': return <ScheduleView lang={currentLang} />;
       case 'notice': return <NoticeView lang={currentLang} />;
       case 'collective': return <CollectiveView lang={currentLang} />;
@@ -33,6 +50,7 @@ export default function InternalDashboard() {
       case 'integration': return <IntegrationView lang={currentLang} />;
       case 'usage': return <UsageView lang={currentLang} />;
       case 'settings': return <SettingsView lang={currentLang} />;
+      case 'sebutan': return <SebutanChat />;
       default: return <OverviewView lang={currentLang} />;
     }
   };
@@ -111,7 +129,7 @@ function OverviewView({ lang }: { lang: { [key: string]: string } }) {
   );
 }
 
-function ChairmanView({ lang }: { lang: { [key: string]: string } }) {
+function ChairmanView({ lang, setDashActiveView }: { lang: { [key: string]: string }, setDashActiveView: (v: any) => void }) {
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center bg-zinc-900 p-10 rounded-[2.5rem] text-white shadow-premium-lg relative overflow-hidden">
@@ -153,7 +171,10 @@ function ChairmanView({ lang }: { lang: { [key: string]: string } }) {
                     </span>
                   </td>
                   <td className="py-6 px-8 text-right">
-                    <button className="btn-primary text-xs uppercase tracking-widest px-6 py-2.5">
+                    <button 
+                      onClick={() => setDashActiveView('sebutan')}
+                      className="btn-primary text-xs uppercase tracking-widest px-6 py-2.5"
+                    >
                       {lang.startSession}
                     </button>
                   </td>
@@ -198,7 +219,7 @@ function RegistrationView({ lang }: { lang: { [key: string]: string } }) {
   );
 }
 
-function CasesView({ lang }: { lang: { [key: string]: string } }) {
+function CasesView({ lang, setDashActiveView }: { lang: { [key: string]: string }, setDashActiveView: (v: any) => void }) {
   return (
     <div className="card-premium p-8">
       <h3 className="text-xl font-black text-zinc-900 mb-8 tracking-tight">{lang.dashCases}</h3>
@@ -218,8 +239,14 @@ function CasesView({ lang }: { lang: { [key: string]: string } }) {
                 <td className="py-6 px-8 text-sm font-mono text-blue-600 font-black">{c.id}</td>
                 <td className="py-6 px-8 text-base font-black text-zinc-900 tracking-tight">{c.claimant} v {c.respondent}</td>
                 <td className="py-6 px-8 text-sm text-zinc-500 max-w-xs font-medium leading-relaxed">{c.summary.substring(0, 80)}...</td>
-                <td className="py-6 px-8 text-right">
-                    <button className="btn-secondary text-xs uppercase tracking-widest px-6 py-2.5 bg-zinc-50 hover:bg-white">
+                <td className="py-6 px-8 text-right flex items-center justify-end gap-3 font-sans">
+                    <button 
+                       onClick={() => setDashActiveView('sebutan')}
+                       className="btn-primary text-[10px] font-black uppercase tracking-widest px-5 py-2.5 bg-brand-600 shadow-md shadow-brand-600/20 active:scale-95"
+                    >
+                       Join Session
+                    </button>
+                    <button className="btn-secondary text-[10px] font-black uppercase tracking-widest px-5 py-2.5 bg-zinc-50 hover:bg-white border-zinc-200">
                         {lang.viewDetails}
                     </button>
                 </td>
@@ -352,15 +379,89 @@ function AnalyticsView({ lang }: { lang: { [key: string]: string } }) {
   return (
     <div className="space-y-8">
       <div className="card-premium p-10">
-        <h3 className="text-2xl font-black text-zinc-900 mb-10 border-l-8 border-blue-600 pl-6 tracking-tight">{lang.analyticsMetrics}</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <h3 className="text-2xl font-black text-zinc-900 mb-10 border-l-8 border-brand-600 pl-6 tracking-tight">{lang.analyticsMetrics}</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {mockAnalyticsStats.map((stat, i) => (
-            <div key={i} className={`${stat.bg} p-8 rounded-[2rem] border border-zinc-100 group hover:border-blue-400 hover:bg-white hover:shadow-premium-lg transition-all`}>
+            <div key={i} className={`${stat.bg} p-8 rounded-[2rem] border border-zinc-100 group hover:border-brand-400 hover:bg-white hover:shadow-premium-lg transition-all`}>
               <p className="text-[10px] font-black text-zinc-400 mb-3 uppercase tracking-[0.2em]">{stat.metric}</p>
-              <h4 className="text-4xl font-black text-zinc-900 mb-3 tracking-tighter group-hover:scale-110 group-hover:text-blue-600 transition-all origin-left">{stat.value}</h4>
+              <h4 className="text-4xl font-black text-zinc-900 mb-3 tracking-tighter group-hover:scale-110 group-hover:text-brand-600 transition-all origin-left">{stat.value}</h4>
               <p className={`text-[10px] font-black px-3 py-1 rounded-xl inline-block shadow-sm ${stat.color === 'text-emerald-500' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-rose-50 text-rose-600 border border-rose-100'}`}>{stat.trend}</p>
             </div>
           ))}
+          {/* Additional Data Points */}
+          <div className="bg-zinc-50 p-8 rounded-[2rem] border border-zinc-100 group hover:border-brand-400 hover:bg-white hover:shadow-premium-lg transition-all">
+            <p className="text-[10px] font-black text-zinc-400 mb-3 uppercase tracking-[0.2em]">Avg Award Value</p>
+            <h4 className="text-4xl font-black text-zinc-900 mb-3 tracking-tighter group-hover:text-brand-600 transition-all origin-left">RM 42.5k</h4>
+            <p className="text-[10px] font-black px-3 py-1 rounded-xl inline-block shadow-sm bg-blue-50 text-blue-600 border border-blue-100">+2.4%</p>
+          </div>
+          <div className="bg-zinc-50 p-8 rounded-[2rem] border border-zinc-100 group hover:border-brand-400 hover:bg-white hover:shadow-premium-lg transition-all">
+            <p className="text-[10px] font-black text-zinc-400 mb-3 uppercase tracking-[0.2em]">Settled vs Trial</p>
+            <h4 className="text-4xl font-black text-zinc-900 mb-3 tracking-tighter group-hover:text-brand-600 transition-all origin-left">3.4 : 1</h4>
+            <p className="text-[10px] font-black px-3 py-1 rounded-xl inline-block shadow-sm bg-emerald-50 text-emerald-600 border border-emerald-100">Optimal</p>
+          </div>
+          <div className="bg-zinc-50 p-8 rounded-[2rem] border border-zinc-100 group hover:border-brand-400 hover:bg-white hover:shadow-premium-lg transition-all">
+            <p className="text-[10px] font-black text-zinc-400 mb-3 uppercase tracking-[0.2em]">Appeal Success</p>
+            <h4 className="text-4xl font-black text-zinc-900 mb-3 tracking-tighter group-hover:text-brand-600 transition-all origin-left">4.2%</h4>
+            <p className="text-[10px] font-black px-3 py-1 rounded-xl inline-block shadow-sm bg-emerald-50 text-emerald-600 border border-emerald-100">-1.2%</p>
+          </div>
+          <div className="bg-zinc-50 p-8 rounded-[2rem] border border-zinc-100 group hover:border-brand-400 hover:bg-white hover:shadow-premium-lg transition-all">
+            <p className="text-[10px] font-black text-zinc-400 mb-3 uppercase tracking-[0.2em]">Compliance Rate</p>
+            <h4 className="text-4xl font-black text-zinc-900 mb-3 tracking-tighter group-hover:text-brand-600 transition-all origin-left">96.8%</h4>
+            <p className="text-[10px] font-black px-3 py-1 rounded-xl inline-block shadow-sm bg-emerald-50 text-emerald-600 border border-emerald-100">High</p>
+          </div>
+        </div>
+
+        {/* Second Chart: Award Settlement Distribution */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+           <div className="border border-zinc-100 p-8 rounded-[2.5rem] bg-zinc-50/50 hover:bg-white transition-all">
+              <h4 className="text-lg font-black text-zinc-900 mb-8 tracking-tight flex items-center gap-3">
+                 <div className="w-1.5 h-6 bg-brand-600 rounded-full"></div> Settlement Methods Distribution
+              </h4>
+              <div className="flex items-center gap-12">
+                 <div className="relative w-48 h-48 rounded-full border-[16px] border-zinc-100 flex items-center justify-center">
+                    <div className="absolute inset-[-16px] rounded-full border-[16px] border-brand-600 border-t-transparent border-r-transparent rotate-[45deg]"></div>
+                    <div className="text-center">
+                       <p className="text-3xl font-black text-zinc-900">72%</p>
+                       <p className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">Settled</p>
+                    </div>
+                 </div>
+                 <div className="flex-1 space-y-4">
+                    <div className="flex items-center justify-between">
+                       <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-brand-600"></div> <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">Mediation</span></div>
+                       <span className="text-sm font-black text-zinc-900">45%</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                       <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-indigo-400"></div> <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">Direct Negotiate</span></div>
+                       <span className="text-sm font-black text-zinc-900">27%</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                       <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-zinc-200"></div> <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">Full Trial</span></div>
+                       <span className="text-sm font-black text-zinc-900">28%</span>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           
+           <div className="border border-zinc-100 p-8 rounded-[2.5rem] bg-zinc-50/50 hover:bg-white transition-all">
+              <h4 className="text-lg font-black text-zinc-900 mb-8 tracking-tight flex items-center gap-3">
+                 <div className="w-1.5 h-6 bg-emerald-500 rounded-full"></div> Award Compliance Velocity
+              </h4>
+              <div className="h-44 flex items-end gap-4 px-4 overflow-hidden pt-4">
+                 {[45, 78, 52, 91, 64, 88, 72].map((h, i) => (
+                    <div key={i} className="flex-1 bg-zinc-100 rounded-2xl relative group h-full">
+                       <div 
+                          className="absolute bottom-0 w-full bg-emerald-500/20 group-hover:bg-emerald-500 transition-all duration-500 rounded-2xl"
+                          style={{ height: `${h}%` }}
+                       >
+                          <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-zinc-900 text-white text-[10px] py-2 px-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all font-black">{h}%</div>
+                       </div>
+                    </div>
+                 ))}
+              </div>
+              <div className="flex justify-between mt-4 px-2 text-[10px] font-black text-zinc-400 uppercase tracking-widest">
+                 <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+              </div>
+           </div>
         </div>
       </div>
     </div>

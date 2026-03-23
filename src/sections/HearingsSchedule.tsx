@@ -16,7 +16,7 @@ export default function HearingsSchedule() {
     const tTextSub = isHighContrast ? 'text-zinc-300' : 'text-zinc-500';
 
     const mockHearingsTypes = lang === 'en' ?
-        ['Trial (B)', 'Trial (B)', 'Mention (S)', 'Hearing (B)', 'Mention (S)', 'Decision (K)'] :
+        ['Trial (T)', 'Trial (T)', 'Mention (M)', 'Hearing (H)', 'Mention (M)', 'Decision (D)'] :
         ['Bicara (B)', 'Bicara (B)', 'Sebutan (S)', 'Bicara (B)', 'Sebutan (S)', 'Keputusan (K)'];
 
     return (

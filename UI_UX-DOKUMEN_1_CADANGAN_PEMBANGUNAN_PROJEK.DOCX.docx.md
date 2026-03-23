@@ -2087,7 +2087,6 @@ Documents_Count 16
 
 This analytics structure ensures eMP v2.0 supports:
 
-## None
 ## DOKUMEN 1
 
 Operational monitoring
@@ -2096,4 +2095,2121 @@ Labour dispute trend analysis
 Court management decision support
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+## DOKUMEN 1
+Feedback M10: Pengurusan kes
+
+
+## None
+## DOKUMEN 1
+
+
+
+#  eMP v2.0 – MODUL PENGURUSAN KES (M10)
+## ### UI/UX PROTOTYPE BRIEF (ANTIGRAVITY / GEMINI READY)
+
+## DOKUMEN 1
+
+## ---
+
+## # 吝 1. OVERVIEW
+
+Modul Pengurusan Kes (M10) merupakan modul teras dalam sistem eMP v2.0 yang mengurus keseluruhan kitaran hayat kes bermula
+daripada pendaftaran sehingga penutupan kes (award).
+
+Prototype perlu memaparkan:
+- Aliran kes end-to-end (lifecycle)
+- Paparan berpusat (single source of truth)
+- Interaksi antara modul (e-Filing, Pendaftaran, e-Sebutan, Jadual, Award)
+
+## ---
+
+## #  2. USER ROLES
+
+## ```
+## Internal:
+## - YDP
+## - Chairman
+## - Registrar / Assistant Registrar
+## - Pegawai Mahkamah
+
+## External:
+## - Claimant
+## - Respondent
+## - Lawyer
+## - Union Representative
+## ```
+
+## ---
+
+## DOKUMEN 1
+
+## #  3. USER FLOW
+
+## ```
+## Login
+## ↓
+## Dashboard / Workspace
+## ↓
+## Case List
+## ↓
+## Case Detail
+## ↓
+Manage Case (Docs / Timeline / Hearing)
+## ↓
+## Hearing / Mention / Mediation
+## ↓
+## Award
+## ↓
+## Case Closed
+## ```
+
+## ---
+
+## # 里 4. SCREEN 1 – CASE LIST VIEW
+
+## ##  Objective
+Paparan senarai semua kes untuk pengguna
+
+## ## 隣 UI COMPONENTS
+
+## ```
+- Search Bar (Case No / Name / Keyword)
+
+## DOKUMEN 1
+## - Filters:
+## - Year
+## - Court
+## - Status
+## - Case Type
+## - Case Table
+## - Quick Action Button
+## ```
+
+## ##  SAMPLE DATA
+
+## ```json
+## [
+## {
+## "case_number": "1/1-1522/25",
+"case_title": "Tay Hwee Lan v Healthy Vision Sdn Bhd",
+"case_type": "Unfair Dismissal",
+"status": "Hearing",
+"court": "Mahkamah 1",
+"chairman": "YA Dato Wan Jeffry Kassim",
+"next_action": "Join Hearing",
+## "hearing_date": "2026-03-12"
+## },
+## {
+## "case_number": "1/1-1079/25",
+"case_title": "Azman Bin Isa v Technip Energies",
+"case_type": "Unfair Dismissal",
+"status": "Trial",
+"court": "Mahkamah 1",
+"chairman": "YA Dato Wan Jeffry Kassim",
+"next_action": "Upload Documents",
+## "hearing_date": "2026-03-20"
+
+## DOKUMEN 1
+## },
+## {
+## "case_number": "4/4-2024/25",
+"case_title": "Siti Nurhaliza v ABC Sdn Bhd",
+"case_type": "Termination",
+"status": "Mention",
+"court": "Mahkamah 4",
+"chairman": "YA Tuan Amrik Singh",
+"next_action": "Attend Mention",
+## "hearing_date": "2026-04-02"
+## }
+## ]
+## ```
+
+## ---
+
+## # 里 5. SCREEN 2 – CASE DETAIL VIEW (CORE)
+
+## ##  Objective
+Paparan penuh satu kes (central control panel)
+
+## ## 隣 LAYOUT
+
+## ```
+## HEADER:
+## - Case Number
+## - Case Title
+## - Status Badge
+## - Chairman
+## - Court
+
+## TABS:
+
+## DOKUMEN 1
+## - Overview
+## - Parties
+## - Timeline
+## - Documents
+## - Hearings
+## - Notes
+## - Award
+## ```
+
+## ---
+
+## # 里 6. TAB: OVERVIEW
+
+## ##  SAMPLE DATA
+
+## ```json
+## {
+## "case_number": "1/1-1522/25",
+"case_title": "Tay Hwee Lan v Healthy Vision Sdn Bhd",
+"case_type": "Unfair Dismissal",
+"status": "Hearing",
+## "filing_date": "2026-01-05",
+## "assigned_date": "2026-01-12",
+"court": "Mahkamah 1",
+"chairman": "YA Dato Wan Jeffry Kassim"
+## }
+## ```
+
+## ---
+
+## # 里 7. TAB: PARTIES
+
+
+## DOKUMEN 1
+## ##  SAMPLE DATA
+
+## ```json
+## {
+"claimant": "Tay Hwee Lan",
+"respondent": "Healthy Vision Sdn Bhd",
+"claimant_lawyer": "Messrs Lee & Co",
+"respondent_lawyer": "Messrs Tan & Partners"
+## }
+## ```
+
+## ---
+
+## # 里 8. TAB: TIMELINE (CRITICAL)
+
+## ##  Design:
+Vertical timeline / stepper UI
+
+## ##  SAMPLE DATA
+
+## ```json
+## [
+{"event": "Filing Submitted", "date": "2026-01-05", "status": "completed"},
+{"event": "Case Registered", "date": "2026-01-10", "status": "completed"},
+{"event": "Case Assigned", "date": "2026-01-12", "status": "completed"},
+{"event": "Mention", "date": "2026-02-15", "status": "completed"},
+{"event": "Hearing", "date": "2026-03-12", "status": "active"},
+{"event": "Award", "date": null, "status": "pending"}
+## ]
+## ```
+
+## ---
+
+## DOKUMEN 1
+
+## # 里 9. TAB: DOCUMENTS
+
+## ##  Features:
+## - Upload
+## - Download
+- Version tracking
+
+## ##  SAMPLE DATA
+
+## ```json
+## [
+## {
+"name": "Statement of Claim",
+"type": "PDF",
+"uploaded_by": "Claimant",
+## "date": "2026-01-05"
+## },
+## {
+"name": "Statement in Reply",
+"type": "PDF",
+"uploaded_by": "Respondent",
+## "date": "2026-01-20"
+## },
+## {
+"name": "Evidence Bundle",
+"type": "PDF",
+"uploaded_by": "Lawyer",
+## "date": "2026-03-01"
+## }
+## ]
+## ```
+
+## DOKUMEN 1
+
+## ---
+
+## # 里 10. TAB: HEARINGS / MENTIONS
+
+## ##  SAMPLE DATA
+
+## ```json
+## [
+## {
+## "date": "2026-02-15",
+"type": "Mention",
+"status": "Completed",
+"action": "View Summary"
+## },
+## {
+## "date": "2026-03-12",
+"type": "Hearing",
+"status": "Upcoming",
+"action": "Join Session"
+## }
+## ]
+## ```
+
+## ---
+
+## # 里 11. TAB: NOTES / PROCEEDINGS
+
+## ##  SAMPLE DATA
+
+## ```json
+## [
+
+## DOKUMEN 1
+## {
+"author": "Chairman",
+"note": "Parties requested additional time to submit documents.",
+## "date": "2026-02-15"
+## },
+## {
+"author": "Registrar",
+"note": "Documents verified and accepted.",
+## "date": "2026-02-20"
+## }
+## ]
+## ```
+
+## ---
+
+## # 里 12. TAB: AWARD
+
+## ##  SAMPLE DATA
+
+## ```json
+## {
+"award_status": "Pending",
+"decision": null,
+"uploaded_by": null,
+"date": null
+## }
+## ```
+
+## ---
+
+## # ⚙ 13. ROLE-BASED ACTIONS
+
+
+## DOKUMEN 1
+## ## Chairman:
+## - Add Notes
+## - Upload Award
+
+## ## Registrar:
+## - Validate Documents
+## - Update Status
+
+## ## External User:
+## - Upload Documents
+## - View Case Status
+
+## ---
+
+## #  14. MODULE INTEGRATION
+
+## ```
+e-Filing → Input kes
+Pendaftaran Kes → Generate case number
+Pengurusan Kes → Manage lifecycle
+e-Sebutan → Hearing session
+## Jadual Mahkamah → Scheduling
+Award → Final decision
+## Dashboard → Analytics
+## ```
+
+## ---
+
+## #  15. DESIGN PRINCIPLES
+
+- Single Case = Single View (no fragmentation)
+- Timeline-driven UI
+
+## DOKUMEN 1
+- Action-based UX (Next Action)
+- Role-Based Access (RBAC)
+- Mobile-first (tablet friendly)
+- Clean legal UI (minimal clutter)
+
+## ---
+
+## #  16. PROTOTYPE INSTRUCTION (ANTIGRAVITY)
+
+Gunakan struktur berikut:
+
+## ```
+Create a case management system UI with:
+
+- Case list table with filters
+- Case detail page with tabs:
+## Overview, Parties, Timeline, Documents, Hearings, Notes, Award
+- Vertical timeline view
+- Role-based action buttons
+- Clean, modern government UI
+- Blue/white theme (official system)
+- Responsive layout (desktop + tablet)
+## ```
+
+## ---
+
+## #  KEY INSIGHT (FOR DESIGN TEAM)
+
+Ini bukan sekadar UI:
+ Ini adalah **Case Lifecycle System**
+
+## Focus:
+
+## None
+## DOKUMEN 1
+- bukan list sahaja
+- tetapi progression + action + decision
+
+## Outcome:
+ UI nampak real system, bukan mockup kosong
+## ```
+
+
+
+
+FEEDBACK M5 - eSebutan
+
+#  eMP v2.0 – MODUL e-SEBUTAN & MEDIASI (ADR)
+## ### UI/UX PROTOTYPE BRIEF (WITH USER STORY & SAMPLE DATA)
+
+## ---
+
+## # 吝 1. OVERVIEW
+
+Modul e-Sebutan & Mediasi (ADR) membolehkan pelaksanaan prosiding mahkamah secara dalam talian termasuk sesi sebutan,
+perbicaraan dan rundingan damai. Modul ini perlu menyokong kehadiran pelbagai pihak termasuk **Lawyer (Peguam)** sebagai
+aktor utama dalam prosiding.
+
+Prototype perlu menunjukkan:
+- aliran penuh sesi mahkamah digital
+
+## DOKUMEN 1
+- interaksi pelbagai peranan (multi-actor interaction)
+- kawalan sesi yang tersusun (bukan sekadar video call biasa)
+
+## ---
+
+## #  2. USER ROLES
+
+## ```
+## Internal:
+- Chairman (Pengerusi)
+## - Registrar / Pegawai Mahkamah
+
+## External:
+- Claimant (Pekerja)
+- Respondent (Majikan)
+- Lawyer (Peguam)
+## ```
+
+## ---
+
+## #  3. USER STORY (SENARIO REAL)
+
+## ##  Senario: Kes Pembuangan Kerja Tidak Adil
+
+###  Perspektif Lawyer (Claimant)
+
+## ```
+Sebagai seorang peguam kepada pihak penuntut,
+Saya ingin menyertai sesi e-Sebutan secara dalam talian,
+Supaya saya boleh mewakili anak guam saya tanpa perlu hadir secara fizikal ke mahkamah.
+## ```
+
+
+## DOKUMEN 1
+## ### ॕ Perspektif Chairman
+
+## ```
+## Sebagai Pengerusi Mahkamah,
+Saya ingin mengawal sesi e-Sebutan,
+Supaya prosiding berjalan secara tersusun dan semua pihak dapat didengar.
+## ```
+
+## ###  Perspektif Respondent
+
+## ```
+Sebagai wakil majikan,
+Saya ingin menyertai sesi sebutan dan rundingan damai,
+Supaya kes dapat diselesaikan tanpa perlu melalui perbicaraan penuh.
+## ```
+
+## ---
+
+## #  4. END-TO-END FLOW
+
+## ```
+## Notifikasi Sesi
+## ↓
+## Login Sistem
+## ↓
+## Pilih Kes
+## ↓
+## Paparan Sesi Akan Datang
+## ↓
+## Masuk Waiting Room
+## ↓
+Diluluskan oleh Chairman
+
+## DOKUMEN 1
+## ↓
+## Masuk Live Session
+## ↓
+(Opsyen) Masuk Mediation Room
+## ↓
+## Sesi Tamat
+## ↓
+## Log Sesi Direkodkan
+## ```
+
+## ---
+
+## # 里 5. SCREEN 1 – UPCOMING SESSION
+
+## ##  Objective
+Paparan sesi yang dijadualkan
+
+## ---
+
+## ## 隣 COMPONENTS
+
+## ```
+## - Case Info
+## - Session Date & Time
+## - Status Badge
+## - Join Button
+## ```
+
+## ---
+
+## ##  SAMPLE DATA
+
+
+## DOKUMEN 1
+## ```json
+## {
+## "case_number": "1/1-1522/25",
+"case_title": "Tay Hwee Lan v Healthy Vision Sdn Bhd",
+"session_type": "Hearing",
+## "date": "2026-03-12",
+"time": "10:00 AM",
+"status": "Upcoming",
+"court": "Mahkamah 1"
+## }
+## ```
+
+## ---
+
+## # 里 6. SCREEN 2 – WAITING ROOM
+
+## ##  Objective
+Ruang menunggu sebelum masuk sesi
+
+## ---
+
+## ## 隣 COMPONENTS
+
+## ```
+## - Countdown Timer
+## - Participant List
+## - Status: Waiting Approval
+- Button: Request to Join
+## ```
+
+## ---
+
+
+## DOKUMEN 1
+## ##  SAMPLE DATA
+
+## ```json
+## {
+"session_id": "ESB-2026-001",
+"status": "Waiting",
+## "participants": [
+{"name": "YA Dato Wan Jeffry Kassim", "role": "Chairman"},
+{"name": "Tay Hwee Lan", "role": "Claimant"},
+{"name": "Messrs Lee & Co", "role": "Lawyer"},
+{"name": "Healthy Vision Sdn Bhd", "role": "Respondent"}
+## ]
+## }
+## ```
+
+## ---
+
+## # 里 7. SCREEN 3 – LIVE SESSION
+
+## ##  Objective
+Paparan utama prosiding
+
+## ---
+
+## ## 隣 COMPONENTS
+
+## ```
+## - Video Panel
+- Participant List (Role-based)
+## - Chat Panel
+- Session Control (Mute / Raise Hand)
+## ```
+
+## DOKUMEN 1
+
+## ---
+
+## ##  SAMPLE DATA
+
+## ```json
+## {
+"status": "Live",
+## "participants": [
+{"name": "Chairman", "status": "Speaking"},
+{"name": "Lawyer", "status": "Listening"},
+{"name": "Respondent", "status": "Listening"}
+## ]
+## }
+## ```
+
+## ---
+
+## # 里 8. SCREEN 4 – MEDIATION ROOM (ADR)
+
+## ##  Objective
+Ruang rundingan damai
+
+## ---
+
+## ## 隣 COMPONENTS
+
+## ```
+## - Private Video Room
+## - Restricted Participants
+## - Chat & Notes
+## ```
+
+## DOKUMEN 1
+
+## ---
+
+## ##  SAMPLE DATA
+
+## ```json
+## {
+"room": "Mediation",
+"status": "In Progress",
+## "participants": [
+{"name": "Claimant"},
+{"name": "Respondent"},
+{"name": "Chairman"}
+## ]
+## }
+## ```
+
+## ---
+
+## # 里 9. SCREEN 5 – SESSION LOG
+
+## ##  Objective
+Rekod sesi
+
+## ---
+
+## ##  SAMPLE DATA
+
+## ```json
+## [
+## {
+## "date": "2026-02-15",
+
+## DOKUMEN 1
+"type": "Mention",
+"status": "Completed",
+"summary": "Case proceed to hearing"
+## },
+## {
+## "date": "2026-03-12",
+"type": "Hearing",
+"status": "Completed",
+"summary": "Evidence submitted"
+## }
+## ]
+## ```
+
+## ---
+
+## # ⚙ 10. ROLE-BASED ACTIONS
+
+## ## Chairman:
+- Approve entry
+- Start / End session
+- Move to mediation
+
+## ## Registrar:
+- Monitor session
+- Record notes
+
+## ## Lawyer:
+- Join session
+- Represent client
+- Participate in discussion
+
+## ## Claimant / Respondent:
+
+## DOKUMEN 1
+- Join session
+- Engage in mediation
+
+## ---
+
+## #  11. INTEGRATION
+
+## ```
+Case Management → case reference
+Court Schedule → session timing
+Notification → reminders
+Document Module → reference docs
+## ```
+
+## ---
+
+## #  12. DESIGN PRINCIPLES
+
+- Courtroom-style UI (formal)
+- Role clearly visible
+- Structured interaction (not free-form)
+- Minimal clutter
+## - Tablet-friendly
+
+## ---
+
+## #  13. ANTIGRAVITY PROMPT
+
+## ```
+Design a virtual court hearing system with:
+
+- Role-based participants (Chairman, Lawyer, Claimant, Respondent)
+
+## DOKUMEN 1
+- Waiting room with approval flow
+- Live session interface (video + chat)
+- Mediation room (private session)
+- Session history log
+- Clean government UI
+- Responsive (desktop + tablet)
+## ```
+
+## ---
+
+## #  KEY INSIGHT
+
+ Ini bukan Zoom / Google Meet
+
+##  Ini:
+**Structured Virtual Court System**
+
+## Focus:
+- controlled interaction
+- legal workflow
+- role-based authority
+
+## Outcome:
+ Prototype nampak real mahkamah digital system
+
+
+
+
+
+## None
+## DOKUMEN 1
+M10 - Modul Pengurusan Award apart of Pengurusan kes lifecycle.
+
+#  eMP v2.0 – MODUL PENGURUSAN AWARD
+## ### UI/UX PROTOTYPE BRIEF (TENDER-ALIGNED + SAMPLE DATA)
+
+## ---
+
+## # 吝 1. OVERVIEW
+
+Modul Pengurusan Award menyokong proses penyediaan, semakan, kelulusan dan penerbitan keputusan kes (award) dalam sistem
+eMP v2.0. Modul ini merupakan peringkat akhir dalam kitaran hayat kes selepas prosiding selesai.
+
+Modul ini mesti menunjukkan bahawa:
+- award adalah sebahagian daripada lifecycle kes
+- keputusan disediakan oleh Chairman
+- melalui proses semakan sebelum diterbitkan
+- dan akhirnya boleh dicapai melalui modul Carian Pintar Award
+
+## ---
+
+## #  2. MAPPING MODUL (TENDER)
+
+## ```
+## Lifecycle:
+e-Filing → Pendaftaran → M10 Pengurusan Kes → e-Sebutan → Pengurusan Award → Carian Award
+## ```
+
+ Modul berkaitan:
+
+## DOKUMEN 1
+## - M10 Pengurusan Kes
+- e-Sebutan
+## - Carian Pintar Award
+## - Dashboard & Laporan
+
+## ---
+
+## #  3. ACTORS
+
+## ## Internal
+- Chairman / YDP (Primary Decision Maker)
+## - Registrar / Pegawai Mahkamah
+
+## External (View Only)
+## - Lawyer
+## - Claimant
+## - Respondent
+## - Public User
+
+## ---
+
+## #  4. USER STORY
+
+## ## Chairman
+## Sebagai Pengerusi Mahkamah,
+Saya ingin menyediakan dan meluluskan award,
+Supaya keputusan kes direkodkan secara rasmi.
+
+## ## Registrar
+Sebagai pegawai mahkamah,
+Saya ingin menyemak dan mengurus status award,
+Supaya penerbitan keputusan adalah teratur.
+
+## DOKUMEN 1
+
+## ## Public User
+Sebagai pengguna awam,
+Saya ingin mencari dan membaca award,
+Supaya saya boleh merujuk kes terdahulu.
+
+## ---
+
+## #  5. PROCESS FLOW
+
+## ```
+Kes selesai (Hearing Completed)
+## ↓
+Chairman buka Case Detail
+## ↓
+Klik "Create Award"
+## ↓
+## Draft Award
+## ↓
+## Semakan (optional)
+## ↓
+## Approve Award
+## ↓
+## Publish Award
+## ↓
+Indexed ke Carian Pintar Award
+## ```
+
+## ---
+
+## # 吝 6. UI FLOW (DALAM PROTOTYPE)
+
+
+## DOKUMEN 1
+## ```
+Dashboard (Chairman)
+## ↓
+## Assigned Cases
+## ↓
+## Case Detail Page
+## ↓
+Tab: "Award"
+## ↓
+## Award Workspace
+## ```
+
+## ---
+
+## # 里 7. SCREEN BREAKDOWN
+
+## ---
+
+## ## 里 SCREEN 1 – CASE DETAIL (READY FOR AWARD)
+
+### UI Components
+## - Case Header
+- Status: "Ready for Award"
+- Timeline (Completed Hearing)
+- Button: "Create Award"
+
+## ### Sample Data
+
+## ```json
+## {
+## "case_number": "1/1-1522/25",
+"case_title": "Tay Hwee Lan v Healthy Vision Sdn Bhd",
+
+## DOKUMEN 1
+"case_type": "Unfair Dismissal",
+"court": "Mahkamah 1",
+"chairman": "YA Dato Wan Jeffry Kassim",
+"status": "Ready for Award",
+## "hearing_completed_date": "2026-03-12"
+## }
+## ```
+
+## ---
+
+## ## 里 SCREEN 2 – AWARD DRAFT WORKSPACE
+
+### UI Components
+
+## ```
+## LEFT PANEL:
+## - Case Info Summary
+## - Timeline
+
+## MAIN PANEL:
+## - Award Title
+## - Decision Summary
+## - Award Outcome Dropdown
+## - Rich Text Editor (optional)
+
+## RIGHT PANEL:
+## - Metadata
+## - Status
+## ```
+
+## ### Award Outcome Options
+
+
+## DOKUMEN 1
+## - Dismissed
+## - Reinstatement
+## - Compensation
+## - Settlement
+## - Other Order
+
+## ---
+
+## ### Sample Data
+
+## ```json
+## {
+"award_id": "TEMP-001",
+## "case_number": "1/1-1522/25",
+"award_status": "Draft",
+"award_title": "Award for Unfair Dismissal Case",
+"decision_summary": "Mahkamah mendapati pembuangan kerja adalah tanpa sebab yang adil.",
+"award_outcome": "Compensation",
+## "award_date": "2026-03-25",
+"chairman": "YA Dato Wan Jeffry Kassim"
+## }
+## ```
+
+## ---
+
+## ## 里 SCREEN 3 – REVIEW & APPROVAL
+
+### UI Components
+
+## ```
+## - Award Summary Card
+## - Decision Outcome
+
+## DOKUMEN 1
+## - Uploaded Document Preview
+## - Status Badge
+## - Approve Button
+- Return to Draft Button
+## ```
+
+## ---
+
+## ### Sample Data
+
+## ```json
+## {
+## "case_number": "1/1-1522/25",
+"award_status": "Under Review",
+"decision_summary": "Dismissal without just cause",
+"award_outcome": "Compensation",
+"review_status": "Ready for Approval"
+## }
+## ```
+
+## ---
+
+## ## 里 SCREEN 4 – AWARD PUBLISHED
+
+### UI Components
+
+## ```
+## - Success Banner
+## - Published Date
+## - Download Award Button
+- Link to Case
+- Link to Award Search
+
+## DOKUMEN 1
+## ```
+
+## ---
+
+## ### Sample Data
+
+## ```json
+## {
+"award_id": "AW-2026-00125",
+## "case_number": "1/1-1522/25",
+"award_status": "Published",
+## "published_date": "2026-03-26",
+"award_outcome": "Compensation",
+"document_url": "/awards/AW-2026-00125.pdf"
+## }
+## ```
+
+## ---
+
+## ## 里 SCREEN 5 – AWARD IN CASE TIMELINE
+
+### UI Components
+
+## ```
+## - Timeline
+## - Event: Award Published
+## - Download Button
+## ```
+
+## ---
+
+## ### Sample Timeline
+
+## DOKUMEN 1
+
+## ```json
+## [
+{"event": "Filing Submitted", "date": "2026-01-05"},
+{"event": "Case Registered", "date": "2026-01-10"},
+{"event": "Hearing Completed", "date": "2026-03-12"},
+{"event": "Award Published", "date": "2026-03-26"}
+## ]
+## ```
+
+## ---
+
+## #  8. AWARD LIST (FOR SEARCH MODULE)
+
+## ```json
+## [
+## {
+"award_id": "AW-2026-00125",
+## "case_number": "1/1-1522/25",
+"title": "Tay Hwee Lan v Healthy Vision",
+## "year": 2026,
+"outcome": "Compensation"
+## },
+## {
+"award_id": "AW-2026-00130",
+## "case_number": "1/1-1079/25",
+"title": "Azman v Technip",
+## "year": 2026,
+"outcome": "Dismissed"
+## }
+## ]
+## ```
+
+## DOKUMEN 1
+
+## ---
+
+## # ⚙ 9. ROLE ACTION
+
+## | Role | Action |
+## |-----|-------|
+| Chairman | Create, edit, approve award |
+| Registrar | Assist, validate, manage |
+| User | View published award only |
+
+## ---
+
+## #  10. INTEGRATION
+
+## ```
+M10 → Case lifecycle
+e-Sebutan → Hearing completion
+Award → Final output
+## Search → Repository
+Dashboard → KPI
+## ```
+
+## ---
+
+## #  11. DESIGN PRINCIPLES
+
+- Clean legal UI
+- Document-first design
+- Strong status visibility
+- Minimal distraction
+## - Tablet-friendly
+
+## DOKUMEN 1
+
+## ---
+
+## #  12. ANTIGRAVITY PROMPT
+
+## ```
+Design an Industrial Court award management system with:
+
+- Case-based award drafting
+- Decision summary input
+- Approval workflow
+- Published award view
+- Clean government UI
+- Professional legal design
+## ```
+
+## ---
+
+## #  KEY MESSAGE
+
+ Ini bukan “upload PDF”
+
+##  Ini:
+**Structured Court Decision Workflow**
+
+ Prototype mesti tunjuk:
+- authority
+- process
+- traceability
+
+
+
+## None
+## DOKUMEN 1
+
+## M8 - Carian Pintar Award.
+
+#  eMP v2.0 – MODUL CARIAN PINTAR AWARD
+## ### UI/UX PROTOTYPE BRIEF (END-TO-END + SAMPLE DATA)
+
+## ---
+
+## # 吝 1. OVERVIEW
+
+Modul Carian Pintar Award membolehkan pengguna mencari, menapis dan mengakses keputusan kes (award) yang telah diterbitkan
+dalam sistem eMP v2.0.
+
+Modul ini bertindak sebagai:
+- repositori berpusat bagi semua award
+- enjin carian pintar (full-text + semantic search)
+- sumber rujukan undang-undang dan kes terdahulu
+
+## ---
+
+## #  2. OBJECTIVE
+
+Modul ini perlu membolehkan:
+- carian pantas berdasarkan keyword atau ayat penuh
+- cadangan kes berkaitan (semantic)
+- penapisan berdasarkan kategori
+- paparan keputusan dalam format mudah dibaca
+
+## DOKUMEN 1
+
+## ---
+
+## #  3. ACTORS
+
+## Public (Primary)
+- Orang awam
+## - Peguam
+## - Penyelidik
+
+## ## Internal
+## - Pegawai Mahkamah
+## - Pengerusi (reference)
+
+## ---
+
+## #  4. SCENARIO
+
+## Scenario 1 – Lawyer cari kes rujukan
+
+Seorang peguam ingin mencari kes berkaitan “unfair dismissal compensation”.
+
+ Dia masukkan:
+"pembuangan kerja pampasan"
+
+##  Sistem:
+- paparkan senarai kes relevan
+- highlight keyword
+- cadangkan kes serupa
+
+## ---
+
+
+## DOKUMEN 1
+## Scenario 2 – Public user cari keputusan kes
+
+Pengguna awam ingin tahu keputusan kes tertentu.
+
+ Dia search:
+"Tay Hwee Lan Healthy Vision"
+
+##  Sistem:
+- terus keluarkan award case tersebut
+- paparkan summary + dokumen
+
+## ---
+
+## ## Scenario 3 – Research / Analysis
+
+Pegawai ingin lihat trend kes 2025
+
+##  Filter:
+## - Year: 2025
+## - Case Type: Unfair Dismissal
+
+##  Sistem:
+- paparkan senarai filtered award
+
+## ---
+
+## # 易 5. USER STORY
+
+## ## US-SR-001
+Sebagai pengguna,
+Saya ingin mencari award menggunakan kata kunci,
+Supaya saya boleh jumpa kes dengan cepat.
+
+## DOKUMEN 1
+
+## ## US-SR-002
+Sebagai peguam,
+Saya ingin melihat kes berkaitan secara automatik,
+Supaya saya boleh buat rujukan undang-undang.
+
+## ## US-SR-003
+Sebagai penyelidik,
+Saya ingin menapis kes mengikut kategori,
+Supaya saya boleh buat analisis.
+
+## ## US-SR-004
+Sebagai pengguna awam,
+Saya ingin melihat keputusan kes dengan jelas,
+Supaya saya faham hasil kes tersebut.
+
+## ---
+
+## #  6. PROCESS FLOW
+
+## ```
+User buka portal
+## ↓
+Masuk halaman Carian Award
+## ↓
+Masukkan keyword / query
+## ↓
+Sistem proses:
+- full-text search
+- semantic search
+## ↓
+Paparan hasil carian
+
+## DOKUMEN 1
+## ↓
+User klik award
+## ↓
+Paparan detail award
+## ```
+
+## ---
+
+## # 吝 7. UI FLOW (PROTOTYPE STRUCTURE)
+
+## ```
+## Portal / Dashboard
+## ↓
+## Menu: Carian Award
+## ↓
+## Search Page
+## ↓
+## Result Page
+## ↓
+## Award Detail Page
+## ```
+
+## ---
+
+## # 里 8. SCREEN BREAKDOWN
+
+## ---
+
+## ## 里 SCREEN 1 – SEARCH PAGE
+
+### UI Components
+
+
+## DOKUMEN 1
+## ```
+- Search Bar (main focus)
+## - Suggested Search Keywords
+## - Recent Searches
+- Filter Panel (collapsed by default)
+## ```
+
+## ---
+
+### Sample UI Text
+
+## ```
+"Carian Keputusan Kes"
+"Masukkan kata kunci, nama kes atau topik..."
+## ```
+
+## ---
+
+## ## 里 SCREEN 2 – SEARCH RESULT LIST
+
+### UI Components
+
+## ```
+## - Result List (card/table)
+## - Highlighted Keywords
+## - Filter Sidebar
+- Sort Options (Relevance / Latest)
+## ```
+
+## ---
+
+## ### Sample Data
+
+## DOKUMEN 1
+
+## ```json
+## [
+## {
+"award_id": "AW-2026-00125",
+"case_title": "Tay Hwee Lan v Healthy Vision Sdn Bhd",
+## "year": 2026,
+"case_type": "Unfair Dismissal",
+"outcome": "Compensation",
+"summary": "Mahkamah mendapati pembuangan kerja adalah tanpa sebab munasabah...",
+## "relevance_score": 0.95
+## },
+## {
+"award_id": "AW-2026-00130",
+"case_title": "Azman Bin Isa v Technip Energies",
+## "year": 2026,
+"case_type": "Unfair Dismissal",
+"outcome": "Dismissed",
+"summary": "Mahkamah mendapati tindakan majikan adalah sah...",
+## "relevance_score": 0.89
+## }
+## ]
+## ```
+
+## ---
+
+## ## 里 SCREEN 3 – FILTER PANEL
+
+### UI Components
+
+## ```
+- Year (Dropdown / Multi-select)
+
+## DOKUMEN 1
+## - Case Type
+## - Court
+## - Outcome
+## - Chairman
+## ```
+
+## ---
+
+## ### Sample Filter
+
+## ```json
+## {
+## "year": [2025, 2026],
+"case_type": "Unfair Dismissal",
+"outcome": "Compensation"
+## }
+## ```
+
+## ---
+
+## ## 里 SCREEN 4 – AWARD DETAIL VIEW
+
+### UI Components
+
+## ```
+## - Case Header
+## - Award Summary
+## - Full Award Document
+## - Download Button
+- Related Cases (AI suggestion)
+## ```
+
+
+## DOKUMEN 1
+## ---
+
+## ### Sample Data
+
+## ```json
+## {
+"award_id": "AW-2026-00125",
+## "case_number": "1/1-1522/25",
+"case_title": "Tay Hwee Lan v Healthy Vision Sdn Bhd",
+"court": "Mahkamah 1",
+"chairman": "YA Dato Wan Jeffry Kassim",
+## "award_date": "2026-03-25",
+"outcome": "Compensation",
+"decision_summary": "Mahkamah mendapati pembuangan kerja adalah tanpa sebab munasabah...",
+"document_url": "/awards/AW-2026-00125.pdf"
+## }
+## ```
+
+## ---
+
+## ## 里 SCREEN 5 – RELATED CASES (SMART FEATURE)
+
+### UI Components
+
+## ```
+- “Kes Berkaitan”
+## - Similar Case List
+## ```
+
+## ---
+
+## ### Sample Data
+
+## DOKUMEN 1
+
+## ```json
+## [
+## {
+"case_title": "Siti Aminah v XYZ Sdn Bhd",
+## "similarity": 0.92
+## },
+## {
+"case_title": "Rahman v ABC Corp",
+## "similarity": 0.88
+## }
+## ]
+## ```
+
+## ---
+
+## # ⚙ 9. SEARCH TYPES
+
+## ## Full Text Search
+- berdasarkan keyword dalam dokumen
+
+## ## Semantic Search
+- berdasarkan maksud
+- contoh:
+- "pembuangan kerja" → "unfair dismissal"
+
+## ---
+
+## #  10. INTEGRATION
+
+## ```
+Award Module → source data
+
+## DOKUMEN 1
+Search Engine → query processing
+Dashboard → analytics
+Portal → public access
+## ```
+
+## ---
+
+## #  11. DESIGN PRINCIPLES
+
+- Google-like search simplicity
+- Clean UI
+- Fast response feel
+- Highlight results
+- Mobile + tablet friendly
+
+## ---
+
+## #  12. ANTIGRAVITY PROMPT
+
+## ```
+Design a legal case search system with:
+
+- Central search bar
+- Result list with highlighted keywords
+- Filter sidebar
+- Award detail page
+- Related case suggestions
+- Clean government UI
+- Responsive design
+## ```
+
+## ---
+
+## DOKUMEN 1
+
+## #  13. KEY POSITIONING
+
+ Ini bukan sekadar search
+
+##  Ini:
+**Legal Knowledge Engine**
+
+##  Value:
+- reference
+- research
+- transparency
+
+##  Outcome:
+- system nampak intelligent
+- bukan sekadar database
+
+
+
+
+
+## None
+## DOKUMEN 1
+## M11  - Perjanjian Kolektif
+
+#  eMP v2.0 – MODUL PERJANJIAN KOLEKTIF (M11)
+## ### UI/UX BRIEF (SIMPLE & STRAIGHTFORWARD FOR DESIGN TEAM)
+
+## ---
+
+## #  1. APA MODUL NI BUAT (SIMPLE)
+
+Modul ini untuk:
+- simpan rekod perjanjian antara majikan & kesatuan
+- upload dokumen perjanjian
+- semak status (aktif / tamat / dalam semakan)
+- cari semula perjanjian
+
+ Anggap macam:
+**“Google Drive + sistem rekod rasmi untuk Collective Agreement”**
+
+## ---
+
+## #  2. SIAPA GUNA (ROLES)
+
+## ## Internal (utama)
+- CA Unit (admin utama modul)
+## - Pegawai Mahkamah
+
+## External (optional view)
+## - Kesatuan
+## - Majikan
+
+## DOKUMEN 1
+## - Peguam
+
+ Untuk prototype:
+Fokus pada **CA Unit / Pegawai sahaja**
+
+## ---
+
+## # 吝 3. USER JOURNEY (MUDAH FAHAM)
+
+### Flow utama:
+
+## ```
+## Login
+## ↓
+## Masuk Modul Perjanjian Kolektif
+## ↓
+## Nampak Senarai Perjanjian
+## ↓
+Klik "Tambah Baru"
+## ↓
+## Isi Maklumat + Upload Dokumen
+## ↓
+## Save
+## ↓
+Boleh cari & buka semula
+## ```
+
+## ---
+
+## # 里 4. SCREEN YANG WAJIB ADA
+
+## ## ✅ SCREEN 1 – SENARAI PERJANJIAN (MAIN PAGE)
+
+## DOKUMEN 1
+
+### Apa perlu ada:
+
+- Search bar (atas)
+- Filter (sebelah kiri / dropdown)
+- Table list
+## - Button: “+ Daftar Perjanjian”
+
+## ---
+
+## ### Table Column:
+
+## | Field | Example |
+## |------|--------|
+| Agreement ID | CA-2026-001 |
+## | Nama Perjanjian | Perjanjian Kilang Jaya |
+## | Majikan | Kilang Automotif Jaya |
+## | Kesatuan | Kesatuan Pekerja Kilang |
+## | Tarikh Mula | 01/01/2026 |
+## | Tarikh Tamat | 31/12/2028 |
+## | Status | Aktif |
+## | Action | View |
+
+## ---
+
+## ### Sample Data
+
+## ```json
+## [
+## {
+"agreement_id": "CA-2026-001",
+"title": "Perjanjian Kolektif Kilang Jaya",
+
+## DOKUMEN 1
+"employer": "Kilang Automotif Jaya Sdn Bhd",
+"union": "Kesatuan Pekerja Kilang Jaya",
+## "start_date": "2026-01-01",
+## "end_date": "2028-12-31",
+"status": "Aktif"
+## },
+## {
+"agreement_id": "CA-2025-010",
+"title": "Perjanjian Logistik Delta",
+"employer": "Delta Freight Malaysia",
+"union": "Kesatuan Logistik",
+## "start_date": "2025-03-01",
+## "end_date": "2027-02-28",
+"status": "Dalam Semakan"
+## }
+## ]
+## ```
+
+## ---
+
+### Filter yang perlu ada:
+
+## - Tahun
+- Status (Aktif / Tamat / Dalam Semakan)
+## - Nama Majikan
+## - Nama Kesatuan
+
+## ---
+
+## ## ✅ SCREEN 2 – DAFTAR PERJANJIAN BARU
+
+### Apa perlu ada:
+
+## DOKUMEN 1
+
+Form simple:
+
+## ```
+## - Nama Perjanjian
+## - Nama Majikan
+## - Nama Kesatuan
+## - Tarikh Mula
+## - Tarikh Tamat
+## - Status
+- Upload Dokumen (PDF)
+## ```
+
+## ---
+
+## ### Sample Data
+
+## ```json
+## {
+"agreement_title": "Perjanjian Kolektif Kilang Jaya",
+"employer": "Kilang Automotif Jaya Sdn Bhd",
+"union": "Kesatuan Pekerja Kilang Jaya",
+## "start_date": "2026-01-01",
+## "end_date": "2028-12-31",
+"status": "Aktif",
+"document": "CA_JAYA_2026.pdf"
+## }
+## ```
+
+## ---
+
+## ## ✅ SCREEN 3 – DETAIL PERJANJIAN
+
+## DOKUMEN 1
+
+### Apa perlu ada:
+
+## ```
+- Semua maklumat perjanjian
+## - Status (highlight)
+- Download dokumen
+## - Button: Edit
+## ```
+
+## ---
+
+### UI Layout
+
+## ```
+## Header:
+## - Nama Perjanjian
+## - Status Badge
+
+## Content:
+## - Employer
+## - Union
+## - Start Date
+## - End Date
+
+## Document:
+## - View / Download
+## ```
+
+## ---
+
+## ### Sample Data
+
+## DOKUMEN 1
+
+## ```json
+## {
+"agreement_id": "CA-2026-001",
+"title": "Perjanjian Kolektif Kilang Jaya",
+"status": "Aktif",
+"employer": "Kilang Automotif Jaya",
+"union": "Kesatuan Pekerja Kilang",
+## "start_date": "2026-01-01",
+## "end_date": "2028-12-31",
+"document_url": "/docs/CA_JAYA.pdf"
+## }
+## ```
+
+## ---
+
+## ## ✅ SCREEN 4 – EDIT PERJANJIAN
+
+### Sama macam form tambah, tapi:
+- pre-filled data
+- boleh update status / tarikh / dokumen
+
+## ---
+
+## ## ✅ SCREEN 5 – SEARCH RESULT (OPTIONAL)
+
+ boleh reuse screen 1 (filtered result)
+
+## ---
+
+## #  5. STATUS FLOW (MUDAH)
+
+
+## DOKUMEN 1
+## ```
+## Dalam Semakan → Aktif → Tamat
+## ```
+
+## ---
+
+## # ⚙ 6. ACTION BY ROLE
+
+## CA Unit / Pegawai
+- Tambah perjanjian
+- Edit perjanjian
+- Upload dokumen
+- Update status
+
+## User lain
+- View sahaja
+
+## ---
+
+## #  7. DESIGN STYLE
+
+- Simple table + form
+- Clean government UI
+- Status guna color:
+## - Hijau = Aktif
+## - Kuning = Dalam Semakan
+## - Merah = Tamat
+
+## ---
+
+## #  8. ANTIGRAVITY PROMPT
+
+
+## DOKUMEN 1
+## ```
+Design a government system to manage collective agreements with:
+
+- Table list view
+- Search and filter
+- Form to create agreement
+- Detail view with document
+- Clean UI
+- Simple layout
+## ```
+
+## ---
+
+## #  9. KEY MESSAGE UNTUK TEAM UI/UX
+
+ Ini bukan complex system
+
+##  Fokus:
+- list
+- form
+- detail
+
+ Jangan overdesign
+
+##  Priority:
+**clear + mudah guna + structured**
+
+
+
+## None
+## DOKUMEN 1
+## M3 - Pengurusan Notis
+
+## #  UI/UX BRIEF – MODUL PENGURUSAN NOTIS (M3)
+### eMP v2.0 – SIMPLE VERSION FOR UI/UX TEAM
+
+## ---
+
+## #  1. APA MODUL NI BUAT (MUDAH FAHAM)
+
+Modul ini untuk:
+- create notis / announcement rasmi mahkamah
+- paparkan notis kepada pengguna (portal / dashboard)
+- urus status notis (aktif / tidak aktif)
+
+ Contoh notis:
+- “Mahkamah ditutup pada 1 Mei”
+- “Perubahan jadual prosiding”
+- “Pengumuman rasmi”
+
+## ---
+
+## #  2. SIAPA GUNA
+
+## ## Internal (utama)
+## - Admin
+## - Pegawai Mahkamah
+
+## ## External
+- Semua pengguna (view sahaja)
+
+## DOKUMEN 1
+
+## ---
+
+## # 吝 3. USER JOURNEY (MUDAH)
+
+## Internal (Admin)
+
+## ```
+## Login
+## ↓
+## Masuk Modul Notis
+## ↓
+Klik "Tambah Notis"
+## ↓
+Isi maklumat
+## ↓
+## Publish
+## ↓
+Notis muncul di portal
+## ```
+
+## ## External User
+
+## ```
+## Masuk Portal
+## ↓
+## Nampak Notis
+## ↓
+Klik notis
+## ↓
+Baca detail
+## ```
+
+## DOKUMEN 1
+
+## ---
+
+## # 里 4. SCREEN YANG PERLU ADA
+
+## ## ✅ SCREEN 1 – SENARAI NOTIS
+
+### Apa perlu ada:
+
+- button: "+ Tambah Notis"
+- search bar
+- filter
+- table list
+
+## ---
+
+### Column dalam table:
+
+## | Field | Example |
+## |------|--------|
+## | Tajuk Notis | Penutupan Mahkamah |
+## | Kategori | Umum |
+## | Tarikh | 01/05/2026 |
+## | Status | Aktif |
+## | Action | Edit |
+
+## ---
+
+## ### Sample Data
+
+## ```json
+## [
+
+## DOKUMEN 1
+## {
+"title": "Penutupan Mahkamah Sempena Hari Pekerja",
+"category": "Umum",
+## "date": "2026-05-01",
+"status": "Aktif"
+## },
+## {
+"title": "Perubahan Jadual Sebutan Kes",
+"category": "Kes",
+## "date": "2026-04-15",
+"status": "Aktif"
+## },
+## {
+"title": "Notis Lama",
+"category": "Umum",
+## "date": "2025-12-01",
+"status": "Tidak Aktif"
+## }
+## ]
+## ```
+
+## ---
+
+### Filter yang perlu ada:
+
+- Status (Aktif / Tidak Aktif)
+## - Kategori
+## - Tarikh
+
+## ---
+
+## ## ✅ SCREEN 2 – TAMBAH / EDIT NOTIS
+
+## DOKUMEN 1
+
+### Field dalam form:
+
+## ```
+## - Tajuk Notis
+## - Kategori (dropdown)
+## - Kandungan Notis (textarea)
+## - Tarikh Paparan
+## - Tarikh Tamat (optional)
+- Status (Aktif / Tidak Aktif)
+## ```
+
+## ---
+
+## ### Sample Data
+
+## ```json
+## {
+"title": "Penutupan Mahkamah Sempena Hari Raya",
+"category": "Umum",
+"content": "Mahkamah akan ditutup dari 10 hingga 14 April 2026.",
+## "start_date": "2026-04-10",
+## "end_date": "2026-04-14",
+"status": "Aktif"
+## }
+## ```
+
+## ---
+
+## ### Button:
+
+## - Simpan
+
+## DOKUMEN 1
+## - Publish
+## - Batal
+
+## ---
+
+## ## ✅ SCREEN 3 – PAPARAN NOTIS (USER VIEW)
+
+### Apa perlu ada:
+
+## ```
+- Senarai notis (card / list)
+## - Tajuk
+## - Tarikh
+## - Ringkasan
+## ```
+
+## ---
+
+## Contoh UI:
+
+## ```
+[Penutupan Mahkamah Sempena Hari Raya]
+## Tarikh: 10 April 2026
+Mahkamah akan ditutup dari 10 hingga 14 April...
+
+[Klik untuk baca lanjut]
+## ```
+
+## ---
+
+## ### Sample Data
+
+
+## DOKUMEN 1
+## ```json
+## [
+## {
+"title": "Penutupan Mahkamah Sempena Hari Raya",
+## "date": "2026-04-10",
+"summary": "Mahkamah akan ditutup dari 10 hingga 14 April..."
+## }
+## ]
+## ```
+
+## ---
+
+## ## ✅ SCREEN 4 – DETAIL NOTIS
+
+### Apa perlu ada:
+
+## ```
+## - Tajuk
+## - Tarikh
+- Kandungan penuh
+## ```
+
+## ---
+
+## ### Sample Data
+
+## ```json
+## {
+"title": "Penutupan Mahkamah Sempena Hari Raya",
+## "date": "2026-04-10",
+"content": "Mahkamah akan ditutup dari 10 hingga 14 April 2026. Semua prosiding akan ditangguhkan."
+## }
+
+## DOKUMEN 1
+## ```
+
+## ---
+
+## # ⚙ 5. ACTION BY ROLE
+
+## ## Admin / Pegawai
+- Create notis
+- Edit notis
+- Publish / unpublish
+
+## ## User
+- View sahaja
+
+## ---
+
+## #  6. DESIGN GUIDELINE
+
+- Simple list + form
+- Clean UI
+- Highlight tajuk notis
+- Jangan terlalu banyak info
+- Mobile friendly
+
+## ---
+
+## #  7. ANTIGRAVITY PROMPT
+
+## ```
+Design a government notice management module with:
+
+- notice list table
+
+## DOKUMEN 1
+- create/edit form
+- public notice display
+- clean UI
+- simple layout
+## ```
+
+## ---
+
+## #  8. KEY MESSAGE UNTUK UI/UX TEAM
+
+ Ini bukan notification system
+
+##  Ini:
+**announcement / notice board**
+
+##  Fokus:
+- list notis
+- form create
+- paparan mudah dibaca
+
+ Keep it simple.
 
