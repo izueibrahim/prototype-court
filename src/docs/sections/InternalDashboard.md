@@ -31,6 +31,19 @@ Utilizes a sidebar-driven navigation system with clear section headings:
 - **Core Operations**: Case Registration, Case Management, Schedule, Notice, Collective Agreement.
 - **System Admin**: Integration, Usage, Settings.
 
+### Navigation State Logic
+The dashboard implements a **Navigation Reset** mechanism. When switching between main menu items in the sidebar, any active sub-views (such as a specific "Case Detail" or "Add Schedule" form) are automatically cleared. This ensures the user lands on the primary view of the new category, preventing state carry-over and visual clutter.
+
+### Case Tracking (Steppers)
+The **Case Management** section utilizes a standardized, dynamic stepper system:
+- **Unified Styling**: Consistent `blue-600` theme for active and completed stages across list and detail views.
+- **Progress Logic**: Synchronized stage indicators (Registration → Allocation → Mention → Hearing → Award).
+- **Iconography**: Uses the `Check` icon for completed steps to provide clear visual feedback.
+
+### Advanced Reporting Defaults
+- **Default Period**: Reporting filters across Overview and Analytics now default to the year **2026** for immediate data visibility.
+- **Data Standardization**: All year selectors use full 4-digit formats and pull from verified data sources (`lib/data.ts`).
+
 ## Usage
 
 ```tsx
@@ -40,7 +53,7 @@ import { InternalDashboard } from '@/sections/InternalDashboard';
 <InternalDashboard />
 ```
 
-## UI Characteristics
 - **Theme**: Light, clean administrative interface (`bg-[#F8FAFC]`).
 - **Components**: Heavy use of cards, tables, and custom chart components.
 - **Consistency**: Aligns with the main portal branding for fonts and logo.
+- **Layout Optimization**: Administrative forms (e.g., "Schedule New Hearing") utilize expanded widths (`max-w-4xl`) to maximize screen usage and reduce excessive whitespace.

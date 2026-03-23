@@ -6,7 +6,8 @@ The `GuestDashboard.tsx` provides temporary, restricted access for individuals p
 
 ### 1. Virtual Hearing Entrance
 - **Access Code Verification**: Secure entry using temporary codes provided by the court.
-- **Check-in Process**: Simple workflow to verify identities before joining a session.
+- **Automated Admission**: Implements a simulation of the "Admission Waiting Room" with a **3-second automated delay**, after which participants are automatically admitted to the virtual session.
+- **Simplified Guest Flow**: Guests are redirected directly to the `SebutanChat` experience upon admission for a seamless transition.
 
 ### 2. e-Sebutan Participation
 - **Video Integration**: Interface elements designed to host or link to virtual hearing platforms.
