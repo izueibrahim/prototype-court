@@ -1365,12 +1365,14 @@ export default function InternalDashboard() {
 
             {dashActiveView === 'notice' && internalActionView === 'notice_form' && (
               <div className="max-w-4xl mx-auto">
-                <div className="flex items-center gap-6 mb-10">
-                  <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"><ArrowLeft className="w-6 h-6" /></button>
-                  <div><h2 className="text-3xl font-black text-[#1E1E2D]">{selectedInternalItem ? currentLang.editNotice : currentLang.addNotice}</h2><p className="text-base font-bold text-slate-500 mt-1">{currentLang.configNoticeSub}</p></div>
-                </div>
-
                 <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+                  <div className="flex items-start gap-4 pb-6 border-b border-slate-100">
+                    <button onClick={() => setInternalActionView(null)} className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl transition-colors mt-1"><ArrowLeft className="w-5 h-5 text-slate-600" /></button>
+                    <div>
+                      <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">{selectedInternalItem ? currentLang.editNotice : currentLang.addNotice}</h2>
+                      <p className="text-body-sm text-slate-500 font-bold mt-1">{currentLang.configNoticeSub}</p>
+                    </div>
+                  </div>
                   <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">{currentLang.noticeTitle}</label><input type="text" defaultValue={selectedInternalItem?.title} placeholder={currentLang.placeholderCourtClosure} className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">{currentLang.category}</label><select className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner"><option>{currentLang.generalCat}</option><option>{currentLang.caseCat}</option></select></div>
