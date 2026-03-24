@@ -14,7 +14,7 @@ The `EFilingDashboard.tsx` is designed for external legal practitioners, employe
 
 ### 3. Hearing Management
 - **Court Calendar**: Personalized view of upcoming hearing dates and court locations.
-- **Virtual Court Links**: Direct access to e-Sebutan / virtual hearing rooms.
+- **Virtual Court Integration**: Direct access to the [SebutanChat](file:///Users/fikriafif/Desktop/prototype-court/src/docs/components/SebutanChat.md) virtual hearing rooms for remote proceedings.
 
 ## UI Characteristics
 - **Style**: Professional, user-friendly interface with an emphasis on accessibility.

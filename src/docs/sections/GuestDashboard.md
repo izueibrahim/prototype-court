@@ -10,7 +10,7 @@ The `GuestDashboard.tsx` provides temporary, restricted access for individuals p
 - **Simplified Guest Flow**: Guests are redirected directly to the `SebutanChat` experience upon admission for a seamless transition.
 
 ### 2. e-Sebutan Participation
-- **Video Integration**: Interface elements designed to host or link to virtual hearing platforms.
+- **Virtual Room Integration**: Hosts the [SebutanChat](file:///Users/fikriafif/Desktop/prototype-court/src/docs/components/SebutanChat.md) experience designed for virtual hearings.
 - **Notice Display**: Shows relevant case details for the specific session the guest is attending.
 
 ## UI Characteristics

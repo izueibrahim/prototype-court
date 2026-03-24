@@ -21,7 +21,15 @@ Contains complex visualizations derived from historical data:
 - **JPPM Sync**: Integration tool to fetch new filings from the JPPM system.
 - **Allocation Panel**: Interface for the YDP to assign cases based on system recommendations.
 
-### 4. Search & Discovery
+### 4. Virtual Hearing & E-Sebutan
+- **Virtual Room Integration**: Hosts the `SebutanChat.tsx` component directly inside the dashboard.
+- **Digital Display**: Live preview of the external courtroom digital display boards.
+
+### 5. Notice Management
+- **Digital Notice Board**: Manages internal and public announcements.
+- **Form Layouts**: Standardized form styling. Administrative forms (e.g., "Add Notice", "Schedule New Hearing") contain their titles and primary actions inside the main card container for a consistent, structured experience.
+
+### 6. Search & Discovery
 - **Smart Award Search**: Integrated semantic search for historical awards and judgments.
 
 ## Navigation

@@ -8,3 +8,4 @@ This directory contains reusable UI components and layout wrappers. Click on the
 
 ## UI Components
 - [**AccessibilityPanel**](file:///Users/fikriafif/Desktop/prototype-court/src/docs/components/AccessibilityPanel.md): Floating WCAG accessibility controls.
+- [**SebutanChat**](file:///Users/fikriafif/Desktop/prototype-court/src/docs/components/SebutanChat.md): Virtual Mention (E-Sebutan) room with video grid, chat, and document sidebars.
