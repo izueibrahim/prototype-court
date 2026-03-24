@@ -17,13 +17,14 @@ type WcagStates = {
 interface AppState {
     currentView: 'portal' | 'login' | 'schedule' | 'search' | 'dashboard-internal' | 'dashboard-efiling' | 'dashboard-guest' | 'case-details' | 'about' | 'contact' | 'modules';
     loginRole: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null;
-    dashActiveView: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'display' | 'integration' | 'usage' | 'settings' | 'sebutan' | 'users' | 'ca_mgmt' | 'notice_board';
+    dashActiveView: 'overview' | 'chairman' | 'analytics' | 'registration' | 'cases' | 'schedule_int' | 'notice' | 'collective' | 'search' | 'display' | 'integration' | 'usage' | 'settings' | 'sebutan' | 'users' | 'ca_mgmt' | 'notice_board';
     internalActionView: 'review_filing' | 'allocate_case' | 'case_detail' | 'hearing_notes' | 'add_user' | 'edit_user' | 'ca_form' | 'ca_detail' | 'notice_form' | 'notice_detail' | 'waiting_room' | 'sebutan_session' | 'add_schedule' | null;
     eFilingActiveView: 'cases' | 'new_filing' | 'case_details';
     selectedInternalItem: any | null;
     selectedEFilingCase: any | null;
     dashMobileMenuOpen: boolean;
     selectedCaseId: string | null;
+    selectedAward: any | null;
     searchQuery: string;
     scheduleSearchQuery: string;
     lang: 'en' | 'ms';
@@ -40,6 +41,7 @@ interface AppState {
     setSelectedEFilingCase: (item: any | null) => void;
     setDashMobileMenuOpen: (isOpen: boolean) => void;
     setSelectedCaseId: (id: string | null) => void;
+    setSelectedAward: (award: any | null) => void;
     setSearchQuery: (query: string) => void;
     setScheduleSearchQuery: (query: string) => void;
     setLang: (lang: 'en' | 'ms') => void;
@@ -62,6 +64,7 @@ export const useAppStore = create<AppState>()(
             selectedEFilingCase: null,
             dashMobileMenuOpen: false,
             selectedCaseId: null,
+            selectedAward: null,
             searchQuery: '',
             scheduleSearchQuery: '',
             lang: 'en',
@@ -88,6 +91,7 @@ export const useAppStore = create<AppState>()(
             setSelectedEFilingCase: (item) => set({ selectedEFilingCase: item }),
             setDashMobileMenuOpen: (isOpen) => set({ dashMobileMenuOpen: isOpen }),
             setSelectedCaseId: (id) => set({ selectedCaseId: id }),
+            setSelectedAward: (award) => set({ selectedAward: award }),
             setSearchQuery: (query) => set({ searchQuery: query }),
             setScheduleSearchQuery: (query) => set({ scheduleSearchQuery: query }),
             setLang: (lang) => set({ lang }),

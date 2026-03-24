@@ -8,7 +8,8 @@ import {
   ChevronRight, ArrowLeft, ArrowUpRight, Save, Mic, Video, ServerCrash, RefreshCw,
   ChevronLeft, FilePlus, SlidersHorizontal, Key, ShieldAlert, KanbanSquare, Tv,
   ArrowDown, Check, Upload, Trash2, File as FileIcon, FileCheck, ClipboardList,
-  ChevronDown, ChevronUp, Users, PieChart, User, TrendingUp, TrendingDown
+  ChevronDown, ChevronUp, Users, PieChart, User, TrendingUp, TrendingDown, ExternalLink,
+  BookOpen, FileSearch, Lightbulb, Zap, Globe
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
@@ -19,7 +20,7 @@ import {
   caseTypeDistribution, chairmanWorkload, filingQueue, chairmanCases,
   integrationLogs, mockNotices, mockCAs, mockUsageLogs,
   executiveStats, opsStats, chairmanStats, awardAnalyticsStats, integrationStats, usageStats,
-  mockSystemSettings
+  mockSystemSettings, mockCollectiveAgreements
 } from '@/lib/data';
 
 const EmptyState = ({ title, description, icon: Icon, actionLabel, onAction }: any) => (
@@ -44,6 +45,9 @@ export default function InternalDashboard() {
   const {
     lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView,
     dashActiveView, setDashActiveView, dashMobileMenuOpen, setDashMobileMenuOpen,
+    selectedCaseId, setSelectedCaseId,
+    selectedAward, setSelectedAward,
+    searchQuery, setSearchQuery,
     internalActionView, setInternalActionView, selectedInternalItem, setSelectedInternalItem
   } = useAppStore();
 
@@ -90,6 +94,7 @@ export default function InternalDashboard() {
         { id: 'notice', icon: Bell, label: currentLang.dashNotice, roles: ['admin', 'registrar', 'officer'] },
         { id: 'notice_board', icon: Bell, label: currentLang.noticeBoard, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'ca_unit', 'efiling', 'guest'] },
         { id: 'collective', icon: Users, label: currentLang.dashCollective, roles: ['admin', 'registrar', 'officer', 'ca_unit', 'efiling'] },
+        { id: 'search', icon: Search, label: currentLang.dashSearch, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'efiling'] },
         { id: 'sebutan', icon: MessageSquare, label: currentLang.eSebutan, roles: ['admin', 'registrar', 'chairman', 'ydp', 'efiling', 'guest'] },
         { id: 'display', icon: Tv, label: currentLang.dashDisplay, roles: ['admin', 'ydp'] },
       ]
@@ -187,11 +192,12 @@ export default function InternalDashboard() {
                         : dashActiveView === 'schedule_int' ? currentLang.dashSchedule
                           : dashActiveView === 'notice' ? currentLang.dashNotice
                             : dashActiveView === 'collective' ? currentLang.dashCollective
-                              : dashActiveView === 'display' ? currentLang.dashDisplay
-                                : dashActiveView === 'sebutan' ? 'E-Sebutan Virtual Room'
-                                  : dashActiveView === 'integration' ? currentLang.dashIntegration
-                                    : dashActiveView === 'usage' ? currentLang.dashUsage
-                                      : 'System Administration'}
+                              : dashActiveView === 'search' ? currentLang.dashSearch
+                                : dashActiveView === 'display' ? currentLang.dashDisplay
+                                  : dashActiveView === 'sebutan' ? 'E-Sebutan Virtual Room'
+                                    : dashActiveView === 'integration' ? currentLang.dashIntegration
+                                      : dashActiveView === 'usage' ? currentLang.dashUsage
+                                        : 'System Administration'}
             </h1>
           </div>
 
@@ -1456,206 +1462,44 @@ export default function InternalDashboard() {
             })()}
 
             {/* ---------------- M11 COLLECTIVE ---------------- */}
-            {dashActiveView === 'collective' && !internalActionView && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
-                  <div>
-                    <h3 className="text-h3 text-slate-900 font-black">
-                      {demoRole === 'efiling' ? currentLang.myPortfolioCA : currentLang.caTitle}
-                    </h3>
-                    <p className="text-body-sm text-slate-500 font-bold mt-1">
-                      {demoRole === 'efiling' ? currentLang.viewTrackAgreements : currentLang.manageTrackAgreements}
-                    </p>
-                  </div>
-                  {(demoRole === 'admin' || demoRole === 'registrar' || demoRole === 'ca_unit' || demoRole === 'efiling') && (
-                    <button
-                      onClick={() => setInternalActionView('ca_form')}
-                      className="flex items-center px-6 py-3 bg-[#111111] hover:bg-black text-white text-sm font-black rounded-xl shadow-md transition-all active:scale-95"
-                    >
-                      <Plus className="w-4 h-4 mr-2" /> {demoRole === 'efiling' ? currentLang.submitNewCA : currentLang.registerNewCA}
-                    </button>
-                  )}
+            {/* ---------------- M6 COLLECTIVE AGREEMENTS ---------------- */}
+            {dashActiveView === 'collective' && (
+              <div className="space-y-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <h3 className="text-h3 text-slate-900">{currentLang.dashCollective}</h3>
+                  <button className="px-6 py-2.5 bg-blue-600 text-white text-body-sm font-bold rounded-xl hover:bg-blue-700 shadow-sm transition-colors flex items-center gap-2">
+                    <FilePlus className="w-4 h-4" /> {currentLang.regNewCase}
+                  </button>
                 </div>
 
-                <div className="flex flex-wrap gap-3 mb-6">
-                  <div className="relative flex-1 min-w-[200px]">
-                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input type="text" placeholder="Search CA by company or union..." className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-semibold outline-none focus:ring-2 focus:ring-blue-500" />
-                  </div>
-                  <select className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-600 outline-none">
-                    <option>All Status</option>
-                    <option>Aktif</option>
-                    <option>Dalam Semakan</option>
-                    <option>Tamat</option>
-                  </select>
-                </div>
-
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left min-w-[800px]">
-                    <thead>
-                      <tr className="border-b border-slate-100">
-                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">CA Number</th>
-                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Parties</th>
-                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Validity Period</th>
-                        <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">Status</th>
-                        <th className="py-4 px-4 text-right text-[11px] font-black uppercase tracking-widest text-slate-400">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-50">
-                      {mockCAs.length > 0 ? (
-                        mockCAs.map((ca, i) => (
-                          <tr key={i} className="hover:bg-slate-50/50 transition-colors group">
-                            <td className="py-5 px-4">
-                              <span className="text-body-sm font-mono font-black text-blue-600">{ca.id}</span>
-                            </td>
-                            <td className="py-5 px-4">
-                              <span className="text-body-sm font-black text-slate-900 block">{ca.union}</span>
-                              <span className="text-ui-label font-bold text-slate-400 block mt-0.5">v {ca.employer}</span>
-                            </td>
-                            <td className="py-5 px-4">
-                              <span className="text-body-sm font-bold text-slate-600 block">{ca.start_date}</span>
-                              <span className="text-ui-label font-bold text-slate-400">to {ca.end_date}</span>
-                            </td>
-                            <td className="py-5 px-4">
-                              <span className={`inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${ca.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' :
-                                ca.status === 'Dalam Semakan' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800'
-                                }`}>
-                                {ca.status}
-                              </span>
-                            </td>
-                            <td className="py-5 px-4 text-right">
-                              <button
-                                onClick={() => { setSelectedInternalItem(ca); setInternalActionView('ca_detail'); }}
-                                className="px-4 py-2 bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 text-xs font-black rounded-lg transition-all"
-                              >
-                                {demoRole === 'efiling' ? 'View' : 'Manage'}
-                              </button>
-                            </td>
-                          </tr>
-                        ))
-                      ) : (
-                        <tr>
-                          <td colSpan={5}>
-                            <EmptyState
-                              title="No agreements found"
-                              description="You haven't registered any collective agreements yet."
-                              icon={FileCheck}
-                              actionLabel="Register New CA"
-                              onAction={() => setInternalActionView('ca_form')}
-                            />
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-            {dashActiveView === 'collective' && internalActionView === 'ca_form' && (
-              <div className="max-w-4xl mx-auto">
-                <div className="flex items-center gap-6 mb-10">
-                  <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"><ArrowLeft className="w-6 h-6" /></button>
-                  <div><h2 className="text-3xl font-black text-[#1E1E2D]">Register New CA</h2><p className="text-base font-bold text-slate-500 mt-1">Submit a new collective agreement for cognizance.</p></div>
-                </div>
-
-                <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">CA Title</label><input type="text" placeholder="e.g. Perjanjian Kolektif 2026-2029" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
-                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Status</label><select className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner"><option>Dalam Semakan</option><option>Aktif</option></select></div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Employer / Company</label><input type="text" placeholder="Employer Name" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
-                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Union Name</label><input type="text" placeholder="Union Name" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Start Date</label><input type="date" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
-                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">End Date</label><input type="date" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">CA Document (PDF)</label>
-                    <div className="border-2 border-dashed border-slate-200 rounded-[24px] p-10 flex flex-col items-center justify-center hover:border-blue-400 hover:bg-blue-50/30 transition-all group cursor-pointer">
-                      <Upload className="w-10 h-10 text-slate-300 group-hover:text-blue-500 mb-4" />
-                      <p className="text-sm font-black text-slate-500 group-hover:text-blue-600">Click to upload or drag and drop</p>
-                      <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-wider">Maximum file size: 20MB</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {mockCollectiveAgreements.map((ca) => (
+                    <div key={ca.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all group">
+                       <div className="flex items-center justify-between mb-4">
+                         <span className={`px-2.5 py-1 text-[10px] font-bold rounded-lg ${ca.status === 'Certified' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
+                           {ca.status}
+                         </span>
+                         <span className="text-[10px] font-mono font-bold text-slate-400">{ca.id}</span>
+                       </div>
+                       <h4 className="text-body-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 line-clamp-2">{ca.title}</h4>
+                       <div className="flex items-center gap-2 text-ui-label text-slate-500 mb-4">
+                         <KanbanSquare className="w-3.5 h-3.5" /> {ca.category}
+                       </div>
+                       <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                         <div>
+                           <p className="text-[10px] font-bold text-slate-400 uppercase">Validity</p>
+                           <p className="text-body-sm font-bold text-slate-700">{ca.validity}</p>
+                         </div>
+                         <div className="text-right">
+                           <p className="text-[10px] font-bold text-slate-400 uppercase">Articles</p>
+                           <p className="text-body-sm font-bold text-slate-700">{ca.articles}</p>
+                         </div>
+                       </div>
+                       <button className="w-full mt-6 py-2.5 bg-slate-50 border border-slate-200 text-slate-600 text-[11px] font-bold rounded-xl hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all flex items-center justify-center gap-2">
+                         <BookOpen className="w-4 h-4" /> View Full Agreement
+                       </button>
                     </div>
-                  </div>
-                  <div className="flex gap-4 pt-4">
-                    <button onClick={() => setInternalActionView(null)} className="flex-1 py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 text-base font-extrabold rounded-2xl transition-all">Cancel</button>
-                    <button onClick={() => setInternalActionView(null)} className="flex-[2] py-4 bg-[#111111] hover:bg-black text-white text-base font-extrabold rounded-2xl shadow-xl transition-all active:scale-95">{currentLang.registerCA}</button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {dashActiveView === 'collective' && internalActionView === 'ca_detail' && selectedInternalItem && (
-              <div className="max-w-5xl mx-auto space-y-8">
-                <div className="flex items-center justify-between bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
-                  <div className="flex items-center gap-4">
-                    <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90"><ArrowLeft className="w-5 h-5" /></button>
-                    <div>
-                      <h2 className="text-xl md:text-2xl font-black text-slate-900">{selectedInternalItem.title}</h2>
-                      <div className="flex items-center gap-3 mt-1">
-                        <span className="text-sm font-mono font-black text-blue-600">{selectedInternalItem.id}</span>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider ${selectedInternalItem.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' :
-                          selectedInternalItem.status === 'Dalam Semakan' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800'
-                          }`}>
-                          {selectedInternalItem.status}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <button className="p-2.5 bg-slate-50 text-slate-600 border border-slate-200 rounded-xl hover:text-blue-600 hover:border-blue-100 transition-all"><Printer className="w-5 h-5" /></button>
-                    <button className="px-5 py-2.5 bg-blue-600 text-white text-body-sm font-black rounded-xl hover:bg-blue-700 shadow-md">Edit CA</button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-2 space-y-8">
-                    <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-10">
-                      <div className="grid grid-cols-2 gap-10">
-                        <div>
-                          <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Employer / Company</h4>
-                          <p className="text-lg font-black text-[#1E1E2D]">{selectedInternalItem.employer || selectedInternalItem.company}</p>
-                        </div>
-                        <div>
-                          <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Union Representative</h4>
-                          <p className="text-lg font-black text-[#1E1E2D]">{selectedInternalItem.union}</p>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-10">
-                        <div>
-                          <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Effective Date</h4>
-                          <p className="text-lg font-black text-[#1E1E2D]">{selectedInternalItem.start_date}</p>
-                        </div>
-                        <div>
-                          <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Expiry Date</h4>
-                          <p className="text-lg font-black text-[#1E1E2D]">{selectedInternalItem.end_date}</p>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-6 underline decoration-blue-500/30 underline-offset-8">Status Transition History</h4>
-                        <div className="relative pl-4 border-l-2 border-slate-100 space-y-6">
-                          <div className="relative"><div className="absolute -left-[25px] top-0 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center ring-4 ring-white"><Check className="w-3.5 h-3.5" /></div><p className="text-sm font-black text-slate-900">CA Cognizance Granted</p><p className="text-xs font-bold text-slate-400">{selectedInternalItem.submitted}</p></div>
-                          <div className="relative"><div className="absolute -left-[25px] top-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center ring-4 ring-white"><Activity className="w-3.5 h-3.5" /></div><p className="text-sm font-black text-slate-900">In-Review</p><p className="text-xs font-bold text-slate-400">01 Mar 2026</p></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="space-y-8">
-                    <div className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm flex flex-col items-center">
-                      <div className="w-20 h-20 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-6 border border-rose-100 shadow-inner">
-                        <FileText className="w-10 h-10" />
-                      </div>
-                      <h4 className="text-lg font-black text-slate-900 mb-2">CA Document</h4>
-                      <p className="text-sm font-bold text-slate-400 mb-8 text-center">{selectedInternalItem.id}.pdf &bull; 4.2MB</p>
-                      <div className="w-full space-y-3">
-                        <button className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-black rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2"><Download className="w-4 h-4" /> Download PDF</button>
-                        <button className="w-full py-3.5 bg-slate-900 hover:bg-black text-white text-sm font-black rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2"><Search className="w-4 h-4" /> Full Preview</button>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -1717,11 +1561,11 @@ export default function InternalDashboard() {
                             <td className="py-4 px-4 text-body-sm text-slate-900">{c.title}</td>
                             <td className="py-4 px-4 text-center">
                               <span className="px-3 py-1 rounded-lg bg-amber-100 text-amber-800 text-ui-label">
-                                {c.status === 'Hearing' ? currentLang.stageHearing : 
-                                 c.status === 'Mention' ? currentLang.stageMention : 
-                                 c.status === 'Registration' ? currentLang.stageRegistration : 
-                                 c.status === 'Allocation' ? currentLang.stageAllocation : 
-                                 c.status === 'Award' ? currentLang.stageAward : c.status}
+                                {c.status === 'Hearing' ? currentLang.stageHearing :
+                                  c.status === 'Mention' ? currentLang.stageMention :
+                                    c.status === 'Registration' ? currentLang.stageRegistration :
+                                      c.status === 'Allocation' ? currentLang.stageAllocation :
+                                        c.status === 'Award' ? currentLang.stageAward : c.status}
                               </span>
                             </td>
                             <td className="py-4 px-4 text-body-sm text-slate-500 text-right flex items-center justify-end gap-2">
@@ -1958,7 +1802,7 @@ export default function InternalDashboard() {
                         <div key={i} className="flex items-center justify-between p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
                           <span className="text-sm font-bold text-slate-700">{p.label}</span>
                           <div className={`w-10 h-5 rounded-full relative p-1 transition-colors ${p.enabled ? 'bg-blue-600' : 'bg-slate-200'}`}>
-                            <div className={`w-3 h-3 bg-white rounded-full absolute transition-all ${p.enabled ? 'right-1' : 'left-1'}`}></div>
+                            <div className={`w-3 h-3 bg-white rounded-full absolute ${p.enabled ? 'right-1' : 'left-1'}`}></div>
                           </div>
                         </div>
                       ))}
@@ -2054,9 +1898,199 @@ export default function InternalDashboard() {
                   </div>
                 </div>
                 <div className="bg-rose-50 border border-rose-200 p-8 rounded-[32px] flex items-center justify-between">
-                  <div><h3 className="text-h3 text-rose-900">{currentLang.dangerZone}</h3><p className="text-body-sm text-rose-700 mt-1">{currentLang.dangerZoneSub}</p></div>
-                  <button className="px-6 py-2.5 bg-rose-600 text-white text-body-sm font-bold rounded-xl hover:bg-rose-700 shadow-md transition-colors">{currentLang.clearCache}</button>
+                  <div>
+                    <h3 className="text-h3 text-rose-900">{currentLang.dangerZone}</h3>
+                    <p className="text-body-sm text-rose-700 mt-1">{currentLang.dangerZoneSub}</p>
+                  </div>
+                  <button className="px-6 py-2.5 bg-rose-600 text-white text-body-sm font-bold rounded-xl hover:bg-rose-700 shadow-md transition-colors">
+                    {currentLang.clearCache}
+                  </button>
                 </div>
+              </div>
+            )}
+
+            {/* ---------------- SMART SEARCH (M8) ---------------- */}
+            {dashActiveView === 'search' && (
+              <div className="space-y-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                   <div>
+                     <h3 className="text-h3 text-slate-900 font-bold">{currentLang.dashSearch}</h3>
+                     <p className="text-body-sm text-slate-500 mt-1">AI-Powered Semantic & Vector Precedent Search</p>
+                   </div>
+                   <div className="flex items-center gap-3">
+                     <div className="relative">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <input 
+                          type="text"
+                          className="pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-body-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all min-w-[300px]"
+                          placeholder={currentLang.searchPlace}
+                          value={searchQuery}
+                          onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            if (selectedAward) setSelectedAward(null);
+                          }}
+                        />
+                     </div>
+                     <button className="p-2.5 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 relative group">
+                        <Filter className="w-5 h-5 text-slate-600" />
+                        {/* Filter Badge Simulation */}
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">3</div>
+                     </button>
+                   </div>
+                </div>
+
+                {/* Simplified Filter Bar */}
+                <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-wrap items-center gap-4">
+                   <div className="flex flex-col gap-1">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Year</label>
+                      <select className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500">
+                        {chYears.map(y => <option key={y} value={y}>{y}</option>)}
+                      </select>
+                   </div>
+                   <div className="flex flex-col gap-1">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Case Type</label>
+                      <select className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500">
+                        {caseTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                      </select>
+                   </div>
+                   <div className="flex flex-col gap-1">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Court Location</label>
+                      <select className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500">
+                        <option>ALL LOCATIONS</option>
+                        <option>KUALA LUMPUR</option>
+                        <option>PULAU PINANG</option>
+                        <option>JOHOR BAHRU</option>
+                      </select>
+                   </div>
+                   <div className="flex flex-col gap-1">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Status</label>
+                      <select className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500">
+                        {caseStatuses.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                   </div>
+                   <button className="self-end px-5 py-2 bg-slate-900 text-white text-body-sm font-bold rounded-lg hover:bg-blue-600 transition-colors ml-auto">
+                     Apply Search
+                   </button>
+                </div>
+
+                {!selectedAward ? (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {mockSearchResults.filter(res => !searchQuery || res.title.toLowerCase().includes(searchQuery.toLowerCase())).map((res) => (
+                      <div key={res.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all flex flex-col h-full group">
+                         <div className="flex items-center justify-between mb-4">
+                           <div className="flex items-center gap-2">
+                             <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                               {res.type === 'Award' ? <Gavel className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
+                             </div>
+                             <span className="text-ui-label font-bold text-slate-400">{res.id}</span>
+                           </div>
+                           <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">94% Semantic Match</span>
+                         </div>
+                         <h4 className="text-body-md font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">{res.title}</h4>
+                         <p className="text-body-sm text-slate-500 mb-6 line-clamp-3">{res.summary}</p>
+                         <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                           <div className="flex items-center gap-3">
+                              <div className="flex items-center gap-1.5 text-ui-label text-slate-400">
+                                <Calendar className="w-3.5 h-3.5" /> {res.date}
+                              </div>
+                              <div className="flex items-center gap-1.5 text-ui-label text-slate-400">
+                                <Globe className="w-3.5 h-3.5" /> {res.court}
+                              </div>
+                           </div>
+                           <button 
+                             onClick={() => setSelectedAward(res)}
+                             className="text-body-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                           >
+                             {currentLang.viewBtn} <ArrowUpRight className="w-4 h-4" />
+                           </button>
+                         </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+                     <div className="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
+                        <button 
+                          onClick={() => setSelectedAward(null)}
+                          className="flex items-center gap-2 text-body-sm font-bold text-slate-600 hover:text-blue-600 transition-colors"
+                        >
+                          <ChevronLeft className="w-4 h-4" /> Back to Results
+                        </button>
+                        <div className="flex gap-2">
+                          <button className="px-4 py-2 bg-white border border-slate-200 text-body-sm font-bold text-slate-700 rounded-lg hover:bg-slate-50 flex items-center gap-2">
+                            <Download className="w-4 h-4" /> PDF
+                          </button>
+                          <button className="px-4 py-2 bg-blue-600 text-white text-body-sm font-bold rounded-lg hover:bg-blue-700 flex items-center gap-2 shadow-sm">
+                            <ExternalLink className="w-4 h-4" /> Full Document
+                          </button>
+                        </div>
+                     </div>
+                     <div className="p-8 lg:p-12">
+                        <div className="max-w-4xl mx-auto space-y-10">
+                           <div className="space-y-4">
+                              <span className="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-lg uppercase tracking-wider">Decision: Unfair Dismissal</span>
+                              <h2 className="text-h2 text-slate-900 leading-tight">{selectedAward.title}</h2>
+                              <div className="flex flex-wrap gap-6 pt-2">
+                                 <div><p className="text-[10px] font-bold text-slate-400 uppercase">Award No</p><p className="text-body-md font-bold text-slate-900">{selectedAward.id}</p></div>
+                                 <div><p className="text-[10px] font-bold text-slate-400 uppercase">Decision Date</p><p className="text-body-md font-bold text-slate-900">{selectedAward.date}</p></div>
+                                 <div><p className="text-[10px] font-bold text-slate-400 uppercase">Court Location</p><p className="text-body-md font-bold text-slate-900">{selectedAward.court}</p></div>
+                              </div>
+                           </div>
+
+                           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                              <div className="md:col-span-2 space-y-8">
+                                 <section className="space-y-4">
+                                    <h4 className="text-body-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
+                                      <Scale className="w-5 h-5 text-blue-600" /> Ratio Decidendi
+                                    </h4>
+                                    <p className="text-body-md text-slate-600 leading-relaxed italic border-l-4 border-blue-500 pl-6 py-2">
+                                      "The failure to conduct a proper domestic inquiry is a fatal procedural flaw. The respondent failed to provide the claimant with a fair opportunity to mitigate the allegations prior to termination."
+                                    </p>
+                                    <p className="text-body-sm text-slate-500 leading-relaxed">
+                                      The Court finds that the dismissal was not based on substantial evidence and thus lacks just cause or excuse.
+                                    </p>
+                                 </section>
+                                 <section className="space-y-4">
+                                    <h4 className="text-body-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
+                                      <Zap className="w-5 h-5 text-amber-500" /> AI-Matched Precedents
+                                    </h4>
+                                    <div className="space-y-3">
+                                       {['Award 210/2023 - Procedural Inequity', 'Award 45/2024 - Non-compliance'].map(p => (
+                                         <div key={p} className="p-4 bg-slate-50 rounded-xl flex items-center justify-between hover:bg-blue-50 cursor-pointer transition-colors group">
+                                            <span className="text-body-sm font-bold text-slate-700 group-hover:text-blue-600">{p}</span>
+                                            <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-blue-400" />
+                                         </div>
+                                       ))}
+                                    </div>
+                                 </section>
+                              </div>
+                              <div className="space-y-6">
+                                 <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                                    <h4 className="text-body-sm font-bold text-slate-900 mb-4 flex items-center gap-2"><Lightbulb className="w-4 h-4 text-blue-600" /> Smart Insight</h4>
+                                    <p className="text-[12px] font-medium text-slate-600 leading-relaxed">
+                                      This case strengthens the legal precedent regarding **Article 14** of collective agreements.
+                                    </p>
+                                 </div>
+                                 <div className="p-6 bg-slate-900 text-white rounded-2xl shadow-lg">
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase mb-2">Total Award Amount</p>
+                                    <p className="text-h3 text-blue-400 font-mono">RM 156,000.00</p>
+                                    <div className="mt-4 pt-4 border-t border-white/10 space-y-2">
+                                       <div className="flex justify-between text-[11px] opacity-70">
+                                          <span>Back-wages:</span>
+                                          <span>RM 144k</span>
+                                       </div>
+                                       <div className="flex justify-between text-[11px] opacity-70">
+                                          <span>Compensation:</span>
+                                          <span>RM 12k</span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

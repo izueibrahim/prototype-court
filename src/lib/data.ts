@@ -183,6 +183,64 @@ export const mockSearchResults = [
     title: 'Kesatuan Sekerja Pembuatan v Kilang Automotif Jaya',
     summary: 'Complaint of non-compliance with Article 14 of the Collective Agreement regarding annual bonus payouts.',
     keywords: ['Trade Union', 'Collective Agreement', 'Non-Compliance']
+  },
+  { id: '8', title: 'Union of Hotel, Bar & Restaurant Workers v. Majestic Hotel', summary: 'Establishment of service charge distribution model and minimum wage alignment.', date: '21 Mar 2026', type: 'Award', court: 'Mahkamah 1 - Kuala Lumpur', keywords: ['Service Charge', 'Hospitality'] }
+];
+
+export const mockCollectiveAgreements = [
+  { 
+    id: 'CA/001/2026', 
+    title: 'Nestle Manufacturing (M) Sdn Bhd & Food Industry Workers Union', 
+    validity: '2026 - 2029', 
+    status: 'Certified', 
+    articles: 45, 
+    lastUpdated: '15 Mar 2026',
+    category: 'Manufacturing'
+  },
+  { 
+    id: 'CA/002/2026', 
+    title: 'Malayan Banking Berhad & National Union of Bank Employees (NUBE)', 
+    validity: '2025 - 2028', 
+    status: 'Pending Certification', 
+    articles: 62, 
+    lastUpdated: '10 Mar 2026',
+    category: 'Finance'
+  },
+  { 
+    id: 'CA/003/2026', 
+    title: 'Sime Darby Plantation & All Malayan Estates Staff Union', 
+    validity: '2026 - 2029', 
+    status: 'Certified', 
+    articles: 38, 
+    lastUpdated: '05 Mar 2026',
+    category: 'Agriculture'
+  },
+  { 
+    id: 'CA/004/2026', 
+    title: 'Telekom Malaysia Berhad & National Union of Telecommunications Employees', 
+    validity: '2024 - 2027', 
+    status: 'Certified', 
+    articles: 55, 
+    lastUpdated: '28 Feb 2026',
+    category: 'Telecommunications'
+  },
+  { 
+    id: 'CA/005/2026', 
+    title: 'AirAsia Berhad & AirAsia Pilots Association', 
+    validity: '2026 - 2029', 
+    status: 'Review Required', 
+    articles: 42, 
+    lastUpdated: '20 Feb 2026',
+    category: 'Aviation'
+  },
+  { 
+    id: 'CA/006/2026', 
+    title: 'Tenaga Nasional Berhad & TNB Junior Officers Union', 
+    validity: '2025 - 2028', 
+    status: 'Certified', 
+    articles: 50, 
+    lastUpdated: '12 Feb 2026',
+    category: 'Energy'
   }
 ];
 
@@ -229,7 +287,7 @@ export const allModules = [
       { icon: Key, enTitle: 'Access Management [M2]', enDesc: 'Centralized Login (SSO) & MyDigital ID.' },
       { icon: UploadCloud, enTitle: 'e-Filing & e-Service [M4]', enDesc: 'Online case document filing for parties.' },
       { icon: MessageSquare, enTitle: 'e-Mention [M5]', enDesc: 'Virtual case mention proceedings.' },
-      { icon: Search, enTitle: 'Smart Award Search [M8]', enDesc: 'Semantic AI & Full-Text Search.' },
+      { icon: Search, enTitle: 'Smart Award [M8]', enDesc: 'Semantic AI & Full-Text Search.' },
       { icon: Bell, enTitle: 'Notice Management [M3]', enDesc: 'Notifications, reminders, and schedules.' }
     ]
   },
