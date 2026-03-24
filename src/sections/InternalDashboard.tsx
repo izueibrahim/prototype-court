@@ -72,7 +72,7 @@ export default function InternalDashboard() {
 
   const navGroups = [
     {
-      label: 'DASHBOARDS',
+      label: currentLang.groupDashboards,
       roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'efiling'],
       items: [
         { id: 'overview', icon: LayoutDashboard, label: currentLang.dashOverview, roles: ['admin', 'ydp', 'chairman', 'registrar', 'efiling'] },
@@ -81,7 +81,7 @@ export default function InternalDashboard() {
       ]
     },
     {
-      label: 'TERAS (CORE)',
+      label: currentLang.groupCore,
       roles: ['admin', 'ydp', 'registrar', 'officer', 'ca_unit', 'chairman', 'efiling', 'guest'],
       items: [
         { id: 'registration', icon: FilePlus, label: currentLang.dashRegistration, roles: ['admin', 'registrar', 'officer', 'ydp', 'efiling'] },
@@ -95,10 +95,10 @@ export default function InternalDashboard() {
       ]
     },
     {
-      label: 'SYSTEM ADMIN',
+      label: currentLang.groupSystemAdmin,
       roles: ['admin'],
       items: [
-        { id: 'users', icon: Users2, label: 'User Management', roles: ['admin'] },
+        { id: 'users', icon: Users2, label: currentLang.userManagement, roles: ['admin'] },
         { id: 'integration', icon: ServerCrash, label: currentLang.dashIntegration, roles: ['admin'] },
         { id: 'usage', icon: Activity, label: currentLang.dashUsage, roles: ['admin'] },
         { id: 'settings', icon: Settings, label: currentLang.dashAdmin, roles: ['admin'] },
@@ -485,8 +485,8 @@ export default function InternalDashboard() {
               <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <h3 className="text-h3 text-slate-900 font-black">Award Analytics & Insights</h3>
-                    <p className="text-body-sm text-slate-500 font-bold mt-1">Deep insights into Industrial Court awards and case settlement trends.</p>
+                    <h3 className="text-h3 text-slate-900 font-black">{currentLang.awardAnalyticsInsights}</h3>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">{currentLang.awardAnalyticsSub}</p>
                   </div>
                 </div>
 
@@ -665,8 +665,8 @@ export default function InternalDashboard() {
                     <ArrowLeft className="w-6 h-6" />
                   </button>
                   <div>
-                    <h2 className="text-3xl font-black text-[#1E1E2D]">Filing Review: {selectedInternalItem.id}</h2>
-                    <p className="text-base font-bold text-slate-500 mt-1">Validate documents and assign official case number.</p>
+                    <h2 className="text-3xl font-black text-[#1E1E2D]">{currentLang.filingReview}: {selectedInternalItem.id}</h2>
+                    <p className="text-base font-bold text-slate-500 mt-1">{currentLang.filingReviewSub}</p>
                   </div>
                 </div>
 
@@ -675,19 +675,19 @@ export default function InternalDashboard() {
                   <div className="lg:col-span-3 space-y-8">
                     <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-10">
                       <div>
-                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Submitted By</h4>
+                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">{currentLang.submittedBy}</h4>
                         <p className="text-2xl font-black text-[#1E1E2D]">{selectedInternalItem.submittedBy}</p>
                       </div>
 
                       <div>
-                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Dispute Type</h4>
+                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">{currentLang.disputeType}</h4>
                         <span className="px-5 py-2 bg-zinc-100 text-zinc-900 text-sm font-black rounded-xl inline-flex">
                           {selectedInternalItem.type}
                         </span>
                       </div>
 
                       <div>
-                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-5">Attached Documents</h4>
+                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-5">{currentLang.attachedDocs}</h4>
                         <div className="p-6 bg-slate-50/50 border border-slate-100 rounded-2xl flex items-center justify-between group hover:border-blue-200 transition-all">
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-blue-600 shadow-sm">
@@ -698,7 +698,7 @@ export default function InternalDashboard() {
                               <p className="text-xs font-bold text-slate-400">2.4 MB</p>
                             </div>
                           </div>
-                          <button className="text-[#3B82F6] text-sm font-black hover:underline px-4">View</button>
+                          <button className="text-[#3B82F6] text-sm font-black hover:underline px-4">{currentLang.viewBtn}</button>
                         </div>
                       </div>
                     </div>
@@ -710,14 +710,14 @@ export default function InternalDashboard() {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-8">
                           <CheckCircle2 className="w-6 h-6 text-emerald-500" />
-                          <h3 className="text-xl font-black text-[#1E1E2D]">Registrar Validation</h3>
+                          <h3 className="text-xl font-black text-[#1E1E2D]">{currentLang.registrarValidation}</h3>
                         </div>
 
                         <div className="space-y-6 mb-10">
                           {[
-                            'Parties information is complete',
-                            'JPPM reference is valid',
-                            'No duplicate cases found'
+                            currentLang.checkPartiesComplete,
+                            currentLang.checkJppmValid,
+                            currentLang.checkNoDuplicate
                           ].map((check, i) => (
                             <label key={i} className="flex items-center gap-4 cursor-pointer group">
                               <div className="relative">
@@ -732,7 +732,7 @@ export default function InternalDashboard() {
                         </div>
 
                         <div className="space-y-3">
-                          <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block px-1">Assign Case Number</label>
+                          <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block px-1">{currentLang.assignCaseNum}</label>
                           <input
                             type="text"
                             defaultValue="1/1-1555/26"
@@ -746,7 +746,7 @@ export default function InternalDashboard() {
                           onClick={() => setInternalActionView(null)}
                           className="w-full py-5 bg-[#3B82F6] hover:bg-blue-700 text-white text-base font-extrabold rounded-2xl shadow-xl shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-3"
                         >
-                          Register & Forward for Allocation
+                          {currentLang.registerForward}
                         </button>
                       </div>
                     </div>
@@ -761,26 +761,26 @@ export default function InternalDashboard() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
                   <div>
                     <h3 className="text-h3 text-slate-900 font-black">
-                      {demoRole === 'efiling' ? 'My Portfolio: Active Cases' : 'Active Case Management'}
+                      {demoRole === 'efiling' ? currentLang.myPortfolioActive : currentLang.activeCaseMgmt}
                     </h3>
-                    <p className="text-body-sm text-slate-500 font-bold mt-1">Manage and track ongoing industrial court proceedings.</p>
+                    <p className="text-body-sm text-slate-500 font-bold mt-1">{currentLang.activeCaseMgmtSub}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3">
                     {demoRole === 'ydp' && (
                       <button onClick={() => setInternalActionView('allocate_case')} className="px-4 py-2 bg-amber-100 text-amber-800 text-[10px] font-black rounded-lg hover:bg-amber-200 flex items-center border border-amber-200 shadow-sm animate-pulse uppercase tracking-widest">
-                        <ClipboardList className="w-4 h-4 mr-2" /> 3 Pending Allocation
+                        <ClipboardList className="w-4 h-4 mr-2" /> 3 {currentLang.pendingAllocation}
                       </button>
                     )}
                     <div className="relative">
                       <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input type="text" placeholder="Search case..." className="text-sm font-semibold pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none w-full md:w-64 shadow-sm" />
+                      <input type="text" placeholder={currentLang.searchCasePlace} className="text-sm font-semibold pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none w-full md:w-64 shadow-sm" />
                     </div>
                     <button
                       onClick={() => setShowCasesFilters(!showCasesFilters)}
                       className={`px-5 py-2.5 rounded-xl flex items-center transition-all border font-black active:scale-95 ${showCasesFilters ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/20' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
                     >
                       <Filter className="w-4 h-4 md:mr-2" />
-                      <span className="hidden md:inline">Advanced Filter</span>
+                      <span className="hidden md:inline">{currentLang.advancedFilter}</span>
                     </button>
                   </div>
                 </div>
@@ -1461,10 +1461,10 @@ export default function InternalDashboard() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
                   <div>
                     <h3 className="text-h3 text-slate-900 font-black">
-                      {demoRole === 'efiling' ? 'My Portfolio: Collective Agreements' : 'Collective Agreements (CA)'}
+                      {demoRole === 'efiling' ? currentLang.myPortfolioCA : currentLang.caTitle}
                     </h3>
                     <p className="text-body-sm text-slate-500 font-bold mt-1">
-                      {demoRole === 'efiling' ? 'View and track your submitted agreements.' : 'Manage and track company-union agreements.'}
+                      {demoRole === 'efiling' ? currentLang.viewTrackAgreements : currentLang.manageTrackAgreements}
                     </p>
                   </div>
                   {(demoRole === 'admin' || demoRole === 'registrar' || demoRole === 'ca_unit' || demoRole === 'efiling') && (
@@ -1472,7 +1472,7 @@ export default function InternalDashboard() {
                       onClick={() => setInternalActionView('ca_form')}
                       className="flex items-center px-6 py-3 bg-[#111111] hover:bg-black text-white text-sm font-black rounded-xl shadow-md transition-all active:scale-95"
                     >
-                      <Plus className="w-4 h-4 mr-2" /> {demoRole === 'efiling' ? 'Submit New CA' : 'Register New CA'}
+                      <Plus className="w-4 h-4 mr-2" /> {demoRole === 'efiling' ? currentLang.submitNewCA : currentLang.registerNewCA}
                     </button>
                   )}
                 </div>
@@ -1582,7 +1582,7 @@ export default function InternalDashboard() {
                   </div>
                   <div className="flex gap-4 pt-4">
                     <button onClick={() => setInternalActionView(null)} className="flex-1 py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 text-base font-extrabold rounded-2xl transition-all">Cancel</button>
-                    <button onClick={() => setInternalActionView(null)} className="flex-[2] py-4 bg-[#111111] hover:bg-black text-white text-base font-extrabold rounded-2xl shadow-xl transition-all active:scale-95">Register Collective Agreement</button>
+                    <button onClick={() => setInternalActionView(null)} className="flex-[2] py-4 bg-[#111111] hover:bg-black text-white text-base font-extrabold rounded-2xl shadow-xl transition-all active:scale-95">{currentLang.registerCA}</button>
                   </div>
                 </div>
               </div>
@@ -1757,7 +1757,7 @@ export default function InternalDashboard() {
                       <p className="text-body-sm text-blue-600">{selectedInternalItem.id} &bull; {selectedInternalItem.title}</p>
                     </div>
                   </div>
-                  <button className="px-5 py-2.5 bg-emerald-600 text-white text-body-sm rounded-xl hover:bg-emerald-700 shadow-md flex items-center"><Save className="w-4 h-4 mr-2" /> Save Notes</button>
+                  <button className="px-5 py-2.5 bg-emerald-600 text-white text-body-sm rounded-xl hover:bg-emerald-700 shadow-md flex items-center"><Save className="w-4 h-4 mr-2" /> {currentLang.saveNotes}</button>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
                   <div className="lg:col-span-2 flex flex-col bg-white rounded-[32px] overflow-hidden shadow-premium border border-slate-200 relative">
@@ -1768,27 +1768,32 @@ export default function InternalDashboard() {
                     <div className="flex-1 p-8 overflow-y-auto">
                       <textarea placeholder={currentLang.hearingNotesPlace} className="w-full h-full bg-white text-h4 text-slate-900 leading-relaxed resize-none outline-none placeholder:text-slate-300"></textarea>
                     </div>
-                    <div className="p-4 bg-slate-50 border-t border-slate-200 text-ui-label text-slate-400 text-center uppercase tracking-widest">Autosaved at 09:42:15 AM</div>
+                    <div className="p-4 bg-slate-50 border-t border-slate-200 text-ui-label text-slate-400 text-center uppercase tracking-widest">{currentLang.autosavedAt} 09:42:15 AM</div>
                   </div>
                   <div className="space-y-6 overflow-y-auto pr-2">
                     <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
-                      <h4 className="text-ui-label text-slate-400 mb-4 flex items-center"><Gavel className="w-4 h-4 mr-2" /> Bench Reference</h4>
+                      <h4 className="text-ui-label text-slate-400 mb-4 flex items-center"><Gavel className="w-4 h-4 mr-2" /> {currentLang.benchReference}</h4>
                       <div className="space-y-4">
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                          <p className="text-body-sm text-slate-800 mb-1">Relevant Award</p>
+                          <p className="text-body-sm text-slate-800 mb-1">{currentLang.relevantAward}</p>
                           <p className="text-ui-label text-slate-500 mb-2 leading-tight">Award 120/2024 - Similar Redundancy Facts</p>
-                          <button className="text-blue-600 text-ui-label hover:underline">View Decision</button>
+                          <button className="text-blue-600 text-ui-label hover:underline">{currentLang.viewDecision}</button>
                         </div>
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                          <p className="text-body-sm text-slate-400 uppercase">Claimant's IC Number</p>
+                          <p className="text-body-sm text-slate-400 uppercase">{currentLang.claimantIc}</p>
                           <p className="text-h6 font-mono text-slate-600">880214-14-XXXX</p>
                         </div>
                       </div>
                     </div>
                     <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
-                      <h4 className="text-ui-label text-slate-400 mb-4 flex items-center"><FileText className="w-4 h-4 mr-2" /> Pleadings Quick Access</h4>
+                      <h4 className="text-ui-label text-slate-400 mb-4 flex items-center"><FileText className="w-4 h-4 mr-2" /> {currentLang.pleadingsQuickAccess}</h4>
                       <div className="space-y-2">
-                        {['Statement of Case', 'Statement in Reply', 'Bundle of Documents', 'Witness Statement - C1'].map((doc, idx) => (
+                        {[
+                          currentLang.statementOfCase,
+                          currentLang.statementInReply,
+                          currentLang.bundleOfDocs,
+                          currentLang.witnessStatement + ' - C1'
+                        ].map((doc, idx) => (
                           <button key={idx} className="w-full text-left p-3 hover:bg-blue-50 rounded-xl border border-transparent hover:border-blue-100 transition-all group">
                             <span className="text-body-sm text-slate-700 group-hover:text-blue-700">{doc}</span>
                           </button>
@@ -1879,11 +1884,11 @@ export default function InternalDashboard() {
                     <div className="space-y-2 md:col-span-2">
                       <label className="text-ui-label text-slate-400">{currentLang.assignedRole}</label>
                       <select className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-body-md font-bold appearance-none">
-                        <option>Chairman</option>
-                        <option>Registrar</option>
-                        <option>YDP / Executive</option>
-                        <option>System Admin</option>
-                        <option>Officer</option>
+                        <option>{currentLang.chairmanLabel}</option>
+                        <option>{currentLang.registrarLabel}</option>
+                        <option>{currentLang.ydpExecLabel}</option>
+                        <option>{currentLang.sysAdminLabel}</option>
+                        <option>{currentLang.officerLabel}</option>
                       </select>
                     </div>
                   </div>
