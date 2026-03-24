@@ -455,8 +455,7 @@ export default function SebutanChat() {
           </div>
         </div>
 
-        {/* Bottom Floating Control Bar (Mobile Optimized) */}
-        <div className="absolute bottom-6 md:bottom-10 left-0 right-0 flex justify-center items-center z-[60] pointer-events-none px-4">
+        <div className={`absolute bottom-6 md:bottom-10 left-0 right-0 flex justify-center items-center z-[60] pointer-events-none px-4 transition-all duration-700 ${activeSidebar ? 'lg:right-[400px]' : ''}`}>
           <div className="flex items-center gap-3 md:gap-5 bg-white/95 backdrop-blur-3xl px-6 md:px-12 py-4 md:py-6 rounded-3xl md:rounded-4xl border border-zinc-200 shadow-lg pointer-events-auto transition-all duration-700 max-w-full overflow-x-auto no-scrollbar">
             <button className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 flex items-center justify-center transition-all shadow-md border border-zinc-100 active:scale-95">
                <Mic className="w-5 md:w-6 h-5 md:h-6" />
