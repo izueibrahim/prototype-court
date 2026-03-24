@@ -184,63 +184,88 @@ export const mockSearchResults = [
     summary: 'Complaint of non-compliance with Article 14 of the Collective Agreement regarding annual bonus payouts.',
     keywords: ['Trade Union', 'Collective Agreement', 'Non-Compliance']
   },
-  { id: '8', title: 'Union of Hotel, Bar & Restaurant Workers v. Majestic Hotel', summary: 'Establishment of service charge distribution model and minimum wage alignment.', date: '21 Mar 2026', type: 'Award', court: 'Mahkamah 1 - Kuala Lumpur', keywords: ['Service Charge', 'Hospitality'] }
+  { id: 'Award 450/2026', title: 'Ahmad bin Ali v. Tech Solutions Sdn Bhd', type: 'UNFAIR DISMISSAL', date: '12 Mar 2026', court: 'Industrial Court KL', summary: 'Unfair dismissal claim regarding alleged misconduct during work hours. The court ruled in favor of the claimant due to lack of domestic inquiry.', keywords: ['Unfair Dismissal', 'Misconduct'], status: 'AWARD', location: 'Kuala Lumpur' },
+  { id: 'Award 451/2026', title: 'Siti Aminah v. Global Logistics Berhad', type: 'CONSTRUCTIVE DISMISSAL', date: '15 Mar 2026', court: 'Industrial Court Penang', summary: 'Constructive dismissal case involving forced transfer across regions. The court found the transfer order was not made in bona fide.', keywords: ['Constructive Dismissal', 'Transfer'], status: 'AWARD', location: 'Pulau Pinang' },
+  { id: 'Award 452/2026', title: 'National Union of Bank Employees v. CIMB Bank', type: 'COLLECTIVE AGREEMENT', date: '18 Mar 2026', court: 'Industrial Court KL', summary: 'Non-compliance with Article 12 of the Collective Agreement regarding medical leave benefits for staff members.', keywords: ['Non-Compliance', 'CBA'], status: 'CLOSED', location: 'Kuala Lumpur' },
+  { id: 'Award 453/2026', title: 'Ramasamy a/l Muniandy v. Plantation Estates', type: 'UNFAIR DISMISSAL', date: '20 Mar 2026', court: 'Industrial Court Johor', summary: 'Unfair dismissal due to age-based discrimination. The court ordered reinstatement and back-wages for the claimant.', keywords: ['Discrimination', 'Unfair Dismissal'], status: 'AWARD', location: 'Johor' },
+  { id: 'Award 454/2026', title: 'Kesatuan Pekerja-Pekerja v. Manufacturing Jaya', type: 'UNION RECOGNITION', date: '21 Mar 2026', court: 'Industrial Court KL', summary: 'Breach of procedural requirements in the retrenchment of 50 staff members without prior notification of the union.', keywords: ['Retrenchment', 'Union Rights'], status: 'HEARING', location: 'Kuala Lumpur' },
+  { id: 'Award 455/2026', title: 'Lim Siew Lan v. Retail Giant Berhad', type: 'UNFAIR DISMISSAL', date: '10 Feb 2026', court: 'Industrial Court Penang', summary: 'Alleged performance-based termination without sufficient warnings or improvement plans. The court ruled the dismissal was without just cause.', keywords: ['Performance', 'Warnings'], status: 'AWARD', location: 'Pulau Pinang' },
+  { id: 'Award 456/2026', title: 'Transport Workers Union v. Express Bus Co.', type: 'TRADE DISPUTE', date: '05 Jan 2026', court: 'Industrial Court KL', summary: 'Dispute over wage structure and overtime calculations for inter-state drivers.', keywords: ['Wages', 'Overtime'], status: 'CLOSED', location: 'Kuala Lumpur' },
+  { id: 'Award 457/2026', title: 'Union of Hotel, Bar & Restaurant Workers v. Majestic Hotel', summary: 'Establishment of service charge distribution model and minimum wage alignment.', date: '21 Mar 2026', type: 'UNFAIR DISMISSAL', court: 'Mahkamah 1 - Kuala Lumpur', keywords: ['Service Charge', 'Hospitality'], status: 'AWARD', location: 'Kuala Lumpur' }
 ];
 
 export const mockCollectiveAgreements = [
   { 
     id: 'CA/001/2026', 
     title: 'Nestle Manufacturing (M) Sdn Bhd & Food Industry Workers Union', 
+    parties: ['Nestle Manufacturing (M) Sdn Bhd', 'Food Industry Workers Union'],
     validity: '2026 - 2029', 
-    status: 'Certified', 
+    status: 'Active', 
     articles: 45, 
     lastUpdated: '15 Mar 2026',
-    category: 'Manufacturing'
+    category: 'Manufacturing',
+    scope: 'All non-executive employees in the manufacturing division across Peninsula Malaysia.',
+    documentUrl: '/docs/CA_NESTLE_2026.pdf'
   },
   { 
     id: 'CA/002/2026', 
     title: 'Malayan Banking Berhad & National Union of Bank Employees (NUBE)', 
+    parties: ['Malayan Banking Berhad', 'National Union of Bank Employees (NUBE)'],
     validity: '2025 - 2028', 
-    status: 'Pending Certification', 
+    status: 'Under Review', 
     articles: 62, 
     lastUpdated: '10 Mar 2026',
-    category: 'Finance'
+    category: 'Finance',
+    scope: 'Clerical and non-clerical staff of Maybank Berhad.',
+    documentUrl: '/docs/CA_MAYBANK_NUBE.pdf'
   },
   { 
     id: 'CA/003/2026', 
     title: 'Sime Darby Plantation & All Malayan Estates Staff Union', 
+    parties: ['Sime Darby Plantation', 'All Malayan Estates Staff Union'],
     validity: '2026 - 2029', 
-    status: 'Certified', 
+    status: 'Active', 
     articles: 38, 
     lastUpdated: '05 Mar 2026',
-    category: 'Agriculture'
+    category: 'Agriculture',
+    scope: 'Staff grade employees in plantation estates and mills.',
+    documentUrl: '/docs/CA_SIME_DARBY.pdf'
   },
   { 
     id: 'CA/004/2026', 
-    title: 'Telekom Malaysia Berhad & National Union of Telecommunications Employees', 
+    title: 'Telekom Malaysia Berhad & NUTE', 
+    parties: ['Telekom Malaysia Berhad', 'National Union of Telecommunications Employees'],
     validity: '2024 - 2027', 
-    status: 'Certified', 
+    status: 'Active', 
     articles: 55, 
     lastUpdated: '28 Feb 2026',
-    category: 'Telecommunications'
+    category: 'Telecommunications',
+    scope: 'Operational and technical staff within Malaysia.',
+    documentUrl: '/docs/CA_TM_NUTE.pdf'
   },
   { 
     id: 'CA/005/2026', 
-    title: 'AirAsia Berhad & AirAsia Pilots Association', 
+    title: 'AirAsia Berhad & Pilots Association', 
+    parties: ['AirAsia Berhad', 'AirAsia Pilots Association'],
     validity: '2026 - 2029', 
-    status: 'Review Required', 
+    status: 'Under Review', 
     articles: 42, 
     lastUpdated: '20 Feb 2026',
-    category: 'Aviation'
+    category: 'Aviation',
+    scope: 'All flight crew and cockpit personnel.',
+    documentUrl: '/docs/CA_AIRASIA_PILOTS.pdf'
   },
   { 
     id: 'CA/006/2026', 
-    title: 'Tenaga Nasional Berhad & TNB Junior Officers Union', 
-    validity: '2025 - 2028', 
-    status: 'Certified', 
-    articles: 50, 
-    lastUpdated: '12 Feb 2026',
-    category: 'Energy'
+    title: 'Legacy Textiles Sdn Bhd & Textile Workers Union', 
+    parties: ['Legacy Textiles Sdn Bhd', 'Textile Workers Union'],
+    validity: '2022 - 2025', 
+    status: 'Expired', 
+    articles: 30, 
+    lastUpdated: '12 Jan 2025',
+    category: 'Manufacturing',
+    scope: 'General factory workers in the Batu Pahat facility.',
+    documentUrl: '/docs/CA_LEGACY_TEXTILE.pdf'
   }
 ];
 
