@@ -64,7 +64,7 @@ export default function InternalDashboard() {
   const [filterCaseType, setFilterCaseType] = useState('All Types');
   const [filterChairman, setFilterChairman] = useState('All Chairmen');
   const [filterStatus, setFilterStatus] = useState('All Statuses');
-  
+
   // Local CA module state
   const [caView, setCaView] = useState('grid'); // grid, filing, detail
   const [selectedCA, setSelectedCA] = useState<any>(null);
@@ -1474,7 +1474,7 @@ export default function InternalDashboard() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
                     {caView !== 'grid' && (
-                      <button 
+                      <button
                         onClick={() => { setCaView('grid'); setSelectedCA(null); }}
                         className="p-2 hover:bg-slate-100 rounded-full transition-colors"
                       >
@@ -1486,7 +1486,7 @@ export default function InternalDashboard() {
                     </h3>
                   </div>
                   {caView === 'grid' && (
-                    <button 
+                    <button
                       onClick={() => setCaView('filing')}
                       className="px-6 py-2.5 bg-blue-600 text-white text-body-sm font-bold rounded-xl hover:bg-blue-700 shadow-sm transition-colors flex items-center gap-2"
                     >
@@ -1499,24 +1499,24 @@ export default function InternalDashboard() {
                   <>
                     {/* CA Search & Filters */}
                     <div className="bg-white p-4 border border-slate-200 rounded-2xl flex flex-col md:flex-row items-center gap-4 transition-all shadow-sm">
-                       <div className="relative flex-1 group">
-                          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
-                          <input 
-                            type="text"
-                            placeholder="Cari mengikut nama syarikat atau kesatuan..."
-                            value={caSearchQuery}
-                            onChange={(e) => setCaSearchQuery(e.target.value)}
-                            className="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-body-sm outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-medium"
-                          />
-                       </div>
-                       <select 
-                         value={caSectorFilter}
-                         onChange={(e) => setCaSectorFilter(e.target.value)}
-                         className="px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-body-sm font-bold text-slate-600 outline-none focus:border-blue-500 transition-all"
-                       >
-                         <option value="All Sectors">Semua Sektor</option>
-                         {Array.from(new Set(mockCollectiveAgreements.map(ca => ca.category))).map(s => <option key={s} value={s}>{s}</option>)}
-                       </select>
+                      <div className="relative flex-1 group">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                        <input
+                          type="text"
+                          placeholder="Cari mengikut nama syarikat atau kesatuan..."
+                          value={caSearchQuery}
+                          onChange={(e) => setCaSearchQuery(e.target.value)}
+                          className="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-body-sm outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-medium"
+                        />
+                      </div>
+                      <select
+                        value={caSectorFilter}
+                        onChange={(e) => setCaSectorFilter(e.target.value)}
+                        className="px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-body-sm font-bold text-slate-600 outline-none focus:border-blue-500 transition-all"
+                      >
+                        <option value="All Sectors">Semua Sektor</option>
+                        {Array.from(new Set(mockCollectiveAgreements.map(ca => ca.category))).map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1528,176 +1528,174 @@ export default function InternalDashboard() {
                         })
                         .map((ca) => (
                           <div key={ca.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all group relative">
-                             <div className="flex items-center justify-between mb-4">
-                               <span className={`px-2.5 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider ${
-                                 ca.status === 'Active' ? 'bg-emerald-50 text-emerald-600' : 
-                                 ca.status === 'Expired' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
-                               }`}>
-                                 {ca.status}
-                               </span>
-                               <span className="text-[10px] font-mono font-bold text-slate-400">{ca.id}</span>
-                             </div>
-                             <h4 className="text-body-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 line-clamp-2">{ca.title}</h4>
-                             <div className="flex items-center gap-2 text-ui-label text-slate-500 mb-4">
-                               <KanbanSquare className="w-3.5 h-3.5 text-blue-400" /> {ca.category}
-                             </div>
-                             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                               <div>
-                                 <p className="text-[10px] font-bold text-slate-400 uppercase">Tempoh Sah</p>
-                                 <p className="text-body-sm font-bold text-slate-700">{ca.validity}</p>
-                               </div>
-                               <div className="text-right">
-                                 <p className="text-[10px] font-bold text-slate-400 uppercase">Kemaskini</p>
-                                 <p className="text-body-sm font-bold text-slate-700">{ca.lastUpdated}</p>
-                               </div>
-                             </div>
-                             <button 
-                               onClick={() => { setSelectedCA(ca); setCaView('detail'); }}
-                               className="w-full mt-6 py-2.5 bg-slate-50 border border-slate-100 text-slate-600 text-[11px] font-bold rounded-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all flex items-center justify-center gap-2"
-                             >
-                               <Search className="w-3.5 h-3.5" /> Lihat Butiran
-                             </button>
+                            <div className="flex items-center justify-between mb-4">
+                              <span className={`px-2.5 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider ${ca.status === 'Active' ? 'bg-emerald-50 text-emerald-600' :
+                                ca.status === 'Expired' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
+                                }`}>
+                                {ca.status}
+                              </span>
+                              <span className="text-[10px] font-mono font-bold text-slate-400">{ca.id}</span>
+                            </div>
+                            <h4 className="text-body-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 line-clamp-2">{ca.title}</h4>
+                            <div className="flex items-center gap-2 text-ui-label text-slate-500 mb-4">
+                              <KanbanSquare className="w-3.5 h-3.5 text-blue-400" /> {ca.category}
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                              <div>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase">Tempoh Sah</p>
+                                <p className="text-body-sm font-bold text-slate-700">{ca.validity}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase">Kemaskini</p>
+                                <p className="text-body-sm font-bold text-slate-700">{ca.lastUpdated}</p>
+                              </div>
+                            </div>
+                            <button
+                              onClick={() => { setSelectedCA(ca); setCaView('detail'); }}
+                              className="w-full mt-6 py-2.5 bg-slate-50 border border-slate-100 text-slate-600 text-[11px] font-bold rounded-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all flex items-center justify-center gap-2"
+                            >
+                              <Search className="w-3.5 h-3.5" /> Lihat Butiran
+                            </button>
                           </div>
-                      ))}
+                        ))}
                     </div>
                   </>
                 )}
 
                 {caView === 'filing' && (
-                  <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm max-w-4xl">
-                     <div className="space-y-8">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                           <div className="space-y-2">
-                              <label className="text-body-sm font-bold text-slate-700">Pihak 1 (Majikan/Syarikat)</label>
-                              <input type="text" placeholder="Nama Syarikat Majikan" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium" />
-                           </div>
-                           <div className="space-y-2">
-                              <label className="text-body-sm font-bold text-slate-700">Pihak 2 (Kesatuan Sekerja)</label>
-                              <input type="text" placeholder="Nama Kesatuan Sekerja" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium" />
-                           </div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                           <div className="space-y-2">
-                              <label className="text-body-sm font-bold text-slate-700">Sektor / Industri</label>
-                              <select className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-bold">
-                                 <option>Pembuatan</option>
-                                 <option>Perkhidmatan</option>
-                                 <option>Kewangan</option>
-                                 <option>Pertanian</option>
-                              </select>
-                           </div>
-                           <div className="space-y-2">
-                              <label className="text-body-sm font-bold text-slate-700">Tarikh Mula</label>
-                              <input type="date" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium" />
-                           </div>
-                           <div className="space-y-2">
-                              <label className="text-body-sm font-bold text-slate-700">Tarikh Tamat</label>
-                              <input type="date" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium" />
-                           </div>
+                  <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm max-w-full">
+                    <div className="space-y-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-body-sm font-bold text-slate-700">Pihak 1 (Majikan/Syarikat)</label>
+                          <input type="text" placeholder="Nama Syarikat Majikan" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium" />
                         </div>
                         <div className="space-y-2">
-                           <label className="text-body-sm font-bold text-slate-700">Skop Perjanjian</label>
-                           <textarea rows={4} placeholder="Nyatakan skop pekerja yang terlibat..." className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium"></textarea>
+                          <label className="text-body-sm font-bold text-slate-700">Pihak 2 (Kesatuan Sekerja)</label>
+                          <input type="text" placeholder="Nama Kesatuan Sekerja" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium" />
                         </div>
-                        <div className="p-10 border-2 border-dashed border-slate-200 rounded-3xl bg-slate-50/50 flex flex-col items-center justify-center text-center">
-                           <Upload className="w-12 h-12 text-slate-300 mb-4" />
-                           <p className="text-body-sm font-bold text-slate-600">Muat Naik Dokumen Perjanjian (PDF)</p>
-                           <p className="text-[11px] text-slate-400 mt-1">Sila pastikan dokumen lengkap ditandatangani oleh kedua-dua pihak</p>
-                           <button className="mt-6 px-6 py-2 bg-white border border-slate-200 text-slate-600 text-xs font-black rounded-lg hover:shadow-md transition-all">Pilih Fail</button>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-body-sm font-bold text-slate-700">Sektor / Industri</label>
+                          <select className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-bold">
+                            <option>Pembuatan</option>
+                            <option>Perkhidmatan</option>
+                            <option>Kewangan</option>
+                            <option>Pertanian</option>
+                          </select>
                         </div>
-                        <div className="flex justify-end gap-3 pt-4">
-                           <button onClick={() => setCaView('grid')} className="px-6 py-3 text-slate-500 font-bold hover:text-slate-700">Batal</button>
-                           <button onClick={() => setCaView('grid')} className="px-10 py-3 bg-blue-600 text-white font-black rounded-xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all">Hantar Pendaftaran</button>
+                        <div className="space-y-2">
+                          <label className="text-body-sm font-bold text-slate-700">Tarikh Mula</label>
+                          <input type="date" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium" />
                         </div>
-                     </div>
+                        <div className="space-y-2">
+                          <label className="text-body-sm font-bold text-slate-700">Tarikh Tamat</label>
+                          <input type="date" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium" />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-body-sm font-bold text-slate-700">Skop Perjanjian</label>
+                        <textarea rows={4} placeholder="Nyatakan skop pekerja yang terlibat..." className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 font-medium"></textarea>
+                      </div>
+                      <div className="p-10 border-2 border-dashed border-slate-200 rounded-3xl bg-slate-50/50 flex flex-col items-center justify-center text-center">
+                        <Upload className="w-12 h-12 text-slate-300 mb-4" />
+                        <p className="text-body-sm font-bold text-slate-600">Muat Naik Dokumen Perjanjian (PDF)</p>
+                        <p className="text-[11px] text-slate-400 mt-1">Sila pastikan dokumen lengkap ditandatangani oleh kedua-dua pihak</p>
+                        <button className="mt-6 px-6 py-2 bg-white border border-slate-200 text-slate-600 text-xs font-black rounded-lg hover:shadow-md transition-all">Pilih Fail</button>
+                      </div>
+                      <div className="flex justify-end gap-3 pt-4">
+                        <button onClick={() => setCaView('grid')} className="px-6 py-3 text-slate-500 font-bold hover:text-slate-700">Batal</button>
+                        <button onClick={() => setCaView('grid')} className="px-10 py-3 bg-blue-600 text-white font-black rounded-xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all">Hantar Pendaftaran</button>
+                      </div>
+                    </div>
                   </div>
                 )}
 
                 {caView === 'detail' && selectedCA && (
                   <div className="space-y-8">
-                     <div className="bg-white p-8 md:p-12 rounded-[32px] border border-slate-200 shadow-sm relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-12 opacity-5 text-blue-600"><Users className="w-64 h-64" /></div>
-                        <div className="relative z-10 space-y-10">
-                           <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-                              <div className="space-y-4 max-w-2xl">
-                                 <span className={`px-3 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider ${
-                                   selectedCA.status === 'Active' ? 'bg-emerald-50 text-emerald-600' : 
-                                   selectedCA.status === 'Expired' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
-                                 }`}>
-                                   Status: {selectedCA.status}
-                                 </span>
-                                 <h2 className="text-h2 text-slate-900 leading-tight">{selectedCA.title}</h2>
-                                 <div className="flex flex-wrap gap-4 text-ui-label font-bold text-slate-400">
-                                    <span className="flex items-center gap-1.5"><KanbanSquare className="w-4 h-4" /> {selectedCA.category}</span>
-                                    <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> Dikemaskini: {selectedCA.lastUpdated}</span>
-                                 </div>
-                              </div>
-                              <div className="flex flex-col gap-2">
-                                 <button className="px-6 py-3 bg-blue-600 text-white text-xs font-black rounded-xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
-                                   <Download className="w-4 h-4" /> Muat Turun Dokumen
-                                 </button>
-                                 <button className="px-6 py-3 bg-white border border-slate-200 text-slate-600 text-xs font-black rounded-xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-                                   <Printer className="w-4 h-4" /> Cetak Sijil
-                                 </button>
-                              </div>
-                           </div>
-
-                           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                              <div className="md:col-span-2 space-y-8">
-                                 <div className="space-y-4">
-                                    <h4 className="text-body-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                       <Users className="w-4 h-4 text-blue-500" /> Pihak-Pihak Terlibat
-                                    </h4>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                       {selectedCA.parties?.map((p: string, i: number) => (
-                                          <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                             <p className="text-[10px] font-bold text-blue-600 uppercase mb-1">{i === 0 ? 'Majikan' : 'Kesatuan'}</p>
-                                             <p className="text-body-sm font-bold text-slate-800">{p}</p>
-                                          </div>
-                                       ))}
-                                    </div>
-                                 </div>
-                                 <div className="space-y-4">
-                                    <h4 className="text-body-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                       <Scale className="w-4 h-4 text-slate-400" /> Skop Perjanjian
-                                    </h4>
-                                    <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                                       <p className="text-body-md text-slate-600 leading-relaxed italic">
-                                          "{selectedCA.scope}"
-                                       </p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div className="space-y-6">
-                                 <div className="p-6 bg-slate-900 text-white rounded-[24px] shadow-xl">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Metadata Perjanjian</p>
-                                    <div className="space-y-4">
-                                       <div className="flex justify-between items-center py-2 border-b border-white/10">
-                                          <span className="text-xs opacity-60">ID Rujukan:</span>
-                                          <span className="text-xs font-mono font-bold text-blue-400">{selectedCA.id}</span>
-                                       </div>
-                                       <div className="flex justify-between items-center py-2 border-b border-white/10">
-                                          <span className="text-xs opacity-60">Tempoh Kesahihan:</span>
-                                          <span className="text-xs font-bold">{selectedCA.validity}</span>
-                                       </div>
-                                       <div className="flex justify-between items-center py-2 border-b border-white/10">
-                                          <span className="text-xs opacity-60">Bilangan Artikel:</span>
-                                          <span className="text-xs font-bold">{selectedCA.articles} Artikel</span>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div className="p-6 bg-blue-50 border border-blue-100 rounded-[24px]">
-                                    <h5 className="text-xs font-black text-blue-700 uppercase tracking-widest mb-3 flex items-center gap-2">
-                                       <Lightbulb className="w-4 h-4" /> Insight Kesatuan
-                                    </h5>
-                                    <p className="text-[11px] font-medium text-blue-600/80 leading-relaxed">
-                                       Perjanjian ini adalah model standard bagi sektor {selectedCA.category?.toLowerCase()}. Mempunyai pematuhan WCAG 2.1 yang tinggi dalam pendokumentasian.
-                                    </p>
-                                 </div>
-                              </div>
-                           </div>
+                    <div className="bg-white p-8 md:p-12 rounded-[32px] border border-slate-200 shadow-sm relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-12 opacity-5 text-blue-600"><Users className="w-64 h-64" /></div>
+                      <div className="relative z-10 space-y-10">
+                        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+                          <div className="space-y-4 max-w-2xl">
+                            <span className={`px-3 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider ${selectedCA.status === 'Active' ? 'bg-emerald-50 text-emerald-600' :
+                              selectedCA.status === 'Expired' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
+                              }`}>
+                              Status: {selectedCA.status}
+                            </span>
+                            <h2 className="text-h2 text-slate-900 leading-tight">{selectedCA.title}</h2>
+                            <div className="flex flex-wrap gap-4 text-ui-label font-bold text-slate-400">
+                              <span className="flex items-center gap-1.5"><KanbanSquare className="w-4 h-4" /> {selectedCA.category}</span>
+                              <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> Dikemaskini: {selectedCA.lastUpdated}</span>
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            <button className="px-6 py-3 bg-blue-600 text-white text-xs font-black rounded-xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                              <Download className="w-4 h-4" /> Muat Turun Dokumen
+                            </button>
+                            <button className="px-6 py-3 bg-white border border-slate-200 text-slate-600 text-xs font-black rounded-xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+                              <Printer className="w-4 h-4" /> Cetak Sijil
+                            </button>
+                          </div>
                         </div>
-                     </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                          <div className="md:col-span-2 space-y-8">
+                            <div className="space-y-4">
+                              <h4 className="text-body-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                                <Users className="w-4 h-4 text-blue-500" /> Pihak-Pihak Terlibat
+                              </h4>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {selectedCA.parties?.map((p: string, i: number) => (
+                                  <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                    <p className="text-[10px] font-bold text-blue-600 uppercase mb-1">{i === 0 ? 'Majikan' : 'Kesatuan'}</p>
+                                    <p className="text-body-sm font-bold text-slate-800">{p}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="space-y-4">
+                              <h4 className="text-body-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                                <Scale className="w-4 h-4 text-slate-400" /> Skop Perjanjian
+                              </h4>
+                              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                                <p className="text-body-md text-slate-600 leading-relaxed italic">
+                                  "{selectedCA.scope}"
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="space-y-6">
+                            <div className="p-6 bg-slate-900 text-white rounded-[24px] shadow-xl">
+                              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Metadata Perjanjian</p>
+                              <div className="space-y-4">
+                                <div className="flex justify-between items-center py-2 border-b border-white/10">
+                                  <span className="text-xs opacity-60">ID Rujukan:</span>
+                                  <span className="text-xs font-mono font-bold text-blue-400">{selectedCA.id}</span>
+                                </div>
+                                <div className="flex justify-between items-center py-2 border-b border-white/10">
+                                  <span className="text-xs opacity-60">Tempoh Kesahihan:</span>
+                                  <span className="text-xs font-bold">{selectedCA.validity}</span>
+                                </div>
+                                <div className="flex justify-between items-center py-2 border-b border-white/10">
+                                  <span className="text-xs opacity-60">Bilangan Artikel:</span>
+                                  <span className="text-xs font-bold">{selectedCA.articles} Artikel</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="p-6 bg-blue-50 border border-blue-100 rounded-[24px]">
+                              <h5 className="text-xs font-black text-blue-700 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <Lightbulb className="w-4 h-4" /> Insight Kesatuan
+                              </h5>
+                              <p className="text-[11px] font-medium text-blue-600/80 leading-relaxed">
+                                Perjanjian ini adalah model standard bagi sektor {selectedCA.category?.toLowerCase()}. Mempunyai pematuhan WCAG 2.1 yang tinggi dalam pendokumentasian.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -2112,90 +2110,90 @@ export default function InternalDashboard() {
             {dashActiveView === 'search' && (
               <div className="space-y-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                   <div>
-                     <h3 className="text-h3 text-slate-900 font-bold">{currentLang.dashSearch}</h3>
-                     <p className="text-body-sm text-slate-500 mt-1">AI-Powered Semantic & Vector Precedent Search</p>
-                   </div>
-                   <div className="flex items-center gap-3">
-                     <div className="relative">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                        <input 
-                          type="text"
-                          className="pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-body-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all min-w-[300px]"
-                          placeholder={currentLang.searchPlace}
-                          value={searchQuery}
-                          onChange={(e) => {
-                            setSearchQuery(e.target.value);
-                            if (selectedAward) setSelectedAward(null);
-                          }}
-                        />
-                     </div>
-                     <button className="p-2.5 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 relative group">
-                        <Filter className="w-5 h-5 text-slate-600" />
-                        {/* Filter Badge Simulation */}
-                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">3</div>
-                     </button>
-                   </div>
+                  <div>
+                    <h3 className="text-h3 text-slate-900 font-bold">{currentLang.dashSearch}</h3>
+                    <p className="text-body-sm text-slate-500 mt-1">AI-Powered Semantic & Vector Precedent Search</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <input
+                        type="text"
+                        className="pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-body-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all min-w-[300px]"
+                        placeholder={currentLang.searchPlace}
+                        value={searchQuery}
+                        onChange={(e) => {
+                          setSearchQuery(e.target.value);
+                          if (selectedAward) setSelectedAward(null);
+                        }}
+                      />
+                    </div>
+                    <button className="p-2.5 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 relative group">
+                      <Filter className="w-5 h-5 text-slate-600" />
+                      {/* Filter Badge Simulation */}
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">3</div>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Simplified Filter Bar */}
                 <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-wrap items-center gap-4">
-                   <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Year</label>
-                      <select 
-                        value={filterYear}
-                        onChange={(e) => setFilterYear(e.target.value)}
-                        className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500"
-                      >
-                        <option value="All Years">All Years</option>
-                        {chYears.map(y => <option key={y} value={y}>{y}</option>)}
-                      </select>
-                   </div>
-                   <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Case Type</label>
-                      <select 
-                        value={filterCaseType}
-                        onChange={(e) => setFilterCaseType(e.target.value)}
-                        className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500"
-                      >
-                        <option value="All Types">All Types</option>
-                        {caseTypes.map(t => <option key={t} value={t}>{t}</option>)}
-                      </select>
-                   </div>
-                   <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Court Location</label>
-                      <select 
-                        value={filterLocation}
-                        onChange={(e) => setFilterLocation(e.target.value)}
-                        className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500"
-                      >
-                        <option value="All Locations">All Locations</option>
-                        {Array.from(new Set(courtLocations.map(l => l.region))).map(r => <option key={r} value={r}>{r.toUpperCase()}</option>)}
-                      </select>
-                   </div>
-                   <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Status</label>
-                      <select 
-                        value={filterStatus}
-                        onChange={(e) => setFilterStatus(e.target.value)}
-                        className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500"
-                      >
-                        <option value="All Statuses">All Statuses</option>
-                        {caseStatuses.map(s => <option key={s} value={s}>{s}</option>)}
-                      </select>
-                   </div>
-                   <button 
-                     onClick={() => {
-                        setFilterYear('All Years');
-                        setFilterCaseType('All Types');
-                        setFilterLocation('All Locations');
-                        setFilterStatus('All Statuses');
-                        setSearchQuery('');
-                     }}
-                     className="self-end px-5 py-2 text-slate-400 text-body-sm font-bold hover:text-blue-600 transition-colors ml-auto"
-                   >
-                     Reset Filters
-                   </button>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Year</label>
+                    <select
+                      value={filterYear}
+                      onChange={(e) => setFilterYear(e.target.value)}
+                      className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500"
+                    >
+                      <option value="All Years">All Years</option>
+                      {chYears.map(y => <option key={y} value={y}>{y}</option>)}
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Case Type</label>
+                    <select
+                      value={filterCaseType}
+                      onChange={(e) => setFilterCaseType(e.target.value)}
+                      className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500"
+                    >
+                      <option value="All Types">All Types</option>
+                      {caseTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Court Location</label>
+                    <select
+                      value={filterLocation}
+                      onChange={(e) => setFilterLocation(e.target.value)}
+                      className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500"
+                    >
+                      <option value="All Locations">All Locations</option>
+                      {Array.from(new Set(courtLocations.map(l => l.region))).map(r => <option key={r} value={r}>{r.toUpperCase()}</option>)}
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase px-1">Status</label>
+                    <select
+                      value={filterStatus}
+                      onChange={(e) => setFilterStatus(e.target.value)}
+                      className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-body-sm font-bold text-slate-700 outline-none focus:border-blue-500"
+                    >
+                      <option value="All Statuses">All Statuses</option>
+                      {caseStatuses.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setFilterYear('All Years');
+                      setFilterCaseType('All Types');
+                      setFilterLocation('All Locations');
+                      setFilterStatus('All Statuses');
+                      setSearchQuery('');
+                    }}
+                    className="self-end px-5 py-2 text-slate-400 text-body-sm font-bold hover:text-blue-600 transition-colors ml-auto"
+                  >
+                    Reset Filters
+                  </button>
                 </div>
 
                 {!selectedAward ? (
@@ -2210,119 +2208,119 @@ export default function InternalDashboard() {
                         return matchesQuery && matchesYear && matchesType && matchesLocation && matchesStatus;
                       })
                       .map((res) => (
-                      <div key={res.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all flex flex-col h-full group">
-                         <div className="flex items-center justify-between mb-4">
-                           <div className="flex items-center gap-2">
-                             <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-                               {res.type?.includes('DISMISSAL') ? <Gavel className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
-                             </div>
-                             <span className="text-ui-label font-bold text-slate-400">{res.id}</span>
-                           </div>
-                           <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">94% Semantic Match</span>
-                         </div>
-                         <h4 className="text-body-md font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">{res.title}</h4>
-                         <p className="text-body-sm text-slate-500 mb-6 line-clamp-3">{res.summary}</p>
-                         <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
-                           <div className="flex items-center gap-3">
+                        <div key={res.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all flex flex-col h-full group">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                                {res.type?.includes('DISMISSAL') ? <Gavel className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
+                              </div>
+                              <span className="text-ui-label font-bold text-slate-400">{res.id}</span>
+                            </div>
+                            <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">94% Semantic Match</span>
+                          </div>
+                          <h4 className="text-body-md font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">{res.title}</h4>
+                          <p className="text-body-sm text-slate-500 mb-6 line-clamp-3">{res.summary}</p>
+                          <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
                               <div className="flex items-center gap-1.5 text-ui-label text-slate-400">
                                 <Calendar className="w-3.5 h-3.5" /> {res.date}
                               </div>
                               <div className="flex items-center gap-1.5 text-ui-label text-slate-400">
                                 <Globe className="w-3.5 h-3.5" /> {res.court}
                               </div>
-                           </div>
-                           <button 
-                             onClick={() => setSelectedAward(res)}
-                             className="text-body-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
-                           >
-                             {currentLang.viewBtn} <ArrowUpRight className="w-4 h-4" />
-                           </button>
-                         </div>
-                      </div>
-                    ))}
+                            </div>
+                            <button
+                              onClick={() => setSelectedAward(res)}
+                              className="text-body-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                            >
+                              {currentLang.viewBtn} <ArrowUpRight className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 ) : (
                   <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
-                     <div className="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
-                        <button 
-                          onClick={() => setSelectedAward(null)}
-                          className="flex items-center gap-2 text-body-sm font-bold text-slate-600 hover:text-blue-600 transition-colors"
-                        >
-                          <ChevronLeft className="w-4 h-4" /> Back to Results
+                    <div className="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
+                      <button
+                        onClick={() => setSelectedAward(null)}
+                        className="flex items-center gap-2 text-body-sm font-bold text-slate-600 hover:text-blue-600 transition-colors"
+                      >
+                        <ChevronLeft className="w-4 h-4" /> Back to Results
+                      </button>
+                      <div className="flex gap-2">
+                        <button className="px-4 py-2 bg-white border border-slate-200 text-body-sm font-bold text-slate-700 rounded-lg hover:bg-slate-50 flex items-center gap-2">
+                          <Download className="w-4 h-4" /> PDF
                         </button>
-                        <div className="flex gap-2">
-                          <button className="px-4 py-2 bg-white border border-slate-200 text-body-sm font-bold text-slate-700 rounded-lg hover:bg-slate-50 flex items-center gap-2">
-                            <Download className="w-4 h-4" /> PDF
-                          </button>
-                          <button className="px-4 py-2 bg-blue-600 text-white text-body-sm font-bold rounded-lg hover:bg-blue-700 flex items-center gap-2 shadow-sm">
-                            <ExternalLink className="w-4 h-4" /> Full Document
-                          </button>
+                        <button className="px-4 py-2 bg-blue-600 text-white text-body-sm font-bold rounded-lg hover:bg-blue-700 flex items-center gap-2 shadow-sm">
+                          <ExternalLink className="w-4 h-4" /> Full Document
+                        </button>
+                      </div>
+                    </div>
+                    <div className="p-8 lg:p-12">
+                      <div className="max-w-4xl mx-auto space-y-10">
+                        <div className="space-y-4">
+                          <span className="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-lg uppercase tracking-wider">Decision: Unfair Dismissal</span>
+                          <h2 className="text-h2 text-slate-900 leading-tight">{selectedAward.title}</h2>
+                          <div className="flex flex-wrap gap-6 pt-2">
+                            <div><p className="text-[10px] font-bold text-slate-400 uppercase">Award No</p><p className="text-body-md font-bold text-slate-900">{selectedAward.id}</p></div>
+                            <div><p className="text-[10px] font-bold text-slate-400 uppercase">Decision Date</p><p className="text-body-md font-bold text-slate-900">{selectedAward.date}</p></div>
+                            <div><p className="text-[10px] font-bold text-slate-400 uppercase">Court Location</p><p className="text-body-md font-bold text-slate-900">{selectedAward.court}</p></div>
+                          </div>
                         </div>
-                     </div>
-                     <div className="p-8 lg:p-12">
-                        <div className="max-w-4xl mx-auto space-y-10">
-                           <div className="space-y-4">
-                              <span className="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-lg uppercase tracking-wider">Decision: Unfair Dismissal</span>
-                              <h2 className="text-h2 text-slate-900 leading-tight">{selectedAward.title}</h2>
-                              <div className="flex flex-wrap gap-6 pt-2">
-                                 <div><p className="text-[10px] font-bold text-slate-400 uppercase">Award No</p><p className="text-body-md font-bold text-slate-900">{selectedAward.id}</p></div>
-                                 <div><p className="text-[10px] font-bold text-slate-400 uppercase">Decision Date</p><p className="text-body-md font-bold text-slate-900">{selectedAward.date}</p></div>
-                                 <div><p className="text-[10px] font-bold text-slate-400 uppercase">Court Location</p><p className="text-body-md font-bold text-slate-900">{selectedAward.court}</p></div>
-                              </div>
-                           </div>
 
-                           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                              <div className="md:col-span-2 space-y-8">
-                                 <section className="space-y-4">
-                                    <h4 className="text-body-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
-                                      <Scale className="w-5 h-5 text-blue-600" /> Ratio Decidendi
-                                    </h4>
-                                    <p className="text-body-md text-slate-600 leading-relaxed italic border-l-4 border-blue-500 pl-6 py-2">
-                                      "The failure to conduct a proper domestic inquiry is a fatal procedural flaw. The respondent failed to provide the claimant with a fair opportunity to mitigate the allegations prior to termination."
-                                    </p>
-                                    <p className="text-body-sm text-slate-500 leading-relaxed">
-                                      The Court finds that the dismissal was not based on substantial evidence and thus lacks just cause or excuse.
-                                    </p>
-                                 </section>
-                                 <section className="space-y-4">
-                                    <h4 className="text-body-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
-                                      <Zap className="w-5 h-5 text-amber-500" /> AI-Matched Precedents
-                                    </h4>
-                                    <div className="space-y-3">
-                                       {['Award 210/2023 - Procedural Inequity', 'Award 45/2024 - Non-compliance'].map(p => (
-                                         <div key={p} className="p-4 bg-slate-50 rounded-xl flex items-center justify-between hover:bg-blue-50 cursor-pointer transition-colors group">
-                                            <span className="text-body-sm font-bold text-slate-700 group-hover:text-blue-600">{p}</span>
-                                            <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-blue-400" />
-                                         </div>
-                                       ))}
-                                    </div>
-                                 </section>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                          <div className="md:col-span-2 space-y-8">
+                            <section className="space-y-4">
+                              <h4 className="text-body-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
+                                <Scale className="w-5 h-5 text-blue-600" /> Ratio Decidendi
+                              </h4>
+                              <p className="text-body-md text-slate-600 leading-relaxed italic border-l-4 border-blue-500 pl-6 py-2">
+                                "The failure to conduct a proper domestic inquiry is a fatal procedural flaw. The respondent failed to provide the claimant with a fair opportunity to mitigate the allegations prior to termination."
+                              </p>
+                              <p className="text-body-sm text-slate-500 leading-relaxed">
+                                The Court finds that the dismissal was not based on substantial evidence and thus lacks just cause or excuse.
+                              </p>
+                            </section>
+                            <section className="space-y-4">
+                              <h4 className="text-body-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
+                                <Zap className="w-5 h-5 text-amber-500" /> AI-Matched Precedents
+                              </h4>
+                              <div className="space-y-3">
+                                {['Award 210/2023 - Procedural Inequity', 'Award 45/2024 - Non-compliance'].map(p => (
+                                  <div key={p} className="p-4 bg-slate-50 rounded-xl flex items-center justify-between hover:bg-blue-50 cursor-pointer transition-colors group">
+                                    <span className="text-body-sm font-bold text-slate-700 group-hover:text-blue-600">{p}</span>
+                                    <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-blue-400" />
+                                  </div>
+                                ))}
                               </div>
-                              <div className="space-y-6">
-                                 <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                                    <h4 className="text-body-sm font-bold text-slate-900 mb-4 flex items-center gap-2"><Lightbulb className="w-4 h-4 text-blue-600" /> Smart Insight</h4>
-                                    <p className="text-[12px] font-medium text-slate-600 leading-relaxed">
-                                      This case strengthens the legal precedent regarding **Article 14** of collective agreements.
-                                    </p>
-                                 </div>
-                                 <div className="p-6 bg-slate-900 text-white rounded-2xl shadow-lg">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase mb-2">Total Award Amount</p>
-                                    <p className="text-h3 text-blue-400 font-mono">RM 156,000.00</p>
-                                    <div className="mt-4 pt-4 border-t border-white/10 space-y-2">
-                                       <div className="flex justify-between text-[11px] opacity-70">
-                                          <span>Back-wages:</span>
-                                          <span>RM 144k</span>
-                                       </div>
-                                       <div className="flex justify-between text-[11px] opacity-70">
-                                          <span>Compensation:</span>
-                                          <span>RM 12k</span>
-                                       </div>
-                                    </div>
-                                 </div>
+                            </section>
+                          </div>
+                          <div className="space-y-6">
+                            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                              <h4 className="text-body-sm font-bold text-slate-900 mb-4 flex items-center gap-2"><Lightbulb className="w-4 h-4 text-blue-600" /> Smart Insight</h4>
+                              <p className="text-[12px] font-medium text-slate-600 leading-relaxed">
+                                This case strengthens the legal precedent regarding **Article 14** of collective agreements.
+                              </p>
+                            </div>
+                            <div className="p-6 bg-slate-900 text-white rounded-2xl shadow-lg">
+                              <p className="text-[10px] font-bold text-slate-400 uppercase mb-2">Total Award Amount</p>
+                              <p className="text-h3 text-blue-400 font-mono">RM 156,000.00</p>
+                              <div className="mt-4 pt-4 border-t border-white/10 space-y-2">
+                                <div className="flex justify-between text-[11px] opacity-70">
+                                  <span>Back-wages:</span>
+                                  <span>RM 144k</span>
+                                </div>
+                                <div className="flex justify-between text-[11px] opacity-70">
+                                  <span>Compensation:</span>
+                                  <span>RM 12k</span>
+                                </div>
                               </div>
-                           </div>
+                            </div>
+                          </div>
                         </div>
-                     </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
