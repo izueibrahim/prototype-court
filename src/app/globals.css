@@ -115,3 +115,47 @@
   z-index: 9999; 
   pointer-events: none; 
 }
+
+/* Driver.js Custom Styling */
+.emp-tour-theme.driver-popover {
+  @apply bg-white rounded-2xl shadow-2xl border-0 p-6 font-sans;
+  max-width: 350px;
+}
+.emp-tour-theme .driver-popover-title {
+  @apply text-h5 font-black text-zinc-900 mb-2;
+}
+.emp-tour-theme .driver-popover-description {
+  @apply text-body-md text-zinc-600 mb-6;
+}
+.emp-tour-theme .driver-popover-next-btn, 
+.emp-tour-theme .driver-popover-prev-btn {
+  @apply px-4 py-2 rounded-xl text-body-sm font-bold transition-all shadow-none;
+}
+.emp-tour-theme .driver-popover-next-btn {
+  @apply !bg-blue-600 !text-white hover:!bg-blue-700;
+  text-shadow: none !important;
+}
+.emp-tour-theme .driver-popover-prev-btn {
+  @apply !bg-zinc-100 !text-zinc-600 hover:!bg-zinc-200;
+  text-shadow: none !important;
+}
+.emp-tour-theme .driver-popover-close-btn {
+  @apply hidden; /* We hide the native close button if strict */
+}
+
+/* High Contrast Override */
+.emp-tour-hc.driver-popover {
+  @apply bg-black border-2 border-white;
+}
+.emp-tour-hc .driver-popover-title {
+  @apply text-white;
+}
+.emp-tour-hc .driver-popover-description {
+  @apply text-zinc-300;
+}
+.emp-tour-hc .driver-popover-next-btn {
+  @apply !bg-white !text-black hover:!bg-zinc-200;
+}
+.emp-tour-hc .driver-popover-prev-btn {
+  @apply !bg-zinc-800 !text-white hover:!bg-zinc-700;
+}

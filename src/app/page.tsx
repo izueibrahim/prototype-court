@@ -18,6 +18,7 @@ import EFilingDashboard from '@/sections/EFilingDashboard';
 import GuestDashboard from '@/sections/GuestDashboard';
 import AboutPage from '@/sections/AboutPage';
 import ContactPage from '@/sections/ContactPage';
+import TourController from '@/components/ui/TourController';
 
 export default function Home() {
   const { currentView, textSize, wcagStates, isWcagOpen } = useAppStore();
@@ -53,6 +54,7 @@ export default function Home() {
       style={{ fontSize: `${textSize}%` }}
     >
       <AccessibilityPanel />
+      <TourController />
 
       {currentView === 'login' ? (
         <LoginSection />

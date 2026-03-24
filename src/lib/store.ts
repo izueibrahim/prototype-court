@@ -31,6 +31,8 @@ interface AppState {
     isWcagOpen: boolean;
     textSize: number;
     wcagStates: WcagStates;
+    hasSeenOnboarding: boolean;
+    showOnboarding: boolean;
 
     setCurrentView: (view: AppState['currentView']) => void;
     setLoginRole: (role: AppState['loginRole']) => void;
@@ -50,6 +52,8 @@ interface AppState {
     toggleWcagState: (key: keyof WcagStates) => void;
     setWcagState: (key: keyof WcagStates, value: boolean) => void;
     resetWcag: () => void;
+    completeOnboarding: () => void;
+    toggleOnboarding: (show?: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -81,6 +85,8 @@ export const useAppStore = create<AppState>()(
                 tts: false,
                 stt: false
             },
+            hasSeenOnboarding: false,
+            showOnboarding: false,
 
             setCurrentView: (view) => set({ currentView: view }),
             setLoginRole: (role) => set({ loginRole: role }),
@@ -118,7 +124,9 @@ export const useAppStore = create<AppState>()(
                     tts: false,
                     stt: false
                 }
-            })
+            }),
+            completeOnboarding: () => set({ hasSeenOnboarding: true, showOnboarding: false }),
+            toggleOnboarding: (show) => set((state) => ({ showOnboarding: show !== undefined ? show : !state.showOnboarding }))
         }),
         {
             name: 'emp-v2-storage',
@@ -127,7 +135,8 @@ export const useAppStore = create<AppState>()(
                 loginRole: state.loginRole,
                 dashActiveView: state.dashActiveView,
                 lang: state.lang,
-                wcagStates: state.wcagStates
+                wcagStates: state.wcagStates,
+                hasSeenOnboarding: state.hasSeenOnboarding
             }),
         }
     )

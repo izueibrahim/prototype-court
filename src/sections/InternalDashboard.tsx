@@ -139,7 +139,7 @@ export default function InternalDashboard() {
             </div>
           </div>
 
-          <nav className="flex-1 overflow-y-auto px-4 space-y-6 py-4 custom-scrollbar">
+          <nav id="tour-dash-nav" className="flex-1 overflow-y-auto px-4 space-y-6 py-4 custom-scrollbar">
             {filteredNavGroups.map((group, gIdx) => (
               <div key={gIdx} className="space-y-2">
                 <h4 className={`px-4 text-ui-label ${isHighContrast ? 'text-zinc-400' : 'text-zinc-400'}`}>
@@ -210,7 +210,7 @@ export default function InternalDashboard() {
           <div className="flex items-center gap-3 md:gap-5">
             <button onClick={() => setLang(lang === 'en' ? 'ms' : 'en')} className="hidden sm:block text-[10px] font-black text-slate-400 hover:text-blue-600 transition-colors uppercase tracking-widest">{lang === 'en' ? 'MS' : 'EN'}</button>
             <div className="hidden sm:block w-px h-5 bg-slate-200"></div>
-            <button className="text-slate-400 hover:text-blue-600 transition-colors"><Bell className="w-5 h-5" /></button>
+            <button id="tour-dash-quick-actions" className="text-slate-400 hover:text-blue-600 transition-colors"><Bell className="w-5 h-5" /></button>
             <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 font-black text-xs md:text-sm border border-blue-100 shadow-inner">
               {demoRole === 'ydp' ? 'YP' : demoRole === 'chairman' ? 'CH' : demoRole === 'admin' ? 'AD' : 'RO'}
             </div>

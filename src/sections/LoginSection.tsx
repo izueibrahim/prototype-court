@@ -6,14 +6,14 @@ import { t } from '@/lib/i18n';
 import {
     Globe, ArrowLeft, ShieldCheck, UserCircle,
     Video, ChevronRight, Mail, Lock, Briefcase, Key, ArrowUpRight, HelpCircle,
-    Scale, Gavel, Settings, CheckCircle2
+    Scale, Gavel, Settings, CheckCircle2, AlertCircle
 } from 'lucide-react';
 
 import { useRouter } from 'next/navigation';
 
 export default function LoginSection() {
     const router = useRouter();
-    const { lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView, setDashActiveView, setEFilingActiveView } = useAppStore();
+    const { lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView, setDashActiveView, setEFilingActiveView, toggleOnboarding } = useAppStore();
     const [step, setStep] = React.useState<1 | 2>(1);
     const [demoRole, setDemoRole] = React.useState<'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest'>('ydp');
     const [showMFA, setShowMFA] = React.useState(false);
@@ -85,6 +85,7 @@ export default function LoginSection() {
                                         <label className={`block text-ui-label mb-3 ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>Select Your Role</label>
                                         <div className="relative group">
                                             <select
+                                                id="tour-role-select"
                                                 value={demoRole}
                                                 onChange={(e) => setDemoRole(e.target.value as any)}
                                                 className={`w-full appearance-none bg-white py-5 px-6 rounded-2xl border-2 text-h6 transition-all cursor-pointer focus:outline-none focus:ring-4 ${isHighContrast ? 'bg-black border-white text-white focus:ring-white/20' : 'border-zinc-100 text-zinc-900 focus:border-blue-500 focus:ring-blue-500/10 hover:border-zinc-200'}`}
@@ -103,6 +104,7 @@ export default function LoginSection() {
 
                                     <div className="pt-4">
                                             <button
+                                                id="tour-next-btn"
                                                 onClick={() => setStep(2)}
                                                 className={isHighContrast ? 'w-full py-5 rounded-2xl text-h5 bg-white text-black flex items-center justify-center gap-3 transition-transform active:scale-[0.98]' : 'w-full py-5 rounded-2xl text-h5 bg-blue-600 text-white shadow-xl shadow-blue-500/20 hover:bg-blue-700 flex items-center justify-center gap-3 transition-all active:scale-[0.98]'}
                                             >
@@ -132,6 +134,12 @@ export default function LoginSection() {
 
                                 {showMFA ? (
                                     <form className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500" onSubmit={handleLoginSubmit}>
+                                        <div className="flex items-start gap-3 bg-[#18181b] text-zinc-200 p-4 rounded-xl text-sm font-medium border border-zinc-800 shadow-sm">
+                                            <AlertCircle className="w-5 h-5 text-blue-500 shrink-0 fill-blue-500/20" />
+                                            <span>
+                                                Enter any <strong className="text-white">6-digit code</strong> (e.g. <strong className="text-white">123456</strong>) for demo access.
+                                            </span>
+                                        </div>
                                         <div className="flex justify-between gap-2">
                                             {otp.map((digit, idx) => (
                                                 <input
@@ -171,7 +179,15 @@ export default function LoginSection() {
                                         </button>
                                     </form>
                                 ) : (
-                                    <form className="space-y-6" onSubmit={handleLoginSubmit}>
+                                    <form id="tour-login-form" className="space-y-6" onSubmit={handleLoginSubmit}>
+                                        {demoRole !== 'guest' && (
+                                            <div className="flex items-start gap-3 bg-[#18181b] text-zinc-200 p-4 rounded-xl text-sm font-medium border border-zinc-800 shadow-sm">
+                                                <AlertCircle className="w-5 h-5 text-blue-500 shrink-0 fill-blue-500/20" />
+                                                <span>
+                                                    Use <strong className="text-white">demo@kt.com</strong> username and <strong className="text-white">demo123</strong> for demo access.
+                                                </span>
+                                            </div>
+                                        )}
                                         {demoRole !== 'guest' && (
                                             <>
                                                 <div>
@@ -261,7 +277,7 @@ export default function LoginSection() {
                 </main>
 
                 <footer className="h-20 px-10 flex items-center justify-between">
-                    <button className={`flex items-center text-ui-label transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-blue-600'}`}>
+                    <button onClick={() => toggleOnboarding(true)} className={`flex items-center text-ui-label transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-blue-600'}`}>
                         <HelpCircle className="w-4 h-4 mr-2" />
                         {currentLang.help}
                     </button>
