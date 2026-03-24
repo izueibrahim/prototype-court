@@ -37,11 +37,29 @@ export default function SebutanChat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      sender: 'Pendaftar',
-      role: 'Registrar',
-      text: 'Sesi sebutan dimulakan. Semua pihak sila bersedia.',
-      textMs: 'Sesi sebutan dimulakan. Semua pihak sila bersedia.',
+      sender: 'YA Dato\' Wan Jeffry',
+      role: 'Chairman',
+      text: 'Good morning. This mention session for case 1/1-1522/25 is now in session.',
+      textMs: 'Selamat pagi. Sesi sebutan untuk kes 1/1-1522/25 kini bermula.',
       timestamp: '09:00 AM',
+      isMe: false
+    },
+    {
+      id: '2',
+      sender: 'Pendaftar Mahkamah',
+      role: 'Registrar',
+      text: 'Both parties are present and ready to proceed.',
+      textMs: 'Kedua-dua pihak hadir dan bersedia untuk diteruskan.',
+      timestamp: '09:01 AM',
+      isMe: false
+    },
+    {
+      id: '3',
+      sender: 'Ahmad Faiz',
+      role: 'Claimant Rep',
+      text: 'Thank you, we are ready.',
+      textMs: 'Terima kasih, kami bersedia.',
+      timestamp: '09:02 AM',
       isMe: false
     }
   ]);
@@ -108,6 +126,64 @@ export default function SebutanChat() {
     } else {
       alert('Invalid Room Code. Hint: 1234');
     }
+  };
+
+  const getMessageStyles = (m: Message) => {
+    if (m.isMe) {
+      return {
+        container: "items-end",
+        bubble: "bg-blue-600 text-white rounded-tr-none border-blue-500 shadow-blue-500/20",
+        text: "text-white/95",
+        sender: "text-blue-600 text-right",
+        meta: "flex-row-reverse"
+      };
+    }
+
+    const role = (m.role || '').toLowerCase();
+    if (role === 'chairman') {
+      return {
+        container: "items-start",
+        bubble: "bg-slate-900 text-white rounded-tl-none border-slate-800",
+        text: "text-white/90",
+        sender: "text-slate-900",
+        meta: "flex-row"
+      };
+    }
+    if (role === 'registrar') {
+      return {
+        container: "items-start",
+        bubble: "bg-indigo-50 text-indigo-900 rounded-tl-none border-indigo-100",
+        text: "text-indigo-950",
+        sender: "text-indigo-600",
+        meta: "flex-row"
+      };
+    }
+    if (role.includes('claimant')) {
+      return {
+        container: "items-start",
+        bubble: "bg-emerald-50 text-emerald-900 rounded-tl-none border-emerald-100",
+        text: "text-emerald-950",
+        sender: "text-emerald-600",
+        meta: "flex-row"
+      };
+    }
+    if (role.includes('respondent')) {
+      return {
+        container: "items-start",
+        bubble: "bg-rose-50 text-rose-900 rounded-tl-none border-rose-100",
+        text: "text-rose-950",
+        sender: "text-rose-600",
+        meta: "flex-row"
+      };
+    }
+
+    return {
+      container: "items-start",
+      bubble: "bg-white text-zinc-700 rounded-tl-none border-zinc-100",
+      text: "text-zinc-700",
+      sender: "text-zinc-400",
+      meta: "flex-row"
+    };
   };
 
   // --- RENDERING SUB-VIEWS ---
@@ -305,17 +381,20 @@ export default function SebutanChat() {
              {activeSidebar === 'chat' && (
                 <div className="flex-1 flex flex-col overflow-hidden">
                   <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 custom-scrollbar bg-zinc-50/30">
-                    {messages.map((m, i) => (
-                      <div key={i} className="flex flex-col gap-2.5">
-                        <div className="flex items-center gap-3 ml-1">
-                          <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest leading-none">{m.sender}</span>
-                          <span className="text-[9px] font-bold text-zinc-300 leading-none">{m.timestamp}</span>
+                    {messages.map((m, i) => {
+                      const styles = getMessageStyles(m);
+                      return (
+                        <div key={i} className={`flex flex-col gap-2.5 ${styles.container}`}>
+                          <div className={`flex items-center gap-3 ml-1 ${styles.meta}`}>
+                            <span className={`text-[10px] font-black uppercase tracking-widest leading-none ${styles.sender}`}>{m.sender}</span>
+                            <span className="text-[9px] font-bold text-zinc-300 leading-none">{m.timestamp}</span>
+                          </div>
+                          <div className={`p-4 md:p-5 rounded-3xl border shadow-sm max-w-[85%] ${styles.bubble}`}>
+                             <p className={`text-body-sm leading-relaxed font-medium ${styles.text}`}>{m.text}</p>
+                          </div>
                         </div>
-                        <div className="bg-white p-4 md:p-5 rounded-3xl rounded-tl-none border border-zinc-100 shadow-sm max-w-[85%]">
-                           <p className="text-body-sm text-zinc-700 leading-relaxed font-medium">{m.text}</p>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                   <div className="p-6 md:p-8 bg-white border-t border-zinc-200">
                     <div className="relative">
