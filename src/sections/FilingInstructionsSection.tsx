@@ -2,45 +2,40 @@
 
 import React from 'react';
 import { useAppStore } from '@/lib/store';
-import { 
-    FileText, Upload, CheckCircle2, Send, 
-    ArrowRight, Info, AlertCircle, ArrowLeft 
+import {
+    FileText, Upload, CheckCircle2, Send,
+    ArrowRight, Info, AlertCircle, ArrowLeft
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-
 export default function FilingInstructionsSection() {
     const { wcagStates, setCurrentView } = useAppStore();
     const isHighContrast = wcagStates.highContrast;
     const router = useRouter();
 
-    const steps = [
+    const instructions = [
         {
             icon: FileText,
-            title: "Prepare Your Document",
-            description: "Ensure your legal document is in PDF format and does not exceed 20MB. All pages should be clear and legible.",
-            color: "text-blue-500",
-            bg: "bg-blue-50"
+            title: '1. Prepare Your Document',
+            description: 'Ensure your legal document is in PDF format and does not exceed 20MB. All pages should be clear and legible.',
+            action: 'Check PDF'
         },
         {
             icon: Upload,
-            title: "Upload Document",
+            title: '2. Upload Document',
             description: "In your dashboard, click 'File New Dispute' or 'Upload Documents' on any active case.",
-            color: "text-indigo-500",
-            bg: "bg-indigo-50"
+            action: 'Upload Guide'
         },
         {
             icon: CheckCircle2,
-            title: "Verify Information",
-            description: "Carefully review all case details and metadata before confirming. Accuracy is critical for court records.",
-            color: "text-emerald-500",
-            bg: "bg-emerald-50"
+            title: '3. Verify Information',
+            description: 'Carefully review all case details and metadata before confirming. Accuracy is critical for court records.',
+            action: 'Review Tips'
         },
         {
             icon: Send,
-            title: "Submit for Review",
+            title: '4. Submit for Review',
             description: "Once submitted, your filing will be reviewed by the Registrar. You'll be notified of the status via email.",
-            color: "text-amber-500",
-            bg: "bg-amber-50"
+            action: 'Track Status'
         }
     ];
 
@@ -50,67 +45,66 @@ export default function FilingInstructionsSection() {
     };
 
     return (
-        <div className={`min-h-screen py-20 px-6 sm:px-10 ${isHighContrast ? 'bg-black' : 'bg-zinc-50'}`}>
-            <div className="max-w-4xl mx-auto">
-                <button 
-                    onClick={() => router.push('/')}
-                    className={`flex items-center gap-2 mb-12 font-bold transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-blue-600'}`}
-                >
-                    <ArrowLeft className="w-4 h-4" />
-                    Back to Portal
-                </button>
+        <div className={`min-h-screen pt-24 pb-32 px-6 sm:px-10 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16 sm:mb-24">
 
-                <div className="mb-16 text-center sm:text-left">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 justify-center sm:justify-start">
-                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white shadow-xl shadow-blue-500/20'}`}>
+                    <h1 className={`text-h1 mb-6 flex items-center justify-center gap-4 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                        {/* <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white shadow-xl shadow-blue-200'}`}>
                             <Info className="w-7 h-7" />
-                        </div>
-                        <h1 className={`text-4xl sm:text-5xl font-black tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
-                            Filing Instructions
-                        </h1>
-                    </div>
-                    <p className={`text-xl font-bold max-w-2xl ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                        </div> */}
+                        Filing Instructions
+                    </h1>
+
+                    <p className={`text-body-lg max-w-2xl mx-auto font-medium ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
                         Follow these professional guidelines to ensure your legal filings are processed correctly by the Industrial Court.
                     </p>
                 </div>
 
-                <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 mb-16`}>
-                    {steps.map((step, idx) => {
-                        const Icon = step.icon;
-                        return (
-                            <div key={idx} className={`p-8 rounded-[2rem] border transition-all duration-300 group ${isHighContrast ? 'bg-black border-zinc-700 hover:border-white' : 'bg-white border-zinc-100 hover:border-blue-400 hover:shadow-premium'}`}>
-                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${isHighContrast ? 'border-2 border-white text-white' : `${step.bg} ${step.color}`}`}>
-                                    <Icon className="w-7 h-7" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-20">
+                    {instructions.map((step, idx) => (
+                        <div
+                            key={idx}
+                            className={`w-full p-8 sm:p-10 rounded-[2.5rem] flex flex-col transition-all duration-500 border group/card ${isHighContrast
+                                ? "bg-black border-white hover:bg-zinc-900"
+                                : "bg-white border-zinc-100 hover:border-blue-400 hover:shadow-premium"
+                                }`}
+                        >
+                            <div className="flex-1 flex flex-col">
+                                <div
+                                    className={`w-14 h-14 sm:w-16 sm:h-16 rounded-3xl flex items-center justify-center mb-6 sm:mb-8 transition-all duration-500 group-hover/card:scale-110 group-hover/card:-rotate-3 ${isHighContrast
+                                        ? "border-2 border-white text-white"
+                                        : "bg-blue-50 text-blue-600 border border-blue-100 group-hover:bg-blue-600 group-hover:text-white"
+                                        }`}
+                                >
+                                    <step.icon className="w-7 h-7 sm:w-8 sm:h-8 font-black" />
                                 </div>
-                                <h3 className={`text-2xl font-black mb-3 tracking-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
-                                    {idx + 1}. {step.title}
-                                </h3>
-                                <p className={`text-zinc-500 text-lg font-medium leading-relaxed ${isHighContrast ? 'text-zinc-400' : ''}`}>
+                                <h4
+                                    className={`text-h3 mb-4 ${isHighContrast ? "text-white" : "text-zinc-900"}`}
+                                >
+                                    {step.title}
+                                </h4>
+                                <p className={`text-body-sm leading-relaxed font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
                                     {step.description}
                                 </p>
                             </div>
-                        );
-                    })}
+                        </div>
+                    ))}
                 </div>
 
-                <div className={`p-10 rounded-[2.5rem] flex flex-col sm:flex-row items-center justify-between gap-10 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white shadow-3xl shadow-blue-900/30'}`}>
-                    <div className="flex items-start gap-5">
-                        <div className={`p-3 rounded-2xl ${isHighContrast ? 'bg-black text-white' : 'bg-white/10 backdrop-blur-md'}`}>
-                            <AlertCircle className="w-8 h-8" />
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-black mb-1">Ready to Proceed?</h4>
-                            <p className={`font-bold opacity-80 ${isHighContrast ? 'text-zinc-700' : 'text-blue-50'}`}>
-                                You'll be taken to the secure login area to start your filing.
-                            </p>
-                        </div>
+                <div className={`p-12 rounded-[3.5rem] flex flex-col lg:flex-row items-center justify-between gap-10 lg:mx-24 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white shadow-3xl shadow-blue-900/30'}`}>
+                    <div className="text-center lg:text-left">
+                        <h4 className="text-h3 font-black mb-2">Ready to Proceed?</h4>
+                        <p className={`text-body-md font-bold opacity-80 ${isHighContrast ? 'text-zinc-700' : 'text-blue-50'}`}>
+                            You'll be taken to the secure login area to start your filing.
+                        </p>
                     </div>
-                    
-                    <button 
+
+                    <button
                         onClick={handleProceed}
-                        className={`w-full sm:w-auto px-12 py-5 font-black uppercase tracking-[0.2em] text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-3 ${isHighContrast ? 'bg-black text-white hover:bg-zinc-800' : 'bg-white text-blue-600 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1'}`}
+                        className={`w-full lg:w-auto px-12 py-5 font-black uppercase tracking-[0.2em] text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-3 ${isHighContrast ? 'bg-black text-white rounded-3xl hover:bg-zinc-900' : 'bg-white text-blue-600 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1'}`}
                     >
-                        Proceed to Filing
+                        Start Filing Now
                         <ArrowRight className="w-5 h-5" />
                     </button>
                 </div>

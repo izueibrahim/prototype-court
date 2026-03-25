@@ -4,9 +4,12 @@ import React, { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
 import { Globe, LogIn, Menu, X } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function Navbar() {
     const { lang, setLang, wcagStates, setCurrentView } = useAppStore();
+    const pathname = usePathname();
+    const router = useRouter();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const currentLang = t[lang];
@@ -46,14 +49,13 @@ export default function Navbar() {
                                     key={item} 
                                     href={item === 'schedule' ? undefined : `#${item}`}
                                     onClick={(e) => {
-                                        if (item === 'schedule') {
-                                            e.preventDefault();
-                                            setCurrentView('schedule');
-                                        } else if (item === 'about' || item === 'contact' || item === 'modules') {
-                                            e.preventDefault();
-                                            setCurrentView(item);
+                                        e.preventDefault();
+                                        const slug = item === 'home' ? '' : item;
+                                        if (pathname !== '/') {
+                                            router.push(`/#/${slug}`);
                                         } else {
-                                            setCurrentView('portal');
+                                            if (item === 'home') setCurrentView('portal');
+                                            else setCurrentView(item as any);
                                         }
                                     }}
                                     className={`text-body-sm font-bold transition-colors cursor-pointer ${isHighContrast ? 'text-white hover:underline' : 'text-zinc-500 hover:text-blue-600'}`}
@@ -72,7 +74,13 @@ export default function Navbar() {
                             </div>
                             <div className={`pl-6 border-l h-8 flex items-center ${isHighContrast ? 'border-white' : 'border-zinc-200'}`}>
                                 <button
-                                    onClick={() => setCurrentView('login')}
+                                    onClick={() => {
+                                        if (pathname !== '/') {
+                                            router.push('/#/login');
+                                        } else {
+                                            setCurrentView('login');
+                                        }
+                                    }}
                                     className={isHighContrast ? 'btn-primary bg-white text-black hover:bg-zinc-200' : 'btn-primary bg-blue-700 shadow-lg shadow-blue-500/30 ring-2 ring-blue-500/20'}
                                 >
                                     <LogIn className="w-4 h-4" />
@@ -98,15 +106,14 @@ export default function Navbar() {
                                     key={item} 
                                     href={item === 'schedule' ? undefined : `#${item}`}
                                     onClick={(e) => {
+                                        e.preventDefault();
                                         setMobileMenuOpen(false);
-                                        if (item === 'schedule') {
-                                            e.preventDefault();
-                                            setCurrentView('schedule');
-                                        } else if (item === 'about' || item === 'contact' || item === 'modules') {
-                                            e.preventDefault();
-                                            setCurrentView(item);
+                                        const slug = item === 'home' ? '' : item;
+                                        if (pathname !== '/') {
+                                            router.push(`/#/${slug}`);
                                         } else {
-                                            setCurrentView('portal');
+                                            if (item === 'home') setCurrentView('portal');
+                                            else setCurrentView(item as any);
                                         }
                                     }}
                                     className={`text-h6 px-4 py-3 rounded-xl cursor-pointer ${isHighContrast ? 'text-white hover:bg-zinc-900 border border-transparent hover:border-white' : 'text-zinc-600 hover:bg-blue-50 hover:text-blue-600'}`}
@@ -116,7 +123,14 @@ export default function Navbar() {
                             ))}
                             <div className="pt-4 mt-2 border-t border-zinc-100">
                                 <button
-                                    onClick={() => { setMobileMenuOpen(false); setCurrentView('login'); }}
+                                    onClick={() => { 
+                                        setMobileMenuOpen(false); 
+                                        if (pathname !== '/') {
+                                            router.push('/#/login');
+                                        } else {
+                                            setCurrentView('login');
+                                        }
+                                    }}
                                     className={isHighContrast ? 'btn-primary w-full bg-white text-black' : 'btn-primary w-full'}
                                 >
                                     <LogIn className="w-5 h-5" />
