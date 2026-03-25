@@ -66,7 +66,7 @@ export default function FullSchedule() {
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         {currentLang.backToPortal}
                     </button>
-                    <h1 className={`text-display text-white mb-4`}>
+                    <h1 className={`text-h2 text-white mb-4`}>
                         {currentLang.fullScheduleTitle}
                     </h1>
                     <p className={`text-body-lg max-w-2xl font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-400'}`}>

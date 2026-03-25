@@ -105,7 +105,7 @@ export default function EServicesDirectory() {
                       setCurrentView('schedule');
                     }
                   }}
-                  className={`flex-none w-[280px] sm:w-[340px] lg:w-[380px] p-8 sm:p-10 rounded-[2.5rem] flex flex-col transition-all duration-500 text-left snap-start group/card border ${isHighContrast
+                  className={`flex-none w-[280px] sm:w-[340px] lg:w-[380px] p-8 sm:p-10 rounded-3xl sm:rounded-[2.5rem] flex flex-col transition-all duration-500 text-left snap-start group/card border ${isHighContrast
                     ? "bg-black border-white hover:bg-zinc-900"
                     : "bg-white border-zinc-100 hover:border-blue-400 hover:shadow-premium cursor-pointer"
                     }`}

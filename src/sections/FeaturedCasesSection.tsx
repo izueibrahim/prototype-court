@@ -80,7 +80,7 @@ export default function FeaturedCasesSection() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
                         {featuredColumns.map((col, idx) => (
-                            <div key={idx} className={`rounded-[2rem]${isHighContrast ? 'bg-white' : 'bg-white'}`}>
+                            <div key={idx} className={`rounded-3xl sm:rounded-[2rem] ${isHighContrast ? 'bg-white' : 'bg-white'}`}>
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className={`text-ui-label font-bold uppercase tracking-widest ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
                                         {col.title}

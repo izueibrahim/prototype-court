@@ -11,7 +11,7 @@ export default function MediationBanner() {
     return (
         <section className={`py-12 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className={`relative overflow-hidden rounded-[2.5rem] shadow-premium ${isHighContrast ? 'bg-zinc-900 border border-zinc-800' : 'bg-blue-900 text-white'}`}>
+                <div className={`relative overflow-hidden rounded-3xl sm:rounded-[2.5rem] shadow-premium ${isHighContrast ? 'bg-zinc-900 border border-zinc-800' : 'bg-blue-900 text-white'}`}>
 
                     {/* Background decorations for normal mode */}
                     {!isHighContrast && (
@@ -29,7 +29,7 @@ export default function MediationBanner() {
                             <p className={`text-body-lg mb-10 max-w-2xl text-blue-100`}>
                                 Selesaikan kes yang melibatkan kesatuan sekerja tanpa prosedur perbicaraan makhamah yang memakan masa dan kos yang tinggi.
                             </p>
-                            <button className={`px-8 py-4 rounded-xl text-h6 font-bold transition-all w-full sm:w-auto shadow-lg hover:-translate-y-1 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-white text-blue-900 hover:bg-zinc-50'}`}>
+                            <button className={`px-8 py-4 rounded-2xl sm:rounded-xl text-h6 font-bold transition-all w-full sm:w-auto shadow-lg hover:-translate-y-1 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-white text-blue-900 hover:bg-zinc-50'}`}>
                                 Selesaikan Kes Sekarang
                             </button>
                         </div>
@@ -61,7 +61,7 @@ export default function MediationBanner() {
                                 )}
 
                                 <div className="text-center z-10 flex flex-col items-center justify-center">
-                                    <span className={`text-5xl sm:text-6xl font-black tracking-tighter ${isHighContrast ? 'text-white' : 'text-white'}`}>
+                                    <span className={`text-4xl sm:text-6xl font-black tracking-tighter ${isHighContrast ? 'text-white' : 'text-white'}`}>
                                         75%
                                     </span>
                                 </div>

@@ -151,23 +151,23 @@ export default function AboutPage() {
   return (
     <main className={`flex-1 relative z-10 min-h-screen ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
       {/* Hero Section */}
-      <div className={`py-20 sm:py-32 ${isHighContrast ? 'bg-slate-900' : 'bg-slate-50'}`}>
+      <div className={`py-20 sm:py-16 ${isHighContrast ? 'bg-slate-900' : 'bg-slate-50'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6 ${isHighContrast ? 'bg-white text-black' : 'bg-slate-900 text-white'}`}>
               {t.subtitle}
             </span>
-            <h1 className={`text-6xl sm:text-7xl font-black tracking-tighter mb-8 ${isHighContrast ? 'text-white' : 'text-slate-900'}`}>
+            <h1 className={`text-h2 sm:text-h2 font-black tracking-tighter mb-8 ${isHighContrast ? 'text-white' : 'text-slate-900'}`}>
               {t.title}
             </h1>
-            <p className={`text-xl sm:text-2xl leading-relaxed font-medium tracking-tight ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>
+            <p className={`text-body sm:text-body-lg leading-relaxed font-medium tracking-tight ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>
               {t.intro}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 divide-y divide-slate-100">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 divide-y divide-slate-100">
 
         {/* Vision, Mission & Client's Charter (Triple Column Row) */}
         <section className="py-16 sm:py-24">
@@ -214,7 +214,7 @@ export default function AboutPage() {
         </section>
 
         {/* Our People / Hierarchy */}
-        <section className="py-16 sm:py-24">
+        <section className="py-16 sm:py-16">
           <SectionHeader title={t.sections.people} />
           <div className="space-y-12">
             <div className="flex flex-col items-center gap-8">

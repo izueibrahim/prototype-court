@@ -49,7 +49,7 @@ export default function HeroSection() {
                     VERSION 2.0 LIVE
                 </div>
 
-                <h1 className={`text-[40px] sm:text-[56px] font-black text-white mb-4 uppercase tracking-tight leading-none`}>
+                <h1 className={`text-h1 sm:text-[56px] font-black text-white mb-4 uppercase tracking-tight leading-none`}>
                     SEAMLESS DIGITAL <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#60a5fa]">JUSTICE.</span>
                 </h1>
                 
@@ -58,7 +58,7 @@ export default function HeroSection() {
                 </p>
 
                 {/* Search Bar matching screenshot */}
-                <div className={`w-full max-w-2xl p-1.5 rounded-full flex flex-col sm:flex-row items-center transition-all focus-within:ring-2 mb-20 ${isHighContrast ? 'bg-black border border-white focus-within:ring-white/50' : 'bg-white/5 backdrop-blur-md border border-white/10 shadow-2xl focus-within:bg-white/10 focus-within:border-white/20 focus-within:ring-blue-500/30'}`}>
+                <div className={`w-full max-w-2xl p-1.5 rounded-3xl sm:rounded-full flex flex-col sm:flex-row items-center transition-all focus-within:ring-2 mb-20 ${isHighContrast ? 'bg-black border border-white focus-within:ring-white/50' : 'bg-white/5 backdrop-blur-md border border-white/10 shadow-2xl focus-within:bg-white/10 focus-within:border-white/20 focus-within:ring-blue-500/30'}`}>
                     <div className="pl-5 hidden sm:flex text-zinc-400">
                         <Search className="w-5 h-5 text-zinc-400" />
                     </div>
@@ -72,7 +72,7 @@ export default function HeroSection() {
                     />
                     <button
                         onClick={handleSearch}
-                        className={`w-full sm:w-auto px-8 py-2.5 rounded-full text-body-sm font-bold transition-transform hover:scale-[1.02] active:scale-95 whitespace-nowrap mt-2 sm:mt-0 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-[#2563eb] hover:bg-blue-500 text-white shadow-md'}`}>
+                        className={`w-full sm:w-auto px-8 py-2.5 rounded-2xl sm:rounded-full text-body-sm font-bold transition-transform hover:scale-[1.02] active:scale-95 whitespace-nowrap mt-2 sm:mt-0 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-[#2563eb] hover:bg-blue-500 text-white shadow-md'}`}>
                         Search
                     </button>
                 </div>
@@ -104,7 +104,7 @@ export default function HeroSection() {
                         {notices.map((notice: any, idx: number) => (
                             <div
                                 key={idx}
-                                className={`flex-none w-[280px] sm:w-[320px] p-6 sm:p-8 rounded-[2rem] flex flex-col text-left transition-all duration-500 snap-start border ${isHighContrast ? 'bg-black border-white' : 'bg-white/5 backdrop-blur-md border-white/10 hover:border-white/20 hover:bg-white/[0.08]'}`}
+                                className={`flex-none w-[280px] sm:w-[320px] p-6 sm:p-8 rounded-3xl sm:rounded-[2rem] flex flex-col text-left transition-all duration-500 snap-start border ${isHighContrast ? 'bg-black border-white' : 'bg-white/5 backdrop-blur-md border-white/10 hover:border-white/20 hover:bg-white/[0.08]'}`}
                             >
                                 <div className="flex-1">
                                     <span className={`inline-flex px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest mb-4 ${isHighContrast ? 'border-2 border-white text-white' : 'bg-blue-500/20 text-blue-200'}`}>
@@ -129,7 +129,7 @@ export default function HeroSection() {
 
                         {/* Minimal View All Card */}
                         <button
-                            className={`flex-none w-[140px] rounded-[2rem] flex flex-col items-center justify-center transition-all duration-500 snap-start border group ${isHighContrast ? 'bg-black border-white text-white hover:bg-zinc-900' : 'bg-blue-600 border-blue-500 text-white shadow-xl hover:-translate-y-1 hover:shadow-2xl'}`}
+                            className={`flex-none w-[140px] rounded-3xl sm:rounded-[2rem] flex flex-col items-center justify-center transition-all duration-500 snap-start border group ${isHighContrast ? 'bg-black border-white text-white hover:bg-zinc-900' : 'bg-blue-600 border-blue-500 text-white shadow-xl hover:-translate-y-1 hover:shadow-2xl'}`}
                         >
                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110 ${isHighContrast ? 'bg-white text-black' : 'bg-white/20 backdrop-blur-md'}`}>
                                 <ChevronRight className="w-6 h-6 font-black" />

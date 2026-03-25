@@ -14,7 +14,7 @@ export default function PromoBannerSection() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
 
                     {/* Left Banner: Filing Skills */}
-                    <div className={`relative p-8 sm:p-12 lg:p-14 rounded-[2.5rem] flex flex-col justify-between overflow-hidden border transition-all ${isHighContrast ? 'bg-zinc-950 border-white hover:bg-zinc-900 group' : 'bg-white border-zinc-100 shadow-premium hover:shadow-2xl group'}`}>
+                    <div className={`relative p-8 sm:p-12 lg:p-14 rounded-3xl sm:rounded-[2.5rem] flex flex-col justify-between overflow-hidden border transition-all ${isHighContrast ? 'bg-zinc-950 border-white hover:bg-zinc-900 group' : 'bg-white border-zinc-100 shadow-premium hover:shadow-2xl group'}`}>
                         <div className="relative z-10 flex gap-4 mb-4">
                             <div className="flex items-center gap-2">
                                 <span className={`text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full ${isHighContrast ? 'bg-white text-black' : 'bg-blue-100 text-blue-700'}`}>Baru</span>
@@ -48,7 +48,7 @@ export default function PromoBannerSection() {
                     </div>
 
                     {/* Right Banner: e-Filing CA */}
-                    <div className={`relative p-8 sm:p-12 lg:p-14 rounded-[2.5rem] flex flex-col justify-between overflow-hidden transition-all border ${isHighContrast ? 'bg-zinc-900 border-zinc-800 hover:border-white group' : 'bg-blue-600 text-white shadow-premium hover:shadow-2xl group border-transparent'}`}>
+                    <div className={`relative p-8 sm:p-12 lg:p-14 rounded-3xl sm:rounded-[2.5rem] flex flex-col justify-between overflow-hidden transition-all border ${isHighContrast ? 'bg-zinc-900 border-zinc-800 hover:border-white group' : 'bg-blue-600 text-white shadow-premium hover:shadow-2xl group border-transparent'}`}>
                         {/* Background shapes */}
                         {!isHighContrast && (
                             <>

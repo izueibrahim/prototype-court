@@ -65,7 +65,7 @@ export default function HearingsSchedule() {
                             return (
                                 <div
                                     key={idx}
-                                    className={`flex flex-col rounded-[2.5rem] overflow-hidden transition-all duration-500 border ${isHighContrast ? 'bg-black border-white' : 'bg-white border-zinc-100'} ${isExpanded ? (isHighContrast ? 'ring-2 ring-white' : 'border-blue-400 shadow-premium') : 'hover:border-blue-200 hover:shadow-premium'}`}
+                                    className={`flex flex-col rounded-3xl sm:rounded-[2.5rem] overflow-hidden transition-all duration-500 border ${isHighContrast ? 'bg-black border-white' : 'bg-white border-zinc-100'} ${isExpanded ? (isHighContrast ? 'ring-2 ring-white' : 'border-blue-400 shadow-premium') : 'hover:border-blue-200 hover:shadow-premium'}`}
                                 >
                                     <div
                                         onClick={() => setExpandedId(isExpanded ? null : hearing.id)}

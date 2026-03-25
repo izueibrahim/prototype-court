@@ -24,7 +24,7 @@ import {
 } from '@/lib/data';
 
 const EmptyState = ({ title, description, icon: Icon, actionLabel, onAction }: any) => (
-  <div className="flex flex-col items-center justify-center py-20 px-8 text-center bg-white rounded-[32px] border-2 border-dashed border-slate-200 shadow-sm">
+  <div className="flex flex-col items-center justify-center py-20 px-8 text-center bg-white rounded-3xl md:rounded-[32px] border-2 border-dashed border-slate-200 shadow-sm">
     <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 mb-6">
       <Icon className="w-10 h-10" />
     </div>
@@ -240,7 +240,7 @@ export default function InternalDashboard() {
 
             {/* ---------------- OVERVIEW ---------------- */}
             {dashActiveView === 'overview' && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+              <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm space-y-8">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <h3 className="text-h3 text-slate-900 font-black">{currentLang.performanceOverview}</h3>
@@ -248,7 +248,7 @@ export default function InternalDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-slate-50/50 p-6 md:p-8 rounded-[32px] border border-slate-100 flex flex-col gap-6">
+                <div className="bg-slate-50/50 p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-100 flex flex-col gap-6">
                   <div
                     className="flex justify-between items-center cursor-pointer group"
                     onClick={() => setShowOverviewFilters(!showOverviewFilters)}
@@ -294,7 +294,7 @@ export default function InternalDashboard() {
                   {(demoRole === 'ydp' ? executiveStats :
                     demoRole === 'registrar' || demoRole === 'officer' ? opsStats :
                       demoRole === 'chairman' ? chairmanStats : executiveStats).map((stat, i) => (
-                        <div key={i} className={`p-6 rounded-[28px] border border-slate-100 ${stat.bg} flex flex-col justify-between hover:shadow-md transition-all`}>
+                        <div key={i} className={`p-6 rounded-2xl md:rounded-[28px] border border-slate-100 ${stat.bg} flex flex-col justify-between hover:shadow-md transition-all`}>
                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 leading-tight mb-3">{stat.metric}</p>
                           <div className="flex items-baseline justify-between mt-auto">
                             <h4 className={`text-2xl font-black ${stat.color} leading-none`}>{stat.value}</h4>
@@ -309,7 +309,7 @@ export default function InternalDashboard() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                   {/* 1. Reg vs Resolved */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="text-ui-label text-slate-500 uppercase mb-4">1. Reg vs Resolved (Unfair Dismissal)</h3>
                     <div className="relative h-48 mt-auto border-b border-slate-200">
                       <div className="absolute inset-0 flex flex-col justify-between pb-1 z-0"><div className="border-b border-slate-100 w-full h-0"></div><div className="border-b border-slate-100 w-full h-0"></div><div className="border-b border-slate-100 w-full h-0"></div></div>
@@ -330,7 +330,7 @@ export default function InternalDashboard() {
                   </div>
 
                   {/* 2. Types of UD Resolved */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="text-ui-label text-slate-500 uppercase mb-4">2. Types of UD Resolved</h3>
                     <div className="relative h-48 mt-auto border-b border-slate-200">
                       <div className="relative z-10 flex items-end gap-3 h-full justify-between px-2 pb-0">
@@ -355,7 +355,7 @@ export default function InternalDashboard() {
                   </div>
 
                   {/* 3. Reg by Category */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="text-ui-label text-slate-500 uppercase mb-4">3. Reg. Categories (Other than UD)</h3>
                     <div className="relative h-48 mt-auto border-b border-slate-200">
                       <div className="relative z-10 flex items-end gap-2 h-full justify-between px-2 pb-0">
@@ -379,7 +379,7 @@ export default function InternalDashboard() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                   {/* 4. Avg Case Duration */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4">4. Avg Duration (Months)</h3>
                     <div className="relative h-48 mt-auto">
                       <div className="absolute inset-0 flex flex-col justify-between pb-1 z-0 text-[9px] text-slate-300 font-bold items-start">
@@ -394,7 +394,7 @@ export default function InternalDashboard() {
                   </div>
 
                   {/* 5. Location Dist */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4">5. Case Dist by Location</h3>
                     <div className="space-y-3 flex-1 overflow-y-auto pr-2 custom-scrollbar my-auto py-2">
                       {ch5.map((c, i) => (
@@ -409,7 +409,7 @@ export default function InternalDashboard() {
                   </div>
 
                   {/* 7. Hearing Utilisation */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4">7. Hearing Utilisation</h3>
                     <div className="relative h-48 mt-auto">
                       <div className="absolute inset-0 flex flex-col justify-between pb-1 z-0 text-[9px] text-slate-300 font-bold items-start">
@@ -431,7 +431,7 @@ export default function InternalDashboard() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                   {/* 8. Pleading Filing */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4">8. Pleading Filing Performance</h3>
                     <div className="relative h-48 mt-auto border-b border-slate-200">
                       <div className="relative z-10 flex items-end gap-3 h-full justify-between px-2 pb-0">
@@ -454,7 +454,7 @@ export default function InternalDashboard() {
                   </div>
 
                   {/* 9. Award Outcome */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col items-center">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col items-center">
                     <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4 w-full">9. Award Decision Outcome</h3>
                     <svg viewBox="0 0 32 32" className="w-40 h-40 transform -rotate-90 rounded-full mt-2">
                       <circle r="15.915" cx="16" cy="16" fill="transparent" stroke="#ef4444" strokeWidth="32" strokeDasharray="32.8 100" />
@@ -471,7 +471,7 @@ export default function InternalDashboard() {
                   </div>
 
                   {/* 10. Backlog Case Monitoring */}
-                  <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
+                  <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-4">10. Backlog Monitoring</h3>
                     <div className="relative h-48 mt-auto border-b border-slate-200">
                       <div className="relative z-10 flex items-end gap-3 h-full justify-between px-2 pb-0">
@@ -490,7 +490,7 @@ export default function InternalDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+                <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div>
                       <h2 className="text-xl font-extrabold text-slate-900 leading-tight">Historical Performance Comparison</h2>
@@ -512,7 +512,7 @@ export default function InternalDashboard() {
             )}
 
             {dashActiveView === 'analytics' && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+              <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm space-y-8">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <h3 className="text-h3 text-slate-900 font-black">{currentLang.awardAnalyticsInsights}</h3>
@@ -520,7 +520,7 @@ export default function InternalDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-slate-50/50 p-6 md:p-8 rounded-[32px] border border-slate-100 flex flex-col gap-6">
+                <div className="bg-slate-50/50 p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-100 flex flex-col gap-6">
                   <div
                     className="flex justify-between items-center cursor-pointer group"
                     onClick={() => setShowAnalyticsFilters(!showAnalyticsFilters)}
@@ -564,7 +564,7 @@ export default function InternalDashboard() {
 
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                   {awardAnalyticsStats.map((stat, i) => (
-                    <div key={i} className={`p-6 rounded-[28px] border border-slate-100 ${stat.bg} flex flex-col justify-between hover:shadow-md transition-all`}>
+                    <div key={i} className={`p-6 rounded-2xl md:rounded-[28px] border border-slate-100 ${stat.bg} flex flex-col justify-between hover:shadow-md transition-all`}>
                       <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 leading-tight mb-3">{stat.metric}</p>
                       <div className="flex items-baseline justify-between mt-auto">
                         <h4 className={`text-2xl font-black ${stat.color} leading-none`}>{stat.value}</h4>
@@ -578,7 +578,7 @@ export default function InternalDashboard() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+                  <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                     <h3 className="text-base md:text-lg font-extrabold text-slate-900 mb-6 md:mb-8">Search Volume (30 Days)</h3>
                     <div className="relative h-48 mt-4 border-b border-slate-200">
                       <div className="absolute inset-0 flex flex-col justify-between pb-1 z-0">
@@ -591,7 +591,7 @@ export default function InternalDashboard() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col">
+                  <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col">
                     <h3 className="text-base md:text-lg font-extrabold text-slate-900 mb-6">Top Search Keywords</h3>
                     <div className="space-y-4 flex-1">
                       {[{ k: 'unfair dismissal', s: 412, w: 100 }, { k: 'constructive dismissal', s: 238, w: 60 }, { k: 'collective agreement', s: 179, w: 45 }, { k: 'trade dispute', s: 95, w: 25 }].map((kw, i) => (
@@ -608,7 +608,7 @@ export default function InternalDashboard() {
 
             {/* ---------------- M9 REGISTRATION ---------------- */}
             {dashActiveView === 'registration' && !internalActionView && (
-              <div className="bg-white p-6 md:p-10 rounded-[32px] border border-slate-200 shadow-sm">
+              <div className="bg-white p-6 md:p-10 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                   <div>
                     <h3 className="text-h3 text-slate-900 font-black">
@@ -703,7 +703,7 @@ export default function InternalDashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
                   {/* Left Column: Details */}
                   <div className="lg:col-span-3 space-y-8">
-                    <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-10">
+                    <div className="bg-white p-8 md:p-10 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm space-y-10">
                       <div>
                         <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">{currentLang.submittedBy}</h4>
                         <p className="text-2xl font-black text-[#1E1E2D]">{selectedInternalItem.submittedBy}</p>
@@ -736,7 +736,7 @@ export default function InternalDashboard() {
 
                   {/* Right Column: Validation */}
                   <div className="lg:col-span-2 space-y-8">
-                    <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm h-full flex flex-col">
+                    <div className="bg-white p-8 md:p-10 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm h-full flex flex-col">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-8">
                           <CheckCircle2 className="w-6 h-6 text-emerald-500" />
@@ -787,7 +787,7 @@ export default function InternalDashboard() {
 
             {/* ---------------- M10 CASE MANAGEMENT ---------------- */}
             {dashActiveView === 'cases' && !internalActionView && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm flex flex-col h-[calc(100vh-12rem)] min-h-[500px]">
+              <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm flex flex-col h-[calc(100vh-12rem)] min-h-[500px]">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
                   <div>
                     <h3 className="text-h3 text-slate-900 font-black">
@@ -816,7 +816,7 @@ export default function InternalDashboard() {
                 </div>
 
                 {showCasesFilters && (
-                  <div className="mb-8 bg-slate-50/50 p-6 md:p-8 rounded-[32px] border border-slate-100 flex flex-col gap-6 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <div className="mb-8 bg-slate-50/50 p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-100 flex flex-col gap-6 animate-in fade-in slide-in-from-top-2 duration-300">
                     <div className="flex flex-wrap gap-4 items-center">
                       <select defaultValue="2026" className="px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 shadow-sm min-w-[120px]">
                         {chYears.map(y => <option key={y} value={y}>{y}</option>)}
@@ -845,7 +845,7 @@ export default function InternalDashboard() {
                 )}
 
                 {demoRole === 'efiling' && chairmanCases.length === 0 ? (
-                  <div className="flex-1 bg-white rounded-[32px] border border-slate-200 shadow-sm flex items-center justify-center p-12">
+                  <div className="flex-1 bg-white rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm flex items-center justify-center p-12">
                     <EmptyState
                       title={currentLang.noCasesFound}
                       description={currentLang.noCasesDesc}
@@ -869,7 +869,7 @@ export default function InternalDashboard() {
                           const stages = ['Registered', 'Allocation', 'Mention', 'Hearing', 'Award'];
 
                           return (
-                            <div key={i} onClick={() => { setSelectedInternalItem(c); setInternalActionView('case_detail'); }} className="bg-white p-6 md:p-10 rounded-[40px] border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-xl transition-all group cursor-pointer relative overflow-hidden">
+                            <div key={i} onClick={() => { setSelectedInternalItem(c); setInternalActionView('case_detail'); }} className="bg-white p-6 md:p-10 rounded-3xl md:rounded-[40px] border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-xl transition-all group cursor-pointer relative overflow-hidden">
                               <div className="absolute top-0 left-0 w-2 h-full bg-slate-100 group-hover:bg-blue-600 transition-colors"></div>
 
                               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
@@ -971,7 +971,7 @@ export default function InternalDashboard() {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
                   {/* Pending List */}
-                  <div className="bg-white rounded-[24px] border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+                  <div className="bg-white rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm flex flex-col overflow-hidden">
                     <div className="p-5 border-b border-slate-100 bg-slate-50">
                       <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Pending Allocation (3)</h3>
                     </div>
@@ -987,7 +987,7 @@ export default function InternalDashboard() {
                   </div>
 
                   {/* Details & Assignment */}
-                  <div className="lg:col-span-2 bg-white rounded-[24px] border border-slate-200 shadow-sm p-6 sm:p-8 flex flex-col overflow-y-auto">
+                  <div className="lg:col-span-2 bg-white rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm p-6 sm:p-8 flex flex-col overflow-y-auto">
                     {selectedInternalItem?.type ? (
                       <>
                         <h3 className="text-xl font-extrabold text-slate-900 mb-2">{selectedInternalItem.id}</h3>
@@ -1036,7 +1036,7 @@ export default function InternalDashboard() {
             {dashActiveView === 'cases' && internalActionView === 'case_detail' && selectedInternalItem && (
               <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-500">
                 {/* Case Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm relative overflow-hidden">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/50 rounded-full blur-3xl -mr-16 -mt-16"></div>
                   <div className="flex items-center gap-6 relative z-10">
                     <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-95"><ArrowLeft className="w-6 h-6" /></button>
@@ -1056,7 +1056,7 @@ export default function InternalDashboard() {
                 </div>
 
                 {/* Case Lifecycle Stepper */}
-                <div className="bg-white p-10 rounded-[40px] border border-slate-200 shadow-sm">
+                <div className="bg-white p-10 rounded-3xl md:rounded-[40px] border border-slate-200 shadow-sm">
                   <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 mb-10 text-center">{currentLang.caseLifecycleProgress}</h3>
                   <div className="relative flex justify-between">
                     <div className="absolute top-5 left-0 w-full h-1 bg-slate-100 -z-10"></div>
@@ -1095,7 +1095,7 @@ export default function InternalDashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-2 space-y-8">
                     {/* Parties Overiew */}
-                    <div className="bg-white p-8 md:p-10 rounded-[40px] border border-slate-200 shadow-sm">
+                    <div className="bg-white p-8 md:p-10 rounded-3xl md:rounded-[40px] border border-slate-200 shadow-sm">
                       <h3 className="text-xl font-black text-slate-900 mb-8 flex items-center gap-3"><Users className="w-6 h-6 text-blue-600" /> Litigant Details</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                         <div className="space-y-6">
@@ -1130,7 +1130,7 @@ export default function InternalDashboard() {
                               </div>
                             </div>
                           </div>
-                          <div className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm text-slate-900">
+                          <div className="bg-white p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm text-slate-900">
                             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Next Event</p>
                             <h4 className="text-xl font-black mb-2">Notice of Mention</h4>
                             <p className="text-sm font-bold text-blue-600">Scheduled for 15 Feb 2026, 09:00 AM</p>
@@ -1141,7 +1141,7 @@ export default function InternalDashboard() {
                     </div>
 
                     {/* Timeline */}
-                    <div className="bg-white p-8 md:p-10 rounded-[40px] border border-slate-200 shadow-sm relative">
+                    <div className="bg-white p-8 md:p-10 rounded-3xl md:rounded-[40px] border border-slate-200 shadow-sm relative">
                       <h3 className="text-xl font-black text-slate-900 mb-10 flex items-center justify-between">
                         <span className="flex items-center gap-3"><Activity className="w-6 h-6 text-rose-500" /> Case Activity Log</span>
                         <button className="text-xs font-black text-blue-600 hover:underline">View Full Log</button>
@@ -1179,7 +1179,7 @@ export default function InternalDashboard() {
                   </div>
 
                   <div className="space-y-8">
-                    <div className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm overflow-hidden relative group">
+                    <div className="bg-white p-8 rounded-3xl md:rounded-[40px] border border-slate-200 shadow-sm overflow-hidden relative group">
                       <div className="absolute -right-10 -bottom-10 opacity-5 group-hover:opacity-10 transition-opacity text-slate-900"><Scale className="w-48 h-48" /></div>
                       <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] mb-8">{currentLang.caseMetadata}</h3>
                       <div className="space-y-6">
@@ -1198,7 +1198,7 @@ export default function InternalDashboard() {
                       </div>
                     </div>
 
-                    <div className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
+                    <div className="bg-white p-8 rounded-3xl md:rounded-[40px] border border-slate-200 shadow-sm">
                       <h3 className="text-xl font-black text-slate-900 mb-8 flex items-center gap-3"><FileText className="w-6 h-6 text-indigo-600" /> {currentLang.evidenceBundle}</h3>
                       <div className="space-y-4">
                         {[
@@ -1227,7 +1227,7 @@ export default function InternalDashboard() {
 
             {/* ---------------- M6 SCHEDULE INTERNAL ---------------- */}
             {dashActiveView === 'schedule_int' && !internalActionView && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm relative">
+              <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm relative">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
                   <h3 className="text-h3 text-slate-900">Master Court Calendar</h3>
                   <div className="flex items-center gap-3">
@@ -1373,7 +1373,7 @@ export default function InternalDashboard() {
                 {/* Calendar Detail Modal */}
                 {selectedCalendarItem && (
                   <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
-                    <div className="bg-white rounded-[32px] border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95 duration-300">
+                    <div className="bg-white rounded-3xl md:rounded-[32px] border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95 duration-300">
                       <div className="p-8 border-b border-slate-100 flex justify-between items-start">
                         <div>
                           <div className="flex items-center gap-2 text-blue-600 mb-2">
@@ -1415,7 +1415,7 @@ export default function InternalDashboard() {
             )}
 
             {dashActiveView === 'schedule_int' && internalActionView === 'add_schedule' && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
+              <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm">
                 <div className="flex items-start gap-4 mb-8 pb-6 border-b border-slate-100">
                   <button onClick={() => setInternalActionView(null)} className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl transition-colors mt-1"><ArrowLeft className="w-5 h-5 text-slate-600" /></button>
                   <div>
@@ -1424,7 +1424,7 @@ export default function InternalDashboard() {
                   </div>
                 </div>
 
-                <div className="max-w- bg-slate-50 p-6 md:p-10 rounded-[32px] border border-slate-100 shadow-sm">
+                <div className="max-w- bg-slate-50 p-6 md:p-10 rounded-3xl md:rounded-[32px] border border-slate-100 shadow-sm">
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
@@ -1486,7 +1486,7 @@ export default function InternalDashboard() {
 
             {/* ---------------- M3 NOTICE ---------------- */}
             {dashActiveView === 'notice' && !internalActionView && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
+              <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
                   <div>
                     <h3 className="text-h3 text-slate-900 font-black">{currentLang.dashNotice}</h3>
@@ -1592,7 +1592,7 @@ export default function InternalDashboard() {
 
             {dashActiveView === 'notice' && internalActionView === 'notice_form' && (
               <div className="max-w-4xl mx-auto">
-                <div className="bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+                <div className="bg-white p-8 md:p-10 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm space-y-8">
                   <div className="flex items-start gap-4 pb-6 border-b border-slate-100">
                     <button onClick={() => setInternalActionView(null)} className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl transition-colors mt-1"><ArrowLeft className="w-5 h-5 text-slate-600" /></button>
                     <div>
@@ -1635,7 +1635,7 @@ export default function InternalDashboard() {
               const showPreview = !hideNoticePreview && displayNotice;
 
               return (
-                <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm relative">
+                <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm relative">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8 pb-6 border-b border-slate-100">
                     <div>
                       <h3 className="text-h3 text-slate-900 font-black flex items-center gap-3">
@@ -1650,7 +1650,7 @@ export default function InternalDashboard() {
                     <div className={`${showPreview ? 'col-span-1 lg:border-r border-slate-100 lg:pr-6 space-y-4 max-h-[800px] overflow-y-auto custom-scrollbar' : 'col-span-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'}`}>
                       {paginatedNotices.length > 0 ? (
                         paginatedNotices.map((n, i) => (
-                          <div key={i} className={`bg-white p-6 sm:p-8 rounded-[24px] border transition-all group flex flex-col cursor-pointer ${showPreview && displayNotice?.id === n.id ? 'border-blue-500 shadow-md bg-blue-50/50' : 'border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-lg hover:scale-[1.02]'}`} onClick={() => { setSelectedInternalItem(n); setHideNoticePreview(false); }}>
+                          <div key={i} className={`bg-white p-6 sm:p-8 rounded-2xl md:rounded-[24px] border transition-all group flex flex-col cursor-pointer ${showPreview && displayNotice?.id === n.id ? 'border-blue-500 shadow-md bg-blue-50/50' : 'border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-lg hover:scale-[1.02]'}`} onClick={() => { setSelectedInternalItem(n); setHideNoticePreview(false); }}>
                             <div className="flex justify-between items-start mb-4">
                               <span className={`px-3 py-1 text-[10px] font-black rounded-lg uppercase tracking-widest ${showPreview && displayNotice?.id === n.id ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-600'}`}>{n.category}</span>
                               <span className="text-[11px] font-bold text-slate-400">{n.date}</span>
@@ -1676,7 +1676,7 @@ export default function InternalDashboard() {
 
                     {/* Right Preview */}
                     {showPreview && (
-                      <div className="col-span-2 bg-white rounded-[32px] border border-slate-200 shadow-xl relative max-h-[850px] overflow-y-auto custom-scrollbar animate-in fade-in zoom-in-95 duration-500 flex flex-col">
+                      <div className="col-span-2 bg-white rounded-3xl md:rounded-[32px] border border-slate-200 shadow-xl relative max-h-[850px] overflow-y-auto custom-scrollbar animate-in fade-in zoom-in-95 duration-500 flex flex-col">
                         {/* Interactive Header */}
                         <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md px-8 py-4 border-b border-slate-100 flex items-center justify-between">
                           <div className="flex items-center gap-3">
@@ -1977,7 +1977,7 @@ export default function InternalDashboard() {
 
                 {caView === 'detail' && selectedCA && (
                   <div className="space-y-8">
-                    <div className="bg-white p-8 md:p-12 rounded-[32px] border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div className="bg-white p-8 md:p-12 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-12 opacity-5 text-blue-600"><Users className="w-64 h-64" /></div>
                       <div className="relative z-10 space-y-10">
                         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
@@ -2030,7 +2030,7 @@ export default function InternalDashboard() {
                             </div>
                           </div>
                           <div className="space-y-6">
-                            <div className="p-6 bg-slate-900 text-white rounded-[24px] shadow-xl">
+                            <div className="p-6 bg-slate-900 text-white rounded-2xl md:rounded-[24px] shadow-xl">
                               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Metadata Perjanjian</p>
                               <div className="space-y-4">
                                 <div className="flex justify-between items-center py-2 border-b border-white/10">
@@ -2047,7 +2047,7 @@ export default function InternalDashboard() {
                                 </div>
                               </div>
                             </div>
-                            <div className="p-6 bg-blue-50 border border-blue-100 rounded-[24px]">
+                            <div className="p-6 bg-blue-50 border border-blue-100 rounded-2xl md:rounded-[24px]">
                               <h5 className="text-xs font-black text-blue-700 uppercase tracking-widest mb-3 flex items-center gap-2">
                                 <Lightbulb className="w-4 h-4" /> Insight Kesatuan
                               </h5>
@@ -2067,11 +2067,11 @@ export default function InternalDashboard() {
             {dashActiveView === 'sebutan' && (
               <div className="h-[calc(100vh-12rem)] min-h-[500px] animate-in fade-in duration-500">
                 {!isSebutanJoined ? (
-                  <div className="h-full bg-slate-50 flex items-center justify-center p-4 md:p-8 rounded-[40px] overflow-hidden border border-slate-200 shadow-inner relative">
+                  <div className="h-full bg-slate-50 flex items-center justify-center p-4 md:p-8 rounded-3xl md:rounded-[40px] overflow-hidden border border-slate-200 shadow-inner relative">
                     <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
                       {/* Left: Video Preview & Controls */}
                       <div className="space-y-6">
-                        <div className="aspect-video bg-slate-900 rounded-[32px] md:rounded-[48px] overflow-hidden relative shadow-2xl border-4 border-white group">
+                        <div className="aspect-video bg-slate-900 rounded-3xl md:rounded-[32px] md:rounded-[48px] overflow-hidden relative shadow-2xl border-4 border-white group">
                           <div className="absolute inset-0 bg-gradient-to-tr from-slate-800 to-slate-900 flex items-center justify-center">
                             <User className="w-24 h-24 text-slate-700 opacity-20" />
                             <div className="absolute bottom-6 left-6 px-4 py-2 bg-black/40 backdrop-blur-md rounded-xl border border-white/10 text-white text-xs font-black uppercase tracking-widest">
@@ -2116,7 +2116,7 @@ export default function InternalDashboard() {
                             { id: '4/4-2024/25', title: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Active Hearing', participants: 2, court: 'Mahkamah 7', time: '11:00 AM', type: 'Constructive Dismissal' },
                             { id: '2/2-3041/25', title: 'Kesatuan Sekerja v Kilang Automotif', status: 'Waiting', participants: 5, court: 'Mahkamah 1', time: '02:30 PM', type: 'Trade Dispute' },
                           ].map((session, idx) => (
-                            <div key={idx} className="p-6 bg-white rounded-[24px] border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-lg transition-all group relative overflow-hidden cursor-pointer"
+                            <div key={idx} className="p-6 bg-white rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-lg transition-all group relative overflow-hidden cursor-pointer"
                               onClick={() => { setSelectedSebutanSession(session); setIsSebutanJoined(true); }}
                             >
                               <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-100 group-hover:bg-blue-600 transition-colors"></div>
@@ -2125,8 +2125,8 @@ export default function InternalDashboard() {
                                   <div className="flex items-center gap-3 mb-2">
                                     <span className="text-xs font-mono font-black text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">{session.id}</span>
                                     <span className={`px-2.5 py-1 text-[10px] font-black rounded-lg uppercase ${session.status === 'Active Hearing' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' :
-                                        session.status === 'Mention' ? 'bg-amber-50 text-amber-700 border border-amber-100' :
-                                          'bg-slate-50 text-slate-600 border border-slate-100'
+                                      session.status === 'Mention' ? 'bg-amber-50 text-amber-700 border border-amber-100' :
+                                        'bg-slate-50 text-slate-600 border border-slate-100'
                                       }`}>{session.status}</span>
                                   </div>
                                   <h3 className="text-base font-black text-slate-900 truncate group-hover:text-blue-600 transition-colors">{session.title}</h3>
@@ -2165,7 +2165,7 @@ export default function InternalDashboard() {
             {dashActiveView === 'display' && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 {/* Switcher Controls */}
-                <div className="bg-white p-6 rounded-[32px] border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-6">
+                <div className="bg-white p-6 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-6">
                   <div className="flex-1 w-full">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block px-1">Pilih Negeri / Wilayah</label>
                     <div className="flex flex-wrap gap-2">
@@ -2225,7 +2225,7 @@ export default function InternalDashboard() {
                       </div>
                     </div>
 
-                    <div className="bg-slate-50 p-10 md:p-14 rounded-[40px] border border-slate-200 relative z-10 shadow-inner flex flex-col md:flex-row md:items-center justify-between gap-12">
+                    <div className="bg-slate-50 p-10 md:p-14 rounded-3xl md:rounded-[40px] border border-slate-200 relative z-10 shadow-inner flex flex-col md:flex-row md:items-center justify-between gap-12">
                       <div className="flex-1 space-y-6">
                         <div className="flex items-center gap-6">
                           <span className="px-6 py-2 bg-rose-600 text-white text-[10px] md:text-xs font-black tracking-[0.3em] rounded-full animate-pulse shadow-lg uppercase">
@@ -2271,7 +2271,7 @@ export default function InternalDashboard() {
 
             {/* ---------------- CHAIRMAN WORKSPACE ---------------- */}
             {dashActiveView === 'chairman' && !internalActionView && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm space-y-8">
+              <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm space-y-8">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <h3 className="text-h3 text-slate-900 font-black">{currentLang.chairmanWorkspace}</h3>
@@ -2279,12 +2279,12 @@ export default function InternalDashboard() {
                   </div>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">{currentLang.assignedCases}</p><h3 className="text-h1 text-slate-900">28</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">{currentLang.hearingsThisWeek}</p><h3 className="text-h1 text-slate-900">6</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">{currentLang.mentionsThisWeek}</p><h3 className="text-h1 text-slate-900">4</h3></div>
-                  <div className="bg-white p-5 md:p-6 rounded-[24px] border border-rose-200 bg-rose-50/30 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-rose-500 mb-2">{currentLang.awardsPending}</p><h3 className="text-h1 text-rose-600">3</h3></div>
+                  <div className="bg-white p-5 md:p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">{currentLang.assignedCases}</p><h3 className="text-h1 text-slate-900">28</h3></div>
+                  <div className="bg-white p-5 md:p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">{currentLang.hearingsThisWeek}</p><h3 className="text-h1 text-slate-900">6</h3></div>
+                  <div className="bg-white p-5 md:p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-slate-500 mb-2">{currentLang.mentionsThisWeek}</p><h3 className="text-h1 text-slate-900">4</h3></div>
+                  <div className="bg-white p-5 md:p-6 rounded-2xl md:rounded-[24px] border border-rose-200 bg-rose-50/30 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"><p className="text-ui-label text-rose-500 mb-2">{currentLang.awardsPending}</p><h3 className="text-h1 text-rose-600">3</h3></div>
                 </div>
-                <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+                <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                   <h3 className="text-h3 text-slate-900 mb-6 md:mb-8">{currentLang.assignedCaseRoster}</h3>
                   <div className="overflow-x-auto">
                     <table className="w-full text-left min-w-[600px]">
@@ -2339,7 +2339,7 @@ export default function InternalDashboard() {
                   <button className="px-5 py-2.5 bg-emerald-600 text-white text-body-sm rounded-xl hover:bg-emerald-700 shadow-md flex items-center"><Save className="w-4 h-4 mr-2" /> {currentLang.saveNotes}</button>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
-                  <div className="lg:col-span-2 flex flex-col bg-white rounded-[32px] overflow-hidden shadow-premium border border-slate-200 relative">
+                  <div className="lg:col-span-2 flex flex-col bg-white rounded-3xl md:rounded-[32px] overflow-hidden shadow-premium border border-slate-200 relative">
                     <div className="p-6 bg-slate-50 border-b border-slate-200 flex justify-between items-center text-slate-900">
                       <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></div><h3 className="text-ui-label text-slate-500 font-black tracking-widest uppercase">{currentLang.liveHearingRecord}</h3></div>
                       <div className="flex gap-2"><button className="p-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors text-slate-400"><Mic className="w-4 h-4" /></button><button className="p-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors text-slate-400"><Video className="w-4 h-4" /></button></div>
@@ -2350,7 +2350,7 @@ export default function InternalDashboard() {
                     <div className="p-4 bg-slate-50 border-t border-slate-200 text-ui-label text-slate-400 text-center uppercase tracking-widest">{currentLang.autosavedAt} 09:42:15 AM</div>
                   </div>
                   <div className="space-y-6 overflow-y-auto pr-2">
-                    <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
+                    <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm">
                       <h4 className="text-ui-label text-slate-400 mb-4 flex items-center"><Gavel className="w-4 h-4 mr-2" /> {currentLang.benchReference}</h4>
                       <div className="space-y-4">
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
@@ -2364,7 +2364,7 @@ export default function InternalDashboard() {
                         </div>
                       </div>
                     </div>
-                    <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm">
+                    <div className="bg-white p-6 rounded-2xl md:rounded-[24px] border border-slate-200 shadow-sm">
                       <h4 className="text-ui-label text-slate-400 mb-4 flex items-center"><FileText className="w-4 h-4 mr-2" /> {currentLang.pleadingsQuickAccess}</h4>
                       <div className="space-y-2">
                         {[
@@ -2386,7 +2386,7 @@ export default function InternalDashboard() {
 
             {/* ---------------- M13 USERS ---------------- */}
             {dashActiveView === 'users' && !internalActionView && (
-              <div className="bg-white p-6 md:p-10 rounded-[32px] border border-slate-200 shadow-sm animate-in fade-in duration-500">
+              <div className="bg-white p-6 md:p-10 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm animate-in fade-in duration-500">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                   <div>
                     <h3 className="text-h2 text-slate-900">User & Role Management</h3>
@@ -2442,7 +2442,7 @@ export default function InternalDashboard() {
 
             {/* Sub-view: Add New User */}
             {dashActiveView === 'users' && internalActionView === 'add_user' && (
-              <div className="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="flex items-center gap-4 mb-8">
                   <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90">
                     <ArrowLeft className="w-6 h-6" />
@@ -2486,7 +2486,7 @@ export default function InternalDashboard() {
 
             {/* Sub-view: Edit User / Permissions */}
             {dashActiveView === 'users' && internalActionView === 'edit_user' && selectedInternalItem && (
-              <div className="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-[32px] border border-slate-200 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-4">
                     <button onClick={() => setInternalActionView(null)} className="w-12 h-12 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 shadow-md transition-all active:scale-90">
@@ -2556,7 +2556,7 @@ export default function InternalDashboard() {
             {/* ---------------- M13 INTEGRATION ---------------- */}
             {dashActiveView === 'integration' && (
               <div className="space-y-6">
-                <div className="bg-white p-8 md:p-10 rounded-[32px] border border-zinc-200 shadow-sm">
+                <div className="bg-white p-8 md:p-10 rounded-3xl md:rounded-[32px] border border-zinc-200 shadow-sm">
                   <div className="flex items-center justify-between mb-8">
                     <div>
                       <h3 className="text-h2 text-zinc-900">API Integration Monitoring</h3>
@@ -2581,7 +2581,7 @@ export default function InternalDashboard() {
                     ))}
                   </div>
                 </div>
-                <div className="bg-white p-8 md:p-10 rounded-[32px] border border-zinc-200 shadow-sm">
+                <div className="bg-white p-8 md:p-10 rounded-3xl md:rounded-[32px] border border-zinc-200 shadow-sm">
                   <div className="flex items-center justify-between mb-10">
                     <h3 className="text-h3 text-zinc-900">Recent API Transactions (JPPM/SSO/MyDigitalID)</h3>
                     <div className="flex gap-2"><div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400 cursor-pointer hover:bg-white"><ChevronLeft className="w-4 h-4" /></div><div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400 cursor-pointer hover:bg-white"><ChevronRight className="w-4 h-4" /></div></div>
@@ -2606,7 +2606,7 @@ export default function InternalDashboard() {
 
             {/* ---------------- M12 USAGE ---------------- */}
             {dashActiveView === 'usage' && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
+              <div className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm">
                 <div className="flex items-center justify-between mb-8"><h3 className="text-h3 text-slate-900">Platform Usage Logs</h3><button className="p-2 hover:bg-slate-100 rounded-xl transition-colors"><ArrowUpRight className="w-5 h-5 text-slate-400" /></button></div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left min-w-[600px]">
@@ -2624,7 +2624,7 @@ export default function InternalDashboard() {
             {/* ---------------- M13 SETTINGS ---------------- */}
             {dashActiveView === 'settings' && (
               <div className="max-w-4xl mx-auto space-y-8">
-                <div className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm">
+                <div className="bg-white p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm">
                   <h3 className="text-h3 text-slate-900 mb-8 pb-4 border-b border-slate-100">{currentLang.sysPreferences}</h3>
                   <div className="space-y-8">
                     <div className="flex items-center justify-between"><div className="space-y-1"><h4 className="text-body-md font-bold text-slate-900">{currentLang.strictDocVal}</h4><p className="text-body-sm text-slate-500">{currentLang.strictDocValSub}</p></div><div className="w-12 h-6 bg-blue-600 rounded-full relative p-1 cursor-pointer shadow-inner"><div className="w-4 h-4 bg-white rounded-full absolute right-1"></div></div></div>
@@ -2632,7 +2632,7 @@ export default function InternalDashboard() {
                     <div className="flex items-center justify-between"><div className="space-y-1"><h4 className="text-body-md font-bold text-slate-900">{currentLang.emailDispatch}</h4><p className="text-body-sm text-slate-500">{currentLang.emailDispatchSub}</p></div><div className="w-12 h-6 bg-blue-600 rounded-full relative p-1 cursor-pointer shadow-inner"><div className="w-4 h-4 bg-white rounded-full absolute right-1"></div></div></div>
                   </div>
                 </div>
-                <div className="bg-rose-50 border border-rose-200 p-8 rounded-[32px] flex items-center justify-between">
+                <div className="bg-rose-50 border border-rose-200 p-8 rounded-3xl md:rounded-[32px] flex items-center justify-between">
                   <div>
                     <h3 className="text-h3 text-rose-900">{currentLang.dangerZone}</h3>
                     <p className="text-body-sm text-rose-700 mt-1">{currentLang.dangerZoneSub}</p>

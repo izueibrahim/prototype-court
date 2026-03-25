@@ -65,7 +65,7 @@ export default function FilingInstructionsSection() {
                     {instructions.map((step, idx) => (
                         <div
                             key={idx}
-                            className={`w-full p-8 sm:p-10 rounded-[2.5rem] flex flex-col transition-all duration-500 border group/card ${isHighContrast
+                            className={`w-full p-8 sm:p-10 rounded-3xl sm:rounded-[2.5rem] flex flex-col transition-all duration-500 border group/card ${isHighContrast
                                 ? "bg-black border-white hover:bg-zinc-900"
                                 : "bg-white border-zinc-100 hover:border-blue-400 hover:shadow-premium"
                                 }`}
@@ -92,7 +92,7 @@ export default function FilingInstructionsSection() {
                     ))}
                 </div>
 
-                <div className={`p-12 rounded-[3.5rem] flex flex-col lg:flex-row items-center justify-between gap-10 lg:mx-24 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white shadow-3xl shadow-blue-900/30'}`}>
+                <div className={`p-10 sm:p-12 rounded-3xl sm:rounded-[3.5rem] flex flex-col lg:flex-row items-center justify-between gap-10 lg:mx-24 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white shadow-3xl shadow-blue-900/30'}`}>
                     <div className="text-center lg:text-left">
                         <h4 className="text-h3 font-black mb-2">Ready to Proceed?</h4>
                         <p className={`text-body-md font-bold opacity-80 ${isHighContrast ? 'text-zinc-700' : 'text-blue-50'}`}>

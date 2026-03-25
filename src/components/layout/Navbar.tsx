@@ -22,7 +22,7 @@ export default function Navbar() {
             {/* Main Navigation */}
             <nav className={`relative z-40 transition-colors ${isHighContrast ? 'bg-black border-b border-white' : 'bg-white/70 backdrop-blur-xl border-b border-zinc-200/50 shadow-sm'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-20 sm:h-24">
+                    <div className="flex justify-between py-4 sm:h-24">
                         <button 
                             onClick={() => setCurrentView('portal')}
                             className="flex items-center gap-3 sm:gap-4 text-left outline-none hover:opacity-80 transition-opacity"
