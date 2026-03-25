@@ -2124,11 +2124,10 @@ export default function InternalDashboard() {
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-3 mb-2">
                                     <span className="text-xs font-mono font-black text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">{session.id}</span>
-                                    <span className={`px-2.5 py-1 text-[10px] font-black rounded-lg uppercase ${
-                                      session.status === 'Active Hearing' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' :
-                                      session.status === 'Mention' ? 'bg-amber-50 text-amber-700 border border-amber-100' :
-                                      'bg-slate-50 text-slate-600 border border-slate-100'
-                                    }`}>{session.status}</span>
+                                    <span className={`px-2.5 py-1 text-[10px] font-black rounded-lg uppercase ${session.status === 'Active Hearing' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' :
+                                        session.status === 'Mention' ? 'bg-amber-50 text-amber-700 border border-amber-100' :
+                                          'bg-slate-50 text-slate-600 border border-slate-100'
+                                      }`}>{session.status}</span>
                                   </div>
                                   <h3 className="text-base font-black text-slate-900 truncate group-hover:text-blue-600 transition-colors">{session.title}</h3>
                                   <div className="flex items-center gap-4 mt-3 text-xs font-bold text-slate-400">

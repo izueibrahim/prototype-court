@@ -9,7 +9,11 @@ import HeroSection from '@/sections/HeroSection';
 import QuickLinksSection from '@/sections/QuickLinksSection';
 import EServicesDirectory from '@/sections/EServicesDirectory';
 import NoticeBoardSection from '@/sections/NoticeBoardSection';
+import FeaturedCasesSection from '@/sections/FeaturedCasesSection';
+import MediationBanner from '@/sections/MediationBanner';
 import HearingsSchedule from '@/sections/HearingsSchedule';
+import PromoBannerSection from '@/sections/PromoBannerSection';
+import PortalStatsCTA from '@/sections/PortalStatsCTA';
 import LoginSection from '@/sections/LoginSection';
 import FullSchedule from '@/sections/FullSchedule';
 import SearchPage from '@/sections/SearchPage';
@@ -112,7 +116,11 @@ export default function Home() {
           <QuickLinksSection />
           <NoticeBoardSection />
           <EServicesDirectory />
+          <FeaturedCasesSection />
+          <MediationBanner />
           <HearingsSchedule />
+          <PromoBannerSection />
+          <PortalStatsCTA />
           <Footer />
         </>
       )}
