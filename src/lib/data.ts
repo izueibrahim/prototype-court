@@ -14,7 +14,7 @@ export const upcomingHearings = [
     time: '09:00 AM', // Used briefly for hearing list
     claimant: 'Tay Hwee Lan',
     respondent: 'Healthy Vision Sdn Bhd',
-    keywords: ['Dismissal', 'Active', 'Final award'],
+    keywords: ['Unfair Dismissal', 'Active', 'Final award'],
     summary: 'The claimant alleges unfair dismissal. Case is currently at the Final Award stage after a complete cycle of mentions, hearings, and document filings.',
     status: 'Active',
     stage: 'Final award',
@@ -195,77 +195,161 @@ export const mockSearchResults = [
 ];
 
 export const mockCollectiveAgreements = [
-  { 
-    id: 'CA/001/2026', 
-    title: 'Nestle Manufacturing (M) Sdn Bhd & Food Industry Workers Union', 
+  {
+    id: 'CA/001/2026',
+    title: 'Nestle Manufacturing (M) Sdn Bhd & Food Industry Workers Union',
     parties: ['Nestle Manufacturing (M) Sdn Bhd', 'Food Industry Workers Union'],
-    validity: '2026 - 2029', 
-    status: 'Active', 
-    articles: 45, 
+    validity: '2026 - 2029',
+    status: 'Active',
+    articles: 45,
     lastUpdated: '15 Mar 2026',
     category: 'Manufacturing',
     scope: 'All non-executive employees in the manufacturing division across Peninsula Malaysia.',
     documentUrl: '/docs/CA_NESTLE_2026.pdf'
   },
-  { 
-    id: 'CA/002/2026', 
-    title: 'Malayan Banking Berhad & National Union of Bank Employees (NUBE)', 
+  {
+    id: 'CA/002/2026',
+    title: 'Malayan Banking Berhad & National Union of Bank Employees (NUBE)',
     parties: ['Malayan Banking Berhad', 'National Union of Bank Employees (NUBE)'],
-    validity: '2025 - 2028', 
-    status: 'Under Review', 
-    articles: 62, 
+    validity: '2025 - 2028',
+    status: 'Under Review',
+    articles: 62,
     lastUpdated: '10 Mar 2026',
     category: 'Finance',
     scope: 'Clerical and non-clerical staff of Maybank Berhad.',
     documentUrl: '/docs/CA_MAYBANK_NUBE.pdf'
   },
-  { 
-    id: 'CA/003/2026', 
-    title: 'Sime Darby Plantation & All Malayan Estates Staff Union', 
+  {
+    id: 'CA/003/2026',
+    title: 'Sime Darby Plantation & All Malayan Estates Staff Union',
     parties: ['Sime Darby Plantation', 'All Malayan Estates Staff Union'],
-    validity: '2026 - 2029', 
-    status: 'Active', 
-    articles: 38, 
+    validity: '2026 - 2029',
+    status: 'Active',
+    articles: 38,
     lastUpdated: '05 Mar 2026',
     category: 'Agriculture',
     scope: 'Staff grade employees in plantation estates and mills.',
     documentUrl: '/docs/CA_SIME_DARBY.pdf'
   },
-  { 
-    id: 'CA/004/2026', 
-    title: 'Telekom Malaysia Berhad & NUTE', 
+  {
+    id: 'CA/004/2026',
+    title: 'Telekom Malaysia Berhad & NUTE',
     parties: ['Telekom Malaysia Berhad', 'National Union of Telecommunications Employees'],
-    validity: '2024 - 2027', 
-    status: 'Active', 
-    articles: 55, 
+    validity: '2024 - 2027',
+    status: 'Active',
+    articles: 55,
     lastUpdated: '28 Feb 2026',
     category: 'Telecommunications',
     scope: 'Operational and technical staff within Malaysia.',
     documentUrl: '/docs/CA_TM_NUTE.pdf'
   },
-  { 
-    id: 'CA/005/2026', 
-    title: 'AirAsia Berhad & Pilots Association', 
+  {
+    id: 'CA/005/2026',
+    title: 'AirAsia Berhad & Pilots Association',
     parties: ['AirAsia Berhad', 'AirAsia Pilots Association'],
-    validity: '2026 - 2029', 
-    status: 'Under Review', 
-    articles: 42, 
+    validity: '2026 - 2029',
+    status: 'Under Review',
+    articles: 42,
     lastUpdated: '20 Feb 2026',
     category: 'Aviation',
     scope: 'All flight crew and cockpit personnel.',
     documentUrl: '/docs/CA_AIRASIA_PILOTS.pdf'
   },
-  { 
-    id: 'CA/006/2026', 
-    title: 'Legacy Textiles Sdn Bhd & Textile Workers Union', 
+  {
+    id: 'CA/006/2026',
+    title: 'Legacy Textiles Sdn Bhd & Textile Workers Union',
     parties: ['Legacy Textiles Sdn Bhd', 'Textile Workers Union'],
-    validity: '2022 - 2025', 
-    status: 'Expired', 
-    articles: 30, 
+    validity: '2022 - 2025',
+    status: 'Expired',
+    articles: 30,
     lastUpdated: '12 Jan 2025',
     category: 'Manufacturing',
     scope: 'General factory workers in the Batu Pahat facility.',
     documentUrl: '/docs/CA_LEGACY_TEXTILE.pdf'
+  },
+  {
+    id: 'CA/007/2026',
+    title: 'Petronas Chemicals Group & Chemical Workers Union',
+    parties: ['Petronas Chemicals Group', 'Chemical Workers Union of Peninsula Malaysia'],
+    validity: '2025 - 2028',
+    status: 'Active',
+    articles: 58,
+    lastUpdated: '01 Mar 2026',
+    category: 'Oil & Gas',
+    scope: 'All non-executive staff at petrochemical complexes in Kertih and Gebeng.',
+    documentUrl: '/docs/CA_PETRONAS_CHEM.pdf'
+  },
+  {
+    id: 'CA/008/2026',
+    title: 'Top Glove Corporation & Rubber Workers Union',
+    parties: ['Top Glove Corporation Bhd', 'National Union of Rubber Products Workers'],
+    validity: '2026 - 2029',
+    status: 'Under Review',
+    articles: 40,
+    lastUpdated: '18 Feb 2026',
+    category: 'Manufacturing',
+    scope: 'Production line workers and warehouse staff across all Malaysian factories.',
+    documentUrl: '/docs/CA_TOP_GLOVE.pdf'
+  },
+  {
+    id: 'CA/009/2026',
+    title: 'Tenaga Nasional Berhad & NUTE',
+    parties: ['Tenaga Nasional Berhad', 'National Union of TNB Employees'],
+    validity: '2024 - 2027',
+    status: 'Active',
+    articles: 72,
+    lastUpdated: '22 Jan 2026',
+    category: 'Energy',
+    scope: 'Field technicians, engineers, and administrative staff under non-executive grade.',
+    documentUrl: '/docs/CA_TNB_NUTE.pdf'
+  },
+  {
+    id: 'CA/010/2026',
+    title: 'Malaysia Airlines Berhad & Cabin Crew Union',
+    parties: ['Malaysia Airlines Berhad', 'Malaysia Airlines Cabin Crew Union'],
+    validity: '2025 - 2028',
+    status: 'Active',
+    articles: 50,
+    lastUpdated: '10 Jan 2026',
+    category: 'Aviation',
+    scope: 'All cabin crew members on domestic and international routes.',
+    documentUrl: '/docs/CA_MAS_CABIN_CREW.pdf'
+  },
+  {
+    id: 'CA/011/2026',
+    title: 'IOI Corporation & Palm Oil Workers Union',
+    parties: ['IOI Corporation Bhd', 'National Union of Plantation Workers'],
+    validity: '2026 - 2029',
+    status: 'Under Review',
+    articles: 35,
+    lastUpdated: '25 Feb 2026',
+    category: 'Agriculture',
+    scope: 'Estate workers across Johor and Sabah divisions.',
+    documentUrl: '/docs/CA_IOI_PLANTATION.pdf'
+  },
+  {
+    id: 'CA/012/2026',
+    title: 'Gamuda Berhad & Construction Workers Union',
+    parties: ['Gamuda Berhad', 'National Union of Construction Workers'],
+    validity: '2023 - 2026',
+    status: 'Expired',
+    articles: 28,
+    lastUpdated: '30 Dec 2025',
+    category: 'Construction',
+    scope: 'Skilled and semi-skilled construction workers on MRT3 project.',
+    documentUrl: '/docs/CA_GAMUDA_CWU.pdf'
+  },
+  {
+    id: 'CA/013/2026',
+    title: 'Public Bank Berhad & Banking Employees Union',
+    parties: ['Public Bank Berhad', 'Association of Bank Officers'],
+    validity: '2026 - 2029',
+    status: 'Active',
+    articles: 60,
+    lastUpdated: '08 Mar 2026',
+    category: 'Finance',
+    scope: 'All bank officers including branch managers across Peninsula Malaysia.',
+    documentUrl: '/docs/CA_PUBLIC_BANK.pdf'
   }
 ];
 
@@ -411,10 +495,10 @@ export const filingQueue = [
 ];
 
 export const chairmanCases = [
-  { id: '1/1-1522/25', title: 'Tay Hwee Lan v Healthy Vision', status: 'Hearing', date: '12 Mar 2026', time: '09:00 AM' },
-  { id: '1/1-1079/25', title: 'Azman Bin Isa v Technip Energies', status: 'Trial', date: '12 Mar 2026', time: '11:00 AM' },
-  { id: '4/4-2024/25', title: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Mention', date: '14 Mar 2026', time: '02:30 PM' },
-  { id: '2/2-3041/25', title: 'Kesatuan Sekerja v Kilang Automotif', status: 'Hearing', date: '15 Mar 2026', time: '09:30 AM' }
+  { id: '1/1-1522/25', title: 'Tay Hwee Lan v Healthy Vision', status: 'Hearing', date: '12 Mar 2026', time: '09:00 AM', type: 'Unfair Dismissal' },
+  { id: '1/1-1079/25', title: 'Azman Bin Isa v Technip Energies', status: 'Trial', date: '12 Mar 2026', time: '11:00 AM', type: 'Trade Dispute' },
+  { id: '4/4-2024/25', title: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Mention', date: '14 Mar 2026', time: '02:30 PM', type: 'Constructive Dismissal' },
+  { id: '2/2-3041/25', title: 'Kesatuan Sekerja v Kilang Automotif', status: 'Hearing', date: '15 Mar 2026', time: '09:30 AM', type: 'Trade Dispute' }
 ];
 
 export const integrationLogs = [
