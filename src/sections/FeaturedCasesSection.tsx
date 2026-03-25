@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { useAppStore } from '@/lib/store';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 const industryTags = [
     { name: 'Perkhidmatan Awam & PBT' },
@@ -46,59 +46,29 @@ const featuredColumns = [
 export default function FeaturedCasesSection() {
     const { wcagStates } = useAppStore();
     const isHighContrast = wcagStates.highContrast;
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-    const scroll = (direction: 'left' | 'right') => {
-        if (scrollContainerRef.current) {
-            const scrollAmount = direction === 'left' ? -300 : 300;
-            scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }
-    };
 
     return (
-        <section className={`pt-12 sm:pt-20 pb-8 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
+        <section className={`pt-12 pb-8 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Industry Tags */}
-                <div className="mb-12">
+                <div className="mb-20">
                     <h2 className={`text-h2 mb-5 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                         Terokai kes mengikut industri
                     </h2>
 
-                    <div className="relative group/tags">
-                        <button
-                            onClick={() => scroll("left")}
-                            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 h-8 rounded-full shadow-md transition-all duration-300 opacity-0 group-hover/tags:opacity-100 -ml-4 ${isHighContrast
-                                ? "bg-black border-2 border-white text-white"
-                                : "bg-white text-zinc-900 border border-zinc-200 hover:text-blue-600"
-                                }`}
-                        >
-                            <ChevronLeft className="w-4 h-4" />
-                        </button>
-
-                        <div ref={scrollContainerRef} className="flex overflow-x-auto gap-2 pb-2 hide-scrollbar snap-x">
-                            {industryTags.map((tag, idx) => (
-                                <button
-                                    key={idx}
-                                    className={`flex items-center px-4 py-2 rounded-xl whitespace-nowrap snap-center transition-all shadow-sm text-body-sm font-bold ${isHighContrast
-                                        ? 'border border-white text-white bg-black hover:bg-white hover:text-black'
-                                        : 'border border-blue-100 text-zinc-700 hover:bg-zinc-50 hover:border-blue-400 bg-white'
-                                        }`}
-                                >
-                                    {tag.name}
-                                </button>
-                            ))}
-                        </div>
-
-                        <button
-                            onClick={() => scroll("right")}
-                            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 h-8 rounded-full shadow-md transition-all duration-300 opacity-0 group-hover/tags:opacity-100 -mr-4 ${isHighContrast
-                                ? "bg-black border-2 border-white text-white"
-                                : "bg-white text-zinc-900 border border-zinc-200 hover:text-blue-600"
-                                }`}
-                        >
-                            <ChevronRight className="w-4 h-4" />
-                        </button>
+                    <div className="flex flex-wrap gap-2">
+                        {industryTags.map((tag, idx) => (
+                            <button
+                                key={idx}
+                                className={`flex items-center px-5 py-2 rounded-xl transition-all shadow-sm text-body-sm font-bold ${isHighContrast
+                                    ? 'border border-white text-white bg-black hover:bg-white hover:text-black'
+                                    : 'border border-blue-100 text-blue-600 bg-blue-50'
+                                    }`}
+                            >
+                                {tag.name}
+                            </button>
+                        ))}
                     </div>
                 </div>
 
@@ -110,7 +80,7 @@ export default function FeaturedCasesSection() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
                         {featuredColumns.map((col, idx) => (
-                            <div key={idx} className={`p-6 rounded-[2rem]${isHighContrast ? 'bg-white' : 'bg-white'}`}>
+                            <div key={idx} className={`rounded-[2rem]${isHighContrast ? 'bg-white' : 'bg-white'}`}>
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className={`text-ui-label font-bold uppercase tracking-widest ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
                                         {col.title}

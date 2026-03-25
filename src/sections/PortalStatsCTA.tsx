@@ -18,7 +18,7 @@ export default function PortalStatsCTA() {
 
     return (
         <section className={`flex flex-col ${isHighContrast ? 'bg-black' : ''}`}>
-            
+
             {/* Upper Stats Banner - Dark Background */}
             <div className={`py-16 sm:py-24 ${isHighContrast ? 'bg-zinc-950 border-t border-b border-zinc-800' : 'bg-zinc-950'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,13 +38,13 @@ export default function PortalStatsCTA() {
             </div>
 
             {/* Lower CTA Banner - Solid Blue Background */}
-            <div className={`py-16 sm:py-20 text-center relative overflow-hidden ${isHighContrast ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-[#0f4a9a]'}`}>
-                
+            <div className={`py-16 sm:py-20 text-center relative overflow-hidden ${isHighContrast ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-blue-600'}`}>
+
                 {/* Background Pattern */}
                 {!isHighContrast && (
                     <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
                 )}
-                
+
                 <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className={`text-h1 mb-6 ${isHighContrast ? 'text-white' : 'text-white'}`}>
                         Mulakan Penggunaan eMP v2.0 Hari Ini
@@ -52,7 +52,7 @@ export default function PortalStatsCTA() {
                     <p className={`text-body-lg mb-10 max-w-2xl mx-auto ${isHighContrast ? 'text-zinc-400' : 'text-blue-100'}`}>
                         Wara-wara e-perkhidmatan terbaharu kami bagi memudahkan urusan digital harian di sistem portal Mahkamah perusahaan Malaysia.
                     </p>
-                    <button 
+                    <button
                         onClick={() => {
                             if (window.location.pathname !== '/') {
                                 router.push('/#/login');

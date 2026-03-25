@@ -19,7 +19,7 @@ export default function HearingsSchedule() {
         ['Bicara (B)', 'Bicara (B)', 'Sebutan (S)', 'Bicara (B)', 'Sebutan (S)', 'Keputusan (K)'];
 
     return (
-        <div className={`pt-8 pb-20 sm:pb-32 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
+        <div className={`pt-8 pb-20 sm:pb-10 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <div className="mb-12 sm:mb-16">
