@@ -20,7 +20,7 @@ interface Message {
   isMe: boolean;
 }
 
-export default function SebutanChat() {
+export default function SebutanChat({ onEndSession, sessionInfo }: { onEndSession?: () => void; sessionInfo?: { id: string; title: string; status: string; type?: string } }) {
   const { lang, loginRole, setDashActiveView, setCurrentView } = useAppStore();
   
   type SessionState = 'select' | 'code' | 'waiting' | 'chat' | 'moderator';
@@ -314,9 +314,15 @@ export default function SebutanChat() {
           {/* Header Bar - Mobile Optimized */}
           <div className="absolute top-0 left-0 right-0 p-4 md:p-8 flex justify-between items-center z-20 pointer-events-none">
             <div className="flex items-center gap-3 bg-white/90 backdrop-blur-md px-4 py-2 md:px-5 md:py-2.5 rounded-2xl border border-zinc-200 shadow-md pointer-events-auto">
-              <h2 className="text-[10px] md:text-ui-label text-zinc-900/90 tracking-[0.2em] font-black leading-none">SEB-2026-X1</h2>
+              <h2 className="text-[10px] md:text-ui-label text-zinc-900/90 tracking-[0.2em] font-black leading-none">{sessionInfo?.id || 'SEB-2026-X1'}</h2>
               <div className="w-[1px] h-3 bg-zinc-200"></div>
-              <p className="text-[10px] md:text-body-sm font-bold text-zinc-400 tracking-tight leading-none">Hearing</p>
+              <p className="text-[10px] md:text-body-sm font-bold text-zinc-400 tracking-tight leading-none">{sessionInfo?.status || 'Hearing'}</p>
+              {sessionInfo?.title && (
+                <>
+                  <div className="w-[1px] h-3 bg-zinc-200"></div>
+                  <p className="text-[10px] md:text-body-sm font-bold text-blue-600 tracking-tight leading-none truncate max-w-[250px]">{sessionInfo.title}</p>
+                </>
+              )}
             </div>
           </div>
 
@@ -490,8 +496,13 @@ export default function SebutanChat() {
             <div className="w-2 md:w-6"></div>
             <button 
                 onClick={() => {
-                  if (isGuest) setCurrentView('login');
-                  else setDashActiveView('cases');
+                  if (onEndSession) {
+                    onEndSession();
+                  } else {
+                    setSessionState(initialState);
+                  }
+                  setActiveSidebar(null);
+                  setSelectedSession(null);
                 }}
                 className="flex-shrink-0 px-6 md:px-12 h-12 md:h-14 rounded-2xl md:rounded-3xl bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center transition-all shadow-lg active:scale-95 gap-2 md:gap-3 group"
             >

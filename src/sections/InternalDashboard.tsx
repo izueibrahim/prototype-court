@@ -6,8 +6,8 @@ import {
   MessageSquare, LayoutDashboard, Briefcase, Bell, Mail, Clock, ShieldCheck,
   LogOut, Menu, X, Plus, Printer, Share2, Filter, MoreVertical, CheckCircle2,
   ChevronRight, ArrowLeft, ArrowUpRight, Save, Mic, Video, ServerCrash, RefreshCw,
-  ChevronLeft, FilePlus, SlidersHorizontal, Key, ShieldAlert, KanbanSquare, Tv,
-  ArrowDown, Check, Upload, Trash2, File as FileIcon, FileCheck, ClipboardList,
+  ChevronLeft, FilePlus, SlidersHorizontal, Key, ShieldAlert, KanbanSquare, Tv, Monitor,
+  ArrowDown, Check, Upload, Trash2, Edit2, File as FileIcon, FileCheck, ClipboardList,
   ChevronDown, ChevronUp, Users, PieChart, User, TrendingUp, TrendingDown, ExternalLink,
   BookOpen, FileSearch, Lightbulb, Zap, Globe
 } from 'lucide-react';
@@ -58,7 +58,7 @@ export default function InternalDashboard() {
   const [showOverviewFilters, setShowOverviewFilters] = useState(true);
   const [showAnalyticsFilters, setShowAnalyticsFilters] = useState(false);
   const [showCasesFilters, setShowCasesFilters] = useState(false);
-  const [hideNoticePreview, setHideNoticePreview] = useState(false);
+  const [hideNoticePreview, setHideNoticePreview] = useState(true);
   const [filterYear, setFilterYear] = useState('2026');
   const [filterLocation, setFilterLocation] = useState('All Locations');
   const [filterCaseType, setFilterCaseType] = useState('All Types');
@@ -70,6 +70,24 @@ export default function InternalDashboard() {
   const [selectedCA, setSelectedCA] = useState<any>(null);
   const [caSearchQuery, setCaSearchQuery] = useState('');
   const [caSectorFilter, setCaSectorFilter] = useState('All Sectors');
+
+  // Local calendar state
+  const [calendarView, setCalendarView] = useState('week'); // 'day', 'week', 'month'
+  const [selectedCalendarItem, setSelectedCalendarItem] = useState<any>(null);
+
+  // Pagination states
+  const [noticePage, setNoticePage] = useState(1);
+  const [awardPage, setAwardPage] = useState(1);
+  const [casePage, setCasePage] = useState(1);
+
+  // Digital Display states
+  const [displayRegion, setDisplayRegion] = useState('Kuala Lumpur');
+  const [displayCourt, setDisplayCourt] = useState('Mahkamah 1');
+
+  const [isSebutanJoined, setIsSebutanJoined] = useState(false);
+  const [selectedSebutanSession, setSelectedSebutanSession] = useState<any>(null);
+  const [caPage, setCaPage] = useState(1);
+  const [noticeMgmtPage, setNoticeMgmtPage] = useState(1);
 
   const handleLogout = () => {
     setLoginRole(null);
@@ -836,65 +854,109 @@ export default function InternalDashboard() {
                       onAction={() => setDashActiveView('registration')}
                     />
                   </div>
-                ) : (
-                  <div className="flex-1 space-y-6 overflow-y-auto pr-2 custom-scrollbar">
-                    {chairmanCases.map((c, i) => {
-                      const currentStage = i === 0 ? 3 : i === 1 ? 2 : 4; // Mock stage
-                      const stages = ['Registered', 'Allocation', 'Mention', 'Hearing', 'Award'];
+                ) : (() => {
+                  // Simulate larger list for pagination demo
+                  const allDisplayCases = [...chairmanCases, ...chairmanCases.map(c => ({ ...c, id: c.id + '-B', title: c.title + ' (Duplicate)' }))];
+                  const itemsPerPage = 6;
+                  const totalPages = Math.ceil(allDisplayCases.length / itemsPerPage);
+                  const paginatedCases = allDisplayCases.slice((casePage - 1) * itemsPerPage, casePage * itemsPerPage);
 
-                      return (
-                        <div key={i} onClick={() => { setSelectedInternalItem(c); setInternalActionView('case_detail'); }} className="bg-white p-8 md:p-10 rounded-[40px] border border-slate-200 shadow-sm hover:border-indigo-400 hover:shadow-xl transition-all group cursor-pointer relative overflow-hidden">
-                          <div className="absolute top-0 left-0 w-2 h-full bg-slate-100 group-hover:bg-indigo-600 transition-colors"></div>
+                  return (
+                    <div className="flex-1 flex flex-col min-h-0">
+                      <div className="flex-1 space-y-6 overflow-y-auto pr-2 custom-scrollbar pb-8">
+                        {paginatedCases.map((c, i) => {
+                          const currentStage = 3; // Default to Hearing stage
+                          const stages = ['Registered', 'Allocation', 'Mention', 'Hearing', 'Award'];
 
-                          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-                            <div className="flex items-center gap-6">
-                              <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-sm shadow-lg ring-4 ring-slate-50">
-                                {demoRole === 'efiling' ? 'MY' : 'CH'}
-                              </div>
-                              <div>
-                                <div className="flex items-center gap-3 mb-1">
-                                  <span className="text-sm font-mono font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">{c.id}</span>
-                                  <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">{c.status}</span>
-                                </div>
-                                <h4 className="text-xl md:text-2xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors">{c.title}</h4>
-                                <p className="text-sm font-bold text-slate-400 mt-2 flex items-center gap-2"><Calendar className="w-4 h-4" /> Last Action: {c.date}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3 relative z-20">
-                              <button
-                                onClick={(e) => { e.stopPropagation(); setDashActiveView('sebutan'); }}
-                                className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-blue-500/20 uppercase tracking-widest active:scale-95"
-                              >
-                                Join Session
-                              </button>
-                              <button className="px-8 py-3.5 bg-slate-100 hover:bg-slate-900 hover:text-white text-slate-700 text-[10px] font-black rounded-xl transition-all shadow-inner uppercase tracking-widest">Case Details</button>
-                            </div>
-                          </div>
+                          return (
+                            <div key={i} onClick={() => { setSelectedInternalItem(c); setInternalActionView('case_detail'); }} className="bg-white p-6 md:p-10 rounded-[40px] border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-xl transition-all group cursor-pointer relative overflow-hidden">
+                              <div className="absolute top-0 left-0 w-2 h-full bg-slate-100 group-hover:bg-blue-600 transition-colors"></div>
 
-                          {/* Horizontal Stepper */}
-                          <div className="pt-8 border-t border-slate-50">
-                            <div className="flex items-center w-full">
-                              {stages.map((stage, idx) => (
-                                <React.Fragment key={idx}>
-                                  <div className="flex flex-col items-center relative z-10 flex-1">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-500 ${idx <= currentStage ? 'bg-blue-600 border-blue-100 text-white shadow-lg' : 'bg-white border-slate-100 text-slate-300'
-                                      }`}>
-                                      {idx < currentStage ? <Check className="w-6 h-6" /> : <span className="text-xs font-black">{idx + 1}</span>}
-                                    </div>
-                                    <span className={`text-[10px] font-black uppercase mt-4 tracking-[0.2em] ${idx <= currentStage ? 'text-blue-600' : 'text-slate-300'}`}>{stage}</span>
+                              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
+                                <div className="flex items-center gap-6">
+                                  <div className={`w-14 h-14 ${c.type?.toLowerCase().includes('unfair dismissal') ? 'bg-blue-700' :
+                                    c.type?.toLowerCase().includes('trade dispute') ? 'bg-emerald-600' :
+                                      c.type?.toLowerCase().includes('non-compliance') ? 'bg-indigo-600' : 'bg-slate-700'
+                                    } rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg ring-4 ring-slate-50`}>
+                                    {c.type?.toLowerCase().includes('unfair dismissal') ? 'UD' :
+                                      c.type?.toLowerCase().includes('trade dispute') ? 'TD' :
+                                        c.type?.toLowerCase().includes('non-compliance') ? 'NC' : 'R'}
                                   </div>
-                                  {idx < stages.length - 1 && (
-                                    <div className={`h-1.5 flex-1 -mx-8 mb-9 transition-all duration-1000 ${idx < currentStage ? 'bg-blue-600' : 'bg-slate-100'}`}></div>
-                                  )}
-                                </React.Fragment>
-                              ))}
+                                  <div>
+                                    <div className="flex items-center gap-3 mb-1">
+                                      <span className="text-sm font-mono font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">{c.id}</span>
+                                      <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">{c.status}</span>
+                                    </div>
+                                    <h4 className="text-xl md:text-2xl font-black text-slate-900 group-hover:text-blue-600 transition-colors">{c.title}</h4>
+                                    <p className="text-sm font-bold text-slate-400 mt-2 flex items-center gap-2"><Calendar className="w-4 h-4" /> Last Action: {c.date}</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-3 relative z-20">
+                                  <button
+                                    onClick={(e) => { e.stopPropagation(); setDashActiveView('sebutan'); }}
+                                    className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-blue-500/20 uppercase tracking-widest active:scale-95"
+                                  >
+                                    Join Session
+                                  </button>
+                                  <button className="px-8 py-3.5 bg-slate-100 hover:bg-slate-900 hover:text-white text-slate-700 text-[10px] font-black rounded-xl transition-all shadow-inner uppercase tracking-widest">Case Details</button>
+                                </div>
+                              </div>
+
+                              <div className="pt-8 border-t border-slate-50">
+                                <div className="flex items-center w-full">
+                                  {stages.map((stage, idx) => (
+                                    <React.Fragment key={idx}>
+                                      <div className="flex flex-col items-center relative z-10 flex-1">
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-500 ${idx <= currentStage ? 'bg-blue-600 border-blue-100 text-white shadow-lg' : 'bg-white border-slate-100 text-slate-300'
+                                          }`}>
+                                          {idx < currentStage ? <Check className="w-6 h-6" /> : <span className="text-xs font-black">{idx + 1}</span>}
+                                        </div>
+                                        <span className={`text-[10px] font-black uppercase mt-4 tracking-[0.2em] hidden sm:block ${idx <= currentStage ? 'text-blue-600' : 'text-slate-300'}`}>{stage}</span>
+                                      </div>
+                                      {idx < stages.length - 1 && (
+                                        <div className={`h-1.5 flex-1 -mx-8 mb-6 sm:mb-9 transition-all duration-1000 ${idx < currentStage ? 'bg-blue-600' : 'bg-slate-100'}`}></div>
+                                      )}
+                                    </React.Fragment>
+                                  ))}
+                                </div>
+                              </div>
                             </div>
+                          );
+                        })}
+                      </div>
+
+                      {totalPages > 1 && (
+                        <div className="mt-8 flex items-center justify-center gap-4 py-4 border-t border-slate-100 bg-white">
+                          <button
+                            onClick={() => setCasePage(Math.max(1, casePage - 1))}
+                            disabled={casePage === 1}
+                            className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+                          <div className="flex items-center gap-2">
+                            {Array.from({ length: totalPages }).map((_, i) => (
+                              <button
+                                key={i}
+                                onClick={() => setCasePage(i + 1)}
+                                className={`w-10 h-10 rounded-xl font-black text-sm transition-all ${casePage === i + 1 ? 'bg-blue-600 text-white shadow-lg' : 'bg-white border border-slate-200 text-slate-400 hover:bg-slate-50'}`}
+                              >
+                                {i + 1}
+                              </button>
+                            ))}
                           </div>
+                          <button
+                            onClick={() => setCasePage(Math.min(totalPages, casePage + 1))}
+                            disabled={casePage === totalPages}
+                            className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
                         </div>
-                      );
-                    })}
-                  </div>
-                )}
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             )}
 
@@ -998,7 +1060,7 @@ export default function InternalDashboard() {
                   <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 mb-10 text-center">{currentLang.caseLifecycleProgress}</h3>
                   <div className="relative flex justify-between">
                     <div className="absolute top-5 left-0 w-full h-1 bg-slate-100 -z-10"></div>
-                    <div className="absolute top-5 left-0 h-1 bg-blue-500 -z-10 transition-all duration-1000" style={{ width: '40%' }}></div>
+                    <div className="absolute top-5 left-0 h-1 bg-blue-500 -z-10 transition-all duration-1000" style={{ width: '75%' }}></div>
 
                     {[
                       { label: currentLang.stageRegistration, date: '10 Jan' },
@@ -1008,7 +1070,7 @@ export default function InternalDashboard() {
                       { label: currentLang.stageAward, date: 'TBC' }
                     ].map((step, idx) => {
                       const caseIdx = chairmanCases.findIndex(c => c.id === selectedInternalItem.id);
-                      const currentStage = caseIdx === 0 ? 3 : caseIdx === 1 ? 2 : 4;
+                      const currentStage = 3; // Default to Hearing for Active Case Management as requested
                       const isCompleted = idx < currentStage;
                       const isActive = idx === currentStage;
                       const isPending = idx > currentStage;
@@ -1054,10 +1116,17 @@ export default function InternalDashboard() {
                           <div className="bg-blue-50/50 p-6 rounded-3xl border border-blue-100">
                             <h4 className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-4">Assigned Bench</h4>
                             <div className="flex items-center gap-4">
-                              <div className="w-12 h-12 bg-blue-700 rounded-2xl flex items-center justify-center text-white font-black text-sm shadow-lg ring-4 ring-blue-50">WJ</div>
+                              <div className={`w-12 h-12 ${selectedInternalItem.type?.toLowerCase().includes('dismissal') ? 'bg-blue-700' :
+                                selectedInternalItem.type?.toLowerCase().includes('trade') ? 'bg-emerald-600' :
+                                  selectedInternalItem.type?.toLowerCase().includes('compliance') ? 'bg-indigo-600' : 'bg-slate-700'
+                                } rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg ring-4 ring-blue-50`}>
+                                {selectedInternalItem.type?.toLowerCase().includes('dismissal') ? 'D' :
+                                  selectedInternalItem.type?.toLowerCase().includes('trade') ? 'T' :
+                                    selectedInternalItem.type?.toLowerCase().includes('compliance') ? 'NC' : 'R'}
+                              </div>
                               <div>
                                 <p className="text-sm font-black text-slate-900">YA Dato' Wan Jeffry</p>
-                                <p className="text-[10px] font-bold text-slate-500 uppercase">Chairman, Court 1</p>
+                                <p className="text-[10px] font-bold text-slate-500 uppercase font-black tracking-widest">Chairman, Court 1</p>
                               </div>
                             </div>
                           </div>
@@ -1158,66 +1227,190 @@ export default function InternalDashboard() {
 
             {/* ---------------- M6 SCHEDULE INTERNAL ---------------- */}
             {dashActiveView === 'schedule_int' && !internalActionView && (
-              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
+              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm relative">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
                   <h3 className="text-h3 text-slate-900">Master Court Calendar</h3>
-                  <button onClick={() => setInternalActionView('add_schedule')} className="text-body-sm font-bold bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 shadow-md flex items-center justify-center transition-all active:scale-95"><Calendar className="w-4 h-4 mr-2" /> Schedule</button>
-                </div>
-                <div className="border border-slate-200 rounded-[20px] overflow-hidden bg-slate-50 overflow-x-auto">
-                  <div className="min-w-[800px]">
-                    <div className="grid grid-cols-5 bg-slate-100 border-b border-slate-200 text-ui-label text-slate-500 divide-x divide-slate-200">
-                      {['Mon 9', 'Tue 10', 'Wed 11', 'Thu 12', 'Fri 13'].map(d => <div key={d} className="p-3 md:p-4 text-center">{d}</div>)}
+                  <div className="flex items-center gap-3">
+                    <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-sm">
+                      {['Day', 'Week', 'Month'].map(v => (
+                        <button
+                          key={v}
+                          onClick={() => setCalendarView(v.toLowerCase())}
+                          className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${calendarView === v.toLowerCase() ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                        >
+                          {v}
+                        </button>
+                      ))}
                     </div>
-                    <div className="grid grid-cols-5 min-h-[400px] divide-x divide-slate-200 bg-white">
-                      {/* Mon 9 */}
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3">
-                        {upcomingHearings.slice(0, 1).map((c, i) => (
-                          <div key={i} className="p-2 md:p-3 bg-white border border-blue-200 shadow-sm rounded-xl cursor-pointer hover:border-blue-500 transition-colors relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
-                            <span className="text-ui-label text-slate-900 block mb-1">{c.time || '09:00 AM'}</span>
-                            <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
-                            <span className="text-ui-label text-blue-700 bg-blue-50 mt-2 inline-block px-1.5 rounded truncate w-full">{c.claimant} v {c.respondent}</span>
-                          </div>
-                        ))}
-                      </div>
-                      {/* Tue 10 */}
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3">
-                        {upcomingHearings.slice(1, 2).map((c, i) => (
-                          <div key={i} className="p-2 md:p-3 bg-white border border-emerald-200 shadow-sm rounded-xl cursor-pointer hover:border-emerald-500 transition-colors relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500"></div>
-                            <span className="text-ui-label text-slate-900 block mb-1">{c.time || '10:00 AM'}</span>
-                            <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
-                            <span className="text-ui-label text-emerald-700 bg-emerald-50 mt-2 inline-block px-1.5 rounded truncate w-full">{c.claimant} v {c.respondent}</span>
-                          </div>
-                        ))}
-                      </div>
-                      {/* Wed 11 */}
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3 bg-blue-50/10">
-                        {upcomingHearings.slice(2, 4).map((c, i) => (
-                          <div key={i} className="p-2 md:p-3 bg-white border border-indigo-200 shadow-sm rounded-xl cursor-pointer hover:border-indigo-500 transition-colors relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500"></div>
-                            <span className="text-ui-label text-slate-900 block mb-1">{c.time || '11:00 AM'}</span>
-                            <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
-                            <span className="text-ui-label text-indigo-700 bg-indigo-50 mt-2 inline-block px-1.5 rounded truncate w-full">{c.claimant} v {c.respondent}</span>
-                          </div>
-                        ))}
-                      </div>
-                      {/* Thu 12 */}
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3 bg-blue-50/30">
-                        {upcomingHearings.slice(4, 5).map((c, i) => (
-                          <div key={i} className="p-2 md:p-3 bg-white border border-rose-200 shadow-sm rounded-xl cursor-pointer hover:border-rose-500 transition-colors relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-rose-500"></div>
-                            <span className="text-ui-label text-slate-900 block mb-1">{c.time || '02:00 PM'}</span>
-                            <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
-                            <span className="text-ui-label text-rose-700 bg-rose-50 mt-2 inline-block px-1.5 rounded truncate w-full">{c.claimant} v {c.respondent}</span>
-                          </div>
-                        ))}
-                      </div>
-                      {/* Fri 13 */}
-                      <div className="p-2 md:p-3 space-y-2 md:space-y-3"></div>
-                    </div>
+                    <button onClick={() => setInternalActionView('add_schedule')} className="text-body-sm font-bold bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 shadow-md flex items-center justify-center transition-all active:scale-95"><Calendar className="w-4 h-4 mr-2" /> Schedule</button>
                   </div>
                 </div>
+
+                {/* Calendar Grid */}
+                <div className="border border-slate-200 rounded-[20px] overflow-hidden bg-slate-50 overflow-x-auto">
+                  <div className="min-w-[800px]">
+                    {calendarView === 'week' ? (
+                      <>
+                        <div className="grid grid-cols-5 bg-slate-100 border-b border-slate-200 text-ui-label text-slate-500 divide-x divide-slate-200">
+                          {['Mon 9', 'Tue 10', 'Wed 11', 'Thu 12', 'Fri 13'].map(d => <div key={d} className="p-3 md:p-4 text-center">{d}</div>)}
+                        </div>
+                        <div className="grid grid-cols-5 min-h-[400px] divide-x divide-slate-200 bg-white">
+                          {/* Mon 9 */}
+                          <div className="p-2 md:p-3 space-y-2 md:space-y-3">
+                            {upcomingHearings.slice(0, 1).map((c, i) => (
+                              <div key={i} onClick={() => setSelectedCalendarItem(c)} className="p-2 md:p-3 bg-white border border-blue-200 shadow-sm rounded-xl cursor-pointer hover:border-blue-500 transition-all hover:scale-[1.02] relative overflow-hidden group">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                                <span className="text-ui-label text-slate-900 block mb-1">{c.time || '09:00 AM'}</span>
+                                <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
+                                <span className="text-ui-label text-blue-700 bg-blue-50 mt-2 inline-block px-1.5 rounded truncate w-full group-hover:bg-blue-100 transition-colors">{c.claimant} v {c.respondent}</span>
+                              </div>
+                            ))}
+                          </div>
+                          {/* Tue 10 */}
+                          <div className="p-2 md:p-3 space-y-2 md:space-y-3">
+                            {upcomingHearings.slice(1, 2).map((c, i) => (
+                              <div key={i} onClick={() => setSelectedCalendarItem(c)} className="p-2 md:p-3 bg-white border border-emerald-200 shadow-sm rounded-xl cursor-pointer hover:border-emerald-500 transition-all hover:scale-[1.02] relative overflow-hidden group">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500"></div>
+                                <span className="text-ui-label text-slate-900 block mb-1">{c.time || '10:00 AM'}</span>
+                                <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
+                                <span className="text-ui-label text-emerald-700 bg-emerald-50 mt-2 inline-block px-1.5 rounded truncate w-full group-hover:bg-emerald-100 transition-colors">{c.claimant} v {c.respondent}</span>
+                              </div>
+                            ))}
+                          </div>
+                          {/* Wed 11 */}
+                          <div className="p-2 md:p-3 space-y-2 md:space-y-3 bg-blue-50/10">
+                            {upcomingHearings.slice(2, 4).map((c, i) => (
+                              <div key={i} onClick={() => setSelectedCalendarItem(c)} className="p-2 md:p-3 bg-white border border-indigo-200 shadow-sm rounded-xl cursor-pointer hover:border-indigo-500 transition-all hover:scale-[1.02] relative overflow-hidden group">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500"></div>
+                                <span className="text-ui-label text-slate-900 block mb-1">{c.time || '11:00 AM'}</span>
+                                <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
+                                <span className="text-ui-label text-indigo-700 bg-indigo-50 mt-2 inline-block px-1.5 rounded truncate w-full group-hover:bg-indigo-100 transition-colors">{c.claimant} v {c.respondent}</span>
+                              </div>
+                            ))}
+                          </div>
+                          {/* Thu 12 */}
+                          <div className="p-2 md:p-3 space-y-2 md:space-y-3 bg-blue-50/30">
+                            {upcomingHearings.slice(4, 5).map((c, i) => (
+                              <div key={i} onClick={() => setSelectedCalendarItem(c)} className="p-2 md:p-3 bg-white border border-rose-200 shadow-sm rounded-xl cursor-pointer hover:border-rose-500 transition-all hover:scale-[1.02] relative overflow-hidden group">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-rose-500"></div>
+                                <span className="text-ui-label text-slate-900 block mb-1">{c.time || '02:00 PM'}</span>
+                                <span className="text-ui-label text-slate-500 block leading-tight">{c.id}</span>
+                                <span className="text-ui-label text-rose-700 bg-rose-50 mt-2 inline-block px-1.5 rounded truncate w-full group-hover:bg-rose-100 transition-colors">{c.claimant} v {c.respondent}</span>
+                              </div>
+                            ))}
+                          </div>
+                          {/* Fri 13 */}
+                          <div className="p-2 md:p-3 space-y-2 md:space-y-3"></div>
+                        </div>
+                      </>
+                    ) : calendarView === 'day' ? (
+                      <div className="bg-white min-h-[400px] p-6">
+                        <div className="mb-6 flex items-center justify-between">
+                          <h4 className="text-xl font-black text-slate-900">Today: Monday, 9 March 2026</h4>
+                          <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-black rounded-full border border-blue-100">{upcomingHearings.slice(0, 1).length + 1} Hearings</span>
+                        </div>
+                        <div className="space-y-4">
+                          {upcomingHearings.slice(0, 2).map((c, i) => (
+                            <div key={i} onClick={() => setSelectedCalendarItem(c)} className="flex items-center gap-6 p-4 bg-slate-50 border border-slate-200 rounded-2xl cursor-pointer hover:border-blue-500 hover:bg-white transition-all group">
+                              <div className="w-24 text-right">
+                                <span className="text-sm font-black text-slate-900">{c.time || '09:00 AM'}</span>
+                              </div>
+                              <div className="flex-1">
+                                <span className="text-xs font-bold text-slate-400 block mb-1">{c.id}</span>
+                                <span className="text-base font-black text-slate-900">{c.claimant} v {c.respondent}</span>
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <span className="px-3 py-1 bg-white border border-slate-200 text-[10px] font-black uppercase rounded-lg">{c.court || 'Court 1'}</span>
+                                <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-blue-500 transition-colors" />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-white min-h-[400px] p-4">
+                        <div className="grid grid-cols-7 gap-px bg-slate-200 border border-slate-200 rounded-xl overflow-hidden">
+                          {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(d => (
+                            <div key={d} className="bg-slate-50 p-2 text-center text-[10px] font-black text-slate-400 tracking-widest">{d}</div>
+                          ))}
+                          {Array.from({ length: 31 }).map((_, i) => (
+                            <div key={i} className="bg-white p-3 h-24 relative hover:bg-slate-50 transition-colors cursor-pointer group">
+                              <span className={`text-xs font-black ${i + 1 === 9 ? 'bg-blue-600 text-white w-6 h-6 flex items-center justify-center rounded-full' : 'text-slate-400'}`}>{i + 1}</span>
+                              {/* Mon 9: 2 hearings */}
+                              {i + 1 === 9 && (
+                                <div className="absolute bottom-2 left-2 right-2 space-y-1">
+                                  <div className="h-1.5 bg-blue-500 rounded-full w-full"></div>
+                                  <div className="h-1.5 bg-emerald-500 rounded-full w-2/3"></div>
+                                </div>
+                              )}
+                              {/* Tue 10: 1 hearing */}
+                              {i + 1 === 10 && (
+                                <div className="absolute bottom-2 left-2 right-2">
+                                  <div className="h-1.5 bg-emerald-500 rounded-full w-full"></div>
+                                </div>
+                              )}
+                              {/* Wed 11: 2 hearings */}
+                              {i + 1 === 11 && (
+                                <div className="absolute bottom-2 left-2 right-2 space-y-1">
+                                  <div className="h-1.5 bg-indigo-500 rounded-full w-full"></div>
+                                  <div className="h-1.5 bg-indigo-400 rounded-full w-1/2"></div>
+                                </div>
+                              )}
+                              {/* Thu 12: 1 hearing */}
+                              {i + 1 === 12 && (
+                                <div className="absolute bottom-2 left-2 right-2">
+                                  <div className="h-1.5 bg-rose-500 rounded-full w-full"></div>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Calendar Detail Modal */}
+                {selectedCalendarItem && (
+                  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
+                    <div className="bg-white rounded-[32px] border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95 duration-300">
+                      <div className="p-8 border-b border-slate-100 flex justify-between items-start">
+                        <div>
+                          <div className="flex items-center gap-2 text-blue-600 mb-2">
+                            <Clock className="w-4 h-4" />
+                            <span className="text-xs font-black uppercase tracking-widest">{selectedCalendarItem.time || '09:00 AM'} - 13 March 2026</span>
+                          </div>
+                          <h4 className="text-2xl font-black text-slate-900 tracking-tight">{selectedCalendarItem.id}</h4>
+                        </div>
+                        <button onClick={() => setSelectedCalendarItem(null)} className="p-2 hover:bg-slate-100 rounded-xl transition-colors"><X className="w-5 h-5 text-slate-400" /></button>
+                      </div>
+                      <div className="p-8 space-y-6">
+                        <div className="grid grid-cols-2 gap-6">
+                          <div>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Claimant</p>
+                            <p className="font-bold text-slate-900">{selectedCalendarItem.claimant}</p>
+                          </div>
+                          <div>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Respondent</p>
+                            <p className="font-bold text-slate-900">{selectedCalendarItem.respondent}</p>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Location</p>
+                          <p className="font-bold text-slate-900">Mahkamah 4, Kuala Lumpur</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Chairman</p>
+                          <p className="font-bold text-slate-900">Y.A. TUAN AMRIK SINGH</p>
+                        </div>
+                        <div className="pt-6 border-t border-slate-100 flex gap-4">
+                          <button onClick={() => setSelectedCalendarItem(null)} className="flex-1 py-3 bg-blue-600 text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all">Start Session</button>
+                          <button onClick={() => setSelectedCalendarItem(null)} className="flex-1 py-3 bg-slate-100 text-slate-700 font-black text-xs uppercase tracking-widest rounded-xl hover:bg-slate-200 transition-all">View Full Case</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -1301,7 +1494,7 @@ export default function InternalDashboard() {
                   </div>
                   <button
                     onClick={() => setInternalActionView('notice_form')}
-                    className="flex items-center px-6 py-3 bg-[#111111] hover:bg-black text-white text-sm font-black rounded-xl shadow-md transition-all active:scale-95"
+                    className="flex items-center px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-body-sm font-bold rounded-xl shadow-sm transition-colors active:scale-95"
                   >
                     <Plus className="w-4 h-4 mr-2" /> {currentLang.addNotice}
                   </button>
@@ -1332,31 +1525,65 @@ export default function InternalDashboard() {
                         <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">{currentLang.category}</th>
                         <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">{currentLang.date}</th>
                         <th className="py-4 px-4 text-[11px] font-black uppercase tracking-widest text-slate-400">{currentLang.status}</th>
-                        <th className="py-4 px-4 text-right text-[11px] font-black uppercase tracking-widest text-slate-400">{currentLang.actionCol}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50">
-                      {mockNotices.map((n, i) => (
-                        <tr key={i} className="hover:bg-slate-50/50 transition-colors group">
-                          <td className="py-5 px-4 font-black text-slate-900 text-body-sm">{n.title}</td>
-                          <td className="py-5 px-4"><span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black rounded-lg uppercase">{n.category}</span></td>
-                          <td className="py-5 px-4 text-body-sm font-bold text-slate-500">{n.date}</td>
-                          <td className="py-5 px-4">
-                            <span className={`inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${n.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                              }`}>
-                              {n.status}
-                            </span>
-                          </td>
-                          <td className="py-5 px-4 text-right">
-                            <button
-                              onClick={() => { setSelectedInternalItem(n); setInternalActionView('notice_form'); }}
-                              className="px-4 py-2 bg-slate-100 hover:bg-zinc-900 hover:text-white text-slate-600 text-xs font-black rounded-lg transition-all"
-                            >
-                              Edit
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                      {(() => {
+                        const itemsPerPage = 6;
+                        const totalPages = Math.ceil(mockNotices.length / itemsPerPage);
+                        const paginatedNotices = mockNotices.slice((noticeMgmtPage - 1) * itemsPerPage, noticeMgmtPage * itemsPerPage);
+
+                        return (
+                          <>
+                            {paginatedNotices.map((n, i) => (
+                              <tr key={i} className="hover:bg-slate-50/50 transition-colors group">
+                                <td className="py-5 px-4 font-black text-slate-900 text-body-sm">{n.title}</td>
+                                <td className="py-5 px-4"><span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black rounded-lg uppercase">{n.category}</span></td>
+                                <td className="py-5 px-4 text-body-sm font-bold text-slate-500">{n.date}</td>
+                                <td className="py-5 px-4">
+                                  <span className={`inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${n.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                                    }`}>
+                                    {n.status}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                            {totalPages > 1 && (
+                              <tr>
+                                <td colSpan={4} className="py-8">
+                                  <div className="flex items-center justify-center gap-4">
+                                    <button
+                                      onClick={() => setNoticeMgmtPage(Math.max(1, noticeMgmtPage - 1))}
+                                      disabled={noticeMgmtPage === 1}
+                                      className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                    >
+                                      <ChevronLeft className="w-5 h-5" />
+                                    </button>
+                                    <div className="flex items-center gap-2">
+                                      {Array.from({ length: totalPages }).map((_, i) => (
+                                        <button
+                                          key={i}
+                                          onClick={() => setNoticeMgmtPage(i + 1)}
+                                          className={`w-10 h-10 rounded-xl font-black text-sm transition-all ${noticeMgmtPage === i + 1 ? 'bg-blue-600 text-white shadow-lg' : 'bg-white border border-slate-200 text-slate-400 hover:bg-slate-50'}`}
+                                        >
+                                          {i + 1}
+                                        </button>
+                                      ))}
+                                    </div>
+                                    <button
+                                      onClick={() => setNoticeMgmtPage(Math.min(totalPages, noticeMgmtPage + 1))}
+                                      disabled={noticeMgmtPage === totalPages}
+                                      className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                    >
+                                      <ChevronRight className="w-5 h-5" />
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })()}
                     </tbody>
                   </table>
                 </div>
@@ -1381,7 +1608,15 @@ export default function InternalDashboard() {
                   <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">{currentLang.noticeContent}</label><textarea defaultValue={selectedInternalItem?.content} rows={5} placeholder={currentLang.placeholderNoticeContent} className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner"></textarea></div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">{currentLang.displayDate}</label><input type="date" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
-                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">{currentLang.endDateOptional}</label><input type="date" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all shadow-inner" /></div>
+                    <div className="space-y-2"><label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">Upload Attachment (Image/PDF)</label>
+                      <div className="relative group">
+                        <input type="file" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
+                        <div className="w-full px-5 py-3.5 bg-white border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center gap-3 group-hover:border-blue-400 transition-all">
+                          <Upload className="w-5 h-5 text-slate-400 group-hover:text-blue-500" />
+                          <span className="text-sm font-bold text-slate-500 group-hover:text-blue-600">Click or drag to upload image</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex gap-4 pt-4">
                     <button onClick={() => setInternalActionView(null)} className="flex-1 py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 text-base font-extrabold rounded-2xl transition-all">Batal</button>
@@ -1393,11 +1628,14 @@ export default function InternalDashboard() {
 
             {dashActiveView === 'notice_board' && (() => {
               const activeNotices = mockNotices.filter(n => n.status === 'Aktif');
-              const displayNotice = selectedInternalItem || activeNotices[0];
+              const itemsPerPage = 6;
+              const totalPages = Math.ceil(activeNotices.length / itemsPerPage);
+              const paginatedNotices = activeNotices.slice((noticePage - 1) * itemsPerPage, noticePage * itemsPerPage);
+              const displayNotice = selectedInternalItem || paginatedNotices[0];
               const showPreview = !hideNoticePreview && displayNotice;
 
               return (
-                <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm">
+                <div className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm relative">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8 pb-6 border-b border-slate-100">
                     <div>
                       <h3 className="text-h3 text-slate-900 font-black flex items-center gap-3">
@@ -1407,12 +1645,12 @@ export default function InternalDashboard() {
                     </div>
                   </div>
 
-                  <div className={`grid ${showPreview ? 'grid-cols-1 lg:grid-cols-3 gap-8' : 'grid-cols-1'}`}>
+                  <div className={`grid ${showPreview ? 'grid-cols-1 lg:grid-cols-3 gap-8' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'}`}>
                     {/* Left List */}
-                    <div className={`${showPreview ? 'col-span-1 lg:border-r border-slate-100 lg:pr-6 space-y-4 max-h-[800px] overflow-y-auto custom-scrollbar' : 'grid grid-cols-1 md:grid-cols-2 gap-6'}`}>
-                      {activeNotices.length > 0 ? (
-                        activeNotices.map((n, i) => (
-                          <div key={i} className={`bg-white p-6 sm:p-8 rounded-[24px] border transition-all group flex flex-col cursor-pointer ${showPreview && displayNotice?.id === n.id ? 'border-blue-500 shadow-md bg-blue-50/50' : 'border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-lg'}`} onClick={() => { setSelectedInternalItem(n); setHideNoticePreview(false); }}>
+                    <div className={`${showPreview ? 'col-span-1 lg:border-r border-slate-100 lg:pr-6 space-y-4 max-h-[800px] overflow-y-auto custom-scrollbar' : 'col-span-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'}`}>
+                      {paginatedNotices.length > 0 ? (
+                        paginatedNotices.map((n, i) => (
+                          <div key={i} className={`bg-white p-6 sm:p-8 rounded-[24px] border transition-all group flex flex-col cursor-pointer ${showPreview && displayNotice?.id === n.id ? 'border-blue-500 shadow-md bg-blue-50/50' : 'border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-lg hover:scale-[1.02]'}`} onClick={() => { setSelectedInternalItem(n); setHideNoticePreview(false); }}>
                             <div className="flex justify-between items-start mb-4">
                               <span className={`px-3 py-1 text-[10px] font-black rounded-lg uppercase tracking-widest ${showPreview && displayNotice?.id === n.id ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-600'}`}>{n.category}</span>
                               <span className="text-[11px] font-bold text-slate-400">{n.date}</span>
@@ -1438,33 +1676,114 @@ export default function InternalDashboard() {
 
                     {/* Right Preview */}
                     {showPreview && (
-                      <div className="col-span-2 bg-slate-50 p-8 md:p-12 rounded-[32px] border border-slate-200 shadow-inner relative max-h-[800px] overflow-y-auto custom-scrollbar animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col">
-                        <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-600"></div>
-                        <button onClick={() => setHideNoticePreview(true)} className="self-end p-2 bg-white border border-slate-200 hover:bg-slate-100 rounded-xl transition-colors mb-6 shadow-sm"><X className="w-5 h-5 text-slate-600" /></button>
-
-                        <div className="flex justify-between items-center mb-8">
-                          <span className="px-4 py-1.5 bg-blue-100 text-blue-700 text-xs font-black rounded-xl uppercase tracking-widest">{displayNotice.category}</span>
-                          <span className="text-sm font-bold text-slate-500">{displayNotice.date}</span>
-                        </div>
-                        <h2 className="text-2xl md:text-4xl font-black text-slate-900 leading-tight mb-8 tracking-tight">{displayNotice.title}</h2>
-
-                        <div className="prose prose-slate prose-p:leading-relaxed prose-p:font-bold prose-p:text-slate-600 max-w-none flex-1">
-                          <p className="whitespace-pre-line text-sm md:text-base">{displayNotice.content}</p>
-                        </div>
-
-                        <div className="mt-12 pt-8 border-t border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 bg-white shadow-sm border border-slate-200 rounded-full flex items-center justify-center text-slate-400"><Scale className="w-5 h-5" /></div>
+                      <div className="col-span-2 bg-white rounded-[32px] border border-slate-200 shadow-xl relative max-h-[850px] overflow-y-auto custom-scrollbar animate-in fade-in zoom-in-95 duration-500 flex flex-col">
+                        {/* Interactive Header */}
+                        <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md px-8 py-4 border-b border-slate-100 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                              <FileText className="w-5 h-5" />
+                            </div>
                             <div>
-                              <p className="text-xs font-black text-slate-900 uppercase tracking-widest">{currentLang.courtRegistrar}</p>
-                              <p className="text-[10px] font-bold text-slate-500 mt-1">Mahkamah Perusahaan Malaysia</p>
+                              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Previewing Notice</p>
+                              <p className="text-xs font-bold text-slate-900 truncate max-w-[200px]">{displayNotice.title}</p>
                             </div>
                           </div>
-                          <button className="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-900 text-xs uppercase tracking-widest font-black rounded-xl transition-all shadow-sm"><Printer className="w-4 h-4" /> {currentLang.printNotice}</button>
+                          <div className="flex items-center gap-2">
+                            <button className="p-2 hover:bg-slate-100 rounded-lg text-slate-400 transition-colors"><Share2 className="w-4 h-4" /></button>
+                            <button onClick={() => setHideNoticePreview(true)} className="p-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-lg transition-all shadow-sm"><X className="w-5 h-5" /></button>
+                          </div>
+                        </div>
+
+                        {/* Document Body */}
+                        <div className="p-8 md:p-16 flex-1 flex flex-col items-center bg-slate-50/50">
+                          <div className="w-full max-w-2xl bg-white p-8 md:p-12 min-h-[600px] shadow-[0_0_50px_rgba(0,0,0,0.03)] border border-slate-100 rounded-sm relative overflow-hidden">
+                            {/* Watermark */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none -rotate-12">
+                              <Scale className="w-[400px] h-[400px]" />
+                            </div>
+
+                            {/* Letterhead */}
+                            <div className="flex flex-col items-center text-center mb-12 border-b-2 border-slate-900 pb-8 relative z-10">
+                              <img src="/jata-negara.png" alt="Logo" className="h-16 w-auto mb-4" />
+                              <h1 className="text-lg font-black uppercase tracking-[0.2em] text-slate-900 leading-tight">Mahkamah Perusahaan Malaysia</h1>
+                              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Industrial Court of Malaysia</p>
+                            </div>
+
+                            <div className="flex justify-between items-start mb-10 relative z-10">
+                              <div className="space-y-1">
+                                <p className="text-[10px] font-black text-slate-400 uppercase">Rujukan Kami</p>
+                                <p className="text-xs font-bold text-slate-800">MPM/N/{displayNotice.id}</p>
+                              </div>
+                              <div className="text-right space-y-1">
+                                <p className="text-[10px] font-black text-slate-400 uppercase">Tarikh Notis</p>
+                                <p className="text-xs font-bold text-slate-800">{displayNotice.date}</p>
+                              </div>
+                            </div>
+
+                            <div className="relative z-10 mb-10">
+                              <span className="inline-block px-3 py-1 bg-blue-600 text-white text-[10px] font-black rounded uppercase tracking-widest mb-4">{displayNotice.category}</span>
+                              <h2 className="text-2xl md:text-3xl font-black text-slate-900 leading-[1.2] underline decoration-blue-500/30 underline-offset-8 decoration-4">{displayNotice.title}</h2>
+                            </div>
+
+                            <div className="relative z-10 prose prose-slate max-w-none">
+                              <p className="text-slate-700 font-bold leading-relaxed whitespace-pre-line text-sm md:text-base">
+                                {displayNotice.content}
+                              </p>
+
+                              <div className="mt-16 space-y-6">
+                                <p className="text-sm font-black text-slate-900 uppercase tracking-widest">Sekian, Terima Kasih.</p>
+                                <div className="pt-8">
+                                  <div className="w-48 h-1 bg-slate-200 mb-2"></div>
+                                  <p className="text-xs font-black text-slate-900 uppercase tracking-widest">Pendaftar Mahkamah</p>
+                                  <p className="text-[10px] font-bold text-slate-500 uppercase">Mahkamah Perusahaan Malaysia</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Footer Actions */}
+                        <div className="sticky bottom-0 bg-slate-50/90 backdrop-blur-md px-8 py-6 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Industrial Court Digital Repository &bull; Official Notice</p>
+                          <div className="flex items-center gap-3">
+                            <button className="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-slate-200 hover:border-blue-400 hover:text-blue-600 text-slate-900 text-xs uppercase tracking-widest font-black rounded-xl transition-all shadow-sm"><Printer className="w-4 h-4" /> {currentLang.printNotice}</button>
+                            <button className="flex items-center justify-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs uppercase tracking-widest font-black rounded-xl transition-all shadow-lg shadow-blue-500/20"><Download className="w-4 h-4" /> PDF Export</button>
+                          </div>
                         </div>
                       </div>
                     )}
                   </div>
+
+                  {/* Pagination Controls */}
+                  {!showPreview && totalPages > 1 && (
+                    <div className="mt-12 flex items-center justify-center gap-4">
+                      <button
+                        onClick={() => setNoticePage(Math.max(1, noticePage - 1))}
+                        disabled={noticePage === 1}
+                        className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <div className="flex items-center gap-2">
+                        {Array.from({ length: totalPages }).map((_, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setNoticePage(i + 1)}
+                            className={`w-10 h-10 rounded-xl font-black text-sm transition-all ${noticePage === i + 1 ? 'bg-blue-600 text-white shadow-lg' : 'bg-white border border-slate-200 text-slate-400 hover:bg-slate-50'}`}
+                          >
+                            {i + 1}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => setNoticePage(Math.min(totalPages, noticePage + 1))}
+                        disabled={noticePage === totalPages}
+                        className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })()}
@@ -1521,45 +1840,87 @@ export default function InternalDashboard() {
                       </select>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {mockCollectiveAgreements
-                        .filter(ca => {
-                          const matchesQuery = !caSearchQuery || ca.title.toLowerCase().includes(caSearchQuery.toLowerCase());
-                          const matchesSector = caSectorFilter === 'All Sectors' || ca.category === caSectorFilter;
-                          return matchesQuery && matchesSector;
-                        })
-                        .map((ca) => (
-                          <div key={ca.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all group relative">
-                            <div className="flex items-center justify-between mb-4">
-                              <span className={`px-2.5 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider ${ca.status === 'Active' ? 'bg-emerald-50 text-emerald-600' :
-                                ca.status === 'Expired' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
-                                }`}>
-                                {ca.status}
-                              </span>
-                              <span className="text-[10px] font-mono font-bold text-slate-400">{ca.id}</span>
-                            </div>
-                            <h4 className="text-body-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 line-clamp-2">{ca.title}</h4>
-                            <div className="flex items-center gap-2 text-ui-label text-slate-500 mb-4">
-                              <KanbanSquare className="w-3.5 h-3.5 text-blue-400" /> {ca.category}
-                            </div>
-                            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                              <div>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase">Tempoh Sah</p>
-                                <p className="text-body-sm font-bold text-slate-700">{ca.validity}</p>
-                              </div>
-                              <div className="text-right">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase">Kemaskini</p>
-                                <p className="text-body-sm font-bold text-slate-700">{ca.lastUpdated}</p>
-                              </div>
-                            </div>
-                            <button
-                              onClick={() => { setSelectedCA(ca); setCaView('detail'); }}
-                              className="w-full mt-6 py-2.5 bg-slate-50 border border-slate-100 text-slate-600 text-[11px] font-bold rounded-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all flex items-center justify-center gap-2"
-                            >
-                              <Search className="w-3.5 h-3.5" /> Lihat Butiran
-                            </button>
-                          </div>
-                        ))}
+                    <div className="space-y-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {(() => {
+                          const filteredCA = mockCollectiveAgreements.filter(ca => {
+                            const matchesQuery = !caSearchQuery || ca.title.toLowerCase().includes(caSearchQuery.toLowerCase());
+                            const matchesSector = caSectorFilter === 'All Sectors' || ca.category === caSectorFilter;
+                            return matchesQuery && matchesSector;
+                          });
+                          const itemsPerPage = 6;
+                          const totalPages = Math.ceil(filteredCA.length / itemsPerPage);
+                          const paginatedCA = filteredCA.slice((caPage - 1) * itemsPerPage, caPage * itemsPerPage);
+
+                          return (
+                            <>
+                              {paginatedCA.map((ca) => (
+                                <div key={ca.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all group relative">
+                                  <div className="flex items-center justify-between mb-4">
+                                    <span className={`px-2.5 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider ${ca.status === 'Active' ? 'bg-emerald-50 text-emerald-600' :
+                                      ca.status === 'Expired' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
+                                      }`}>
+                                      {ca.status}
+                                    </span>
+                                    <span className="text-[10px] font-mono font-bold text-slate-400">{ca.id}</span>
+                                  </div>
+                                  <h4 className="text-body-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 line-clamp-2">{ca.title}</h4>
+                                  <div className="flex items-center gap-2 text-ui-label text-slate-500 mb-4">
+                                    <KanbanSquare className="w-3.5 h-3.5 text-blue-400" /> {ca.category}
+                                  </div>
+                                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                                    <div>
+                                      <p className="text-[10px] font-bold text-slate-400 uppercase">Tempoh Sah</p>
+                                      <p className="text-body-sm font-bold text-slate-700">{ca.validity}</p>
+                                    </div>
+                                    <div className="text-right">
+                                      <p className="text-[10px] font-bold text-slate-400 uppercase">Kemaskini</p>
+                                      <p className="text-body-sm font-bold text-slate-700">{ca.lastUpdated}</p>
+                                    </div>
+                                  </div>
+                                  <button
+                                    onClick={() => { setSelectedCA(ca); setCaView('detail'); }}
+                                    className="w-full mt-6 py-2.5 bg-slate-50 border border-slate-100 text-slate-600 text-[11px] font-bold rounded-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all flex items-center justify-center gap-2"
+                                  >
+                                    <Search className="w-3.5 h-3.5" /> Lihat Butiran
+                                  </button>
+                                </div>
+                              ))}
+
+                              {/* CA Pagination Controls */}
+                              {totalPages > 1 && (
+                                <div className="col-span-full mt-8 flex items-center justify-center gap-4">
+                                  <button
+                                    onClick={() => setCaPage(Math.max(1, caPage - 1))}
+                                    disabled={caPage === 1}
+                                    className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                  >
+                                    <ChevronLeft className="w-5 h-5" />
+                                  </button>
+                                  <div className="flex items-center gap-2">
+                                    {Array.from({ length: totalPages }).map((_, i) => (
+                                      <button
+                                        key={i}
+                                        onClick={() => setCaPage(i + 1)}
+                                        className={`w-10 h-10 rounded-xl font-black text-sm transition-all ${caPage === i + 1 ? 'bg-blue-600 text-white shadow-lg' : 'bg-white border border-slate-200 text-slate-400 hover:bg-slate-50'}`}
+                                      >
+                                        {i + 1}
+                                      </button>
+                                    ))}
+                                  </div>
+                                  <button
+                                    onClick={() => setCaPage(Math.min(totalPages, caPage + 1))}
+                                    disabled={caPage === totalPages}
+                                    className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                  >
+                                    <ChevronRight className="w-5 h-5" />
+                                  </button>
+                                </div>
+                              )}
+                            </>
+                          );
+                        })()}
+                      </div>
                     </div>
                   </>
                 )}
@@ -1703,31 +2064,207 @@ export default function InternalDashboard() {
               </div>
             )}
 
-            {/* ---------------- E-SEBUTAN ---------------- */}
             {dashActiveView === 'sebutan' && (
-              <div className="h-[calc(100vh-12rem)] min-h-[500px]">
-                <SebutanChat />
+              <div className="h-[calc(100vh-12rem)] min-h-[500px] animate-in fade-in duration-500">
+                {!isSebutanJoined ? (
+                  <div className="h-full bg-slate-50 flex items-center justify-center p-4 md:p-8 rounded-[40px] overflow-hidden border border-slate-200 shadow-inner relative">
+                    <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+                      {/* Left: Video Preview & Controls */}
+                      <div className="space-y-6">
+                        <div className="aspect-video bg-slate-900 rounded-[32px] md:rounded-[48px] overflow-hidden relative shadow-2xl border-4 border-white group">
+                          <div className="absolute inset-0 bg-gradient-to-tr from-slate-800 to-slate-900 flex items-center justify-center">
+                            <User className="w-24 h-24 text-slate-700 opacity-20" />
+                            <div className="absolute bottom-6 left-6 px-4 py-2 bg-black/40 backdrop-blur-md rounded-xl border border-white/10 text-white text-xs font-black uppercase tracking-widest">
+                              You (Internal Access)
+                            </div>
+                          </div>
+
+                          {/* Floating Controls Overlay */}
+                          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4">
+                            <button className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 flex items-center justify-center transition-all shadow-xl active:scale-90"><Mic className="w-6 h-6" /></button>
+                            <button className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 flex items-center justify-center transition-all shadow-xl active:scale-90"><Video className="w-6 h-6" /></button>
+                            <button className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 flex items-center justify-center transition-all shadow-xl active:scale-90"><Settings className="w-6 h-6" /></button>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-center gap-8 py-4 px-8 bg-white rounded-3xl border border-slate-200 shadow-sm">
+                          <div className="flex flex-col items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Microphone</p></div>
+                          <div className="flex flex-col items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-emerald-500"></div><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Camera</p></div>
+                          <div className="flex flex-col items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-emerald-500"></div><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Network Speed</p></div>
+                        </div>
+                      </div>
+
+                      {/* Right: Info & Session List */}
+                      <div className="space-y-8">
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-3 text-blue-600">
+                            <ShieldCheck className="w-6 h-6" />
+                            <span className="text-sm font-black uppercase tracking-[0.2em]">Secure Internal Access</span>
+                          </div>
+                          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.1]">
+                            Selamat Datang, <br /><span className="text-blue-600">{demoRole === 'chairman' ? 'Y.A. Pengerusi' : demoRole === 'registrar' ? 'Tuan Pendaftar' : 'Pegawai Mahkamah'}</span>
+                          </h1>
+                          <p className="text-lg font-bold text-slate-500">
+                            Pilih sidang yang ingin disertai daripada senarai berikut.
+                          </p>
+                        </div>
+
+                        <div className="space-y-4 max-h-[420px] overflow-y-auto pr-2 custom-scrollbar">
+                          {[
+                            { id: '1/1-1522/25', title: 'Tay Hwee Lan v Healthy Vision Sdn Bhd', status: 'Active Hearing', participants: 3, court: 'Mahkamah 4', time: '09:00 AM', type: 'Unfair Dismissal' },
+                            { id: '1/1-1079/25', title: 'Azman Bin Isa v Technip Energies', status: 'Mention', participants: 4, court: 'Mahkamah 2', time: '10:30 AM', type: 'Trade Dispute' },
+                            { id: '4/4-2024/25', title: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Active Hearing', participants: 2, court: 'Mahkamah 7', time: '11:00 AM', type: 'Constructive Dismissal' },
+                            { id: '2/2-3041/25', title: 'Kesatuan Sekerja v Kilang Automotif', status: 'Waiting', participants: 5, court: 'Mahkamah 1', time: '02:30 PM', type: 'Trade Dispute' },
+                          ].map((session, idx) => (
+                            <div key={idx} className="p-6 bg-white rounded-[24px] border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-lg transition-all group relative overflow-hidden cursor-pointer"
+                              onClick={() => { setSelectedSebutanSession(session); setIsSebutanJoined(true); }}
+                            >
+                              <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-100 group-hover:bg-blue-600 transition-colors"></div>
+                              <div className="flex items-start justify-between gap-4">
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-3 mb-2">
+                                    <span className="text-xs font-mono font-black text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">{session.id}</span>
+                                    <span className={`px-2.5 py-1 text-[10px] font-black rounded-lg uppercase ${
+                                      session.status === 'Active Hearing' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' :
+                                      session.status === 'Mention' ? 'bg-amber-50 text-amber-700 border border-amber-100' :
+                                      'bg-slate-50 text-slate-600 border border-slate-100'
+                                    }`}>{session.status}</span>
+                                  </div>
+                                  <h3 className="text-base font-black text-slate-900 truncate group-hover:text-blue-600 transition-colors">{session.title}</h3>
+                                  <div className="flex items-center gap-4 mt-3 text-xs font-bold text-slate-400">
+                                    <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {session.time}</span>
+                                    <span>{session.court}</span>
+                                    <span className="text-[10px] uppercase tracking-wider">{session.type}</span>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col items-end gap-3 shrink-0">
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider">{session.participants} Online</span>
+                                  </div>
+                                  <button
+                                    onClick={(e) => { e.stopPropagation(); setSelectedSebutanSession(session); setIsSebutanJoined(true); }}
+                                    className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-blue-500/20 uppercase tracking-widest active:scale-95 flex items-center gap-2"
+                                  >
+                                    Masuk <ChevronRight className="w-4 h-4" />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <SebutanChat onEndSession={() => { setIsSebutanJoined(false); setSelectedSebutanSession(null); }} sessionInfo={selectedSebutanSession} />
+                )}
               </div>
             )}
 
             {/* ---------------- M7 DIGITAL DISPLAY ---------------- */}
             {dashActiveView === 'display' && (
-              <div className="flex flex-col items-center">
-                <p className="text-ui-label text-slate-400 mb-6 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">Live Preview: Mahkamah 1 External Display</p>
-                <div className="w-full max-w-4xl aspect-video bg-white rounded-[24px] md:rounded-[32px] border border-slate-200 shadow-premium p-6 md:p-10 flex flex-col justify-between text-slate-900 relative overflow-hidden">
-                  <div className="absolute -top-10 -right-10 md:-top-20 md:-right-20 p-4 opacity-5 text-slate-900"><Scale className="w-48 h-48 md:w-96 md:h-96" /></div>
-                  <div className="relative z-10">
-                    <h2 className="text-h3 text-slate-500 tracking-widest uppercase mb-1">Mahkamah 1</h2>
-                    <h3 className="text-h2 text-blue-700">Y.A. Dato' Wan Jeffry Bin Kassim</h3>
+              <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                {/* Switcher Controls */}
+                <div className="bg-white p-6 rounded-[32px] border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-6">
+                  <div className="flex-1 w-full">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block px-1">Pilih Negeri / Wilayah</label>
+                    <div className="flex flex-wrap gap-2">
+                      {courtLocations.map((loc) => (
+                        <button
+                          key={loc.region}
+                          onClick={() => {
+                            setDisplayRegion(loc.region);
+                            setDisplayCourt(loc.courts[0]);
+                          }}
+                          className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${displayRegion === loc.region ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300 hover:text-blue-600'}`}
+                        >
+                          {loc.region}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <div className="bg-slate-50 p-4 md:p-8 rounded-[16px] md:rounded-[24px] border border-slate-200 relative z-10 shadow-sm">
-                    <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-6"><span className="px-3 py-1 md:px-4 md:py-1.5 bg-rose-500 text-white text-ui-label tracking-widest rounded-lg animate-pulse shadow-[0_0_15px_rgba(244,63,94,0.3)]">{currentLang.nowHearing}</span> <span className="font-mono text-h4 text-slate-500">1/1-1522/25</span></div>
-                    <h4 className="text-h2 mb-1 md:mb-2 text-slate-900">Tay Hwee Lan</h4>
-                    <p className="text-h4 text-slate-600">{currentLang.vsCol}: Healthy Vision Sdn Bhd</p>
+                  <div className="w-full md:w-64">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block px-1">Pilih Mahkamah</label>
+                    <select
+                      value={displayCourt}
+                      onChange={(e) => setDisplayCourt(e.target.value)}
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-body-sm font-black text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                    >
+                      {courtLocations.find(l => l.region === displayRegion)?.courts.map(c => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end relative z-10 gap-4 mt-4 md:mt-0">
-                    <div><p className="text-ui-label text-slate-400 uppercase mb-1">{currentLang.nextCase}</p><p className="font-bold text-body-lg text-slate-600">11:00 AM - Azman Bin Isa</p></div>
-                    <div className="text-display font-mono text-blue-700">09:14 AM</div>
+                </div>
+
+                {/* Display Preview */}
+                <div className="flex flex-col items-center">
+                  <p className="text-ui-label text-slate-400 mb-6 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm font-bold flex items-center gap-2">
+                    <Monitor className="w-4 h-4 text-blue-500" /> Live Preview: {displayRegion} - {displayCourt} External Display
+                  </p>
+                  <div className="w-full max-w-5xl aspect-video bg-white rounded-[48px] border border-slate-200 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] p-12 md:p-20 flex flex-col justify-between text-slate-900 relative overflow-hidden group">
+                    {/* Background decoration */}
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50/50 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                    <div className="absolute top-0 left-0 w-full h-2 bg-blue-600"></div>
+
+                    <div className="relative z-10 flex justify-between items-start">
+                      <div>
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-6 bg-blue-600 rounded-full"></span>
+                          <h2 className="text-xl md:text-xl text-slate-400 font-black uppercase tracking-[0.2em]">{displayCourt}</h2>
+                        </div>
+                        <h2 className="text-md pb-8 md:text-2xl text-slate-900 font-black tracking-tight leading-none">
+                          {displayCourt === 'Mahkamah 1' ? "Y.A. Dato' Wan Jeffry Bin Kassim" :
+                            displayCourt === 'Mahkamah 2' ? "Y.A. Puan Rusita Binti Md Lazim" :
+                              displayCourt === 'Mahkamah 4' ? "Y.A. Tuan Amrik Singh" : "Y.A. Pengerusi Mahkamah"}
+                        </h2>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xl md:text-xl font-black font-mono text-slate-900 tabular-nums leading-none tracking-tighter">09:14</div>
+                        <div className="text-sm md:text-lg font-black text-slate-400 uppercase tracking-widest mt-4">Isnin, 25 Mac 2026</div>
+                      </div>
+                    </div>
+
+                    <div className="bg-slate-50 p-10 md:p-14 rounded-[40px] border border-slate-200 relative z-10 shadow-inner flex flex-col md:flex-row md:items-center justify-between gap-12">
+                      <div className="flex-1 space-y-6">
+                        <div className="flex items-center gap-6">
+                          <span className="px-6 py-2 bg-rose-600 text-white text-[10px] md:text-xs font-black tracking-[0.3em] rounded-full animate-pulse shadow-lg uppercase">
+                            {currentLang.nowHearing}
+                          </span>
+                          <span className="text-xl md:text-xl font-black text-slate-400 tracking-wider">1/1-1522/25</span>
+                        </div>
+                        <h4 className="text-5xl md:text-xl font-black mb-2 text-slate-900 tracking-tight leading-none">Tay Hwee Lan</h4>
+                        <p className="text-2xl md:text-xl font-bold text-slate-500 italic">
+                          <span className="text-blue-600 not-italic font-black pr-3">Lwn</span> Healthy Vision Sdn Bhd
+                        </p>
+                      </div>
+                      <div className="hidden lg:block w-px h-40 bg-slate-200 mx-8"></div>
+                      <div className="md:min-w-[300px] space-y-6">
+                        <p className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.3em]">{currentLang.nextCase}</p>
+                        <div className="flex items-center gap-6 group/next">
+                          <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-blue-600 text-xl font-black shadow-sm group-hover/next:bg-blue-600 group-hover/next:text-white transition-all">11:00</div>
+                          <p className="font-black text-xl md:text-xl text-slate-700">Azman Bin Isa</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="relative z-10 flex items-center justify-between pt-8 border-t border-slate-100">
+                      <div className="flex items-center gap-6">
+                        <img src="/jata-negara.png" alt="Logo" className="h-10 md:h-16 w-auto" />
+                        <div>
+                          <p className="text-[10px] md:text-xs font-black text-slate-900 uppercase tracking-widest leading-relaxed">Mahkamah Perusahaan Malaysia</p>
+                          <p className="text-[9px] md:text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">{displayRegion}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-4 items-center">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100 font-black text-[10px] uppercase tracking-widest">
+                          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                          Online
+                        </div>
+                        <div className="w-3 h-3 rounded-full bg-slate-200"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2198,50 +2735,99 @@ export default function InternalDashboard() {
                   </button>
                 </div>
 
-                {!selectedAward ? (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {mockSearchResults
-                      .filter(res => {
-                        const matchesQuery = !searchQuery || res.title.toLowerCase().includes(searchQuery.toLowerCase()) || res.summary.toLowerCase().includes(searchQuery.toLowerCase());
-                        const matchesYear = filterYear === 'All Years' || res.date.includes(filterYear);
-                        const matchesType = filterCaseType === 'All Types' || res.type === filterCaseType;
-                        const matchesLocation = filterLocation === 'All Locations' || res.location === filterLocation;
-                        const matchesStatus = filterStatus === 'All Statuses' || res.status === filterStatus;
-                        return matchesQuery && matchesYear && matchesType && matchesLocation && matchesStatus;
-                      })
-                      .map((res) => (
-                        <div key={res.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all flex flex-col h-full group">
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-                                {res.type?.includes('DISMISSAL') ? <Gavel className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
+                {!selectedAward ? (() => {
+                  const filteredResults = mockSearchResults.filter(res => {
+                    const matchesQuery = !searchQuery ||
+                      res.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      res.summary.toLowerCase().includes(searchQuery.toLowerCase());
+
+                    const matchesYear = filterYear === 'All Years' || res.date.includes(filterYear);
+
+                    // Fuzzy match for Case Type to handle mock data variations
+                    const matchesType = filterCaseType === 'All Types' || (
+                      res.type?.toLowerCase().includes(filterCaseType.split(' ')[0].toLowerCase()) ||
+                      (filterCaseType === 'Dismissal (S.20)' && res.type?.toLowerCase().includes('dismissal')) ||
+                      (filterCaseType === 'Trade Dispute (S.26)' && res.type?.toLowerCase().includes('trade')) ||
+                      (filterCaseType === 'Non-Compliance (S.56)' && res.type?.toLowerCase().includes('compliance'))
+                    );
+
+                    const matchesLocation = filterLocation === 'All Locations' || res.location === filterLocation || res.court?.toLowerCase().includes(filterLocation.toLowerCase());
+                    const matchesStatus = filterStatus === 'All Statuses' || res.status === filterStatus || (filterStatus === 'AWARD' && res.id.startsWith('Award'));
+
+                    return matchesQuery && matchesYear && matchesType && matchesLocation && matchesStatus;
+                  });
+                  const itemsPerPage = 6;
+                  const totalPages = Math.ceil(filteredResults.length / itemsPerPage);
+                  const paginatedResults = filteredResults.slice((awardPage - 1) * itemsPerPage, awardPage * itemsPerPage);
+
+                  return (
+                    <div className="space-y-12">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {paginatedResults.map((res) => (
+                          <div key={res.id} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all flex flex-col h-full group">
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                                  {res.type?.includes('DISMISSAL') ? <Gavel className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
+                                </div>
+                                <span className="text-ui-label font-bold text-slate-400">{res.id}</span>
                               </div>
-                              <span className="text-ui-label font-bold text-slate-400">{res.id}</span>
+                              <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">94% Semantic Match</span>
                             </div>
-                            <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">94% Semantic Match</span>
-                          </div>
-                          <h4 className="text-body-md font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">{res.title}</h4>
-                          <p className="text-body-sm text-slate-500 mb-6 line-clamp-3">{res.summary}</p>
-                          <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <div className="flex items-center gap-1.5 text-ui-label text-slate-400">
-                                <Calendar className="w-3.5 h-3.5" /> {res.date}
+                            <h4 className="text-body-md font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">{res.title}</h4>
+                            <p className="text-body-sm text-slate-500 mb-6 line-clamp-3">{res.summary}</p>
+                            <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-1.5 text-ui-label text-slate-400">
+                                  <Calendar className="w-3.5 h-3.5" /> {res.date}
+                                </div>
+                                <div className="flex items-center gap-1.5 text-ui-label text-slate-400">
+                                  <Globe className="w-3.5 h-3.5" /> {res.court}
+                                </div>
                               </div>
-                              <div className="flex items-center gap-1.5 text-ui-label text-slate-400">
-                                <Globe className="w-3.5 h-3.5" /> {res.court}
-                              </div>
+                              <button
+                                onClick={() => setSelectedAward(res)}
+                                className="text-body-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                              >
+                                {currentLang.viewBtn} <ArrowUpRight className="w-4 h-4" />
+                              </button>
                             </div>
-                            <button
-                              onClick={() => setSelectedAward(res)}
-                              className="text-body-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
-                            >
-                              {currentLang.viewBtn} <ArrowUpRight className="w-4 h-4" />
-                            </button>
                           </div>
+                        ))}
+                      </div>
+
+                      {totalPages > 1 && (
+                        <div className="flex items-center justify-center gap-4">
+                          <button
+                            onClick={() => setAwardPage(Math.max(1, awardPage - 1))}
+                            disabled={awardPage === 1}
+                            className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+                          <div className="flex items-center gap-2">
+                            {Array.from({ length: totalPages }).map((_, i) => (
+                              <button
+                                key={i}
+                                onClick={() => setAwardPage(i + 1)}
+                                className={`w-10 h-10 rounded-xl font-black text-sm transition-all ${awardPage === i + 1 ? 'bg-blue-600 text-white shadow-lg' : 'bg-white border border-slate-200 text-slate-400 hover:bg-slate-50'}`}
+                              >
+                                {i + 1}
+                              </button>
+                            ))}
+                          </div>
+                          <button
+                            onClick={() => setAwardPage(Math.min(totalPages, awardPage + 1))}
+                            disabled={awardPage === totalPages}
+                            className="p-3 rounded-xl border border-slate-200 bg-white shadow-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
                         </div>
-                      ))}
-                  </div>
-                ) : (
+                      )}
+                    </div>
+                  );
+                })() : (
                   <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
                     <div className="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
                       <button
