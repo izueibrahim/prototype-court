@@ -75,6 +75,9 @@ export default function LoginSection() {
                         {step === 1 ? (
                             // STEP 1: SELECT ACCESS ROLE
                             <div className="animate-in fade-in zoom-in-95 duration-300">
+                                <button onClick={() => setCurrentView('portal')} className={`flex items-center text-body-sm font-bold mb-8 transition-colors ${isHighContrast ? 'text-zinc-400 hover:text-white' : 'text-zinc-400 hover:text-blue-600'}`}>
+                                    <ArrowLeft className="w-4 h-4 mr-2" /> Kembali ke Portal
+                                </button>
                                 <div className="mb-10">
                                     <h2 className={`text-h2 mb-3 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{currentLang.loginWelcome}</h2>
                                     <p className={`text-body-md font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-500'}`}>{currentLang.selectAccessSub}</p>

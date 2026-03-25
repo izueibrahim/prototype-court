@@ -19,9 +19,11 @@ import GuestDashboard from '@/sections/GuestDashboard';
 import AboutPage from '@/sections/AboutPage';
 import ContactPage from '@/sections/ContactPage';
 import TourController from '@/components/ui/TourController';
+import { useUrlSync } from '@/lib/useUrlSync';
 
 export default function Home() {
   const { currentView, textSize, wcagStates, isWcagOpen } = useAppStore();
+  useUrlSync();
 
   const isHighContrast = wcagStates.highContrast;
   const tBg = isHighContrast ? 'bg-black text-white' : 'bg-zinc-50 text-zinc-900';
