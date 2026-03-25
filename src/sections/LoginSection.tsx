@@ -13,11 +13,18 @@ import { useRouter } from 'next/navigation';
 
 export default function LoginSection() {
     const router = useRouter();
-    const { lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView, setDashActiveView, setEFilingActiveView, toggleOnboarding } = useAppStore();
+    const { lang, setLang, wcagStates, loginRole, setLoginRole, setCurrentView, setDashActiveView, setEFilingActiveView, toggleOnboarding, preselectedRole, setPreselectedRole } = useAppStore();
     const [step, setStep] = React.useState<1 | 2>(1);
     const [demoRole, setDemoRole] = React.useState<'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest'>('ydp');
     const [showMFA, setShowMFA] = React.useState(false);
     const [otp, setOtp] = React.useState(['', '', '', '', '', '']);
+    
+    React.useEffect(() => {
+        if (preselectedRole) {
+            setDemoRole(preselectedRole);
+            setPreselectedRole(null); // Clear after use
+        }
+    }, [preselectedRole, setPreselectedRole]);
 
     const currentLang = t[lang];
     const isHighContrast = wcagStates.highContrast;

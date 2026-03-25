@@ -4,17 +4,18 @@ import React from 'react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
 import { CloudUpload, Video, Calendar, Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function QuickLinksSection() {
-    const { lang, wcagStates, setCurrentView } = useAppStore();
+    const router = useRouter();
+    const { lang, wcagStates, setCurrentView, setPreselectedRole } = useAppStore();
     const currentLang = t[lang];
     const isHighContrast = wcagStates.highContrast;
 
     const quickActions = [
         { icon: CloudUpload, title: lang === 'en' ? 'File a Document' : 'Failkan Dokumen', color: 'bg-blue-600' },
         { icon: Video, title: lang === 'en' ? 'Join Virtual Court' : 'Sertai Mahkamah Maya', color: 'bg-blue-600' },
-        { icon: Calendar, title: lang === 'en' ? 'Practice Notes' : 'Nota Amalan', color: 'bg-blue-600' },
-        { icon: Search, title: lang === 'en' ? 'Selected Awards' : 'Award Terpilih', color: 'bg-blue-600' },
+        { icon: Search, title: lang === 'en' ? 'Awards & Notes' : 'Award & Notis', color: 'bg-blue-600' },
     ];
 
     const handleQuickLinkClick = (idx: number) => {
@@ -24,7 +25,14 @@ export default function QuickLinksSection() {
         // 3: Selected Awards -> Stay (Portal)
         // 4: Forms -> Stay (Portal)
         // 5: Court Calendar -> Stay (Portal)
-        if (idx === 0 || idx === 1) setCurrentView('login');
+        if (idx === 0 || idx === 1) {
+            if (idx === 0) {
+                setPreselectedRole('efiling');
+                router.push('/filing-instructions');
+                return;
+            }
+            setCurrentView('login');
+        }
         else if (idx === 2 || idx === 3 || idx === 4 || idx === 5) setCurrentView('portal'); // Assuming 'portal' for new links
     };
 

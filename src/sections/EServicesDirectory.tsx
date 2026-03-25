@@ -29,7 +29,7 @@ export default function EServicesDirectory() {
   return (
     <div
       id="modules"
-      className={`py-16 sm:py-24 [overflow-x:clip] ${isHighContrast ? "bg-black" : "bg-white"}`}
+      className={`pt-16 sm:pt-24 pb-8 [overflow-x:clip] ${isHighContrast ? "bg-black" : "bg-white"}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
@@ -90,7 +90,7 @@ export default function EServicesDirectory() {
 
         <div
           ref={scrollContainerRef}
-          className="flex overflow-x-auto gap-6 sm:gap-8 pb-10 snap-x snap-mandatory hide-scrollbar px-4 sm:px-8 lg:px-24"
+          className="flex overflow-x-auto lg:justify-center gap-6 sm:gap-8 pb-10 snap-x snap-mandatory hide-scrollbar px-4 sm:px-8 lg:px-24"
         >
           {allModules[activeTab] &&
             allModules[activeTab].items

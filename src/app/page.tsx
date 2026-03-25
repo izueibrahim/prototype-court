@@ -8,6 +8,7 @@ import AccessibilityPanel from '@/components/ui/AccessibilityPanel';
 import HeroSection from '@/sections/HeroSection';
 import QuickLinksSection from '@/sections/QuickLinksSection';
 import EServicesDirectory from '@/sections/EServicesDirectory';
+import NoticeBoardSection from '@/sections/NoticeBoardSection';
 import HearingsSchedule from '@/sections/HearingsSchedule';
 import LoginSection from '@/sections/LoginSection';
 import FullSchedule from '@/sections/FullSchedule';
@@ -107,6 +108,7 @@ export default function Home() {
           <Navbar />
           <HeroSection />
           <QuickLinksSection />
+          <NoticeBoardSection />
           <EServicesDirectory />
           <HearingsSchedule />
           <Footer />

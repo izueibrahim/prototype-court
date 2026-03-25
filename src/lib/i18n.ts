@@ -35,7 +35,7 @@ export const t: Translations = {
         heroSub: 'Your unified gateway for case management, e-filing, and virtual court proceedings.',
         searchPlace: 'Case No, Award Title, or Keywords...',
         searchBtn: 'Search',
-        homeHearingsTitle: 'Hearings & Judgments',
+        homeHearingsTitle: 'Hearings & Judgements',
         homeHearingsSub: 'Real-time daily proceeding schedules and latest published awards.',
         homeHearingsTab: 'Upcoming Hearings',
         homeJudgmentsTab: 'Latest Judgments',
@@ -324,8 +324,8 @@ export const t: Translations = {
         contact: 'Hubungi',
         login: 'Log Masuk',
         a11yTitle: 'Pilihan Aksesibiliti',
-        heroTitle: 'Keadilan Digital Tanpa Sempadan.',
-        heroSub: 'Gerbang berpusat anda untuk pengurusan kes, e-pemfailan, dan prosiding mahkamah maya.',
+        heroTitle: 'Keadilan Digital. Lebih Mudah.',
+        heroSub: 'Platform rasmi pengurusan kes, carian award dan prosiding mahkamah secara digital sepenuhnya.',
         searchPlace: 'No. Kes, Tajuk Award, atau Kata Kunci...',
         searchBtn: 'Cari',
         homeHearingsTitle: 'Perbicaraan & Penghakiman',
@@ -354,7 +354,7 @@ export const t: Translations = {
         tabs: ["Akses Awam"],
         quickLinks: [
             { title: 'Failkan Dokumen' }, { title: 'Sertai Mahkamah Maya' }, { title: 'Semak Jadual' },
-            { title: 'Carian Award' }, { title: 'Notis Amalan' }, { title: 'Award Terpilih' }
+            { title: 'Carian Award' }, { title: 'Notis Amalan' }, { title: 'Award & Notis' }
         ],
         mockHearings: [
             { parties: 'Tay Hwee Lan v Healthy Vision', type: 'Bicara (B)' },

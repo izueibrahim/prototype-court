@@ -195,73 +195,73 @@ export const mockSearchResults = [
 ];
 
 export const mockCollectiveAgreements = [
-  { 
-    id: 'CA/001/2026', 
-    title: 'Nestle Manufacturing (M) Sdn Bhd & Food Industry Workers Union', 
+  {
+    id: 'CA/001/2026',
+    title: 'Nestle Manufacturing (M) Sdn Bhd & Food Industry Workers Union',
     parties: ['Nestle Manufacturing (M) Sdn Bhd', 'Food Industry Workers Union'],
-    validity: '2026 - 2029', 
-    status: 'Active', 
-    articles: 45, 
+    validity: '2026 - 2029',
+    status: 'Active',
+    articles: 45,
     lastUpdated: '15 Mar 2026',
     category: 'Manufacturing',
     scope: 'All non-executive employees in the manufacturing division across Peninsula Malaysia.',
     documentUrl: '/docs/CA_NESTLE_2026.pdf'
   },
-  { 
-    id: 'CA/002/2026', 
-    title: 'Malayan Banking Berhad & National Union of Bank Employees (NUBE)', 
+  {
+    id: 'CA/002/2026',
+    title: 'Malayan Banking Berhad & National Union of Bank Employees (NUBE)',
     parties: ['Malayan Banking Berhad', 'National Union of Bank Employees (NUBE)'],
-    validity: '2025 - 2028', 
-    status: 'Under Review', 
-    articles: 62, 
+    validity: '2025 - 2028',
+    status: 'Under Review',
+    articles: 62,
     lastUpdated: '10 Mar 2026',
     category: 'Finance',
     scope: 'Clerical and non-clerical staff of Maybank Berhad.',
     documentUrl: '/docs/CA_MAYBANK_NUBE.pdf'
   },
-  { 
-    id: 'CA/003/2026', 
-    title: 'Sime Darby Plantation & All Malayan Estates Staff Union', 
+  {
+    id: 'CA/003/2026',
+    title: 'Sime Darby Plantation & All Malayan Estates Staff Union',
     parties: ['Sime Darby Plantation', 'All Malayan Estates Staff Union'],
-    validity: '2026 - 2029', 
-    status: 'Active', 
-    articles: 38, 
+    validity: '2026 - 2029',
+    status: 'Active',
+    articles: 38,
     lastUpdated: '05 Mar 2026',
     category: 'Agriculture',
     scope: 'Staff grade employees in plantation estates and mills.',
     documentUrl: '/docs/CA_SIME_DARBY.pdf'
   },
-  { 
-    id: 'CA/004/2026', 
-    title: 'Telekom Malaysia Berhad & NUTE', 
+  {
+    id: 'CA/004/2026',
+    title: 'Telekom Malaysia Berhad & NUTE',
     parties: ['Telekom Malaysia Berhad', 'National Union of Telecommunications Employees'],
-    validity: '2024 - 2027', 
-    status: 'Active', 
-    articles: 55, 
+    validity: '2024 - 2027',
+    status: 'Active',
+    articles: 55,
     lastUpdated: '28 Feb 2026',
     category: 'Telecommunications',
     scope: 'Operational and technical staff within Malaysia.',
     documentUrl: '/docs/CA_TM_NUTE.pdf'
   },
-  { 
-    id: 'CA/005/2026', 
-    title: 'AirAsia Berhad & Pilots Association', 
+  {
+    id: 'CA/005/2026',
+    title: 'AirAsia Berhad & Pilots Association',
     parties: ['AirAsia Berhad', 'AirAsia Pilots Association'],
-    validity: '2026 - 2029', 
-    status: 'Under Review', 
-    articles: 42, 
+    validity: '2026 - 2029',
+    status: 'Under Review',
+    articles: 42,
     lastUpdated: '20 Feb 2026',
     category: 'Aviation',
     scope: 'All flight crew and cockpit personnel.',
     documentUrl: '/docs/CA_AIRASIA_PILOTS.pdf'
   },
-  { 
-    id: 'CA/006/2026', 
-    title: 'Legacy Textiles Sdn Bhd & Textile Workers Union', 
+  {
+    id: 'CA/006/2026',
+    title: 'Legacy Textiles Sdn Bhd & Textile Workers Union',
     parties: ['Legacy Textiles Sdn Bhd', 'Textile Workers Union'],
-    validity: '2022 - 2025', 
-    status: 'Expired', 
-    articles: 30, 
+    validity: '2022 - 2025',
+    status: 'Expired',
+    articles: 30,
     lastUpdated: '12 Jan 2025',
     category: 'Manufacturing',
     scope: 'General factory workers in the Batu Pahat facility.',
@@ -301,10 +301,7 @@ export const allModules = [
       { icon: Briefcase, enTitle: 'Case Management', msTitle: 'Pengurusan Kes', enDesc: 'Management of the entire trial process.', msDesc: 'Pengurusan proses perbicaraan menyeluruh.', href: '/modules/case-management' },
       { icon: Users, enTitle: 'Collective Agreement', msTitle: 'Perjanjian Kolektif', enDesc: 'Registration and review of CA.', msDesc: 'Pengurusan pendaftaran dan semakan CA.', href: '/modules/collective-agreement' },
       { icon: Search, enTitle: 'Search Full Awards', msTitle: 'Carian Penuh Awards', enDesc: 'Semantic AI & Full-Text Search.', msDesc: 'Carian AI Semantik & Full-Text Search.', href: '/modules/search-awards' },
-      { icon: Briefcase, enTitle: 'Practice Notes', msTitle: 'Nota Latihan', enDesc: 'Practice Notes.', msDesc: 'Senarai Nota Latihan', href: '/modules/practice-notes' },
-      { icon: Briefcase, enTitle: 'Forms', msTitle: 'Borang', enDesc: 'Forms.', msDesc: 'Senarai Borang', href: '/modules/forms' },
       { icon: Briefcase, enTitle: 'User Guides', msTitle: 'Panduan Pengguna', enDesc: 'User Guides.', msDesc: 'Senarai Panduan Pengguna', href: '/modules/user-guides' },
-      { icon: Briefcase, enTitle: 'Resources', msTitle: 'Lain-lain Capaian', enDesc: 'Access Links to Other Resources.', msDesc: 'Senarai Lain-lain Capaian', href: '/modules/resources' },
     ]
   },
   {

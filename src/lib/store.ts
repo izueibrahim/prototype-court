@@ -33,6 +33,7 @@ interface AppState {
     wcagStates: WcagStates;
     hasSeenOnboarding: boolean;
     showOnboarding: boolean;
+    preselectedRole: 'ydp' | 'chairman' | 'registrar' | 'admin' | 'officer' | 'ca_unit' | 'efiling' | 'guest' | null;
 
     setCurrentView: (view: AppState['currentView']) => void;
     setLoginRole: (role: AppState['loginRole']) => void;
@@ -54,6 +55,7 @@ interface AppState {
     resetWcag: () => void;
     completeOnboarding: () => void;
     toggleOnboarding: (show?: boolean) => void;
+    setPreselectedRole: (role: AppState['preselectedRole']) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -87,6 +89,7 @@ export const useAppStore = create<AppState>()(
             },
             hasSeenOnboarding: false,
             showOnboarding: false,
+            preselectedRole: null,
 
             setCurrentView: (view) => set({ currentView: view }),
             setLoginRole: (role) => set({ loginRole: role }),
@@ -126,7 +129,8 @@ export const useAppStore = create<AppState>()(
                 }
             }),
             completeOnboarding: () => set({ hasSeenOnboarding: true, showOnboarding: false }),
-            toggleOnboarding: (show) => set((state) => ({ showOnboarding: show !== undefined ? show : !state.showOnboarding }))
+            toggleOnboarding: (show) => set((state) => ({ showOnboarding: show !== undefined ? show : !state.showOnboarding })),
+            setPreselectedRole: (role) => set({ preselectedRole: role })
         }),
         {
             name: 'emp-v2-storage',
