@@ -61,7 +61,7 @@ export default function FeaturedCasesSection() {
                         {industryTags.map((tag, idx) => (
                             <button
                                 key={idx}
-                                className={`flex items-center px-5 py-2 rounded-xl transition-all shadow-sm text-body-sm font-bold ${isHighContrast
+                                className={`flex items-center px-5 py-2 rounded-xl transition-all text-body-sm font-bold ${isHighContrast
                                     ? 'border border-white text-white bg-black hover:bg-white hover:text-black'
                                     : 'border border-blue-100 text-blue-600 bg-blue-50'
                                     }`}

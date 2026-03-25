@@ -8,7 +8,6 @@ import AccessibilityPanel from '@/components/ui/AccessibilityPanel';
 import HeroSection from '@/sections/HeroSection';
 import QuickLinksSection from '@/sections/QuickLinksSection';
 import EServicesDirectory from '@/sections/EServicesDirectory';
-import NoticeBoardSection from '@/sections/NoticeBoardSection';
 import FeaturedCasesSection from '@/sections/FeaturedCasesSection';
 import MediationBanner from '@/sections/MediationBanner';
 import HearingsSchedule from '@/sections/HearingsSchedule';
@@ -114,11 +113,10 @@ export default function Home() {
           <Navbar />
           <HeroSection />
           <QuickLinksSection />
-          <NoticeBoardSection />
           <EServicesDirectory />
-          <FeaturedCasesSection />
-          <MediationBanner />
           <HearingsSchedule />
+          <FeaturedCasesSection />
+          {/* <MediationBanner /> */}
           <PromoBannerSection />
           <PortalStatsCTA />
           <Footer />

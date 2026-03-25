@@ -81,7 +81,7 @@ export function ECourtServicesSection() {
   ];
 
   return (
-    <div className={`py-16 sm:py-20 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
+    <div className={`px-16 sm:py-20 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className={`text-h2 mb-3 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
@@ -100,8 +100,8 @@ export function ECourtServicesSection() {
                 key={i}
                 onClick={() => setCurrentView('login')}
                 className={`group p-8 rounded-[28px] border text-left transition-all duration-300 hover:-translate-y-1 flex flex-col items-center text-center ${isHighContrast
-                    ? 'bg-black border-white hover:bg-zinc-900'
-                    : 'bg-white border-zinc-100 hover:border-blue-400 hover:shadow-xl'
+                  ? 'bg-black border-white hover:bg-zinc-900'
+                  : 'bg-white border-zinc-100 hover:border-blue-400 hover:shadow-xl'
                   }`}
               >
                 <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-6 border transition-all group-hover:scale-110 ${isHighContrast ? 'border-white text-white' : svc.color
@@ -371,8 +371,8 @@ export function CTASection() {
         <button
           onClick={() => setCurrentView('login')}
           className={`inline-flex items-center px-8 py-3 rounded-lg text-[13px] font-black transition-all active:scale-95 ${isHighContrast
-              ? 'bg-white text-black border-2 border-white hover:bg-zinc-200'
-              : 'bg-white text-[#0047AB] hover:bg-zinc-100 shadow-lg'
+            ? 'bg-white text-black border-2 border-white hover:bg-zinc-200'
+            : 'bg-white text-[#0047AB] hover:bg-zinc-100 shadow-lg'
             }`}
         >
           Log Masuk Portal

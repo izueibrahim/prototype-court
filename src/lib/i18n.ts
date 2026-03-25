@@ -69,7 +69,15 @@ export const t: Translations = {
         ],
         notices: [
             { date: '12 March 2026', title: 'Practice Note No. 1 of 2026: Implementation of eMP v2.0 System for all new filings.' },
-            { date: '08 March 2026', title: 'Guidelines for remote attendance via Virtual Court during public holidays.' }
+            { date: '08 March 2026', title: 'Guidelines for remote attendance via Virtual Court during public holidays.' },
+            { date: '01 March 2026', title: 'Maintenance Notice: System downtime scheduled for March 15th.' },
+            { date: '25 February 2026', title: 'New Chairman appointment: Y.A. Dato\' Ahmad Bin Sidek.' },
+            { date: '20 February 2026', title: 'Legal Aid Clinic: Free consultation session on February 28th.' },
+            { date: '15 February 2026', title: 'Revised court fees effective from March 1st, 2026.' },
+            { date: '10 February 2026', title: 'Virtual Hearing standard operating procedures updated.' },
+            { date: '05 February 2026', title: 'Public Feedback: Share your experience with the new eMP portal.' },
+            { date: '01 February 2026', title: 'Industrial Harmony Seminar: Register now for the upcoming event.' },
+            { date: '25 January 2026', title: 'Annual Report 2025: Now available for download.' }
         ],
         loginGateway: 'Unified Login Gateway',
         backToPortal: 'Back to Portal',
@@ -363,7 +371,15 @@ export const t: Translations = {
         ],
         notices: [
             { date: '12 Mac 2026', title: 'Notis Amalan Bil. 1 Tahun 2026: Pelaksanaan Sistem eMP v2.0 untuk semua pemfailan baharu.' },
-            { date: '08 Mac 2026', title: 'Garis Panduan kehadiran maya melalui e-Sebutan semasa cuti umum.' }
+            { date: '08 Mac 2026', title: 'Garis Panduan kehadiran maya melalui e-Sebutan semasa cuti umum.' },
+            { date: '01 Mac 2026', title: 'Notis Penyelenggaraan: Gangguan sistem dijadualkan pada 15 Mac.' },
+            { date: '25 Februari 2026', title: 'Pelantikan Pengerusi baharu: Y.A. Dato\' Ahmad Bin Sidek.' },
+            { date: '20 Februari 2026', title: 'Klinik Bantuan Guaman: Sesi konsultasi percuma pada 28 Februari.' },
+            { date: '15 Februari 2026', title: 'Kadar yuran mahkamah disemak semula berkuat kuasa 1 Mac 2026.' },
+            { date: '10 Februari 2026', title: 'Prosedur operasi standard Perbicaraan Maya dikemaskini.' },
+            { date: '05 Februari 2026', title: 'Maklum Balas Awam: Kongsi pengalaman anda dengan portal eMP baharu.' },
+            { date: '01 Februari 2026', title: 'Seminar Keharmonian Perusahaan: Daftar sekarang untuk acara akan datang.' },
+            { date: '25 Januari 2026', title: 'Laporan Tahunan 2025: Kini tersedia untuk dimuat turun.' }
         ],
         loginGateway: 'Gerbang Log Masuk Bersepadu',
         backToPortal: 'Kembali ke Portal',

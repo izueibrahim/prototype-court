@@ -9,7 +9,7 @@ export default function PromoBannerSection() {
     const isHighContrast = wcagStates.highContrast;
 
     return (
-        <section className={`py-12 sm:py-24 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
+        <section className={`pb-10 ${isHighContrast ? 'bg-black' : 'bg-white'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
 
@@ -22,7 +22,7 @@ export default function PromoBannerSection() {
                         </div>
 
                         <div className="relative z-10 max-w-[85%]">
-                            <h3 className={`text-h2 mb-10 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                            <h3 className={`text-h3 mb-10 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                                 Tingkatkan kemahiran pemfailan dan urus dokumen kes dengan tepat.
                             </h3>
                             <button className={`inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-h6 font-bold transition-all ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-xl hover:shadow-2xl hover:-translate-y-1'}`}>
@@ -65,7 +65,7 @@ export default function PromoBannerSection() {
                         </div>
 
                         <div className="relative z-10 max-w-[85%]">
-                            <h3 className={`text-h2 mb-10 ${isHighContrast ? 'text-white' : 'text-white'}`}>
+                            <h3 className={`text-h3 mb-10 ${isHighContrast ? 'text-white' : 'text-white'}`}>
                                 Daftar dan uruskan rekod Perjanjian Kolektif (CA) secara dalam talian.
                             </h3>
                             <button className={`mt-2 inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-h6 font-bold transition-all group-btn ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-white text-blue-700 hover:bg-zinc-50 shadow-xl hover:shadow-2xl hover:-translate-y-1'}`}>

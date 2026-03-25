@@ -25,7 +25,7 @@ export default function PortalStatsCTA() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
                         {stats.map((stat, idx) => (
                             <div key={idx} className="text-center flex flex-col items-center justify-center">
-                                <h4 className={`text-display tracking-tighter mb-4 ${isHighContrast ? 'text-white' : stat.color}`}>
+                                <h4 className={`text-h1 tracking-tighter mb-4 ${isHighContrast ? 'text-white' : stat.color}`}>
                                     {stat.value}
                                 </h4>
                                 <p className={`text-body-lg font-bold tracking-wide ${isHighContrast ? 'text-zinc-400' : 'text-white'}`}>
@@ -46,7 +46,7 @@ export default function PortalStatsCTA() {
                 )}
 
                 <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className={`text-h1 mb-6 ${isHighContrast ? 'text-white' : 'text-white'}`}>
+                    <h2 className={`text-h2 mb-6 ${isHighContrast ? 'text-white' : 'text-white'}`}>
                         Mulakan Penggunaan eMP v2.0 Hari Ini
                     </h2>
                     <p className={`text-body-lg mb-10 max-w-2xl mx-auto ${isHighContrast ? 'text-zinc-400' : 'text-blue-100'}`}>

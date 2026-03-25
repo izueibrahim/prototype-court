@@ -23,7 +23,7 @@ export default function HearingsSchedule() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <div className="mb-12 sm:mb-16">
-                    <h2 className={`text-h1 mb-4 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                    <h2 className={`text-h2 mb-4 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                         {currentLang.homeHearingsTitle || currentLang.hearingsTitle}
                     </h2>
                     <p className={`text-body-lg font-medium max-w-3xl ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
