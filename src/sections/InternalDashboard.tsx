@@ -14,9 +14,10 @@ import {
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
 import SebutanChat from '@/components/sebutan/SebutanChat';
+import AwardManagementModule from '@/sections/AwardManagementModule';
 import {
   chYears, courtLocations, caseTypes, caseStatuses, ch1, ch2, ch3, ch4Pts, ch4Vals, ch5, ch7SchedPts, ch7CompPts,
-  ch7Comp, ch8, ch10, upcomingHearings, latestJudgments, mockSearchResults,
+  ch7Comp, ch8, ch10, upcomingHearings, latestJudgements, mockSearchResults,
   caseTypeDistribution, chairmanWorkload, filingQueue, chairmanCases,
   integrationLogs, mockNotices, mockCAs, mockUsageLogs,
   executiveStats, opsStats, chairmanStats, awardAnalyticsStats, integrationStats, usageStats,
@@ -114,6 +115,7 @@ export default function InternalDashboard() {
       items: [
         { id: 'registration', icon: FilePlus, label: currentLang.dashRegistration, roles: ['admin', 'registrar', 'officer', 'ydp', 'efiling'] },
         { id: 'cases', icon: KanbanSquare, label: currentLang.dashCases, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'efiling'] },
+        { id: 'award_mgmt', icon: FileCheck, label: 'Award Management', roles: ['admin', 'ydp', 'chairman', 'registrar'] },
         { id: 'schedule_int', icon: Calendar, label: currentLang.dashSchedule, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'efiling', 'guest'] },
         { id: 'notice', icon: Bell, label: currentLang.dashNotice, roles: ['admin', 'registrar', 'officer'] },
         { id: 'notice_board', icon: Bell, label: currentLang.noticeBoard, roles: ['admin', 'ydp', 'chairman', 'registrar', 'officer', 'ca_unit', 'efiling', 'guest'] },
@@ -660,13 +662,13 @@ export default function InternalDashboard() {
                                 {demoRole === 'efiling' ? currentLang.pendingReview : 'eFiling'}
                               </span>
                             </td>
-                            <td className="py-6 px-4">
-                              <div className="flex items-center gap-2">
-                                <span className="text-sm md:text-base font-black text-[#1E1E2D]">{item.submittedBy}</span>
-                                <span className="text-zinc-300 font-black text-sm uppercase">v</span>
-                                <span className="text-sm md:text-base font-black text-[#1E1E2D]">Company XYZ</span>
-                              </div>
-                            </td>
+                             <td className="py-6 px-4">
+                               <div className="flex items-center gap-2">
+                                 <span className="text-sm md:text-base font-black text-[#1E1E2D]">{item.submittedBy}</span>
+                                 <span className="text-zinc-300 font-black text-sm uppercase">v</span>
+                                 <span className="text-sm md:text-base font-black text-[#1E1E2D]">{item.respondent || 'Syarikat Maju Jaya Sdn Bhd'}</span>
+                               </div>
+                             </td>
                             <td className="py-6 px-4 text-sm font-bold text-slate-500">{item.date}</td>
                             <td className="py-6 px-4 text-right">
                               <button
@@ -707,6 +709,11 @@ export default function InternalDashboard() {
                       <div>
                         <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">{currentLang.submittedBy}</h4>
                         <p className="text-2xl font-black text-[#1E1E2D]">{selectedInternalItem.submittedBy}</p>
+                      </div>
+
+                      <div>
+                        <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4">Respondent</h4>
+                        <p className="text-2xl font-black text-[#1E1E2D]">{selectedInternalItem.respondent || 'Syarikat Maju Jaya Sdn Bhd'}</p>
                       </div>
 
                       <div>
@@ -864,8 +871,9 @@ export default function InternalDashboard() {
                   return (
                     <div className="flex-1 flex flex-col min-h-0">
                       <div className="flex-1 space-y-6 overflow-y-auto pr-2 custom-scrollbar pb-8">
-                        {paginatedCases.map((c, i) => {
-                          const currentStage = 3; // Default to Hearing stage
+                        {paginatedCases.map((c: any, i) => {
+                          const stageMap: Record<string, number> = { 'Registered': 0, 'Allocation': 1, 'Mention': 2, 'Hearing': 3, 'Award': 4 };
+                          const currentStage = stageMap[c.stage] ?? 3;
                           const stages = ['Registered', 'Allocation', 'Mention', 'Hearing', 'Award'];
 
                           return (
@@ -891,15 +899,17 @@ export default function InternalDashboard() {
                                     <p className="text-sm font-bold text-slate-400 mt-2 flex items-center gap-2"><Calendar className="w-4 h-4" /> Last Action: {c.date}</p>
                                   </div>
                                 </div>
-                                <div className="flex items-center gap-3 relative z-20">
-                                  <button
-                                    onClick={(e) => { e.stopPropagation(); setDashActiveView('sebutan'); }}
-                                    className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-blue-500/20 uppercase tracking-widest active:scale-95"
-                                  >
-                                    Join Session
-                                  </button>
-                                  <button className="px-8 py-3.5 bg-slate-100 hover:bg-slate-900 hover:text-white text-slate-700 text-[10px] font-black rounded-xl transition-all shadow-inner uppercase tracking-widest">Case Details</button>
-                                </div>
+                                 <div className="flex items-center gap-3 relative z-20">
+                                   {c.stage !== 'Award' && (
+                                     <button
+                                       onClick={(e) => { e.stopPropagation(); setDashActiveView('sebutan'); }}
+                                       className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-blue-500/20 uppercase tracking-widest active:scale-95"
+                                     >
+                                       Join Session
+                                     </button>
+                                   )}
+                                   <button className="px-8 py-3.5 bg-slate-100 hover:bg-slate-900 hover:text-white text-slate-700 text-[10px] font-black rounded-xl transition-all shadow-inner uppercase tracking-widest">Case Details</button>
+                                 </div>
                               </div>
 
                               <div className="pt-8 border-t border-slate-50">
@@ -1060,7 +1070,17 @@ export default function InternalDashboard() {
                   <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 mb-10 text-center">{currentLang.caseLifecycleProgress}</h3>
                   <div className="relative flex justify-between">
                     <div className="absolute top-5 left-0 w-full h-1 bg-slate-100 -z-10"></div>
-                    <div className="absolute top-5 left-0 h-1 bg-blue-500 -z-10 transition-all duration-1000" style={{ width: '75%' }}></div>
+                    {(() => {
+                      const stageMap: Record<string, number> = { 'Registered': 0, 'Allocation': 1, 'Mention': 2, 'Hearing': 3, 'Award': 4 };
+                      const currentStage = stageMap[selectedInternalItem.stage] ?? 3;
+                      const progressWidth = (currentStage / 4) * 100;
+                      return (
+                        <div 
+                          className="absolute top-5 left-0 h-1 bg-blue-500 -z-10 transition-all duration-1000" 
+                          style={{ width: `${progressWidth}%` }}
+                        ></div>
+                      );
+                    })()}
 
                     {[
                       { label: currentLang.stageRegistration, date: '10 Jan' },
@@ -1069,8 +1089,8 @@ export default function InternalDashboard() {
                       { label: currentLang.stageHearing, date: 'TBC' },
                       { label: currentLang.stageAward, date: 'TBC' }
                     ].map((step, idx) => {
-                      const caseIdx = chairmanCases.findIndex(c => c.id === selectedInternalItem.id);
-                      const currentStage = 3; // Default to Hearing for Active Case Management as requested
+                      const stageMap: Record<string, number> = { 'Registered': 0, 'Allocation': 1, 'Mention': 2, 'Hearing': 3, 'Award': 4 };
+                      const currentStage = stageMap[selectedInternalItem.stage] ?? 3;
                       const isCompleted = idx < currentStage;
                       const isActive = idx === currentStage;
                       const isPending = idx > currentStage;
@@ -1131,10 +1151,22 @@ export default function InternalDashboard() {
                             </div>
                           </div>
                           <div className="bg-white p-8 rounded-3xl md:rounded-[32px] border border-slate-200 shadow-sm text-slate-900">
-                            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Next Event</p>
-                            <h4 className="text-xl font-black mb-2">Notice of Mention</h4>
-                            <p className="text-sm font-bold text-blue-600">Scheduled for 15 Feb 2026, 09:00 AM</p>
-                            <button onClick={() => setDashActiveView('sebutan')} className="w-full mt-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 uppercase tracking-widest">Join E-Sebutan Room</button>
+                            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">{selectedInternalItem.stage === 'Award' ? 'Next Action' : 'Next Event'}</p>
+                            <h4 className="text-xl font-black mb-2">{selectedInternalItem.stage === 'Award' ? 'Award Management' : 'Notice of Mention'}</h4>
+                            <p className="text-sm font-bold text-blue-600">{selectedInternalItem.stage === 'Award' ? 'Pending Final Approval' : 'Scheduled for 15 Feb 2026, 09:00 AM'}</p>
+                            <button 
+                              onClick={() => {
+                                if (selectedInternalItem.stage === 'Award') {
+                                  setDashActiveView('award_mgmt');
+                                  setInternalActionView(null);
+                                } else {
+                                  setDashActiveView('sebutan');
+                                }
+                              }} 
+                              className="w-full mt-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 uppercase tracking-widest"
+                            >
+                              {selectedInternalItem.stage === 'Award' ? 'Manage Award' : 'Join E-Sebutan Room'}
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -2911,6 +2943,11 @@ export default function InternalDashboard() {
                   </div>
                 )}
               </div>
+            )}
+            
+            {/* ---------------- AWARD MANAGEMENT MODULE ---------------- */}
+            {dashActiveView === 'award_mgmt' && (
+               <AwardManagementModule />
             )}
           </div>
         </div>

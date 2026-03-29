@@ -7,49 +7,23 @@ import React from 'react';
 
 export const upcomingHearings = [
   {
-    id: '22/4-1318/24',
-    court: 'Court 22',
+    id: '1/1-140/26',
+    court: 'Mahkamah 1',
     judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim',
-    date: '15 January 2025',
-    time: '09:00 AM', // Used briefly for hearing list
-    claimant: 'Tay Hwee Lan',
-    respondent: 'Healthy Vision Sdn Bhd',
-    keywords: ['Unfair Dismissal', 'Active', 'Final award'],
-    summary: 'The claimant alleges unfair dismissal. Case is currently at the Final Award stage after a complete cycle of mentions, hearings, and document filings.',
-    status: 'Active',
-    stage: 'Final award',
-    mentions: [
-      { date: '25-11-2024 10:30:00', status: 'Completed' },
-      { date: '20-01-2025 09:30:00', status: 'Completed' },
-      { date: '20-02-2025 09:00:00', status: 'Postponed' },
-      { date: '06-03-2025 10:00:00', status: 'Completed' },
-      { date: '17-06-2025 09:01:00', status: 'Completed' }
-    ],
-    hearings: [
-      { date: '14-07-2025 11:31:00', location: 'Local', status: 'Part-heard' },
-      { date: '15-07-2025 09:00:00', location: 'Local', status: 'Postponed' },
-      { date: '02-09-2025 10:00:30', location: 'Local', status: 'Part-heard' },
-      { date: '03-09-2025 09:00:00', location: 'Local', status: 'Postponed' },
-      { date: '21-10-2025 09:42:00', location: 'Local', status: 'Part-heard' },
-      { date: '22-10-2025 10:00:00', location: 'Local', status: 'Completed' }
-    ],
+    date: '20 March 2026',
+    time: '09:00 AM',
+    claimant: 'Ahmad bin Ali',
+    respondent: 'Syarikat Maju Jaya Sdn Bhd',
+    type: 'UNFAIR DISMISSAL',
+    status: 'ACTIVE',
+    stage: 'Hearing',
+    keywords: ['Unfair Dismissal', 'Misconduct'],
+    summary: 'The court is examining the dismissal procedurals and the validity of the domestic inquiry results.',
+    mentions: [{ date: '2026-03-05 10:00:00', status: 'Completed' }],
+    hearings: [{ date: '2026-03-20 09:00:00', location: 'Local', status: 'Part-heard' }],
     filings: [
-      { id: 1, document: 'Form A', date: '04-12-2024', party1: true, party2: false },
-      { id: 2, document: 'Form B', date: '04-12-2024', party1: true, party2: false },
-      { id: 3, document: 'Form A', date: '12-12-2024', party1: false, party2: true },
-      { id: 4, document: 'Form B', date: '12-12-2024', party1: false, party2: true },
-      { id: 5, document: 'Statement of Case', date: '06-01-2025', party1: true, party2: false },
-      { id: 6, document: 'Statement in Reply', date: '21-02-2025', party1: false, party2: true },
-      { id: 7, document: 'Bundle of Documents', date: '21-02-2025', party1: false, party2: true },
-      { id: 8, document: 'Rejoinder', date: '06-03-2025', party1: true, party2: false },
-      { id: 9, document: 'Supplementary Bundle', date: '07-07-2025', party1: false, party2: true },
-      { id: 10, document: 'Witness Statements', date: '07-07-2025', party1: false, party2: true },
-      { id: 14, document: 'Witness Statements', date: '09-07-2025', party1: true, party2: false },
-      { id: 17, document: 'Written Submissions', date: '12-01-2026', party1: true, party2: false },
-      { id: 19, document: 'Written Submissions', date: '13-01-2026', party1: false, party2: true },
-      { id: 21, document: 'Reply/Further Written Submissions', date: '05-02-2026', party1: true, party2: false },
-      { id: 22, document: 'Reply/Further Written Submissions', date: '09-03-2026', party1: false, party2: true },
-      { id: 24, document: 'Ultimatum Date (Final)', date: '09-03-2026', party1: false, party2: true }
+      { id: 1, document: 'Statement of Case', date: '2026-03-01', party1: true },
+      { id: 2, document: 'Statement in Reply', date: '2026-03-10', party1: false, party2: true }
     ]
   },
   {
@@ -81,30 +55,21 @@ export const upcomingHearings = [
     respondent: 'Kilang Automotif Jaya',
     keywords: ['Trade Union', 'Collective Agreement', 'Non-Compliance'],
     summary: 'Complaint of non-compliance with Article 14 of the Collective Agreement regarding annual bonus payouts.'
-  },
-  {
-    id: '5/5-1120/25',
-    court: 'Mahkamah 5',
-    judge: 'Y.A. Tuan Zulhelmy Bin Hasan',
-    time: '10:00 AM',
-    claimant: 'Ahmad Faiz',
-    respondent: 'Global Tech Solutions',
-    keywords: ['Sexual Harassment', 'Unfair Dismissal'],
-    summary: 'Claimant disputes termination which was allegedly based on unproven sexual harassment allegations without a proper domestic inquiry.'
-  },
-  {
-    id: '3/3-0899/25',
-    court: 'Mahkamah 3',
-    judge: 'Y.A. Dato\' Syed Noh Bin Said',
-    time: '03:00 PM',
-    claimant: 'Sarah Lee',
-    respondent: 'Bintang Retail Group',
-    keywords: ['Fixed Term Contract', 'Legitimate Expectation'],
-    summary: 'Dispute over the non-renewal of a 5th consecutive fixed-term contract. Claimant argues there was a legitimate expectation of permanent employment.'
   }
 ];
 
-export const latestJudgments = [
+export const latestJudgements = [
+  {
+    id: '1/1-140/26',
+    awardNo: 'Award 312/2026',
+    court: 'Mahkamah 1',
+    judge: 'Y.A. Dato\' Wan Jeffry Bin Kassim',
+    date: '15 June 2026',
+    claimant: 'Ahmad bin Ali',
+    respondent: 'Syarikat Maju Jaya Sdn Bhd',
+    keywords: ['Unfair Dismissal', 'Reinstatement Ordered', 'Just Cause'],
+    summary: 'The court found the dismissal to be without just cause and excuse. The domestic inquiry was procedural flawed. Reinstatement with full backwages ordered.'
+  },
   {
     id: '2/2-3041/25',
     awardNo: 'Award 412/2026',
@@ -115,25 +80,27 @@ export const latestJudgments = [
     respondent: 'DHL Express (M) Sdn Bhd',
     keywords: ['Unfair Dismissal', 'Reinstatement Denied', 'Compensation'],
     summary: 'The court found the dismissal to be unfair due to procedural flaws, but reinstatement was deemed inappropriate. Compensation in lieu of reinstatement was awarded.'
-  },
-  {
-    id: '5/5-1120/25',
-    awardNo: 'Award 409/2026',
-    court: 'Mahkamah 5',
-    judge: 'Y.A. Tuan Zulhelmy Bin Hasan',
-    date: '10 March 2026',
-    claimant: 'On Siang Aik',
-    respondent: 'Million Effective Sdn. Bhd.',
-    keywords: ['Constructive Dismissal', 'Claim Dismissed'],
-    summary: 'The claimant failed to prove that the transfer order was a fundamental breach of contract. The claim for constructive dismissal is dismissed.'
   }
 ];
 
 export const mockSearchResults = [
   {
     type: 'Award',
+    id: 'Award 312/2026',
+    court: 'Mahkamah 1',
+    location: 'Kuala Lumpur',
+    status: 'AWARD',
+    date: '15 June 2026',
+    title: 'Ahmad bin Ali v Syarikat Maju Jaya Sdn Bhd',
+    summary: 'The court found the dismissal to be without just cause and excuse. Procedural flaws in domestic inquiry were noted. Reinstatement ordered.',
+    keywords: ['Unfair Dismissal', 'Reinstatement', 'Just Cause']
+  },
+  {
+    type: 'Award',
     id: 'Award 412/2026',
     court: 'Mahkamah 2',
+    location: 'Kuala Lumpur',
+    status: 'AWARD',
     date: '12 March 2026',
     title: 'Thangaraj a/l Narayanan v DHL Express (M) Sdn Bhd',
     summary: 'The court found the dismissal to be unfair due to procedural flaws, but reinstatement was deemed inappropriate. Compensation in lieu of reinstatement was awarded...',
@@ -143,55 +110,13 @@ export const mockSearchResults = [
     type: 'Case',
     id: '1/1-1522/25',
     court: 'Mahkamah 1',
+    location: 'Kuala Lumpur',
+    status: 'HEARING',
     date: '09 March 2026',
     title: 'Tay Hwee Lan v Healthy Vision',
     summary: 'The claimant alleges constructive dismissal due to a significant, unilateral reduction in responsibilities and non-payment of contractual allowances...',
     keywords: ['Constructive Dismissal', 'Unpaid Wages']
-  },
-  {
-    type: 'Practice Note',
-    id: 'PN No. 1/2026',
-    court: 'Registry',
-    date: '01 March 2026',
-    title: 'Guidelines on Handling Constructive Dismissal Cases',
-    summary: 'This practice note outlines the procedural requirements and evidential burdens placed upon claimants claiming constructive dismissal under Section 20 of the IRA 1967...',
-    keywords: ['Constructive Dismissal', 'Procedure', 'Evidence']
-  },
-  {
-    type: 'Award',
-    id: 'Award 409/2026',
-    court: 'Mahkamah 5',
-    date: '10 March 2026',
-    title: 'On Siang Aik v Million Effective Sdn. Bhd.',
-    summary: 'The claimant failed to prove that the transfer order was a fundamental breach of contract. The claim for constructive dismissal is dismissed.',
-    keywords: ['Constructive Dismissal', 'Claim Dismissed']
-  },
-  {
-    type: 'Award',
-    id: 'Award 301/2025',
-    court: 'Mahkamah 4',
-    date: '15 December 2025',
-    title: 'Johan Bin Aris v Mega Builders Sdn Bhd',
-    summary: 'Dismissal was ruled justified. The claimant failed to establish constructive dismissal as the transfer order was deemed a lawful management prerogative...',
-    keywords: ['Constructive Dismissal', 'Transfer', 'Claim Dismissed']
-  },
-  {
-    type: 'Case',
-    id: '2/2-3041/25',
-    court: 'Mahkamah 2',
-    date: '08 March 2026',
-    title: 'Kesatuan Sekerja Pembuatan v Kilang Automotif Jaya',
-    summary: 'Complaint of non-compliance with Article 14 of the Collective Agreement regarding annual bonus payouts.',
-    keywords: ['Trade Union', 'Collective Agreement', 'Non-Compliance']
-  },
-  { id: 'Award 450/2026', title: 'Ahmad bin Ali v. Tech Solutions Sdn Bhd', type: 'UNFAIR DISMISSAL', date: '12 Mar 2026', court: 'Industrial Court KL', summary: 'Unfair dismissal claim regarding alleged misconduct during work hours. The court ruled in favor of the claimant due to lack of domestic inquiry.', keywords: ['Unfair Dismissal', 'Misconduct'], status: 'AWARD', location: 'Kuala Lumpur' },
-  { id: 'Award 451/2026', title: 'Siti Aminah v. Global Logistics Berhad', type: 'CONSTRUCTIVE DISMISSAL', date: '15 Mar 2026', court: 'Industrial Court Penang', summary: 'Constructive dismissal case involving forced transfer across regions. The court found the transfer order was not made in bona fide.', keywords: ['Constructive Dismissal', 'Transfer'], status: 'AWARD', location: 'Pulau Pinang' },
-  { id: 'Award 452/2026', title: 'National Union of Bank Employees v. CIMB Bank', type: 'COLLECTIVE AGREEMENT', date: '18 Mar 2026', court: 'Industrial Court KL', summary: 'Non-compliance with Article 12 of the Collective Agreement regarding medical leave benefits for staff members.', keywords: ['Non-Compliance', 'CBA'], status: 'CLOSED', location: 'Kuala Lumpur' },
-  { id: 'Award 453/2026', title: 'Ramasamy a/l Muniandy v. Plantation Estates', type: 'UNFAIR DISMISSAL', date: '20 Mar 2026', court: 'Industrial Court Johor', summary: 'Unfair dismissal due to age-based discrimination. The court ordered reinstatement and back-wages for the claimant.', keywords: ['Discrimination', 'Unfair Dismissal'], status: 'AWARD', location: 'Johor' },
-  { id: 'Award 454/2026', title: 'Kesatuan Pekerja-Pekerja v. Manufacturing Jaya', type: 'UNION RECOGNITION', date: '21 Mar 2026', court: 'Industrial Court KL', summary: 'Breach of procedural requirements in the retrenchment of 50 staff members without prior notification of the union.', keywords: ['Retrenchment', 'Union Rights'], status: 'HEARING', location: 'Kuala Lumpur' },
-  { id: 'Award 455/2026', title: 'Lim Siew Lan v. Retail Giant Berhad', type: 'UNFAIR DISMISSAL', date: '10 Feb 2026', court: 'Industrial Court Penang', summary: 'Alleged performance-based termination without sufficient warnings or improvement plans. The court ruled the dismissal was without just cause.', keywords: ['Performance', 'Warnings'], status: 'AWARD', location: 'Pulau Pinang' },
-  { id: 'Award 456/2026', title: 'Transport Workers Union v. Express Bus Co.', type: 'TRADE DISPUTE', date: '05 Jan 2026', court: 'Industrial Court KL', summary: 'Dispute over wage structure and overtime calculations for inter-state drivers.', keywords: ['Wages', 'Overtime'], status: 'CLOSED', location: 'Kuala Lumpur' },
-  { id: 'Award 457/2026', title: 'Union of Hotel, Bar & Restaurant Workers v. Majestic Hotel', summary: 'Establishment of service charge distribution model and minimum wage alignment.', date: '21 Mar 2026', type: 'UNFAIR DISMISSAL', court: 'Mahkamah 1 - Kuala Lumpur', keywords: ['Service Charge', 'Hospitality'], status: 'AWARD', location: 'Kuala Lumpur' }
+  }
 ];
 
 export const mockCollectiveAgreements = [
@@ -384,7 +309,7 @@ export const allModules = [
     items: [
       { icon: Briefcase, enTitle: 'Case Management', msTitle: 'Pengurusan Kes', enDesc: 'Management of the entire trial process.', msDesc: 'Pengurusan proses perbicaraan menyeluruh.', href: '/modules/case-management' },
       { icon: Users, enTitle: 'Collective Agreement', msTitle: 'Perjanjian Kolektif', enDesc: 'Registration and review of CA.', msDesc: 'Pengurusan pendaftaran dan semakan CA.', href: '/modules/collective-agreement' },
-      { icon: Search, enTitle: 'Search Full Awards', msTitle: 'Carian Penuh Awards', enDesc: 'Semantic AI & Full-Text Search.', msDesc: 'Carian AI Semantik & Full-Text Search.', href: '/modules/search-awards' },
+      { icon: Search, enTitle: 'Notes', msTitle: 'Carian Penuh Awards', enDesc: 'Practice Notes.', msDesc: 'Practice Notes.', href: '/modules/search-awards' },
       { icon: Briefcase, enTitle: 'User Guides', msTitle: 'Panduan Pengguna', enDesc: 'User Guides.', msDesc: 'Senarai Panduan Pengguna', href: '/modules/user-guides' },
     ]
   },
@@ -485,17 +410,23 @@ export const chairmanWorkload = [
 ];
 
 export const filingQueue = [
-  { id: 'F1001', submittedBy: 'Tay Hwee Lan', type: 'Unfair Dismissal', date: '2026-03-05', status: 'Pending Review' },
-  { id: 'F1002', submittedBy: 'Azman Bin Isa', type: 'Unfair Dismissal', date: '2026-03-05', status: 'Pending Review' },
-  { id: 'F1003', submittedBy: 'Ravi Kumar', type: 'Constructive Dismissal', date: '2026-03-05', status: 'Pending Review' },
-  { id: 'F1004', submittedBy: 'Ahmad Faiz', type: 'Termination', date: '2026-03-05', status: 'Approved' }
+  { id: 'F1001', submittedBy: 'Ahmad bin Ali', respondent: 'Syarikat Maju Jaya Sdn Bhd', type: 'Unfair Dismissal', date: '2026-03-20', status: 'Pending Review' },
+  { id: 'F1002', submittedBy: 'Azman Bin Isa', respondent: 'Technip Energies (M)', type: 'Unfair Dismissal', date: '2026-03-05', status: 'Pending Review' },
+  { id: 'F1003', submittedBy: 'Ravi Kumar', respondent: 'Global Logistics Berhad', type: 'Constructive Dismissal', date: '2026-03-05', status: 'Pending Review' },
+  { id: 'F1004', submittedBy: 'Ahmad Faiz', respondent: 'Tech Innovations Sdn Bhd', type: 'Termination', date: '2026-03-05', status: 'Approved' }
 ];
 
 export const chairmanCases = [
-  { id: '1/1-1522/25', title: 'Tay Hwee Lan v Healthy Vision', status: 'Hearing', date: '12 Mar 2026', time: '09:00 AM', type: 'Unfair Dismissal' },
-  { id: '1/1-1079/25', title: 'Azman Bin Isa v Technip Energies', status: 'Trial', date: '12 Mar 2026', time: '11:00 AM', type: 'Trade Dispute' },
-  { id: '4/4-2024/25', title: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Mention', date: '14 Mar 2026', time: '02:30 PM', type: 'Constructive Dismissal' },
-  { id: '2/2-3041/25', title: 'Kesatuan Sekerja v Kilang Automotif', status: 'Hearing', date: '15 Mar 2026', time: '09:30 AM', type: 'Trade Dispute' }
+  { id: '1/1-140/26', title: 'Ahmad bin Ali v Syarikat Maju Jaya', status: 'Hearing', date: '20 Mar 2026', time: '09:00 AM', type: 'Unfair Dismissal', stage: 'Hearing' },
+  { id: '1/1-1079/25', title: 'Azman Bin Isa v Technip Energies', status: 'AWARD', date: '12 Mar 2026', time: '11:00 AM', type: 'Trade Dispute', stage: 'Award' },
+  { id: '4/4-2024/25', title: 'Siti Nurhaliza v ABC Sdn Bhd', status: 'Mention', date: '14 Mar 2026', time: '02:30 PM', type: 'Constructive Dismissal', stage: 'Mention' },
+  { id: '2/2-3041/25', title: 'Kesatuan Sekerja v Kilang Automotif', status: 'Hearing', date: '15 Mar 2026', time: '09:30 AM', type: 'Trade Dispute', stage: 'Hearing' }
+];
+
+export const mockAwards = [
+  { id: '1/1-140/26', claimant: 'Ahmad bin Ali', respondent: 'Syarikat Maju Jaya Sdn Bhd', status: 'Pending Draft', date: '2026-03-20', type: 'Unfair Dismissal' },
+  { id: '2/1-45/26', claimant: 'Sarah Lee', respondent: 'Tech Innovations Sdn Bhd', status: 'Pending Approval', date: '2026-03-24', type: 'Constructive Dismissal' },
+  { id: '3/1-12/26', claimant: 'Kesatuan Pekerja Logistik', respondent: 'Kilang Automotif Pantai Timur', status: 'Published', date: '2026-03-25', type: 'Collective Agreement' },
 ];
 
 export const integrationLogs = [

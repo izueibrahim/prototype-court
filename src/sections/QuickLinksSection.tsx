@@ -14,26 +14,19 @@ export default function QuickLinksSection() {
 
     const quickActions = [
         { icon: CloudUpload, title: lang === 'en' ? 'File a Document' : 'Failkan Dokumen', color: 'bg-blue-600' },
-        { icon: Video, title: lang === 'en' ? 'Join Virtual Court' : 'Sertai Mahkamah Maya', color: 'bg-blue-600' },
+        // { icon: Video, title: lang === 'en' ? 'Join Virtual Court' : 'Sertai Mahkamah Maya', color: 'bg-blue-600' },
         { icon: Search, title: lang === 'en' ? 'Awards & Notes' : 'Award & Notis', color: 'bg-blue-600' },
     ];
 
     const handleQuickLinkClick = (idx: number) => {
-        // 0: File a Document -> Login
-        // 1: Join Virtual Court -> Login
-        // 2: Practice Notes -> Stay (Portal)
-        // 3: Selected Awards -> Stay (Portal)
-        // 4: Forms -> Stay (Portal)
-        // 5: Court Calendar -> Stay (Portal)
-        if (idx === 0 || idx === 1) {
-            if (idx === 0) {
-                setPreselectedRole('efiling');
-                router.push('/filing-instructions');
-                return;
-            }
-            setCurrentView('login');
+        if (idx === 0) {
+            setPreselectedRole('efiling');
+            router.push('/filing-instructions');
+            return;
         }
-        else if (idx === 2 || idx === 3 || idx === 4 || idx === 5) setCurrentView('portal'); // Assuming 'portal' for new links
+        else if (idx === 1) {
+            setCurrentView('awards');
+        }
     };
 
     return (

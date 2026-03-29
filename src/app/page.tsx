@@ -22,6 +22,7 @@ import EFilingDashboard from '@/sections/EFilingDashboard';
 import GuestDashboard from '@/sections/GuestDashboard';
 import AboutPage from '@/sections/AboutPage';
 import ContactPage from '@/sections/ContactPage';
+import AwardsPage from '@/sections/AwardsPage';
 import TourController from '@/components/ui/TourController';
 import { useUrlSync } from '@/lib/useUrlSync';
 
@@ -108,16 +109,22 @@ export default function Home() {
           </div>
           <Footer />
         </div>
+      ) : currentView === 'awards' ? (
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <AwardsPage />
+          <Footer />
+        </div>
       ) : (
         <>
           <Navbar />
           <HeroSection />
-          <QuickLinksSection />
+          {/* <QuickLinksSection /> */}
+          <PromoBannerSection />
           <EServicesDirectory />
           <HearingsSchedule />
           <FeaturedCasesSection />
           {/* <MediationBanner /> */}
-          <PromoBannerSection />
           <PortalStatsCTA />
           <Footer />
         </>

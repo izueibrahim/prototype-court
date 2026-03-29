@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
-import { upcomingHearings, latestJudgments } from '@/lib/data';
+import { upcomingHearings, latestJudgements } from '@/lib/data';
 import {
   Building2, MapPin, Download, ArrowLeft,
   ChevronDown, ZoomOut, ZoomIn, Printer, Maximize,
@@ -24,7 +24,7 @@ export default function CaseDetailsSection() {
 
   // Find the active case from the mock data based on selectedCaseId, or default to the first
   const activeCase: any = upcomingHearings.find(h => h.id === selectedCaseId) ||
-    latestJudgments.find(j => j.id === selectedCaseId) ||
+    latestJudgements.find(j => j.id === selectedCaseId) ||
     upcomingHearings[0];
   const isAward = !!activeCase.awardNo;
 
@@ -46,9 +46,9 @@ export default function CaseDetailsSection() {
         )}
         <div className="max-w-7xl mx-auto relative z-10">
           <nav className="flex items-center text-[10px] font-black tracking-widest text-blue-400 mb-8 uppercase">
-            <button onClick={() => setCurrentView('schedule')} className="hover:text-blue-300 transition-colors flex items-center group">
+            <button onClick={() => setCurrentView('awards')} className="hover:text-blue-300 transition-colors flex items-center group">
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-              {currentLang.home}
+              {currentLang.backToPortal || "Back to Awards"}
             </button>
             <ChevronRight className="w-3 h-3 mx-4 text-zinc-700" />
             <span className="text-white/40">Case Details Management</span>
@@ -99,7 +99,7 @@ export default function CaseDetailsSection() {
 
       {/* --- TAB CONTENT AREA --- */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
+
         {/* OVERVIEW TAB */}
         {activeTab === 'overview' && (
           <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -152,9 +152,9 @@ export default function CaseDetailsSection() {
                         <div>
                           <h3 className="text-h3 text-zinc-900 tracking-tight mb-1">Action Center</h3>
                           <p className="text-sm font-bold text-zinc-400 uppercase tracking-widest">
-                            {activeCase.stage === 'Final award' ? 'Next Step: Drafting Award' : 
-                             activeCase.stage === 'Mention' ? 'Next Step: Case Management' :
-                             'Next Step: Virtual Hearing'}
+                            {activeCase.stage === 'Final award' ? 'Next Step: Drafting Award' :
+                              activeCase.stage === 'Mention' ? 'Next Step: Case Management' :
+                                'Next Step: Virtual Hearing'}
                           </p>
                         </div>
                       </div>
@@ -187,7 +187,7 @@ export default function CaseDetailsSection() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className={tCardBg}>
                   <div className="p-8 sm:p-10">
                     <h3 className="text-h3 text-zinc-900 uppercase tracking-tight mb-8">Related References</h3>
@@ -221,37 +221,37 @@ export default function CaseDetailsSection() {
 
                 {/* CASE JOURNEY LIFECYCLE (Narrow Column Version) */}
                 <div className={tCardBg}>
-                   <div className="p-8">
-                     <h4 className="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-6 flex items-center">
-                       <Activity className="w-4 h-4 mr-2" /> Journey
-                     </h4>
-                     
-                     <div className="relative space-y-0 before:absolute before:inset-y-0 before:left-[17px] before:w-0.5 before:bg-zinc-100">
-                       {[
-                         { title: 'Award (Final)', date: activeCase.awardNo ? '20 Mar 2026' : 'Awaiting trial', status: activeCase.awardNo ? 'Completed' : 'Upcoming', side: 'left', icon: Gavel },
-                         { title: 'Full Trial', date: '15 Mar 2026', status: activeCase.awardNo ? 'Completed' : 'Current', side: 'right', icon: Activity },
-                         { title: 'Final Mention', date: '01 Mar 2026', status: 'Completed', side: 'left', icon: Calendar },
-                         { title: 'Interlocutory', date: '15 Feb 2026', status: 'Completed', side: 'right', icon: FileText },
-                         { title: 'Case Management', date: '20 Jan 2026', status: 'Completed', side: 'left', icon: Shield },
-                         { title: 'Registration', date: '15 Jan 2026', status: 'Completed', side: 'right', icon: CheckCircle2 },
-                       ].map((step, idx) => (
-                         <div key={idx} className="relative flex items-start mb-6 last:mb-0">
-                           {/* Timeline Center Dot */}
-                           <div className="z-10 relative flex-shrink-0 w-9 h-9 rounded-xl bg-white border-2 border-zinc-100 flex items-center justify-center shadow-sm">
-                             <div className={`w-6 h-6 rounded-lg flex items-center justify-center ${step.status === 'Completed' ? 'bg-emerald-500 text-white' : step.status === 'Current' ? 'bg-blue-600 text-white animate-pulse' : 'bg-zinc-100 text-zinc-400'}`}>
-                               <step.icon className="w-3 h-3" />
-                             </div>
-                           </div>
+                  <div className="p-8">
+                    <h4 className="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-6 flex items-center">
+                      <Activity className="w-4 h-4 mr-2" /> Journey
+                    </h4>
 
-                           {/* Text Content */}
-                           <div className="ml-4 pt-1">
-                              <h4 className={`text-[12px] font-black leading-tight mb-1 ${step.status === 'Completed' ? 'text-zinc-900' : 'text-zinc-400'}`}>{step.title}</h4>
-                              <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{step.date}</p>
-                           </div>
-                         </div>
-                       ))}
-                     </div>
-                   </div>
+                    <div className="relative space-y-0 before:absolute before:inset-y-0 before:left-[17px] before:w-0.5 before:bg-zinc-100">
+                      {[
+                        { title: 'Award (Final)', date: activeCase.awardNo ? '20 Mar 2026' : 'Awaiting trial', status: activeCase.awardNo ? 'Completed' : 'Upcoming', side: 'left', icon: Gavel },
+                        { title: 'Full Trial', date: '15 Mar 2026', status: activeCase.awardNo ? 'Completed' : 'Current', side: 'right', icon: Activity },
+                        { title: 'Final Mention', date: '01 Mar 2026', status: 'Completed', side: 'left', icon: Calendar },
+                        { title: 'Interlocutory', date: '15 Feb 2026', status: 'Completed', side: 'right', icon: FileText },
+                        { title: 'Case Management', date: '20 Jan 2026', status: 'Completed', side: 'left', icon: Shield },
+                        { title: 'Registration', date: '15 Jan 2026', status: 'Completed', side: 'right', icon: CheckCircle2 },
+                      ].map((step, idx) => (
+                        <div key={idx} className="relative flex items-start mb-6 last:mb-0">
+                          {/* Timeline Center Dot */}
+                          <div className="z-10 relative flex-shrink-0 w-9 h-9 rounded-xl bg-white border-2 border-zinc-100 flex items-center justify-center shadow-sm">
+                            <div className={`w-6 h-6 rounded-lg flex items-center justify-center ${step.status === 'Completed' ? 'bg-emerald-500 text-white' : step.status === 'Current' ? 'bg-blue-600 text-white animate-pulse' : 'bg-zinc-100 text-zinc-400'}`}>
+                              <step.icon className="w-3 h-3" />
+                            </div>
+                          </div>
+
+                          {/* Text Content */}
+                          <div className="ml-4 pt-1">
+                            <h4 className={`text-[12px] font-black leading-tight mb-1 ${step.status === 'Completed' ? 'text-zinc-900' : 'text-zinc-400'}`}>{step.title}</h4>
+                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{step.date}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 <div className={tCardBg}>
@@ -284,69 +284,69 @@ export default function CaseDetailsSection() {
         {/* PARTIES TAB */}
         {activeTab === 'parties' && (
           <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* CLAIMANT CARD */}
-                <div className={tCardBg}>
-                  <div className="p-10">
-                    <div className="flex items-center gap-6 mb-10">
-                      <div className="w-16 h-16 rounded-[24px] bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/20">
-                        <Users className="w-8 h-8" />
-                      </div>
-                      <div>
-                        <h4 className="text-[11px] font-black uppercase text-blue-600 tracking-widest mb-1">Pihak Menuntut (Claimant)</h4>
-                        <h3 className="text-h3 text-zinc-900 tracking-tight">{activeCase.claimant}</h3>
-                      </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* CLAIMANT CARD */}
+              <div className={tCardBg}>
+                <div className="p-10">
+                  <div className="flex items-center gap-6 mb-10">
+                    <div className="w-16 h-16 rounded-[24px] bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/20">
+                      <Users className="w-8 h-8" />
                     </div>
-                    
-                    <div className="space-y-6">
-                       <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-100">
-                          <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3">Legal Representation</p>
-                          <p className="text-body-md font-bold text-zinc-900">Messrs. Aziz & Co.</p>
-                          <p className="text-xs font-medium text-zinc-500 mt-1">Lead Counsel: Encik Kamal Aziz</p>
-                       </div>
-                       <div className="grid grid-cols-2 gap-4 text-ui-label font-bold">
-                          <button className="py-4 rounded-xl bg-white border border-zinc-200 text-zinc-600 hover:border-blue-400 hover:text-blue-600 transition-all flex items-center justify-center gap-2 uppercase font-black text-[10px]">
-                            <Mail className="w-3.5 h-3.5" /> Email
-                          </button>
-                          <button className="py-4 rounded-xl bg-white border border-zinc-200 text-zinc-600 hover:border-blue-400 hover:text-blue-600 transition-all flex items-center justify-center gap-2 uppercase font-black text-[10px]">
-                            <ExternalLink className="w-3.5 h-3.5" /> Profile
-                          </button>
-                       </div>
+                    <div>
+                      <h4 className="text-[11px] font-black uppercase text-blue-600 tracking-widest mb-1">Pihak Menuntut (Claimant)</h4>
+                      <h3 className="text-h3 text-zinc-900 tracking-tight">{activeCase.claimant}</h3>
                     </div>
                   </div>
-                </div>
 
-                {/* RESPONDENT CARD */}
-                <div className={tCardBg}>
-                  <div className="p-10">
-                    <div className="flex items-center gap-6 mb-10">
-                      <div className="w-16 h-16 rounded-[24px] bg-amber-600 flex items-center justify-center text-white shadow-lg shadow-amber-600/20">
-                        <Building2 className="w-8 h-8" />
-                      </div>
-                      <div>
-                        <h4 className="text-[11px] font-black uppercase text-amber-600 tracking-widest mb-1">Pihak Menentang (Respondent)</h4>
-                        <h3 className="text-h3 text-zinc-900 tracking-tight">{activeCase.respondent}</h3>
-                      </div>
+                  <div className="space-y-6">
+                    <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-100">
+                      <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3">Legal Representation</p>
+                      <p className="text-body-md font-bold text-zinc-900">Messrs. Aziz & Co.</p>
+                      <p className="text-xs font-medium text-zinc-500 mt-1">Lead Counsel: Encik Kamal Aziz</p>
                     </div>
-                    
-                    <div className="space-y-6">
-                       <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-100">
-                          <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3">Legal Representation</p>
-                          <p className="text-body-md font-bold text-zinc-900">Winston & Partners</p>
-                          <p className="text-xs font-medium text-zinc-500 mt-1">Lead Counsel: Ms. Sarah Winston</p>
-                       </div>
-                       <div className="grid grid-cols-2 gap-4 text-ui-label font-bold">
-                          <button className="py-4 rounded-xl bg-white border border-zinc-200 text-zinc-600 hover:border-amber-400 hover:text-amber-600 transition-all flex items-center justify-center gap-2 uppercase font-black text-[10px]">
-                            <Mail className="w-3.5 h-3.5" /> Email
-                          </button>
-                          <button className="py-4 rounded-xl bg-white border border-zinc-200 text-zinc-600 hover:border-amber-400 hover:text-amber-600 transition-all flex items-center justify-center gap-2 uppercase font-black text-[10px]">
-                            <ExternalLink className="w-3.5 h-3.5" /> Profile
-                          </button>
-                       </div>
+                    <div className="grid grid-cols-2 gap-4 text-ui-label font-bold">
+                      <button className="py-4 rounded-xl bg-white border border-zinc-200 text-zinc-600 hover:border-blue-400 hover:text-blue-600 transition-all flex items-center justify-center gap-2 uppercase font-black text-[10px]">
+                        <Mail className="w-3.5 h-3.5" /> Email
+                      </button>
+                      <button className="py-4 rounded-xl bg-white border border-zinc-200 text-zinc-600 hover:border-blue-400 hover:text-blue-600 transition-all flex items-center justify-center gap-2 uppercase font-black text-[10px]">
+                        <ExternalLink className="w-3.5 h-3.5" /> Profile
+                      </button>
                     </div>
                   </div>
                 </div>
-             </div>
+              </div>
+
+              {/* RESPONDENT CARD */}
+              <div className={tCardBg}>
+                <div className="p-10">
+                  <div className="flex items-center gap-6 mb-10">
+                    <div className="w-16 h-16 rounded-[24px] bg-amber-600 flex items-center justify-center text-white shadow-lg shadow-amber-600/20">
+                      <Building2 className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <h4 className="text-[11px] font-black uppercase text-amber-600 tracking-widest mb-1">Pihak Menentang (Respondent)</h4>
+                      <h3 className="text-h3 text-zinc-900 tracking-tight">{activeCase.respondent}</h3>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-100">
+                      <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3">Legal Representation</p>
+                      <p className="text-body-md font-bold text-zinc-900">Winston & Partners</p>
+                      <p className="text-xs font-medium text-zinc-500 mt-1">Lead Counsel: Ms. Sarah Winston</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-ui-label font-bold">
+                      <button className="py-4 rounded-xl bg-white border border-zinc-200 text-zinc-600 hover:border-amber-400 hover:text-amber-600 transition-all flex items-center justify-center gap-2 uppercase font-black text-[10px]">
+                        <Mail className="w-3.5 h-3.5" /> Email
+                      </button>
+                      <button className="py-4 rounded-xl bg-white border border-zinc-200 text-zinc-600 hover:border-amber-400 hover:text-amber-600 transition-all flex items-center justify-center gap-2 uppercase font-black text-[10px]">
+                        <ExternalLink className="w-3.5 h-3.5" /> Profile
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -394,24 +394,24 @@ export default function CaseDetailsSection() {
                     <div className="bg-zinc-800 text-white p-3 flex justify-between items-center text-xs shadow-md z-10">
                       <span className="font-bold truncate max-w-[300px]">{selectedDoc?.document || activeCase.filings?.[0]?.document}</span>
                       <div className="flex gap-2">
-                        <button className="p-1 hover:bg-zinc-700 rounded transition-colors" title="Zoom In"><ZoomIn className="w-4 h-4"/></button>
-                        <button className="p-1 hover:bg-zinc-700 rounded transition-colors" title="Zoom Out"><ZoomOut className="w-4 h-4"/></button>
-                        <button className="p-1 hover:bg-red-500 rounded ml-4 transition-colors bg-red-600/20 text-red-100" onClick={() => setSelectedDoc(null)} title="Close"><X className="w-4 h-4"/></button>
+                        <button className="p-1 hover:bg-zinc-700 rounded transition-colors" title="Zoom In"><ZoomIn className="w-4 h-4" /></button>
+                        <button className="p-1 hover:bg-zinc-700 rounded transition-colors" title="Zoom Out"><ZoomOut className="w-4 h-4" /></button>
+                        <button className="p-1 hover:bg-red-500 rounded ml-4 transition-colors bg-red-600/20 text-red-100" onClick={() => setSelectedDoc(null)} title="Close"><X className="w-4 h-4" /></button>
                       </div>
                     </div>
                     <div className="flex-1 bg-zinc-200/50 p-4 sm:p-8 overflow-y-auto custom-scrollbar flex justify-center">
-                       <div className="bg-white w-full max-w-[800px] min-h-[800px] shadow-lg p-8 sm:p-12 mb-8 origin-top scale-[0.85] sm:scale-100">
-                          <div className="border-b-2 border-black pb-4 mb-8">
-                            <h1 className="text-xl sm:text-2xl font-black text-center uppercase tracking-widest text-black">Mahkamah Perusahaan Malaysia</h1>
-                            <p className="text-center text-sm font-bold mt-2 text-zinc-800">Case No: {activeCase.id}</p>
-                          </div>
-                          <h2 className="text-lg font-bold text-center underline uppercase mb-8 text-black">{selectedDoc?.document || activeCase.filings?.[0]?.document}</h2>
-                          <div className="text-sm font-medium leading-relaxed text-justify indent-8 text-zinc-800 space-y-4">
-                             <p>IN THE MATTER of the Industrial Court between <strong>{activeCase.claimant.toUpperCase()}</strong> and <strong>{activeCase.respondent.toUpperCase()}</strong>.</p>
-                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien eget nunc rhoncus ullamcorper. Integer varius aliquet velit, sed eleifend diam ultrices nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam euismod, sem in vehicula faucibus, felis nisi cursus nisi, vitae malesuada risus lacus ut velit.</p>
-                             <p>This is a simulated PDF view for <strong>{selectedDoc?.document || activeCase.filings?.[0]?.document}</strong> filed by {(selectedDoc || activeCase.filings?.[0])?.party1 ? 'the Claimant' : 'the Respondent'} on {(selectedDoc || activeCase.filings?.[0])?.date}.</p>
-                          </div>
-                       </div>
+                      <div className="bg-white w-full max-w-[800px] min-h-[800px] shadow-lg p-8 sm:p-12 mb-8 origin-top scale-[0.85] sm:scale-100">
+                        <div className="border-b-2 border-black pb-4 mb-8">
+                          <h1 className="text-xl sm:text-2xl font-black text-center uppercase tracking-widest text-black">Mahkamah Perusahaan Malaysia</h1>
+                          <p className="text-center text-sm font-bold mt-2 text-zinc-800">Case No: {activeCase.id}</p>
+                        </div>
+                        <h2 className="text-lg font-bold text-center underline uppercase mb-8 text-black">{selectedDoc?.document || activeCase.filings?.[0]?.document}</h2>
+                        <div className="text-sm font-medium leading-relaxed text-justify indent-8 text-zinc-800 space-y-4">
+                          <p>IN THE MATTER of the Industrial Court between <strong>{activeCase.claimant.toUpperCase()}</strong> and <strong>{activeCase.respondent.toUpperCase()}</strong>.</p>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien eget nunc rhoncus ullamcorper. Integer varius aliquet velit, sed eleifend diam ultrices nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam euismod, sem in vehicula faucibus, felis nisi cursus nisi, vitae malesuada risus lacus ut velit.</p>
+                          <p>This is a simulated PDF view for <strong>{selectedDoc?.document || activeCase.filings?.[0]?.document}</strong> filed by {(selectedDoc || activeCase.filings?.[0])?.party1 ? 'the Claimant' : 'the Respondent'} on {(selectedDoc || activeCase.filings?.[0])?.date}.</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -429,14 +429,14 @@ export default function CaseDetailsSection() {
                   <Download className="w-8 h-8 opacity-40" />
                 </div>
                 <div className="p-10 bg-white">
-                   <div className="max-w-2xl border-l-[6px] border-blue-200 pl-8 space-y-4">
-                      <p className="text-body-md font-black text-zinc-900 leading-relaxed italic">
-                        &quot;Upon careful consideration of all facts and circumstances presented by the parties, the court hereby awards in favor of the Claimant...&quot;
-                      </p>
-                      <button className="text-blue-600 font-black text-[11px] uppercase tracking-widest flex items-center gap-2 hover:gap-4 transition-all">
-                        Read Full Award <ChevronRight className="w-4 h-4" />
-                      </button>
-                   </div>
+                  <div className="max-w-2xl border-l-[6px] border-blue-200 pl-8 space-y-4">
+                    <p className="text-body-md font-black text-zinc-900 leading-relaxed italic">
+                      &quot;Upon careful consideration of all facts and circumstances presented by the parties, the court hereby awards in favor of the Claimant...&quot;
+                    </p>
+                    <button className="text-blue-600 font-black text-[11px] uppercase tracking-widest flex items-center gap-2 hover:gap-4 transition-all">
+                      Read Full Award <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

@@ -101,8 +101,8 @@ export default function EServicesDirectory() {
                   onClick={() => {
                     if (mod.enTitle === 'Case Management' || mod.enTitle === 'Collective Agreement') {
                       setCurrentView('login');
-                    } else if (mod.enTitle === 'Search Full Awards') {
-                      setCurrentView('schedule');
+                    } else if (mod.enTitle === 'Search Full Awards' || mod.enTitle === 'Notes') {
+                      setCurrentView('awards');
                     }
                   }}
                   className={`flex-none w-[280px] sm:w-[340px] lg:w-[380px] p-8 sm:p-10 rounded-3xl sm:rounded-[2.5rem] flex flex-col transition-all duration-500 text-left snap-start group/card border ${isHighContrast

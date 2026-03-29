@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
-import { upcomingHearings, latestJudgments } from '@/lib/data';
+import { upcomingHearings, latestJudgements } from '@/lib/data';
 import { MapPin, Building2, ChevronDown, Download, Calendar, Gavel } from 'lucide-react';
 
 export default function HearingsSchedule() {
@@ -126,7 +126,7 @@ export default function HearingsSchedule() {
                             );
                         })
                     ) : (
-                        latestJudgments.slice(0, 4).map((judgment, idx) => {
+                        latestJudgements.slice(0, 4).map((judgment, idx) => {
                             const isExpanded = expandedId === judgment.id;
 
                             return (

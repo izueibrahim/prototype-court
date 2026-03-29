@@ -25,7 +25,7 @@
 //   { id: '4/4-2024/25', court: 'Mahkamah 4', judge: 'Y.A. Tuan Amrik Singh', time: '02:30 PM', claimant: 'Siti Nurhaliza', respondent: 'Syarikat ABC Sdn Bhd', keywords: ['Domestic Inquiry', 'Absenteeism'], summary: 'Mention for case management regarding severe absenteeism.' }
 // ];
 
-// const latestJudgments = [
+// const latestJudgements = [
 //   { id: '2/2-3041/25', awardNo: 'Award 412/2026', court: 'Mahkamah 2', judge: 'Y.A. Puan Rusita Binti Md Lazim', date: '12 March 2026', claimant: 'Thangaraj a/l Narayanan', respondent: 'DHL Express (M) Sdn Bhd', keywords: ['Unfair Dismissal', 'Compensation'], summary: 'The court found the dismissal to be unfair due to procedural flaws. Compensation awarded.' },
 //   { id: '5/5-1120/25', awardNo: 'Award 409/2026', court: 'Mahkamah 5', judge: 'Y.A. Tuan Zulhelmy Bin Hasan', date: '10 March 2026', claimant: 'On Siang Aik', respondent: 'Million Effective Sdn. Bhd.', keywords: ['Constructive Dismissal', 'Claim Dismissed'], summary: 'The claimant failed to prove fundamental breach of contract. Claim dismissed.' }
 // ];
@@ -2156,7 +2156,7 @@
 //                       );
 //                     })
 //                   ) : (
-//                     latestJudgments.map((judgment, idx) => {
+//                     latestJudgements.map((judgment, idx) => {
 //                       const isExpanded = expandedId === judgment.id;
 
 //                       return (
