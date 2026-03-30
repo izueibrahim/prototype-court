@@ -18,7 +18,9 @@ export default function EServicesDirectory() {
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const scrollAmount = direction === "left" ? -344 : 344;
+      // Dynamic scroll amount based on viewport
+      const cardWidth = window.innerWidth >= 1024 ? 412 : (window.innerWidth >= 640 ? 372 : 304);
+      const scrollAmount = direction === "left" ? -cardWidth : cardWidth;
       scrollContainerRef.current.scrollBy({
         left: scrollAmount,
         behavior: "smooth",
@@ -65,32 +67,32 @@ export default function EServicesDirectory() {
         )}
       </div>
 
-      <div className="relative group/carousel">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative group/carousel">
         <button
           onClick={() => scroll("left")}
-          className={`absolute left-2 sm:left-4 lg:left-12 top-1/2 -translate-y-12 z-20 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 ${isHighContrast
+          className={`absolute left-0 -translate-x-[120%] lg:-translate-x-[150%] top-1/2 -translate-y-12 z-30 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-500 opacity-0 group-hover/carousel:opacity-100 ${isHighContrast
             ? "bg-black border-2 border-white text-white hover:bg-white hover:text-black"
-            : "bg-white/80 backdrop-blur-md text-zinc-900 hover:text-blue-600 hover:scale-110 border border-zinc-200"
+            : "bg-white/90 backdrop-blur-xl text-zinc-900 hover:text-blue-600 hover:scale-110 border border-zinc-200"
             }`}
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
-
+ 
         <button
           onClick={() => scroll("right")}
-          className={`absolute right-2 sm:right-4 lg:right-12 top-1/2 -translate-y-12 z-20 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 ${isHighContrast
+          className={`absolute right-0 translate-x-[120%] lg:translate-x-[150%] top-1/2 -translate-y-12 z-30 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-500 opacity-0 group-hover/carousel:opacity-100 ${isHighContrast
             ? "bg-black border-2 border-white text-white hover:bg-white hover:text-black"
-            : "bg-white/80 backdrop-blur-md text-zinc-900 hover:text-blue-600 hover:scale-110 border border-zinc-200"
+            : "bg-white/90 backdrop-blur-xl text-zinc-900 hover:text-blue-600 hover:scale-110 border border-zinc-200"
             }`}
           aria-label="Scroll right"
         >
           <ChevronRight className="w-6 h-6" />
         </button>
-
+ 
         <div
           ref={scrollContainerRef}
-          className="flex overflow-x-auto lg:justify-center gap-6 sm:gap-8 pb-10 snap-x snap-mandatory hide-scrollbar px-4 sm:px-8 lg:px-24"
+          className="flex overflow-x-auto gap-6 sm:gap-8 pb-10 snap-x snap-mandatory hide-scrollbar"
         >
           {allModules[activeTab] &&
             allModules[activeTab].items
@@ -128,7 +130,7 @@ export default function EServicesDirectory() {
                       {lang === "en" ? mod.enDesc : mod.msDesc}
                     </p>
                   </div>
-
+ 
                   <div
                     className={`flex items-center justify-between mt-8 pt-6 border-t ${isHighContrast ? "border-zinc-800" : "border-zinc-50"}`}
                   >
