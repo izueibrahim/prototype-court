@@ -40,7 +40,7 @@ export default function EServicesDirectory() {
           >
             {currentLang.architectureTitle}
           </h2>
-          <p className={`text-body-lg max-w-2xl mx-auto font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
+          <p className={`text-body-lg mx-auto font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
             {currentLang.architectureSub}
           </p>
         </div>

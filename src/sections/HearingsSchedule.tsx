@@ -8,7 +8,7 @@ import { MapPin, Building2, ChevronDown, Download, Calendar, Gavel } from 'lucid
 
 export default function HearingsSchedule() {
     const { lang, wcagStates, setCurrentView } = useAppStore();
-    const [homeListTab, setHomeListTab] = useState<'hearings' | 'judgments'>('hearings');
+    const [homeListTab, setHomeListTab] = useState<'hearings' | 'judgements'>('hearings');
     const [expandedId, setExpandedId] = useState<string | null>(null);
 
     const currentLang = t[lang];
@@ -39,10 +39,10 @@ export default function HearingsSchedule() {
                                 {currentLang.homeHearingsTab}
                             </button>
                             <button
-                                onClick={() => setHomeListTab('judgments')}
-                                className={`flex-1 sm:flex-none px-6 py-3 rounded-xl text-body-sm font-bold transition-all ${homeListTab === 'judgments' ? (isHighContrast ? 'bg-white text-black shadow-lg' : 'bg-white text-blue-600 shadow-premium') : 'text-zinc-400 hover:text-zinc-600'}`}
+                                onClick={() => setHomeListTab('judgements')}
+                                className={`flex-1 sm:flex-none px-6 py-3 rounded-xl text-body-sm font-bold transition-all ${homeListTab === 'judgements' ? (isHighContrast ? 'bg-white text-black shadow-lg' : 'bg-white text-blue-600 shadow-premium') : 'text-zinc-400 hover:text-zinc-600'}`}
                             >
-                                {currentLang.homeJudgmentsTab}
+                                {currentLang.homeJudgementsTab}
                             </button>
                         </div>
 
@@ -89,7 +89,7 @@ export default function HearingsSchedule() {
                                                     <MapPin className="w-4 h-4 mr-2.5 text-blue-600 opacity-70 flex-shrink-0" /> {hearing.court}
                                                 </div>
                                                 <div className={`flex items-center ${isHighContrast ? 'text-white' : 'text-zinc-500'}`}>
-                                                    <Building2 className="w-4 h-4 mr-2.5 text-blue-600 opacity-70 flex-shrink-0" /> {hearing.judge}
+                                                    <Gavel className="w-4 h-4 mr-2.5 text-blue-600 opacity-70 flex-shrink-0" /> {hearing.judge}
                                                 </div>
                                             </div>
                                             <div className={`absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-500 ${isHighContrast ? 'text-white' : 'bg-zinc-50 text-zinc-300 group-hover:text-blue-600 group-hover:bg-blue-50'} ${isExpanded ? (isHighContrast ? 'bg-white text-black' : 'bg-blue-600 text-white shadow-lg scale-110 rotate-180') : ''}`}>
@@ -132,7 +132,7 @@ export default function HearingsSchedule() {
                             return (
                                 <div
                                     key={idx}
-                                    className={`flex flex-col rounded-[2.5rem] overflow-hidden transition-all duration-500 border ${isHighContrast ? 'bg-black border-white' : 'bg-white border-zinc-100'} ${isExpanded ? (isHighContrast ? 'ring-2 ring-white' : 'border-emerald-400 shadow-premium') : 'hover:border-emerald-200 hover:shadow-premium'}`}
+                                    className={`flex flex-col rounded-3xl sm:rounded-[2.5rem] overflow-hidden transition-all duration-500 border ${isHighContrast ? 'bg-black border-white' : 'bg-white border-zinc-100'} ${isExpanded ? (isHighContrast ? 'ring-2 ring-white' : 'border-emerald-400 shadow-premium') : 'hover:border-emerald-200 hover:shadow-premium'}`}
                                 >
                                     <div
                                         onClick={() => setExpandedId(isExpanded ? null : judgment.id)}
@@ -140,12 +140,12 @@ export default function HearingsSchedule() {
                                     >
                                         <div className={`sm:w-60 p-8 sm:border-r flex flex-row sm:flex-col justify-between sm:justify-center items-center ${isHighContrast ? 'border-white' : 'bg-zinc-50/30 border-zinc-50 group-hover:bg-emerald-50/50 transition-colors'}`}>
                                             <span className={`text-h4 font-bold text-center leading-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>{judgment.awardNo}</span>
-                                            <span className={`mt-0 sm:mt-4 text-ui-label font-bold uppercase ${isHighContrast ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                                            <span className={`mt-0 sm:mt-4 inline-flex items-center px-4 py-1.5 rounded-xl text-ui-label font-bold uppercase ${isHighContrast ? 'border-2 border-white text-white' : 'bg-emerald-600 text-white shadow-lg shadow-emerald-100'}`}>
                                                 {judgment.date}
                                             </span>
                                         </div>
                                         <div className="p-8 flex-1 flex flex-col justify-center relative pr-16 sm:pr-20">
-                                            <h4 className={`text-h4 mb-2 leading-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
+                                            <h4 className={`text-h5 mb-2 leading-tight ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
                                                 <span className="group-hover:text-emerald-600 transition-colors">{judgment.claimant}</span>
                                                 <span className="text-zinc-300 font-medium mx-2 text-sm italic">vs</span>
                                                 <span className="group-hover:text-emerald-600 transition-colors">{judgment.respondent}</span>
@@ -171,7 +171,7 @@ export default function HearingsSchedule() {
                                                 <h5 className="text-ui-label font-bold uppercase mb-4 text-zinc-400">Award Keywords</h5>
                                                 <div className="flex flex-wrap gap-3">
                                                     {judgment.keywords.map((kw: string) => (
-                                                        <span key={kw} className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-xl border ${isHighContrast ? 'bg-black border-zinc-700 text-zinc-400' : 'bg-white border-zinc-100 text-zinc-500 shadow-sm'}`}>{kw}</span>
+                                                        <span key={kw} className={`px-4 py-1.5 text-ui-label font-bold uppercase rounded-xl border ${isHighContrast ? 'bg-black border-zinc-700 text-zinc-400' : 'bg-white border-zinc-100 text-zinc-500 shadow-sm'}`}>{kw}</span>
                                                     ))}
                                                 </div>
                                             </div>

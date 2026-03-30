@@ -30,7 +30,7 @@ Contains complex visualizations derived from historical data:
 - **Form Layouts**: Standardized form styling. Administrative forms (e.g., "Add Notice", "Schedule New Hearing") contain their titles and primary actions inside the main card container for a consistent, structured experience.
 
 ### 6. Search & Discovery
-- **Smart Award Search**: Integrated semantic search for historical awards and judgments.
+- **Smart Award Search**: Integrated semantic search for historical awards and judgements.
 
 ## Navigation
 
