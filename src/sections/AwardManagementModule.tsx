@@ -103,7 +103,7 @@ export default function AwardManagementModule() {
             </div>
           </section>
 
-          <button className="w-full py-3 bg-blue-50 hover:bg-blue-100 text-blue-600 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest">
+          <button className="btn-secondary w-full bg-blue-50/50 border-blue-100 text-blue-600 hover:bg-blue-100">
             View Smart Award Details
           </button>
         </div>
@@ -173,7 +173,7 @@ export default function AwardManagementModule() {
                       {item.status === 'Pending Draft' && (loginRole === 'chairman' || loginRole === 'admin') && (
                         <button
                           onClick={() => { setSelectedInternalItem(item); setInternalActionView('draft_award'); }}
-                          className="px-6 py-2.5 bg-zinc-900 hover:bg-black text-white text-xs font-black rounded-xl shadow-md transition-all active:scale-95 flex items-center gap-2 ml-auto"
+                          className="btn-primary bg-zinc-900 hover:bg-black shadow-zinc-900/20 px-8 py-3 text-xs ml-auto"
                         >
                           <Edit2 className="w-3.5 h-3.5" /> Draft Award
                         </button>
@@ -182,7 +182,7 @@ export default function AwardManagementModule() {
                       {item.status === 'Pending Approval' && (loginRole === 'ydp' || loginRole === 'admin') && (
                         <button
                           onClick={() => { setSelectedInternalItem(item); setInternalActionView('review_award'); }}
-                          className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-black rounded-xl shadow-md transition-all active:scale-95 flex items-center gap-2 ml-auto"
+                          className="btn-primary px-8 py-3 text-xs ml-auto"
                         >
                           <FileCheck className="w-3.5 h-3.5" /> Review & Approve
                         </button>
@@ -191,7 +191,7 @@ export default function AwardManagementModule() {
                       {item.status === 'Published' && (
                         <button
                           onClick={() => { setSelectedInternalItem(item); setInternalActionView('view_award'); }}
-                          className={`px-6 py-2.5 border text-xs font-black rounded-xl transition-all active:scale-95 flex items-center gap-2 ml-auto ${isHighContrast ? 'border-white text-white hover:bg-zinc-800' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-blue-400'}`}
+                          className={`btn-secondary px-8 py-3 text-xs ml-auto ${isHighContrast ? 'border-white text-white' : ''}`}
                         >
                           <Globe className="w-3.5 h-3.5" /> View Published
                         </button>
@@ -272,13 +272,13 @@ export default function AwardManagementModule() {
                   <div className="flex justify-end gap-4 pt-6">
                     <button 
                       onClick={() => setInternalActionView(null)}
-                      className={`px-8 py-4 rounded-2xl text-sm font-bold transition-colors ${isHighContrast ? 'bg-zinc-900 text-white hover:bg-zinc-800' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
+                      className="btn-secondary px-8 py-4"
                     >
                       Save Draft
                     </button>
                     <button 
                       onClick={() => setInternalActionView(null)} /* in a real app this changes state */
-                      className="px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-2xl text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-all active:scale-95"
+                      className="btn-primary px-8 py-4"
                     >
                       Submit for YDP Approval
                     </button>
@@ -328,13 +328,13 @@ export default function AwardManagementModule() {
             <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6">
               <button 
                 onClick={() => setInternalActionView(null)}
-                className={`px-8 py-4 rounded-2xl text-sm font-bold transition-colors ${isHighContrast ? 'border border-white text-white hover:bg-zinc-900' : 'bg-white border border-rose-200 text-rose-600 hover:bg-rose-50'}`}
+                className={`btn-secondary px-8 py-4 border-rose-200 text-rose-600 hover:bg-rose-50 hover:border-rose-300 ${isHighContrast ? 'border-white text-white' : ''}`}
               >
                 Return for Revision
               </button>
               <button 
                 onClick={() => setInternalActionView(null)}
-                className="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 rounded-2xl text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all active:scale-95 flex items-center justify-center gap-2"
+                className={`inline-flex items-center justify-center px-8 py-4 rounded-full text-body-sm font-bold transition-all active:scale-95 gap-2 ${isHighContrast ? 'bg-white text-black' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-500/30'}`}
               >
                 <CheckCircle2 className="w-5 h-5" /> Approve & Publish Award
               </button>

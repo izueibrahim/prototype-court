@@ -76,23 +76,23 @@
 
   /* Standardized Buttons */
   .btn-primary {
-    @apply px-6 py-2.5 rounded-xl text-h6 font-bold transition-all shadow-md hover:shadow-xl active:scale-95 flex items-center justify-center gap-2;
-    @apply bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500/20 active:bg-blue-800;
+    @apply px-10 py-4 rounded-full text-body-sm font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-3;
+    @apply bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500/25 active:bg-blue-800 hover:scale-[1.02];
   }
   
   .btn-secondary {
-    @apply px-6 py-2.5 rounded-xl text-h6 font-bold transition-all border flex items-center justify-center gap-2;
-    @apply bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 shadow-sm active:bg-zinc-100;
+    @apply px-10 py-4 rounded-full text-body-sm font-bold transition-all border flex items-center justify-center gap-3;
+    @apply bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 shadow-sm active:bg-zinc-100 hover:scale-[1.02];
   }
   
   .btn-ghost {
-    @apply px-4 py-2 rounded-lg text-body-sm font-bold transition-all flex items-center justify-center gap-2;
+    @apply px-5 py-2.5 rounded-full text-body-sm font-bold transition-all flex items-center justify-center gap-2;
     @apply text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 active:bg-zinc-200;
   }
 
   .btn-outline {
-    @apply px-6 py-2.5 rounded-xl text-h6 font-bold transition-all border flex items-center justify-center gap-2;
-    @apply border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100;
+    @apply px-10 py-4 rounded-full text-body-sm font-bold transition-all border flex items-center justify-center gap-3;
+    @apply border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100 hover:scale-[1.02];
   }
 
   /* Shared Card Styles */

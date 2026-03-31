@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { t } from '@/lib/i18n';
 import { upcomingHearings, latestJudgements } from '@/lib/data';
-import { MapPin, Building2, ChevronDown, Download, Calendar, Gavel } from 'lucide-react';
+import { MapPin, Building2, ChevronDown, Download, Calendar, Gavel, ChevronRight } from 'lucide-react';
 
 export default function HearingsSchedule() {
     const { lang, wcagStates, setCurrentView } = useAppStore();
@@ -113,11 +113,11 @@ export default function HearingsSchedule() {
                                                 <p className={`text-body-md leading-relaxed font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-600'}`}>{hearing.summary}</p>
                                             </div>
                                             <div className="flex flex-col sm:flex-row gap-4">
-                                                <button onClick={() => setCurrentView('case-details')} className={`btn-primary px-8 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : ''}`}>
-                                                    View Full Case Details
+                                                <button onClick={() => setCurrentView('case-details')} className={`inline-flex items-center justify-center px-10 py-4 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/30 hover:scale-[1.02]'} rounded-full text-body-sm font-bold transition-all active:scale-95`}>
+                                                    <ChevronRight className="w-5 h-5 mr-3" /> View Full Case Details
                                                 </button>
-                                                <button className={`btn-secondary flex items-center px-8 ${isHighContrast ? 'border-white text-white hover:bg-zinc-800' : ''}`}>
-                                                    <Download className="w-4 h-4 mr-2.5" /> Export Schedule (PDF)
+                                                <button className={`inline-flex items-center justify-center px-10 py-4 ${isHighContrast ? 'border-white text-white hover:bg-zinc-800' : 'bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 shadow-sm'} rounded-full text-body-sm font-bold transition-all active:scale-95`}>
+                                                    <Download className="w-5 h-5 mr-3 text-blue-600" /> Export Schedule (PDF)
                                                 </button>
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@ export default function HearingsSchedule() {
                                                 <p className={`text-body-md leading-relaxed font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-600'}`}>{judgment.summary}</p>
                                             </div>
                                             <div className="flex flex-col sm:flex-row gap-4">
-                                                <button onClick={() => setCurrentView('case-details')} className={`inline-flex items-center justify-center px-8 py-4 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-100'} rounded-2xl text-body-sm font-bold transition-all`}>
+                                                <button onClick={() => setCurrentView('case-details')} className={`inline-flex items-center justify-center px-10 py-4 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-500/30 hover:scale-[1.02]'} rounded-full text-body-sm font-bold transition-all active:scale-95`}>
                                                     <Download className="w-5 h-5 mr-3" /> Download Full Award (PDF)
                                                 </button>
                                             </div>
