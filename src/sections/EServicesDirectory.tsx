@@ -34,19 +34,19 @@ export default function EServicesDirectory() {
       className={`pt-10 pb-8 [overflow-x:clip] ${isHighContrast ? "bg-black" : "bg-white"}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-left mb-12 sm:mb-16">
           <h2
             className={`text-h2 mb-4 ${isHighContrast ? "text-white" : "text-zinc-900"}`}
           >
             {currentLang.architectureTitle}
           </h2>
-          <p className={`text-body-lg mx-auto font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
+          <p className={`text-body-lg font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
             {currentLang.architectureSub}
           </p>
         </div>
 
         {currentLang.tabs && currentLang.tabs.length > 1 && (
-          <div className="flex overflow-x-auto hide-scrollbar sm:flex-wrap justify-start sm:justify-center gap-3 mb-10 sm:mb-12 pb-2 snap-x w-full">
+          <div className="flex overflow-x-auto hide-scrollbar sm:flex-wrap justify-start gap-3 mb-10 sm:mb-12 pb-2 snap-x w-full">
             {currentLang.tabs.map((tabLabel: string, idx: number) => (
               <button
                 key={idx}
@@ -68,28 +68,6 @@ export default function EServicesDirectory() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative group/carousel">
-        <button
-          onClick={() => scroll("left")}
-          className={`absolute left-0 -translate-x-[120%] lg:-translate-x-[150%] top-1/2 -translate-y-12 z-30 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-500 opacity-0 group-hover/carousel:opacity-100 ${isHighContrast
-            ? "bg-black border-2 border-white text-white hover:bg-white hover:text-black"
-            : "bg-white/90 backdrop-blur-xl text-zinc-900 hover:text-blue-600 hover:scale-110 border border-zinc-200"
-            }`}
-          aria-label="Scroll left"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
- 
-        <button
-          onClick={() => scroll("right")}
-          className={`absolute right-0 translate-x-[120%] lg:translate-x-[150%] top-1/2 -translate-y-12 z-30 hidden sm:flex items-center justify-center w-14 h-14 rounded-2xl shadow-premium transition-all duration-500 opacity-0 group-hover/carousel:opacity-100 ${isHighContrast
-            ? "bg-black border-2 border-white text-white hover:bg-white hover:text-black"
-            : "bg-white/90 backdrop-blur-xl text-zinc-900 hover:text-blue-600 hover:scale-110 border border-zinc-200"
-            }`}
-          aria-label="Scroll right"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
- 
         <div
           ref={scrollContainerRef}
           className="flex overflow-x-auto gap-6 sm:gap-8 pb-10 snap-x snap-mandatory hide-scrollbar"
@@ -150,6 +128,30 @@ export default function EServicesDirectory() {
                   </div>
                 </button>
               ))}
+        </div>
+
+        {/* Integrated Navigation Controls */}
+        <div className="flex items-center justify-end gap-3 mt-[-20px] pb-6 relative z-30">
+          <button
+            onClick={() => scroll("left")}
+            className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${isHighContrast
+              ? "bg-black border-2 border-white text-white hover:bg-white hover:text-black"
+              : "bg-white border border-zinc-200 text-zinc-400 hover:text-blue-600 hover:border-blue-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+              }`}
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${isHighContrast
+              ? "bg-black border-2 border-white text-white hover:bg-white hover:text-black"
+              : "bg-white border border-zinc-200 text-zinc-400 hover:text-blue-600 hover:border-blue-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+              }`}
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
       </div>
     </div>

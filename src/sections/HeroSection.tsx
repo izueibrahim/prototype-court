@@ -94,7 +94,7 @@ export default function HeroSection() {
                                 <button
                                     key={idx}
                                     onClick={() => { }} // Placeholder for actual navigation
-                                    className={`flex-none w-[320px] sm:w-[400px] h-[220px] sm:h-[260px] rounded-3xl sm:rounded-[2.5rem] flex flex-col text-left transition-all duration-500 snap-start border relative overflow-hidden group ${isHighContrast ? 'bg-black border-white' : 'border-white/10 hover:border-white/20 shadow-xl hover:-translate-y-1'}`}
+                                    className={`flex-none w-[320px] sm:w-[400px] h-[220px] sm:h-[260px] rounded-3xl sm:rounded-[2.5rem] flex flex-col text-left transition-all duration-500 snap-start border relative overflow-hidden group ${isHighContrast ? 'bg-black border-white' : 'bg-slate-900/40 backdrop-blur-sm border-white/10 hover:border-white/20 shadow-xl hover:-translate-y-1'}`}
                                 >
                                     {!isHighContrast && (
                                         <>
@@ -108,7 +108,7 @@ export default function HeroSection() {
                                                 }}
                                             />
                                             {/* Dynamic Gradient Overlay for glassmorphism and readability */}
-                                            <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-950/95 via-slate-950/80 to-slate-950/50 group-hover:from-slate-950/100 transition-colors duration-500" />
+                                            <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent group-hover:from-slate-950/90 transition-colors duration-500" />
                                         </>
                                     )}
 

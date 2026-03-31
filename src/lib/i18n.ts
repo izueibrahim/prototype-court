@@ -321,7 +321,60 @@ export const t: Translations = {
         viewTrackAgreements: "View and track your submitted agreements.",
         manageTrackAgreements: "Manage and track company-union agreements.",
         submitNewCA: "Submit New CA",
-        registerNewCA: "Register New CA"
+        registerNewCA: "Register New CA",
+        exploreCasesByIndustry: "Explore Cases By Industry",
+        featuredCasesTitle: "Featured Cases",
+        industryTags: [
+            { name: 'Public Services & LA' },
+            { name: 'Banking & Insurance' },
+            { name: 'Property & Land' },
+            { name: 'Transport & Post' },
+            { name: 'Medical & Health' },
+            { name: 'Electrical & Electronics' },
+            { name: 'Hotels & Restaurants' },
+            { name: 'Plantations & Agriculture' },
+            { name: 'Energy & Telecoms' },
+        ],
+        featuredColumns: [
+            {
+                title: 'Popular Awards',
+                cases: [
+                    { id: '1/1-1522/25', parties: 'Aminah binti Abu vs Syarikat ABC Sdn Bhd', type: 'Dismissal - 12 Jun 2024' },
+                    { id: '1/1-1079/25', parties: 'Zaman Holdings vs Trade Dispute', type: 'Trade Dispute - 15 Aug 2024' },
+                    { id: '2/1-1522/25', parties: 'Ahmad bin Yasin vs Majikan ABC', type: 'Dismissal - 12 Jun 2024' }
+                ]
+            },
+            {
+                title: 'This Week\'s Focus',
+                cases: [
+                    { id: '3/1-1522/25', parties: 'Ahmad bin Ali vs Majikan X', type: 'Dismissal - 12 Jun 2024' },
+                    { id: '1/2-1079/25', parties: 'Union Workers vs Syarikat Y', type: 'Industrial Dispute - 15 Aug 2024' },
+                    { id: '4/1-1522/25', parties: 'Muthu Samy vs Majikan Z', type: 'Dismissal - 12 Jun 2024' }
+                ]
+            },
+            {
+                title: 'Cases by Industry',
+                cases: [
+                    { id: '1/3-1522/25', parties: 'Kilang ABC vs Syarikat XYZ', type: 'Project Dispute - 12 Jun 2024' },
+                    { id: '1/1-2079/25', parties: 'Hotel DEF vs Union Workers', type: 'Breach of Contract - 15 Aug 2024' },
+                    { id: '2/1-4522/25', parties: 'Foreign Workers vs Palm Plantation', type: 'Dismissal - 12 Jun 2024' }
+                ]
+            }
+        ],
+        statsResolved: "Cases Resolved",
+        statsHearings: "Total Hearings",
+        statsSettlement: "Settlement Rate",
+        statsAvgTime: "Avg. Resolution Time",
+        statsAvgTimeVal: "45 Days",
+        ctaTitle: "Start Using eMP v2.0 Today",
+        ctaDesc: "An integrated gateway for Case Management. A modern digital platform upholding justice and industrial harmony.",
+        ctaLoginBtn: "Login",
+        promoFilingTag: "File a document",
+        promoFilingTitle: "How to file a document.",
+        promoFilingBtn: "File Document Now",
+        promoAwardsTag: "Awards",
+        promoAwardsTitle: "Award Lists.",
+        promoAwardsBtn: "Search Award Lists"
     },
     ms: {
         portal: 'Mahkamah Perusahaan Malaysia',
@@ -623,6 +676,53 @@ export const t: Translations = {
         viewTrackAgreements: "Lihat dan jejak perjanjian yang anda serahkan.",
         manageTrackAgreements: "Urus dan jejak perjanjian syarikat-kesatuan.",
         submitNewCA: "Serah CA Baharu",
-        registerNewCA: "Daftar CA Baharu"
+        registerNewCA: "Daftar CA Baharu",
+        exploreCasesByIndustry: "Terokai kes mengikut industri",
+        featuredCasesTitle: "Kes Dalam Tumpuan",
+        industryTags: [
+            { name: 'Perkhidmatan Awam & PBT' },
+            { name: 'Perbankan & Insurans' },
+            { name: 'Hartanah & Tanah' },
+            { name: 'Pengangkutan & Pos' },
+            { name: 'Perubatan & Kesihatan' },
+            { name: 'Perkilangan Elektrik & Elektronik' },
+            { name: 'Perhotelan & Restoran' },
+            { name: 'Perladangan & Pertanian' },
+            { name: 'Air, Tenaga & Telco' },
+        ],
+        featuredColumns: [
+            {
+                title: 'Sabitan Popular',
+                cases: [
+                    { id: '1/1-1522/25', parties: 'Aminah binti Abu vs Syarikat ABC Sdn Bhd', type: 'Pembuangan Kerja - 12 Jun 2024' },
+                    { id: '1/1-1079/25', parties: 'Zaman Holdings vs Sengketa Peniaga', type: 'Pertikaian Perdagangan - 15 Ogos 2024' },
+                    { id: '2/1-1522/25', parties: 'Ahmad bin Yasin vs Majikan ABC', type: 'Pembuangan Kerja - 12 Jun 2024' }
+                ]
+            },
+            {
+                title: 'Tumpuan Minggu Ini',
+                cases: [
+                    { id: '3/1-1522/25', parties: 'Ahmad bin Ali vs Majikan X', type: 'Pembuangan Kerja - 12 Jun 2024' },
+                    { id: '1/2-1079/25', parties: 'Kesatuan Pekerja vs Syarikat Y', type: 'Pertikaian Perusahaan - 15 Ogos 2024' },
+                    { id: '4/1-1522/25', parties: 'Muthu Samy vs Majikan Z', type: 'Pembuangan Kerja - 12 Jun 2024' }
+                ]
+            },
+            {
+                title: 'Kes Mengikut Industri',
+                cases: [
+                    { id: '1/3-1522/25', parties: 'Kilang ABC vs Syarikat XYZ', type: 'Pertikaian Syarikat - 12 Jun 2024' },
+                    { id: '1/1-2079/25', parties: 'Hotel DEF vs Kesatuan Pekerja', type: 'Pelanggaran Kontrak - 15 Ogos 2024' },
+                    { id: '2/1-4522/25', parties: 'Pekerja Asing vs Ladang Sawit', type: 'Pembuangan Kerja - 12 Jun 2024' }
+                ]
+            }
+        ],
+        statsResolved: "Kes Diselesaikan",
+        statsHearings: "Jumlah Pendengaran",
+        statsSettlement: "Kadar Penyelesaian",
+        statsAvgTime: "Purata Selesai",
+        statsAvgTimeVal: "45 Hari",
+        ctaTitle: "Mulakan Penggunaan eMP v2.0 Hari Ini",
+        ctaDesc: "Gerbang bersepadu bagi Pengurusan Kes. Platform digital moden yang memartabatkan keadilan dan keharmonian perusahaan.",
+        ctaLoginBtn: "Log Masuk Portal"
     }
 };

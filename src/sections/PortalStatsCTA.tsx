@@ -3,17 +3,20 @@
 import React from 'react';
 import { useAppStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
+import { t } from '@/lib/i18n';
+import { LogIn } from 'lucide-react';
 
 export default function PortalStatsCTA() {
-    const { wcagStates, setCurrentView } = useAppStore();
+    const { lang, wcagStates, setCurrentView } = useAppStore();
     const router = useRouter();
     const isHighContrast = wcagStates.highContrast;
+    const currentLang = t[lang];
 
     const stats = [
-        { value: '12,540', label: 'Kes Diselesaikan', color: 'text-blue-400' },
-        { value: '8,210', label: 'Jumlah Pendengaran', color: 'text-blue-400' },
-        { value: '92%', label: 'Kadar Penyelesaian', color: 'text-blue-400' },
-        { value: '45 Hari', label: 'Purata Selesai', color: 'text-blue-400' },
+        { value: '12,540', label: currentLang.statsResolved, color: 'text-blue-400' },
+        { value: '8,210', label: currentLang.statsHearings, color: 'text-blue-400' },
+        { value: '92%', label: currentLang.statsSettlement, color: 'text-blue-400' },
+        { value: currentLang.statsAvgTimeVal, label: currentLang.statsAvgTime, color: 'text-blue-400' },
     ];
 
     return (
@@ -47,10 +50,10 @@ export default function PortalStatsCTA() {
 
                 <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className={`text-h2 mb-6 ${isHighContrast ? 'text-white' : 'text-white'}`}>
-                        Mulakan Penggunaan eMP v2.0 Hari Ini
+                        {currentLang.ctaTitle}
                     </h2>
                     <p className={`text-body-lg mb-10 max-w-2xl mx-auto ${isHighContrast ? 'text-zinc-400' : 'text-blue-100'}`}>
-                        Wara-wara e-perkhidmatan terbaharu kami bagi memudahkan urusan digital harian di sistem portal Mahkamah perusahaan Malaysia.
+                        {currentLang.ctaDesc}
                     </p>
                     <button
                         onClick={() => {
@@ -60,9 +63,10 @@ export default function PortalStatsCTA() {
                                 setCurrentView('login');
                             }
                         }}
-                        className={`inline-flex items-center justify-center px-10 py-5 rounded-2xl font-bold text-h6 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 ${isHighContrast ? 'bg-white text-black hover:bg-zinc-200' : 'bg-white text-blue-900 hover:bg-zinc-50'}`}
+                        className={`inline-flex items-center justify-center gap-3 px-12 py-5 rounded-full font-black text-h6 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 border-2 ${isHighContrast ? 'bg-white text-black border-white hover:bg-zinc-200' : 'bg-white text-blue-900 border-zinc-100 hover:bg-zinc-50'}`}
                     >
-                        Log Masuk Portal
+                        <LogIn className="w-6 h-6" />
+                        {currentLang.ctaLoginBtn}
                     </button>
                 </div>
             </div>

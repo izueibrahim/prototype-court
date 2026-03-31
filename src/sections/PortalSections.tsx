@@ -323,14 +323,15 @@ export function PromoCardsSection() {
 // ─── Statistics Bar ─────────────────────────────────────────────────────
 // Matches the dark band with yellow text below the promo cards
 export function StatsBarSection() {
-  const { wcagStates } = useAppStore();
+  const { lang, wcagStates } = useAppStore();
   const isHighContrast = wcagStates.highContrast;
+  const currentLang = t[lang];
 
   const stats = [
-    { value: '12,540', label: 'Kes Diproses' },
-    { value: '8,210', label: 'Award Dikeluarkan' },
-    { value: '92%', label: 'Kadar Penyelesaian' },
-    { value: '45 Hari', label: 'Purata Masa' },
+    { value: '12,540', label: currentLang.statsResolved },
+    { value: '8,210', label: currentLang.statsHearings },
+    { value: '92%', label: currentLang.statsSettlement },
+    { value: currentLang.statsAvgTimeVal, label: currentLang.statsAvgTime },
   ];
 
   return (
@@ -356,17 +357,18 @@ export function StatsBarSection() {
 // ─── Final CTA Section ──────────────────────────────────────────────────
 // Matches the blue block before the footer in screenshot
 export function CTASection() {
-  const { wcagStates, setCurrentView } = useAppStore();
+  const { lang, wcagStates, setCurrentView } = useAppStore();
   const isHighContrast = wcagStates.highContrast;
+  const currentLang = t[lang];
 
   return (
     <div className={`py-16 ${isHighContrast ? 'bg-black border-none' : 'bg-[#0047AB]'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className={`text-h3 mb-3 font-black ${isHighContrast ? 'text-white' : 'text-white'}`}>
-          Mulakan Penggunaan eMP v2.0 Hari Ini
+          {currentLang.ctaTitle}
         </h2>
         <p className={`text-body-sm max-w-2xl mx-auto mb-8 font-medium ${isHighContrast ? 'text-zinc-400' : 'text-blue-100'}`}>
-          Akses sistem untuk pengurusan kes dan prosiding mahkamah secara digital. Pengalaman baharu bersama keadilan digital.
+          {currentLang.ctaDesc}
         </p>
         <button
           onClick={() => setCurrentView('login')}
@@ -375,7 +377,7 @@ export function CTASection() {
             : 'bg-white text-[#0047AB] hover:bg-zinc-100 shadow-lg'
             }`}
         >
-          Log Masuk Portal
+          {currentLang.ctaLoginBtn}
         </button>
       </div>
     </div>

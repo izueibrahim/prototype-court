@@ -309,8 +309,8 @@ export const allModules = [
     items: [
       { icon: Briefcase, enTitle: 'Case Management', msTitle: 'Pengurusan Kes', enDesc: 'Management of the entire trial process.', msDesc: 'Pengurusan proses perbicaraan menyeluruh.', href: '/modules/case-management' },
       { icon: Users, enTitle: 'Collective Agreement', msTitle: 'Perjanjian Kolektif', enDesc: 'Registration and review of CA.', msDesc: 'Pengurusan pendaftaran dan semakan CA.', href: '/modules/collective-agreement' },
-      { icon: Search, enTitle: 'Notes', msTitle: 'Carian Penuh Awards', enDesc: 'Practice Notes.', msDesc: 'Practice Notes.', href: '/modules/search-awards' },
-      { icon: Briefcase, enTitle: 'User Guides', msTitle: 'Panduan Pengguna', enDesc: 'User Guides.', msDesc: 'Senarai Panduan Pengguna', href: '/modules/user-guides' },
+      { icon: FileText, enTitle: 'Notes', msTitle: 'Carian Penuh Awards', enDesc: 'Practice Notes.', msDesc: 'Practice Notes.', href: '/modules/search-awards' },
+      { icon: BookOpen, enTitle: 'User Guides', msTitle: 'Panduan Pengguna', enDesc: 'User Guides.', msDesc: 'Senarai Panduan Pengguna', href: '/modules/user-guides' },
     ]
   },
   {
