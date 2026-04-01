@@ -1,15 +1,17 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAppStore } from "@/lib/store";
 import { t } from "@/lib/i18n";
 import { allModules } from "@/lib/data";
 import Link from "next/link";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, ChevronLeft, ArrowLeft } from "lucide-react";
 
 export default function EServicesDirectory() {
   const { lang, wcagStates, setCurrentView } = useAppStore();
-  const [activeTab, setActiveTab] = useState(0);
+  const router = useRouter();
+  const [activeTab, setActiveTab ] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const currentLang = t[lang];
@@ -31,40 +33,41 @@ export default function EServicesDirectory() {
   return (
     <div
       id="modules"
-      className={`pt-10 pb-8 [overflow-x:clip] ${isHighContrast ? "bg-black" : "bg-white"}`}
+      className={`pt-8 pb-20 sm:pb-24 relative z-10 ${isHighContrast ? "bg-black" : "bg-white"}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-left mb-12 sm:mb-16">
-          <h2
-            className={`text-h2 mb-4 ${isHighContrast ? "text-white" : "text-zinc-900"}`}
-          >
+
+        <div className="mb-12 sm:mb-16">
+          <h2 className={`text-h2 mb-4 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
             {currentLang.architectureTitle}
           </h2>
-          <p className={`text-body-lg font-medium ${isHighContrast ? "text-zinc-400" : "text-zinc-500"}`}>
+          <p className={`text-body-lg font-medium max-w-3xl ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
             {currentLang.architectureSub}
           </p>
-        </div>
 
-        {currentLang.tabs && currentLang.tabs.length > 1 && (
-          <div className="flex overflow-x-auto hide-scrollbar sm:flex-wrap justify-start gap-3 mb-10 sm:mb-12 pb-2 snap-x w-full">
-            {currentLang.tabs.map((tabLabel: string, idx: number) => (
-              <button
-                key={idx}
-                onClick={() => setActiveTab(idx)}
-                className={`px-6 sm:px-8 py-3 rounded-2xl text-body-sm font-bold whitespace-nowrap snap-center transition-all duration-300 ${activeTab === idx
-                  ? isHighContrast
-                    ? "bg-white text-black shadow-lg"
-                    : "bg-blue-600 text-white shadow-lg shadow-blue-200"
-                  : isHighContrast
-                    ? "border-2 border-white text-white hover:bg-zinc-900"
-                    : "bg-zinc-50 border border-zinc-200 text-zinc-600 hover:bg-zinc-100 hover:text-blue-600 shadow-sm"
-                  }`}
-              >
-                {tabLabel}
-              </button>
-            ))}
-          </div>
-        )}
+          {currentLang.tabs && currentLang.tabs.length > 1 && (
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mt-10">
+              <div className={`inline-flex w-full sm:w-auto p-1.5 rounded-2xl overflow-x-auto hide-scrollbar ${isHighContrast ? 'bg-black border-2 border-white' : 'bg-zinc-50 border border-zinc-100 shadow-inner'}`}>
+                {currentLang.tabs.map((tabLabel: string, idx: number) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveTab(idx)}
+                    className={`flex-1 sm:flex-none px-6 py-3 rounded-xl text-body-sm font-bold whitespace-nowrap transition-all ${activeTab === idx
+                        ? isHighContrast
+                          ? 'bg-white text-black shadow-lg'
+                          : 'bg-white text-blue-600 shadow-premium'
+                        : isHighContrast
+                          ? 'text-zinc-400 hover:text-white'
+                          : 'text-zinc-400 hover:text-zinc-600'
+                      }`}
+                  >
+                    {tabLabel}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative group/carousel">

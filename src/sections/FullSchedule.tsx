@@ -69,7 +69,7 @@ export default function FullSchedule() {
                     <h1 className={`text-h2 text-white mb-4`}>
                         {currentLang.fullScheduleTitle}
                     </h1>
-                    <p className={`text-body-lg max-w-2xl font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-400'}`}>
+                    <p className={`text-body-lg font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-400'}`}>
                         {currentLang.fullScheduleSub}
                     </p>
                 </div>
