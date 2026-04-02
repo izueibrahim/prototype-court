@@ -24,14 +24,24 @@ import {
   Flag,
   ArrowLeft,
   Search,
-  X
+  X,
+  UsersRound,
+  Gavel
 } from 'lucide-react';
 
 export default function AboutPage() {
   const { lang, wcagStates, setCurrentView } = useAppStore();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeHistoryIndex, setActiveHistoryIndex] = useState(0);
   const isHighContrast = wcagStates.highContrast;
+
+  const historyImages = [
+    '/images/notice-cards/courtroom.png',
+    '/images/notice-cards/scales.png',
+    '/images/notice-cards/books.png',
+    '/images/notice-cards/gavel.png',
+  ];
 
   const content = {
     en: {
@@ -42,8 +52,8 @@ export default function AboutPage() {
       sections: {
         mission: 'Mission & Vision',
         values: 'Core Values',
-        people: 'Our People',
-        history: 'History & Background',
+        people: 'Top Management',
+        history: 'Our History',
         functions: 'Functions & Roles',
         charter: "Client's Charter"
       },
@@ -52,7 +62,11 @@ export default function AboutPage() {
         vTitle: 'Vision',
         vDesc: 'To be a leading organization in promoting industrial harmony.',
         mTitle: 'Mission',
-        mDesc: 'To uphold social justice and maintain industrial harmony through expeditious court awards and collective agreements.'
+        mDesc: 'To uphold social justice and maintain industrial harmony through expeditious court awards and collective agreements.',
+        fTitle: 'Function',
+        fDesc: 'To hear and decide on industrial disputes, and to grant cognizance to collective agreements deposited by employers and trade unions.',
+        oTitle: 'Objective',
+        oDesc: 'To create a harmonious industrial environment through the process of arbitration pursuant to the Industrial Relations Act 1967.'
       },
 
       values: [
@@ -64,8 +78,16 @@ export default function AboutPage() {
       ],
 
       leadership: {
-        president: "Dato' Wan Jeffry bin Kassim",
-        registrar: "Encik Bashah bin Bachik"
+        president: {
+          name: "Dato' Wan Jeffry bin Kassim",
+          tel: "03-9236 5000",
+          email: "mpm@mohr.gov.my"
+        },
+        registrar: {
+          name: "Encik Bashah bin Bachik",
+          tel: "03-9236 5043",
+          email: "bashah@mohr.gov.my"
+        }
       },
 
       history: {
@@ -106,7 +128,11 @@ export default function AboutPage() {
         vTitle: 'Visi',
         vDesc: 'Menjadi organisasi peneraju dalam mempromosikan keharmonian industri.',
         mTitle: 'Misi',
-        mDesc: 'Menegakkan keadilan sosial dan mengekalkan keharmonian industri melalui award mahkamah dan perjanjian kolektif yang pantas.'
+        mDesc: 'Menegakkan keadilan sosial dan mengekalkan keharmonian industri melalui award mahkamah dan perjanjian kolektif yang pantas.',
+        fTitle: 'Fungsi',
+        fDesc: 'Mendengar dan memutuskan pertikaian perusahaan yang dirujuk oleh Menteri atau pihak-pihak terlibat, serta memberi pengiktirafan kepada perjanjian kolektif yang didepositkan bersama oleh majikan dan kesatuan sekerja.',
+        oTitle: 'Objektif',
+        oDesc: 'Mewujudkan persekitaran perindustrian yang harmoni melalui proses timbang tara menurut Akta Perhubungan Perusahaan 1967.'
       },
 
       values: [
@@ -118,8 +144,16 @@ export default function AboutPage() {
       ],
 
       leadership: {
-        president: "Dato' Wan Jeffry bin Kassim",
-        registrar: "Encik Bashah bin Bachik"
+        president: {
+          name: "Dato' Wan Jeffry bin Kassim",
+          tel: "03-9236 5000",
+          email: "mpm@mohr.gov.my"
+        },
+        registrar: {
+          name: "Encik Bashah bin Bachik",
+          tel: "03-9236 5043",
+          email: "bashah@mohr.gov.my"
+        }
       },
 
       history: {
@@ -182,13 +216,29 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 divide-y divide-slate-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 divide-y divide-slate-100">
 
-        {/* Vision, Mission & Client's Charter (Triple Column Row) */}
-        <section className="py-16 sm:py-24 relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Vision, Mission, Function & Objective (4 Column Row) */}
+        <section className="py-20 sm:py-28 relative overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Vision */}
-            <div className={`group relative p-10 rounded-[2.5rem] border flex flex-col items-start gap-8 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'}`}>
+            <div className={`group relative p-8 rounded-[2.5rem] border flex flex-col items-start gap-8 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'}`}>
+              {!isHighContrast && (
+                <div className="absolute -right-8 -bottom-8 opacity-[0.03] transition-all duration-700 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
+                  <Scale className="w-48 h-48 -rotate-12" />
+                </div>
+              )}
+              <div className={`flex-shrink-0 w-16 h-16 rounded-3xl flex items-center justify-center transition-all duration-500 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-50 text-blue-600 border border-blue-100 shadow-sm'}`}>
+                <Scale className="w-8 h-8" />
+              </div>
+              <div className="relative z-10 w-full">
+                <h4 className={`text-2xl font-black mb-4 ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>{t.mission.vTitle}</h4>
+                <p className={`text-[15px] leading-relaxed font-medium text-left ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>{t.mission.vDesc}</p>
+              </div>
+            </div>
+
+            {/* Mission */}
+            <div className={`group relative p-8 rounded-[2.5rem] border flex flex-col items-start gap-8 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'}`}>
               {!isHighContrast && (
                 <div className="absolute -right-8 -bottom-8 opacity-[0.03] transition-all duration-700 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
                   <Target className="w-48 h-48 -rotate-12" />
@@ -197,55 +247,49 @@ export default function AboutPage() {
               <div className={`flex-shrink-0 w-16 h-16 rounded-3xl flex items-center justify-center transition-all duration-500 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-50 text-blue-600 border border-blue-100 shadow-sm'}`}>
                 <Target className="w-8 h-8" />
               </div>
-              <div className="relative z-10">
-                <h4 className={`text-2xl font-black mb-4 ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>{t.mission.vTitle}</h4>
-                <p className={`text-lg leading-relaxed font-medium ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>{t.mission.vDesc}</p>
-              </div>
-            </div>
-
-            {/* Mission */}
-            <div className={`group relative p-10 rounded-[2.5rem] border flex flex-col items-start gap-8 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'}`}>
-              {!isHighContrast && (
-                <div className="absolute -right-8 -bottom-8 opacity-[0.03] transition-all duration-700 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
-                  <Flag className="w-48 h-48 -rotate-12" />
-                </div>
-              )}
-              <div className={`flex-shrink-0 w-16 h-16 rounded-3xl flex items-center justify-center transition-all duration-500 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-50 text-blue-600 border border-blue-100 shadow-sm'}`}>
-                <Flag className="w-8 h-8" />
-              </div>
-              <div className="relative z-10">
+              <div className="relative z-10 w-full">
                 <h4 className={`text-2xl font-black mb-4 ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>{t.mission.mTitle}</h4>
-                <p className={`text-lg leading-relaxed font-medium ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>{t.mission.mDesc}</p>
+                <p className={`text-[15px] leading-relaxed font-medium text-left ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>{t.mission.mDesc}</p>
               </div>
             </div>
 
-            {/* Client's Charter */}
-            <div className={`group relative p-10 rounded-[2.5rem] border flex flex-col items-start gap-8 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'}`}>
+            {/* Function */}
+            <div className={`group relative p-8 rounded-[2.5rem] border flex flex-col items-start gap-8 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'}`}>
               {!isHighContrast && (
                 <div className="absolute -right-8 -bottom-8 opacity-[0.03] transition-all duration-700 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
-                  <ShieldCheck className="w-48 h-48 -rotate-12" />
+                  <Gavel className="w-48 h-48 -rotate-12" />
                 </div>
               )}
               <div className={`flex-shrink-0 w-16 h-16 rounded-3xl flex items-center justify-center transition-all duration-500 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-50 text-blue-600 border border-blue-100 shadow-sm'}`}>
-                <ShieldCheck className="w-8 h-8" />
+                <Gavel className="w-8 h-8" />
               </div>
-              <div className="relative z-10">
-                <h4 className={`text-2xl font-black mb-4 ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>{t.sections.charter}</h4>
-                <div className="space-y-4">
-                  {t.charter.items.slice(0, 2).map((item, i) => (
-                    <p key={i} className={`text-lg leading-relaxed font-medium ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>
-                      {item}
-                    </p>
-                  ))}
+              <div className="relative z-10 w-full">
+                <h4 className={`text-2xl font-black mb-4 ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>{t.mission.fTitle}</h4>
+                <p className={`text-[15px] leading-relaxed font-medium text-left ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>{t.mission.fDesc}</p>
+              </div>
+            </div>
+
+            {/* Objective */}
+            <div className={`group relative p-8 rounded-[2.5rem] border flex flex-col items-start gap-8 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'}`}>
+              {!isHighContrast && (
+                <div className="absolute -right-8 -bottom-8 opacity-[0.03] transition-all duration-700 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
+                  <CheckCircle2 className="w-48 h-48 -rotate-12" />
                 </div>
+              )}
+              <div className={`flex-shrink-0 w-16 h-16 rounded-3xl flex items-center justify-center transition-all duration-500 ${isHighContrast ? 'bg-white text-black' : 'bg-blue-50 text-blue-600 border border-blue-100 shadow-sm'}`}>
+                <CheckCircle2 className="w-8 h-8" />
+              </div>
+              <div className="relative z-10 w-full">
+                <h4 className={`text-2xl font-black mb-4 ${isHighContrast ? 'text-white' : 'text-blue-600'}`}>{t.mission.oTitle}</h4>
+                <p className={`text-[15px] leading-relaxed font-medium text-left ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>{t.mission.oDesc}</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Our People / Hierarchy */}
-        <section className="py-16 sm:py-16">
-          <SectionHeader title={t.sections.people} align="center" />
+        {/* Top Management / Hierarchy */}
+        <section className="py-20 sm:py-28">
+          <SectionHeader title={t.sections.people} />
           <div className="space-y-12">
             <div className="flex flex-col items-center gap-8">
               {/* Top Management Tree */}
@@ -256,19 +300,27 @@ export default function AboutPage() {
                     <UserRound className="w-8 h-8 text-white/80" />
                   </div>
                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 mb-3">{lang === 'ms' ? 'Presiden' : 'President'}</h4>
-                  <h3 className="text-2xl font-black tracking-tight leading-tight">{t.leadership.president}</h3>
+                  <h3 className="text-2xl font-black tracking-tight leading-tight mb-4">{t.leadership.president.name}</h3>
+                  <div className="flex flex-col items-center gap-1 text-sm text-white/70 mt-2 font-medium">
+                    <p>Tel: {t.leadership.president.tel}</p>
+                    <p>E-mel: {t.leadership.president.email}</p>
+                  </div>
                 </div>
 
                 {/* Vertical Line Connecting */}
                 <div className={`w-0.5 h-12 ${isHighContrast ? 'bg-white' : 'bg-slate-200'}`}></div>
 
                 {/* Registrar */}
-                <div className={`relative z-10 w-full max-w-[400px] p-8 rounded-[2.5rem] border text-center transition-all hover:-translate-y-1 hover:shadow-xl ${isHighContrast ? 'bg-black text-white border-white' : 'bg-white text-slate-900 border-slate-200 shadow-sm'}`}>
+                <div className={`relative z-10 w-full max-w-md p-8 rounded-[2.5rem] border-2 text-center transition-all hover:-translate-y-1 hover:shadow-xl ${isHighContrast ? 'bg-black text-white border-white' : 'bg-white text-slate-900 border-slate-200 shadow-sm'}`}>
                   <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6 transition-all ${isHighContrast ? 'bg-white/10 text-white' : 'bg-slate-50 text-slate-400 border border-slate-100 hover:bg-blue-50 hover:text-blue-500'}`}>
                     <UserRound className="w-8 h-8" />
                   </div>
                   <h4 className={`text-[10px] font-black uppercase tracking-[0.2em] mb-3 ${isHighContrast ? 'text-white/40' : 'text-slate-400'}`}>{lang === 'ms' ? 'Pendaftar' : 'Registrar'}</h4>
-                  <h3 className="text-2xl font-black tracking-tight leading-tight">{t.leadership.registrar}</h3>
+                  <h3 className="text-2xl font-black tracking-tight leading-tight mb-4">{t.leadership.registrar.name}</h3>
+                  <div className={`flex flex-col items-center gap-1 text-sm mt-2 font-medium ${isHighContrast ? 'text-slate-400' : 'text-slate-500'}`}>
+                    <p>Tel: {t.leadership.registrar.tel}</p>
+                    <p>E-mel: {t.leadership.registrar.email}</p>
+                  </div>
                 </div>
 
                 {/* Connecting Line Downwards */}
@@ -280,126 +332,129 @@ export default function AboutPage() {
                 <h4 className={`text-[10px] font-black mb-8 text-center uppercase tracking-[0.3em] ${isHighContrast ? 'text-slate-400' : 'text-slate-400'}`}>
                   {lang === 'ms' ? 'Pengerusi Wilayah' : 'Regional Chairmen'}
                 </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
                   {[
-                    { loc: 'Johor', name: 'Y.A. Tengku Amir Zaki' },
-                    { loc: 'Penang', name: 'Y.A. Puan Rusita binti Md Lazim' },
-                    { loc: 'Perak', name: 'Y.A. Puan D. Sunita Kaur Jessy' },
-                    { loc: 'Sabah', name: 'Y.A. Tuan Indra bin Ayub' },
-                    { loc: 'Sarawak', name: 'Y.A. Puan Siti Zaharah binti Suboh' }
+                    { loc: 'Johor', name: 'Y.A. Tengku Amir Zaki bin Tengku Abdul Rahman', registrar: 'Puan Aniza binti Abd. Rahim', tel: '07-227 2534' },
+                    { loc: 'Penang', name: 'Y.A. Puan Rusita binti Md Lazim', registrar: 'Pn. Salasiah binti Suraka', tel: '04-323 1363' },
+                    { loc: 'Perak', name: 'Y.A. Puan D.Sunita Kaur Jessy', registrar: 'Encik Zainarulzairi Bin Annuar', tel: '05-243 7592' },
+                    { loc: 'Sabah', name: 'Y.A. Datuk Indra bin Haji Ayub', registrar: 'Puan Alice Gervasius @ Alice Cowboy', tel: '088-259 490' },
+                    { loc: 'Sarawak', name: 'Y.A. Tuan Mohd Taufik bin Mohd Yusoff', registrar: 'Puan Doris Anak Rakey', tel: '082-240 101' }
                   ].map((r, i) => (
-                    <div key={i} className={`relative group flex flex-col items-center p-6 rounded-[2rem] border text-center transition-all hover:-translate-y-1 hover:shadow-lg ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'}`}>
-                      <div className={`w-14 h-14 mb-4 rounded-full flex items-center justify-center transition-colors ${isHighContrast ? 'bg-white/10 text-white' : 'bg-slate-50 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500'}`}>
-                        <UserRound className="w-6 h-6" />
+                    <div key={i} className={`relative group flex flex-col p-8 rounded-[2rem] border transition-all hover:-translate-y-1 hover:shadow-lg ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'} ${i < 2 ? 'md:col-span-1 lg:col-span-3' : 'lg:col-span-2'
+                      } ${i === 4 ? 'md:col-span-2 lg:col-span-2' : ''
+                      }`}>
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className={`w-12 h-12 flex-shrink-0 rounded-full flex items-center justify-center transition-colors ${isHighContrast ? 'bg-white/10 text-white' : 'bg-slate-50 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500'}`}>
+                          <UserRound className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h5 className={`text-[10px] font-black uppercase tracking-[0.2em] ${isHighContrast ? 'text-slate-400' : 'text-slate-400'}`}>{r.loc}</h5>
+                          <h6 className={`text-xs font-bold mt-1 ${isHighContrast ? 'text-white' : 'text-slate-900'}`}>{lang === 'ms' ? 'Pengerusi' : 'Chairman'}</h6>
+                        </div>
                       </div>
-                      <h5 className={`text-[10px] font-black mb-2 uppercase tracking-[0.2em] ${isHighContrast ? 'text-slate-400' : 'text-slate-400'}`}>{r.loc}</h5>
-                      <p className={`text-sm sm:text-base leading-tight font-bold tracking-tight ${isHighContrast ? 'text-white' : 'text-slate-900'}`}>{r.name}</p>
+
+                      <div className="space-y-4">
+                        <div>
+                          <p className={`text-base leading-tight font-bold tracking-tight ${isHighContrast ? 'text-white' : 'text-slate-900'}`}>{r.name}</p>
+                        </div>
+                        <div className="pt-4 border-t border-slate-100">
+                          <h6 className={`text-[10px] font-black uppercase tracking-[0.1em] mb-1 ${isHighContrast ? 'text-slate-500' : 'text-slate-400'}`}>{lang === 'ms' ? 'Penolong Pendaftar' : 'Assistant Registrar'}</h6>
+                          <p className={`text-sm font-medium ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>{r.registrar}</p>
+                        </div>
+                        <div className="pt-2">
+                          <p className={`text-xs font-semibold ${isHighContrast ? 'text-slate-400' : 'text-slate-500'}`}>Tel: {r.tel}</p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Full Courts Directory */}
-              <div className="w-full pt-16">
-                <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-                  <h4 className={`text-[10px] font-black uppercase tracking-[0.3em] ${isHighContrast ? 'text-slate-400' : 'text-slate-400'}`}>
-                    {lang === 'ms' ? 'Direktori Pengerusi Mahkamah' : 'Courts Chairmen Directory'}
-                  </h4>
-                  <div className="relative w-full sm:w-72">
-                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                      <Search className="h-4 w-4 text-slate-400" />
-                    </div>
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className={`w-full pl-10 pr-10 py-3 rounded-xl border text-sm font-bold transition-all outline-none ${isHighContrast ? 'bg-black border-white text-white placeholder-slate-500' : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 shadow-sm'}`}
-                      placeholder={lang === 'ms' ? 'Cari mahkamah atau nama...' : 'Search court or name...'}
-                    />
-                    {searchQuery && (
-                      <button
-                        onClick={() => setSearchQuery('')}
-                        className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition-colors"
-                      >
-                        <X className="h-4 w-4" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                {(() => {
-                  const allCourts = [
-                    { court: 'KL Court 1', chairman: "Y.A. Dato' Wan Jeffry bin Kassim" },
-                    { court: 'KL Court 2', chairman: "Y.A. Tuan Mohd Zulbahrin bin Zainuddin" },
-                    { court: 'KL Court 3 - 11', chairman: "Y.A. Chairmen assigned to KL Courts" },
-                    { court: 'KL Court 12', chairman: "Y.A. Puan Chow Siew Lin" },
-                    { court: 'KL Court 13 - 16', chairman: "Y.A. Chairmen assigned to KL Courts" },
-                    { court: 'Penang 1 & 2', chairman: "Y.A. Puan Rusita binti Md Lazim & Colleague" },
-                    { court: 'Johor', chairman: "Y.A. Tengku Amir Zaki" },
-                    { court: 'Perak', chairman: "Y.A. Puan D. Sunita Kaur Jessy" },
-                    { court: 'Sabah', chairman: "Y.A. Tuan Indra bin Ayub" },
-                    { court: 'Sarawak', chairman: "Y.A. Puan Siti Zaharah binti Suboh" }
-                  ];
-                  const filteredCourts = allCourts.filter(c =>
-                    c.court.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    c.chairman.toLowerCase().includes(searchQuery.toLowerCase())
-                  );
-
-                  return filteredCourts.length > 0 ? (
-                    <div className={`rounded-3xl border overflow-hidden transition-all duration-300 ${isHighContrast ? 'border-white' : 'border-slate-100 shadow-sm'}`}>
-                      <div className={`grid grid-cols-1 md:grid-cols-2 gap-px ${isHighContrast ? 'bg-white' : 'bg-slate-100'}`}>
-                        {filteredCourts.map((c, i) => (
-                          <div key={i} className={`p-6 flex justify-between items-center gap-4 group transition-colors ${isHighContrast ? 'bg-black text-white hover:bg-zinc-900' : 'bg-white text-slate-900 hover:bg-slate-50'}`}>
-                            <span className={`text-[10px] sm:text-xs font-black uppercase tracking-[0.1em] transition-colors ${isHighContrast ? 'text-slate-400' : 'text-slate-400 group-hover:text-blue-500'}`}>{c.court}</span>
-                            <span className="text-sm sm:text-base font-black text-right tracking-tight">{c.chairman}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className={`p-12 text-center rounded-3xl border-2 border-dashed ${isHighContrast ? 'border-slate-800 text-slate-400' : 'border-slate-200 text-slate-500 bg-slate-50'}`}>
-                      <Search className="w-8 h-8 mx-auto mb-4 opacity-30" />
-                      <p className="font-bold">{lang === 'ms' ? 'Tiada Padanan Ditemui' : 'No Matches Found'}</p>
-                      <p className="text-sm mt-1">{lang === 'ms' ? `Tiada rekod mahkamah untuk "${searchQuery}"` : `No judges or courts match "${searchQuery}"`}</p>
-                    </div>
-                  );
-                })()}
-
-                <div className="mt-10 text-center">
-                  <p className={`text-xs font-black uppercase tracking-[0.15em] ${isHighContrast ? 'text-slate-400' : 'text-slate-400'}`}>
-                    {lang === 'ms' ? 'Jumlah Keseluruhan: 22 Mahkamah Perusahaan di Malaysia' : 'Total: 22 Industrial Courts across Malaysia'}
-                  </p>
-                </div>
+              {/* Organizational Charts */}
+              <div className="w-full pt-16 flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a
+                  href="https://www.mp.gov.my/images/organizationchart/CARTA%20MPM.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all hover:-translate-y-1 hover:shadow-lg ${isHighContrast ? 'bg-transparent text-white border-2 border-white hover:bg-white/10' : 'bg-white text-slate-900 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'}`}
+                >
+                  <UsersRound className="w-5 h-5" />
+                  Carta MPM
+                </a>
+                <a
+                  href="https://www.mp.gov.my/images/organizationchart/2CARTA%20PENGURUSAN%20DAN%20PTJ%20MPM.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all hover:-translate-y-1 hover:shadow-lg ${isHighContrast ? 'bg-transparent text-white border-2 border-white hover:bg-white/10' : 'bg-white text-slate-900 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'}`}
+                >
+                  <UsersRound className="w-5 h-5" />
+                  Carta Pengurusan dan PTJ MPM
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* History Section */}
-        <section className="py-16 sm:py-24">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            <div className="md:col-span-1">
-              <SectionHeader title={t.sections.history} id="history" />
-              <p className={`text-lg leading-relaxed ${isHighContrast ? 'text-slate-300' : 'text-slate-600'}`}>
-                {t.history.desc}
-              </p>
+        {/* History Section - Scrollytelling format */}
+        <section className="py-20 sm:py-28 border-t border-slate-100">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center">
+            
+            {/* Left Column: Explainer and Sticky Image Viewer */}
+            <div className="flex flex-col h-full gap-8">
+              <div className="pr-0 sm:pr-8">
+                <h2 className={`text-4xl sm:text-5xl font-black tracking-tight mb-6 leading-[1.1] ${isHighContrast ? 'text-white' : 'text-[#0f172a]'}`}>
+                  {t.sections.history.split(' ').map((word: string, i: number) =>
+                    word === '&' ? <span key={i}><br />&<br /></span> : <span key={i}>{word} </span>
+                  )}
+                </h2>
+                <p className={`text-lg leading-relaxed font-medium ${isHighContrast ? 'text-slate-300' : 'text-slate-500'}`}>
+                  {t.history.desc}
+                </p>
+              </div>
+              
+              <div className={`relative w-full aspect-video lg:aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700 bg-slate-100 ${isHighContrast ? 'border-2 border-white' : ''}`}>
+                {t.history.milestones.map((_: any, i: number) => (
+                  <div 
+                    key={i} 
+                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${activeHistoryIndex === i ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                    style={{
+                      backgroundImage: `url('${historyImages[i % historyImages.length]}')`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  >
+                    {!isHighContrast && <div className="absolute inset-0 bg-blue-900/10 mix-blend-multiply" />}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="md:col-span-2">
-              <div className="relative">
-                <div className={`absolute left-[11px] top-0 bottom-0 w-0.5 ${isHighContrast ? 'bg-slate-700' : 'bg-slate-100'}`} />
-                <div className="space-y-16">
-                  {t.history.milestones.map((m, i) => (
-                    <div key={i} className="relative pl-12 group">
-                      <div className={`absolute left-0 top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-sm flex items-center justify-center transition-transform group-hover:scale-110 duration-300 z-10 ${isHighContrast ? 'bg-white' : 'bg-blue-600'}`}>
-                        <div className={`w-1.5 h-1.5 rounded-full ${isHighContrast ? 'bg-black' : 'bg-white'}`} />
-                      </div>
-                      <span className={`text-3xl font-black mb-3 block tracking-tighter ${isHighContrast ? 'text-white' : 'text-slate-900'}`}>{m.year}</span>
-                      <p className={`text-lg font-medium leading-relaxed ${isHighContrast ? 'text-slate-400' : 'text-slate-600'}`}>{m.event}</p>
+
+            {/* Right Column: Interactive Timeline */}
+            <div className="pl-4 sm:pl-10">
+              <div className={`relative border-l-2 ${isHighContrast ? 'border-zinc-800' : 'border-blue-50/80'}`}>
+                <div className="space-y-10 sm:space-y-12 pb-4">
+                  {t.history.milestones.map((m: any, i: number) => {
+                    const isActive = activeHistoryIndex === i;
+                    return (
+                    <div 
+                      key={i} 
+                      className={`relative pl-10 sm:pl-12 group cursor-pointer transition-all duration-300 ${isActive ? 'translate-x-2' : 'hover:translate-x-1 opacity-70 hover:opacity-100'}`}
+                      onMouseEnter={() => setActiveHistoryIndex(i)}
+                      onClick={() => setActiveHistoryIndex(i)}
+                    >
+                      <div className={`absolute left-[-11px] top-1.5 w-5 h-5 rounded-full border-[5px] flex items-center justify-center transition-all duration-500 z-10 ${isHighContrast ? (isActive ? 'border-white bg-white' : 'border-white bg-black') : (isActive ? 'border-blue-600 bg-white ring-4 ring-blue-100 scale-125' : 'border-slate-200 bg-white shadow-sm ring-4 ring-white group-hover:border-blue-300')}`} />
+                      <span className={`text-2xl font-black mb-2 block tracking-tight transition-colors duration-300 ${isActive ? (isHighContrast ? 'text-white' : 'text-blue-600') : (isHighContrast ? 'text-slate-400' : 'text-[#0f172a]')}`}>
+                        {m.year}
+                      </span>
+                      <p className={`text-[15.5px] font-medium leading-relaxed transition-colors duration-300 ${isActive ? (isHighContrast ? 'text-slate-200' : 'text-slate-700') : (isHighContrast ? 'text-slate-500' : 'text-slate-500')}`}>
+                        {m.event}
+                      </p>
                     </div>
-                  ))}
+                  )})}
                 </div>
               </div>
             </div>
+
           </div>
         </section>
 
