@@ -7,14 +7,21 @@ import {
   ChevronDown, ZoomOut, ZoomIn, Printer, Maximize,
   Clock, Calendar, Gavel, FileText, Briefcase,
   History, Shield, ExternalLink, ChevronRight,
-  User, CheckCircle2, AlertCircle, Users, Activity, Mail, X, Zap, Video, Plus
+  User, CheckCircle2, AlertCircle, Users, Activity, Mail, X, Zap, Video, Plus, Copy, Check
 } from 'lucide-react';
 
 export default function CaseDetailsSection() {
   const { lang, wcagStates, setCurrentView, selectedCaseId } = useAppStore();
   const [activeTab, setActiveTab] = useState<'overview' | 'parties' | 'documents'>('overview');
   const [selectedDoc, setSelectedDoc] = useState<any | null>(null);
+  const [copiedId, setCopiedId] = useState(false);
   const currentLang = t[lang];
+
+  const handleCopyId = (id: string) => {
+    navigator.clipboard.writeText(id);
+    setCopiedId(true);
+    setTimeout(() => setCopiedId(false), 2000);
+  };
 
   // Colors & Accessibility
   const isHighContrast = wcagStates.highContrast;
@@ -45,12 +52,15 @@ export default function CaseDetailsSection() {
           </div>
         )}
         <div className="max-w-7xl mx-auto relative z-10">
-          <nav className="flex items-center text-[10px] font-black tracking-widest text-blue-400 mb-8 uppercase">
-            <button onClick={() => setCurrentView('awards')} className="hover:text-blue-300 transition-colors flex items-center group">
+          <nav className="flex items-center text-body-sm font-bold text-blue-400 mb-8 transition-all">
+            <button
+              onClick={() => setCurrentView('portal')}
+              className="hover:text-blue-300 transition-colors flex items-center group"
+            >
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-              {currentLang.backToPortal || "Back to Awards"}
+              {lang === 'ms' ? 'Kembali ke Portal' : 'Back to Portal'}
             </button>
-            <ChevronRight className="w-3 h-3 mx-4 text-zinc-700" />
+            <ChevronRight className="w-4 h-4 mx-4 text-zinc-700" />
             <span className="text-white/40">Case Details Management</span>
           </nav>
 
@@ -62,8 +72,8 @@ export default function CaseDetailsSection() {
                 </span>
                 <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase">{activeCase.id}</span>
               </div>
-              <h1 className="text-h2 md:text-h1 text-white tracking-tighter leading-tight">
-                {activeCase.claimant} <span className="text-zinc-600 italic">v.</span> {activeCase.respondent}
+              <h1 className="text-h3 md:text-h2 text-white tracking-tight leading-tight">
+                {activeCase.claimant} <span className="text-zinc-600 italic">vs</span> {activeCase.respondent}
               </h1>
             </div>
             <div className="flex gap-3">
@@ -121,23 +131,60 @@ export default function CaseDetailsSection() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="flex flex-wrap lg:flex-nowrap gap-4">
               {[
-                { label: 'Case Number', val: activeCase.id, icon: AlertCircle, color: 'text-blue-600', bg: 'bg-blue-50' },
-                { label: 'Court Room', val: activeCase.court || 'Court 1 (KV)', icon: Building2, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                { label: 'Chairman / Judge', val: activeCase.judge || 'Dato\' Wan Jeffry', icon: Gavel, color: 'text-indigo-600', bg: 'bg-indigo-50' },
-                { label: 'Case Category', val: activeCase.keywords?.[0] || 'Unfair Dismissal', icon: Shield, color: 'text-amber-600', bg: 'bg-amber-50' },
+                { label: 'Case Number', val: activeCase.id, icon: AlertCircle, color: 'text-blue-600', bg: 'bg-blue-50', copyable: true },
+                { label: 'Court Room', val: activeCase.court || 'Mahkamah 1', icon: Building2, color: 'text-emerald-600', bg: 'bg-emerald-50', copyable: false },
+                { label: 'Chairman / Judge', val: activeCase.judge || "Y.A. Dato' Wan Jeffry Bin Kassim", icon: Gavel, color: 'text-indigo-600', bg: 'bg-indigo-50', copyable: false },
+                { label: 'Case Category', val: activeCase.keywords?.[0] || 'Unfair Dismissal', icon: Shield, color: 'text-amber-600', bg: 'bg-amber-50', copyable: false },
               ].map((stat, i) => (
-                <div key={i} className={tCardBg}>
-                  <div className="p-6">
-                    <div className={`w-10 h-10 rounded-xl ${stat.bg} ${stat.color} flex items-center justify-center mb-4`}>
+                <div
+                  key={i}
+                  title={stat.val}
+                  className={`group flex-1 min-w-[160px] ${tCardBg} transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-default`}
+                >
+                  <div className="p-5 flex items-center gap-4 h-full">
+                    <div className={`w-10 h-10 rounded-xl ${stat.bg} ${stat.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}>
                       <stat.icon className="w-5 h-5" />
                     </div>
-                    <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">{stat.label}</p>
-                    <p className="text-body-sm font-black text-zinc-900 leading-tight">{stat.val}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-0.5">{stat.label}</p>
+                      <p className="text-body-sm font-black text-zinc-900 leading-tight truncate">{stat.val}</p>
+                    </div>
+                    {stat.copyable && (
+                      <button
+                        title="Copy case number"
+                        onClick={() => handleCopyId(stat.val)}
+                        className="shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-200 p-2 rounded-lg hover:bg-blue-50 text-zinc-400 hover:text-blue-600 active:scale-90"
+                      >
+                        {copiedId ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
+
+              <div className={`flex-[1.4] min-w-[240px] ${isHighContrast ? 'bg-black border-2 border-white' : 'bg-blue-600 shadow-lg shadow-blue-500/20'} rounded-[32px] overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/30`}>
+                <div className="p-5 flex items-center justify-between gap-4 h-full text-white">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isHighContrast ? 'bg-white text-black' : 'bg-white/10 backdrop-blur-md'}`}>
+                      <User className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className={`text-[10px] font-black uppercase tracking-widest mb-0.5 ${isHighContrast ? 'text-white' : 'text-blue-200'}`}>Assigned Registrar</p>
+                      <p
+                        className="text-body-sm font-bold truncate"
+                        title="Siti Aishah Binti Md Nor"
+                      >
+                        Siti Aishah Binti Md Nor
+                      </p>
+                    </div>
+                  </div>
+                  <button className={`shrink-0 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isHighContrast ? 'bg-white text-black' : 'bg-white text-blue-600 hover:bg-zinc-100'}`}>
+                    Contact
+                  </button>
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -204,20 +251,7 @@ export default function CaseDetailsSection() {
               </div>
 
               <div className="space-y-8">
-                <div className="bg-blue-600 p-8 rounded-[32px] text-white shadow-xl shadow-blue-500/20">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center">
-                      <User className="w-7 h-7" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase text-blue-200 tracking-widest">Assigned Registrar</p>
-                      <p className="text-body-sm font-bold">Siti Aishah Binti Md Nor</p>
-                    </div>
-                  </div>
-                  <button className="w-full py-4 bg-white text-blue-600 rounded-xl text-[11px] font-black uppercase tracking-widest hover:bg-zinc-100 transition-colors">
-                    Contact Officer
-                  </button>
-                </div>
+
 
                 {/* CASE JOURNEY LIFECYCLE (Narrow Column Version) */}
                 <div className={tCardBg}>

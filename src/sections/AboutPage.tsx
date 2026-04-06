@@ -37,10 +37,10 @@ export default function AboutPage() {
   const isHighContrast = wcagStates.highContrast;
 
   const historyImages = [
-    '/images/notice-cards/courtroom.png',
-    '/images/notice-cards/scales.png',
-    '/images/notice-cards/books.png',
-    '/images/notice-cards/gavel.png',
+    '/images/history/1967.png',
+    '/images/history/1977.png',
+    '/images/history/present.jpg',
+    'https://fareezlaw.com/wp-content/uploads/2023/08/Industrial_Court_Merdeka_Square_Kuala_Lumpur-2048x1529.jpeg.webp',
   ];
 
   const content = {
@@ -108,6 +108,10 @@ export default function AboutPage() {
           "Process collective agreements within 6 weeks.",
           "Hand down awards within 3 months of final submission."
         ]
+      },
+      charts: {
+        mpm: 'MPM Organization Chart',
+        management: 'Management and PTJ MPM Chart'
       }
     },
     ms: {
@@ -174,6 +178,10 @@ export default function AboutPage() {
           "Memproses perjanjian kolektif dalam tempoh 6 minggu.",
           "Mengeluarkan award dalam tempoh 3 bulan dari penghujahan terakhir."
         ]
+      },
+      charts: {
+        mpm: 'Carta MPM',
+        management: 'Carta Pengurusan dan PTJ MPM'
       }
     }
   };
@@ -296,8 +304,12 @@ export default function AboutPage() {
               <div className="flex flex-col items-center w-full relative">
                 {/* President */}
                 <div className={`relative z-10 w-full max-w-md p-8 rounded-[2.5rem] border-2 text-center transition-all hover:-translate-y-1 hover:shadow-2xl ${isHighContrast ? 'bg-white text-black border-white font-bold' : 'bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-900/20'}`}>
-                  <div className="w-16 h-16 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-6">
-                    <UserRound className="w-8 h-8 text-white/80" />
+                  <div className={`w-16 h-16 mx-auto rounded-full overflow-hidden mb-6 border-2 flex-shrink-0 ${isHighContrast ? 'border-white' : 'border-white/20 shadow-md'}`}>
+                    <img
+                      src="https://www.mp.gov.my/images/topmanagement_photo/wan.jpg"
+                      alt={t.leadership.president.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 mb-3">{lang === 'ms' ? 'Presiden' : 'President'}</h4>
                   <h3 className="text-2xl font-black tracking-tight leading-tight mb-4">{t.leadership.president.name}</h3>
@@ -312,8 +324,12 @@ export default function AboutPage() {
 
                 {/* Registrar */}
                 <div className={`relative z-10 w-full max-w-md p-8 rounded-[2.5rem] border-2 text-center transition-all hover:-translate-y-1 hover:shadow-xl ${isHighContrast ? 'bg-black text-white border-white' : 'bg-white text-slate-900 border-slate-200 shadow-sm'}`}>
-                  <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6 transition-all ${isHighContrast ? 'bg-white/10 text-white' : 'bg-slate-50 text-slate-400 border border-slate-100 hover:bg-blue-50 hover:text-blue-500'}`}>
-                    <UserRound className="w-8 h-8" />
+                  <div className={`w-16 h-16 mx-auto rounded-full overflow-hidden mb-6 border-2 flex-shrink-0 transition-all ${isHighContrast ? 'border-white' : 'border-slate-200 group-hover:border-blue-200 shadow-sm'}`}>
+                    <img
+                      src="https://www.mp.gov.my/images/topmanagement_photo/bashah.jpg"
+                      alt={t.leadership.registrar.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <h4 className={`text-[10px] font-black uppercase tracking-[0.2em] mb-3 ${isHighContrast ? 'text-white/40' : 'text-slate-400'}`}>{lang === 'ms' ? 'Pendaftar' : 'Registrar'}</h4>
                   <h3 className="text-2xl font-black tracking-tight leading-tight mb-4">{t.leadership.registrar.name}</h3>
@@ -334,18 +350,22 @@ export default function AboutPage() {
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
                   {[
-                    { loc: 'Johor', name: 'Y.A. Tengku Amir Zaki bin Tengku Abdul Rahman', registrar: 'Puan Aniza binti Abd. Rahim', tel: '07-227 2534' },
-                    { loc: 'Penang', name: 'Y.A. Puan Rusita binti Md Lazim', registrar: 'Pn. Salasiah binti Suraka', tel: '04-323 1363' },
-                    { loc: 'Perak', name: 'Y.A. Puan D.Sunita Kaur Jessy', registrar: 'Encik Zainarulzairi Bin Annuar', tel: '05-243 7592' },
-                    { loc: 'Sabah', name: 'Y.A. Datuk Indra bin Haji Ayub', registrar: 'Puan Alice Gervasius @ Alice Cowboy', tel: '088-259 490' },
-                    { loc: 'Sarawak', name: 'Y.A. Tuan Mohd Taufik bin Mohd Yusoff', registrar: 'Puan Doris Anak Rakey', tel: '082-240 101' }
+                    { loc: 'Johor', name: 'Y.A. Tengku Amir Zaki bin Tengku Abdul Rahman', registrar: 'Puan Aniza binti Abd. Rahim', tel: '07-227 2534', img: 'https://www.mp.gov.my/images/topmanagement_photo/tengkuamir.jpg' },
+                    { loc: 'Penang', name: 'Y.A. Puan Rusita binti Md Lazim', registrar: 'Pn. Salasiah binti Suraka', tel: '04-323 1363', img: 'https://www.mp.gov.my/images/topmanagement_photo/rosita.png' },
+                    { loc: 'Perak', name: 'Y.A. Puan D.Sunita Kaur Jessy', registrar: 'Encik Zainarulzairi Bin Annuar', tel: '05-243 7592', img: 'https://www.mp.gov.my/images/2026/02/04/y.a.-puan-sunita.png' },
+                    { loc: 'Sabah', name: 'Y.A. Datuk Indra bin Haji Ayub', registrar: 'Puan Alice Gervasius @ Alice Cowboy', tel: '088-259 490', img: 'https://www.mp.gov.my/images/topmanagement_photo/indra.jpg' },
+                    { loc: 'Sarawak', name: 'Y.A. Tuan Mohd Taufik bin Mohd Yusoff', registrar: 'Puan Doris Anak Rakey', tel: '082-240 101', img: 'https://www.mp.gov.my/images/topmanagement_photo/taufik.jpg' }
                   ].map((r, i) => (
                     <div key={i} className={`relative group flex flex-col p-8 rounded-[2rem] border transition-all hover:-translate-y-1 hover:shadow-lg ${isHighContrast ? 'bg-black border-white' : 'bg-white border-slate-200 shadow-sm'} ${i < 2 ? 'md:col-span-1 lg:col-span-3' : 'lg:col-span-2'
                       } ${i === 4 ? 'md:col-span-2 lg:col-span-2' : ''
                       }`}>
                       <div className="flex items-center gap-4 mb-6">
-                        <div className={`w-12 h-12 flex-shrink-0 rounded-full flex items-center justify-center transition-colors ${isHighContrast ? 'bg-white/10 text-white' : 'bg-slate-50 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500'}`}>
-                          <UserRound className="w-5 h-5" />
+                        <div className={`w-12 h-12 flex-shrink-0 rounded-full overflow-hidden border-2 transition-colors ${isHighContrast ? 'border-white' : 'border-slate-100 group-hover:border-blue-100 shadow-sm'}`}>
+                          <img
+                            src={r.img}
+                            alt={r.name}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                         <div>
                           <h5 className={`text-[10px] font-black uppercase tracking-[0.2em] ${isHighContrast ? 'text-slate-400' : 'text-slate-400'}`}>{r.loc}</h5>
@@ -379,7 +399,7 @@ export default function AboutPage() {
                   className={`flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all hover:-translate-y-1 hover:shadow-lg ${isHighContrast ? 'bg-transparent text-white border-2 border-white hover:bg-white/10' : 'bg-white text-slate-900 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'}`}
                 >
                   <UsersRound className="w-5 h-5" />
-                  Carta MPM
+                  {t.charts.mpm}
                 </a>
                 <a
                   href="https://www.mp.gov.my/images/organizationchart/2CARTA%20PENGURUSAN%20DAN%20PTJ%20MPM.pdf"
@@ -388,7 +408,7 @@ export default function AboutPage() {
                   className={`flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all hover:-translate-y-1 hover:shadow-lg ${isHighContrast ? 'bg-transparent text-white border-2 border-white hover:bg-white/10' : 'bg-white text-slate-900 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'}`}
                 >
                   <UsersRound className="w-5 h-5" />
-                  Carta Pengurusan dan PTJ MPM
+                  {t.charts.management}
                 </a>
               </div>
             </div>
@@ -398,7 +418,7 @@ export default function AboutPage() {
         {/* History Section - Scrollytelling format */}
         <section className="py-20 sm:py-28 border-t border-slate-100">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center">
-            
+
             {/* Left Column: Explainer and Sticky Image Viewer */}
             <div className="flex flex-col h-full gap-8">
               <div className="pr-0 sm:pr-8">
@@ -411,16 +431,16 @@ export default function AboutPage() {
                   {t.history.desc}
                 </p>
               </div>
-              
+
               <div className={`relative w-full aspect-video lg:aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700 bg-slate-100 ${isHighContrast ? 'border-2 border-white' : ''}`}>
                 {t.history.milestones.map((_: any, i: number) => (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${activeHistoryIndex === i ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                     style={{
                       backgroundImage: `url('${historyImages[i % historyImages.length]}')`,
                       backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      backgroundPosition: 'center',
                     }}
                   >
                     {!isHighContrast && <div className="absolute inset-0 bg-blue-900/10 mix-blend-multiply" />}
@@ -436,21 +456,24 @@ export default function AboutPage() {
                   {t.history.milestones.map((m: any, i: number) => {
                     const isActive = activeHistoryIndex === i;
                     return (
-                    <div 
-                      key={i} 
-                      className={`relative pl-10 sm:pl-12 group cursor-pointer transition-all duration-300 ${isActive ? 'translate-x-2' : 'hover:translate-x-1 opacity-70 hover:opacity-100'}`}
-                      onMouseEnter={() => setActiveHistoryIndex(i)}
-                      onClick={() => setActiveHistoryIndex(i)}
-                    >
-                      <div className={`absolute left-[-11px] top-1.5 w-5 h-5 rounded-full border-[5px] flex items-center justify-center transition-all duration-500 z-10 ${isHighContrast ? (isActive ? 'border-white bg-white' : 'border-white bg-black') : (isActive ? 'border-blue-600 bg-white ring-4 ring-blue-100 scale-125' : 'border-slate-200 bg-white shadow-sm ring-4 ring-white group-hover:border-blue-300')}`} />
-                      <span className={`text-2xl font-black mb-2 block tracking-tight transition-colors duration-300 ${isActive ? (isHighContrast ? 'text-white' : 'text-blue-600') : (isHighContrast ? 'text-slate-400' : 'text-[#0f172a]')}`}>
-                        {m.year}
-                      </span>
-                      <p className={`text-[15.5px] font-medium leading-relaxed transition-colors duration-300 ${isActive ? (isHighContrast ? 'text-slate-200' : 'text-slate-700') : (isHighContrast ? 'text-slate-500' : 'text-slate-500')}`}>
-                        {m.event}
-                      </p>
-                    </div>
-                  )})}
+                      <div
+                        key={i}
+                        className={`relative pl-10 sm:pl-12 group cursor-pointer transition-all duration-300 ${isActive ? '' : 'opacity-70 hover:opacity-100'}`}
+                        onMouseEnter={() => setActiveHistoryIndex(i)}
+                        onClick={() => setActiveHistoryIndex(i)}
+                      >
+                        <div className={`absolute left-[-11px] top-1.5 w-5 h-5 rounded-full border-[5px] flex items-center justify-center transition-all duration-500 z-10 ${isHighContrast ? (isActive ? 'border-white bg-white' : 'border-white bg-black') : (isActive ? 'border-blue-600 bg-white ring-4 ring-blue-100 scale-125' : 'border-slate-200 bg-white shadow-sm ring-4 ring-white group-hover:border-blue-300')}`} />
+                        <div className={`transition-all duration-300 ${isActive ? 'translate-x-2' : 'group-hover:translate-x-1'}`}>
+                          <span className={`text-2xl font-black mb-2 block tracking-tight transition-colors duration-300 ${isActive ? (isHighContrast ? 'text-white' : 'text-blue-600') : (isHighContrast ? 'text-slate-400' : 'text-[#0f172a]')}`}>
+                            {m.year}
+                          </span>
+                          <p className={`text-[15.5px] font-medium leading-relaxed transition-colors duration-300 ${isActive ? (isHighContrast ? 'text-slate-200' : 'text-slate-700') : (isHighContrast ? 'text-slate-500' : 'text-slate-500')}`}>
+                            {m.event}
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             </div>

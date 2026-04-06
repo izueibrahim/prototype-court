@@ -8,7 +8,7 @@ import { allModules } from "@/lib/data";
 import Link from "next/link";
 import { ChevronRight, ChevronLeft, ArrowLeft } from "lucide-react";
 
-export default function EServicesDirectory() {
+export default function EServicesDirectory({ isPage = false }: { isPage?: boolean }) {
   const { lang, wcagStates, setCurrentView } = useAppStore();
   const router = useRouter();
   const [activeTab, setActiveTab ] = useState(0);
@@ -33,41 +33,67 @@ export default function EServicesDirectory() {
   return (
     <div
       id="modules"
-      className={`pt-8 pb-20 sm:pb-24 relative z-10 ${isHighContrast ? "bg-black" : "bg-white"}`}
+      className={`relative z-10 ${isHighContrast ? "bg-black" : "bg-white"}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div className="mb-12 sm:mb-16">
+      {isPage ? (
+        <div className={`pt-12 pb-16 px-4 sm:px-6 lg:px-8 border-b ${isHighContrast ? 'bg-black border-white' : 'bg-zinc-900 border-zinc-800 relative overflow-hidden'}`}>
+          {!isHighContrast && (
+            <div className="absolute inset-0 pointer-events-none opacity-40">
+              <div className="absolute top-[-50%] left-[-10%] w-[50%] h-[150%] bg-blue-600/20 rounded-full blur-[100px]"></div>
+            </div>
+          )}
+          <div className="max-w-7xl mx-auto relative z-10">
+            <button
+              className="flex items-center text-body-sm font-bold text-blue-400 mb-4 hover:text-blue-300 transition-colors"
+              onClick={() => {
+                setCurrentView('portal');
+              }}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              {lang === 'ms' ? 'Kembali ke Portal' : 'Back to Portal'}
+            </button>
+            <h1 className={`text-h2 text-white mb-4`}>
+              {currentLang.architectureTitle}
+            </h1>
+            <p className={`text-body-lg font-medium ${isHighContrast ? 'text-zinc-300' : 'text-zinc-400'}`}>
+              {currentLang.architectureSub}
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28">
           <h2 className={`text-h2 mb-4 ${isHighContrast ? 'text-white' : 'text-zinc-900'}`}>
             {currentLang.architectureTitle}
           </h2>
           <p className={`text-body-lg font-medium max-w-3xl ${isHighContrast ? 'text-zinc-400' : 'text-zinc-500'}`}>
             {currentLang.architectureSub}
           </p>
-
-          {currentLang.tabs && currentLang.tabs.length > 1 && (
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mt-10">
-              <div className={`inline-flex w-full sm:w-auto p-1.5 rounded-2xl overflow-x-auto hide-scrollbar ${isHighContrast ? 'bg-black border-2 border-white' : 'bg-zinc-50 border border-zinc-100 shadow-inner'}`}>
-                {currentLang.tabs.map((tabLabel: string, idx: number) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveTab(idx)}
-                    className={`flex-1 sm:flex-none px-6 py-3 rounded-xl text-body-sm font-bold whitespace-nowrap transition-all ${activeTab === idx
-                        ? isHighContrast
-                          ? 'bg-white text-black shadow-lg'
-                          : 'bg-white text-blue-600 shadow-premium'
-                        : isHighContrast
-                          ? 'text-zinc-400 hover:text-white'
-                          : 'text-zinc-400 hover:text-zinc-600'
-                      }`}
-                  >
-                    {tabLabel}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
+      )}
+
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isPage ? 'py-12' : 'pb-12 mt-10'}`}>
+        {currentLang.tabs && currentLang.tabs.length > 1 && (
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className={`inline-flex w-full sm:w-auto p-1.5 rounded-2xl overflow-x-auto hide-scrollbar ${isHighContrast ? 'bg-black border-2 border-white' : 'bg-zinc-50 border border-zinc-100 shadow-inner'}`}>
+              {currentLang.tabs.map((tabLabel: string, idx: number) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveTab(idx)}
+                  className={`flex-1 sm:flex-none px-6 py-3 rounded-xl text-body-sm font-bold whitespace-nowrap transition-all ${activeTab === idx
+                      ? isHighContrast
+                        ? 'bg-white text-black shadow-lg'
+                        : 'bg-white text-blue-600 shadow-premium'
+                      : isHighContrast
+                        ? 'text-zinc-400 hover:text-white'
+                        : 'text-zinc-400 hover:text-zinc-600'
+                    }`}
+                >
+                  {tabLabel}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative group/carousel">

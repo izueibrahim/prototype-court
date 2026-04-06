@@ -105,7 +105,7 @@ export default function Home() {
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex-1">
-            <EServicesDirectory />
+            <EServicesDirectory isPage={true} />
           </div>
           <Footer />
         </div>
